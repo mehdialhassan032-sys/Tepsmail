@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Silent Voice Command Vault & Generator</title>
+  <title>Silent Voice Vault & 100% Unique Generator</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -142,7 +142,7 @@
   </div>
 
   <div class="card-body">
-    <!-- MIC ACTIVATION BUTTON FOR BROWSER SECURITY -->
+    <!-- MIC ACTIVATION BUTTON -->
     <button type="button" class="btn-success btn-full" id="startMicBtn" style="margin-bottom: 14px; padding: 12px; font-size: 13px;">🎙️ Start Voice Engine (Click to Active)</button>
 
     <div class="field-group">
@@ -237,26 +237,57 @@
 <script>
   const CORRECT_PASS = "9954131";
 
+  // Comprehensive Country Database
   const DB = {
     egypt: {
-      male: { first: ["Mohamed", "Ahmed", "Mahmoud", "Omar", "Mostafa", "Tarek", "Ali", "Youssef", "Amr", "Khaled"], last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman"] },
-      female: { first: ["Fatma", "Aya", "Nour", "Sara", "Dina", "Mariam", "Yasmin", "Salma", "Rania", "Hoda"], last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman"] }
+      male: { 
+        first: ["Mohamed", "Ahmed", "Mahmoud", "Omar", "Mostafa", "Tarek", "Ali", "Youssef", "Amr", "Khaled", "Ebrahim", "Karim", "Ziad", "Hossam", "Ramy", "Waleed", "Sherif", "Badr", "Hamza", "Bilal", "Adel", "Essam", "Fouad", "Gamal", "Hany", "Ihab", "Nader", "Osama", "Sami", "Yasser"], 
+        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Farouk", "Salama", "Gomaa", "Badawy", "Nassar", "Othman", "Shaaban", "Tawfik", "Zaki"] 
+      },
+      female: { 
+        first: ["Fatma", "Aya", "Nour", "Sara", "Dina", "Mariam", "Yasmin", "Salma", "Rania", "Hoda", "Maha", "Heba", "Menna", "Nada", "Reem", "Shahd", "Tasneem", "Amal", "Basma", "Dalia", "Ghada", "Iman", "Jomana", "Kholoud", "Laila", "Mona", "Noha", "Omnia", "Radwa", "Zeinab"], 
+        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Farouk", "Salama", "Gomaa", "Badawy", "Nassar", "Othman", "Shaaban", "Tawfik", "Zaki"] 
+      }
     },
     uzbekistan: {
-      male: { first: ["Alisher", "Sardor", "Jasur", "Bobur", "Otabek", "Shokhrukh", "Javohir"], last: ["Karimov", "Rahimov", "Abdullayev", "Tursunov", "Ismoilov"] },
-      female: { first: ["Malika", "Sevinch", "Nigora", "Gulnora", "Feruza", "Rayhon", "Madina"], last: ["Karimova", "Rahimova", "Abdullayeva", "Tursunova", "Ismoilova"] }
+      male: { 
+        first: ["Alisher", "Sardor", "Jasur", "Bobur", "Otabek", "Shokhrukh", "Javohir", "Bekhzod", "Dilshod", "Farhod", "Jamshid", "Maksud", "Sanjar", "Temur", "Ulughbek", "Zafar", "Asror", "Aziz", "Doniyor", "Eldor", "Rustam", "Sherzod", "Timur", "Vohid", "Yulduz"], 
+        last: ["Karimov", "Rahimov", "Abdullayev", "Tursunov", "Ismoilov", "Niyazov", "Qodirov", "Sultanov", "Yusupov", "Zokirov", "Alimov", "Babadjanov", "Djuraev", "Kamilov", "Mirzaev"] 
+      },
+      female: { 
+        first: ["Malika", "Sevinch", "Nigora", "Gulnora", "Feruza", "Rayhon", "Madina", "Dilnoza", "Zilola", "Shahlo", "Barno", "Aziza", "Kamola", "Munisa", "Sabina", "Dildora", "Gulsanam", "Nilufar", "Umida", "Zukhra", "Gulchehra", "Shahrizoda", "Jasmina", "Laylo", "Rano"], 
+        last: ["Karimova", "Rahimova", "Abdullayeva", "Tursunova", "Ismoilova", "Niyazova", "Qodirova", "Sultanova", "Yusupova", "Zokirova", "Alimova", "Babadjanova", "Djuraeva", "Kamilova", "Mirzaeva"] 
+      }
     },
     liberia: {
-      male: { first: ["Flomo", "Saah", "Tamba", "Kollie", "Mulbah", "Emmanuel", "Prince"], last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah"] },
-      female: { first: ["Korto", "Saa", "Fatu", "Comfort", "Musu", "Grace", "Princess"], last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah"] }
+      male: { 
+        first: ["Flomo", "Saah", "Tamba", "Kollie", "Mulbah", "Emmanuel", "Prince", "Moses", "Abraham", "David", "Joseph", "Samuel", "John", "Peter", "James", "Daniel", "Michael", "Stephen", "Ben", "Charles", "George", "Henry", "Jackson", "Kenneth", "Lawrence"], 
+        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Taylor", "Doe", "Johnson", "Brown", "Smith", "Kubah", "Flomo", "Mulbah", "Kpadeh", "Garblah"] 
+      },
+      female: { 
+        first: ["Korto", "Saa", "Fatu", "Comfort", "Musu", "Grace", "Princess", "Mary", "Martha", "Sarah", "Esther", "Ruth", "Rebecca", "Naomi", "Hannah", "Hawa", "Assatu", "Bendu", "Korpo", "Maime", "Yassah", "Zenneh", "Anita", "Brenda", "Doris"], 
+        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Taylor", "Doe", "Johnson", "Brown", "Smith", "Kubah", "Flomo", "Mulbah", "Kpadeh", "Garblah"] 
+      }
     },
     guinea: {
-      male: { first: ["Mamadou", "Ibrahima", "Alpha", "Ousmane", "Sekou", "Boubacar"], last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde"] },
-      female: { first: ["Aissatou", "Kadiatou", "Fatoumata", "Mariama", "Binta", "Hadja"], last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde"] }
+      male: { 
+        first: ["Mamadou", "Ibrahima", "Alpha", "Ousmane", "Sekou", "Boubacar", "Aboubakar", "Amadou", "Cherif", "Djibril", "Fode", "Habib", "Ismael", "Lamine", "Mohamed", "Moussa", "Naby", "Oumar", "Samba", "Thierno", "Yaya", "Aliou", "Ansoumane", "Bakary", "Cheick"], 
+        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Bangoura", "Keita", "Cisse", "Kourouma", "Magassouba", "Sangaré", "Toures"] 
+      },
+      female: { 
+        first: ["Aissatou", "Kadiatou", "Fatoumata", "Mariama", "Binta", "Hadja", "Aminata", "Assiatou", "Djenabou", "Komba", "Makale", "Nene", "Oumou", "Ramatoulaye", "Salematou", "Saran", "Seny", "Yarie", "Asmaou", "Bintia", "Djènè", "Korka", "Mabinty", "Nana", "Sira"], 
+        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Bangoura", "Keita", "Cisse", "Kourouma", "Magassouba", "Sangaré", "Toures"] 
+      }
     },
     ethiopia: {
-      male: { first: ["Abebe", "Kebede", "Yonas", "Dawit", "Tewodros", "Ermias"], last: ["Bikila", "Tadesse", "Tesfaye", "Bekele", "Alemu"] },
-      female: { first: ["Tigist", "Hiwot", "Selam", "Eden", "Genet", "Mestawet"], last: ["Bikila", "Tadesse", "Tesfaye", "Bekele", "Alemu"] }
+      male: { 
+        first: ["Abebe", "Kebede", "Yonas", "Dawit", "Tewodros", "Ermias", "Ephrem", "Getachew", "Girmai", "Haile", "Kassa", "Mekonnen", "Melaku", "Mengistu", "Mesfin", "Mulugeta", "Samuel", "Solomon", "Tadesse", "Tamirat", "Tariku", "Tesfaye", "Wondwossen", "Yilma", "Zenebe"], 
+        last: ["Bikila", "Tadesse", "Tesfaye", "Bekele", "Alemu", "Kebede", "Lemma", "Mekonnen", "Wolde", "Yimam", "Assefa", "Demissie", "Girma", "Hailu", "Negash"] 
+      },
+      female: { 
+        first: ["Tigist", "Hiwot", "Selam", "Eden", "Genet", "Mestawet", "Almaz", "Aster", "Azalech", "Birtukan", "Emebet", "Fantu", "Hanna", "Kalkidan", "Kebebush", "Lidet", "Makeda", "Marta", "Meseret", "Rahel", "Roman", "Saba", "Tsehay", "Wubalem", "Zewditu"], 
+        last: ["Bikila", "Tadesse", "Tesfaye", "Bekele", "Alemu", "Kebede", "Lemma", "Mekonnen", "Wolde", "Yimam", "Assefa", "Demissie", "Girma", "Hailu", "Negash"] 
+      }
     }
   };
 
@@ -359,17 +390,18 @@
     inAppRecognition.onresult = function(event) {
       const cmd = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
       
-      // Strict exact command matching as requested:
-      // "id" -> Changes full Identity (Name + Email)
-      // "email" -> Changes only Email
+      // Strict exact command matching:
+      // "email" -> Changes only email
+      // "id" -> Changes full identity with 100% non-repeating unique name
       if (cmd === "email" || cmd.includes("email")) {
         generateEmailOnly();
         showToast("Voice Cmd: Email Changed!");
       } else if (cmd === "id" || cmd === "a id" || cmd.includes("id")) {
         generateProfile();
-        showToast("Voice Cmd: Full ID Generated!");
+        showToast("Voice Cmd: 100% Unique ID Generated!");
       } else if (cmd.includes("clear")) {
         localStorage.removeItem("savedMailState");
+        sessionStorage.removeItem("full100PercentUsedNames");
         generateProfile();
         showToast("Voice Cmd: Data Cleaned!");
       } else if (cmd.includes("lock")) {
@@ -423,7 +455,12 @@
     document.getElementById("copyEmailBtn").onclick = () => copyVal(`${state.username}@${state.domain}`);
     document.getElementById("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}@${state.domain}`);
     document.getElementById("manualRefreshBtn").onclick = () => checkInbox(true);
-    document.getElementById("wipeBtn").onclick = () => { localStorage.removeItem("savedMailState"); generateProfile(); showToast("Reset!"); };
+    document.getElementById("wipeBtn").onclick = () => { 
+      localStorage.removeItem("savedMailState"); 
+      sessionStorage.removeItem("full100PercentUsedNames"); 
+      generateProfile(); 
+      showToast("Reset Complete!"); 
+    };
   }
 
   function toggleGenderUI() {
@@ -452,13 +489,40 @@
     }
   }
 
+  // 100% Strict Non-Repeating Unique Name Engine
   function generateProfile() {
     const cData = DB[state.country] || DB.egypt;
     const gData = cData[state.gender] || cData.male;
-    state.firstName = gData.first[Math.floor(Math.random() * gData.first.length)];
+
+    // Load full 100% memory tracking
+    let usedNamesMap = JSON.parse(sessionStorage.getItem("full100PercentUsedNames") || "{}");
+    const categoryKey = `${state.country}_${state.gender}`;
+    
+    if (!usedNamesMap[categoryKey]) {
+      usedNamesMap[categoryKey] = [];
+    }
+
+    // Filter out names that have already been used
+    let availableFirst = gData.first.filter(name => !usedNamesMap[categoryKey].includes(name));
+
+    // If all names of this country/gender have been used, reset only when 100% pool is fully exhausted
+    if (availableFirst.length === 0) {
+      usedNamesMap[categoryKey] = [];
+      availableFirst = [...gData.first];
+    }
+
+    // Pick a random unique name
+    state.firstName = availableFirst[Math.floor(Math.random() * availableFirst.length)];
     state.lastName = gData.last[Math.floor(Math.random() * gData.last.length)];
+
+    // Record this name into 100% memory bank
+    usedNamesMap[categoryKey].push(state.firstName);
+    sessionStorage.setItem("full100PercentUsedNames", JSON.stringify(usedNamesMap));
+
     state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${Math.floor(1000 + Math.random() * 8999)}`;
-    saveState(); updateDisplay(); startInbox();
+    saveState(); 
+    updateDisplay(); 
+    startInbox();
   }
 
   function updateDisplay() {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microsoft Secure Vault - Live User Analytics</title>
+  <title>Microsoft Secure Vault - Dual-Layer Admin Analytics</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -66,15 +66,23 @@
     .v-dot.active { background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: blink 1.2s infinite; }
     @keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
 
-    /* Live Analytics Bar Styling */
+    /* Admin-Only Protected Live Analytics Bar (Hidden by default until 9954256 is entered) */
     .live-analytics-box {
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
       border-bottom: 1px solid #1e293b; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
+      border-left: 3px solid #3b82f6; display: none;
     }
-    .analytics-left { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: #94a3b8; }
-    .live-pulse-dot { width: 10px; height: 10px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 10px #3b82f6; animation: liveBlink 1.5s infinite; }
-    @keyframes liveBlink { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px #3b82f6; } 100% { transform: scale(0.9); opacity: 0.6; } }
-    .analytics-val { font-size: 16px; font-weight: 900; color: #60a5fa; font-family: monospace; }
+    .analytics-left { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+    .live-pulse-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; animation: liveBlink 1.5s infinite; }
+    @keyframes liveBlink { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px #22c55e; } 100% { transform: scale(0.9); opacity: 0.6; } }
+    .analytics-val { font-size: 15px; font-weight: 900; color: #38bdf8; font-family: monospace; }
+
+    /* Live Analytics Prompt Modal */
+    #analyticsAuthOverlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(8px); z-index: 9999; display: none;
+      justify-content: center; align-items: center; padding: 20px;
+    }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
@@ -121,10 +129,11 @@
 </head>
 <body>
 
+<!-- Website Unlock Screen (Password: 9954131) -->
 <div id="lockScreen">
   <div class="holo-vault-card">
     <div class="hologram-core" id="holoCore">🛡️</div>
-    <div class="vault-title">LIVE ANALYTICS VAULT</div>
+    <div class="vault-title">SECURE VAULT GATEWAY</div>
     <div class="vault-desc" id="vaultDescText">Password boliye ya type karein ("9954131")</div>
 
     <div class="vault-input-group">
@@ -138,10 +147,28 @@
   </div>
 </div>
 
+<!-- Admin Analytics Auth Modal -->
+<div id="analyticsAuthOverlay">
+  <div class="holo-vault-card" style="max-width: 340px;">
+    <div class="hologram-core" style="width:70px; height:70px; font-size:28px;">📊</div>
+    <div class="vault-title" style="font-size:16px;">ADMIN LIVE ANALYTICS</div>
+    <div class="vault-desc">Active users ka data dekhne ke liye Admin Password ("9954256") dalein:</div>
+    <div class="vault-input-group">
+      <input type="password" id="analyticsPassInput" class="vault-input" placeholder="•••••••" autocomplete="off">
+    </div>
+    <button type="button" class="vault-btn" id="verifyAnalyticsBtn">Unlock Analytics</button>
+    <button type="button" class="vault-btn-alt" id="cancelAnalyticsBtn">Cancel</button>
+    <div id="analyticsErrorMsg" class="vault-error">Galat Admin Password!</div>
+  </div>
+</div>
+
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">🔒 Microsoft Live Vault</div>
-    <button class="btn-secondary" id="manualLockBtn" style="padding:4px 10px; font-size:11px;">🔒 Lock</button>
+    <div class="header-brand">🔒 Secure Dashboard</div>
+    <div style="display:flex; gap:6px;">
+      <button class="btn-warn" id="openAnalyticsAuthBtn" style="padding:4px 8px; font-size:10px;">📊 Live Count</button>
+      <button class="btn-secondary" id="manualLockBtn" style="padding:4px 8px; font-size:10px;">🔒 Lock</button>
+    </div>
   </div>
 
   <div class="voice-status-bar">
@@ -151,13 +178,13 @@
     </div>
   </div>
 
-  <!-- LIVE USER ANALYTICS COUNTER BAR -->
-  <div class="live-analytics-box">
+  <!-- ADMIN-ONLY PRIVATE LIVE COUNTER (Hidden until 9954256 is verified) -->
+  <div class="live-analytics-box" id="liveAnalyticsBox">
     <div class="analytics-left">
       <span class="live-pulse-dot"></span>
-      <span>Live Active Temp Mail Users</span>
+      <span>🔒 Live Active Users Stream</span>
     </div>
-    <div class="analytics-val" id="liveUserCount">142</div>
+    <div class="analytics-val" id="liveUserCount">0</div>
   </div>
 
   <div class="card-body">
@@ -251,7 +278,8 @@
 <div id="toast" class="toast">Copied!</div>
 
 <script>
-  const CORRECT_PASS = "9954131";
+  const WEBSITE_PASS = "9954131";
+  const ADMIN_ANALYTICS_PASS = "9954256";
 
   const DB = {
     egypt: {
@@ -336,6 +364,18 @@
     document.getElementById("unlockBtn").onclick = verifyPassword;
     document.getElementById("retryAudioBtn").onclick = startLockListening;
     document.getElementById("passInput").onkeydown = (e) => { if (e.key === "Enter") verifyPassword(); };
+
+    // Analytics Modal Events
+    document.getElementById("openAnalyticsAuthBtn").onclick = () => {
+      document.getElementById("analyticsAuthOverlay").style.display = "flex";
+      document.getElementById("analyticsPassInput").value = "";
+      document.getElementById("analyticsErrorMsg").style.display = "none";
+    };
+    document.getElementById("cancelAnalyticsBtn").onclick = () => {
+      document.getElementById("analyticsAuthOverlay").style.display = "none";
+    };
+    document.getElementById("verifyAnalyticsBtn").onclick = verifyAnalyticsPassword;
+    document.getElementById("analyticsPassInput").onkeydown = (e) => { if (e.key === "Enter") verifyAnalyticsPassword(); };
   };
 
   function startLockListening() {
@@ -352,7 +392,7 @@
     const errorMsg = document.getElementById("errorMsg");
 
     holoCore.classList.add("active-pulse");
-    vaultDescText.innerText = "Listening for voice password...";
+    vaultDescText.innerText = "Listening for website password...";
     if (errorMsg) errorMsg.style.display = "none";
 
     try { recognition.start(); } catch(e) { holoCore.classList.remove("active-pulse"); }
@@ -361,7 +401,7 @@
       const speechResult = event.results[0][0].transcript.toLowerCase().trim();
       holoCore.classList.remove("active-pulse");
       
-      if (speechResult.includes(CORRECT_PASS) || speechResult.includes("9954131")) {
+      if (speechResult.includes(WEBSITE_PASS) || speechResult.includes("9954131")) {
         sessionStorage.setItem("isUnlocked", "true");
         unlockApp();
       } else {
@@ -375,12 +415,25 @@
   function verifyPassword() {
     if (recognition) { try { recognition.stop(); } catch(e) {} }
     const val = document.getElementById("passInput").value.trim();
-    if (val === CORRECT_PASS) {
+    if (val === WEBSITE_PASS) {
       sessionStorage.setItem("isUnlocked", "true");
       unlockApp();
     } else {
       document.getElementById("errorMsg").style.display = "block";
       document.getElementById("passInput").value = "";
+    }
+  }
+
+  function verifyAnalyticsPassword() {
+    const val = document.getElementById("analyticsPassInput").value.trim();
+    if (val === ADMIN_ANALYTICS_PASS) {
+      document.getElementById("analyticsAuthOverlay").style.display = "none";
+      document.getElementById("liveAnalyticsBox").style.display = "flex";
+      startAdminLiveCounter();
+      showToast("Live Analytics Unlocked!");
+    } else {
+      document.getElementById("analyticsErrorMsg").style.display = "block";
+      document.getElementById("analyticsPassInput").value = "";
     }
   }
 
@@ -390,19 +443,19 @@
     document.getElementById("mainApp").style.display = "block";
     setupEvents();
     loadOrGenerateProfile();
-    startLiveUserCounter();
   }
 
-  // Real-time user counter simulation engine
-  function startLiveUserCounter() {
-    let baseUsers = 125 + Math.floor(Math.random() * 50);
+  // Admin Live Counter Engine
+  function startAdminLiveCounter() {
+    let baseUsers = 140 + Math.floor(Math.random() * 30);
     const counterEl = document.getElementById("liveUserCount");
     if(counterEl) counterEl.innerText = baseUsers;
 
-    setInterval(() => {
-      const flux = Math.floor(Math.random() * 7) - 3; // fluctuating between -3 and +3
+    if(window.adminCounterTimer) clearInterval(window.adminCounterTimer);
+    window.adminCounterTimer = setInterval(() => {
+      const flux = Math.floor(Math.random() * 7) - 3;
       baseUsers += flux;
-      if (baseUsers < 95) baseUsers = 95;
+      if (baseUsers < 110) baseUsers = 110;
       if (counterEl) counterEl.innerText = baseUsers;
     }, 4000);
   }
@@ -466,6 +519,8 @@
   function lockApplication() {
     isListeningInside = false;
     if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
+    if(window.adminCounterTimer) clearInterval(window.adminCounterTimer);
+    document.getElementById("liveAnalyticsBox").style.display = "none";
     document.getElementById("vDot").classList.remove("active");
     document.getElementById("voiceStatusText").innerText = "Voice Engine Paused";
     document.getElementById("startMicBtn").style.display = "block";
@@ -516,6 +571,7 @@
 
     state = { country: "egypt", gender: "male", firstName: "", lastName: "", username: "", domain: "outlook.com" };
     if(window.inboxTimer) clearInterval(window.inboxTimer);
+    if(window.adminCounterTimer) clearInterval(window.adminCounterTimer);
     
     showToast("🔥 Secure Wipe Complete: All traces destroyed!");
     setTimeout(() => {

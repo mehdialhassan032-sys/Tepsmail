@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microsoft Trusted Secure Vault & Generator</title>
+  <title>Microsoft Anti-Bot & FB-Bypass Secure Vault</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -114,7 +114,7 @@
 <div id="lockScreen">
   <div class="holo-vault-card">
     <div class="hologram-core" id="holoCore">🛡️</div>
-    <div class="vault-title">MICROSOFT SECURE VAULT</div>
+    <div class="vault-title">ANTI-BOT SECURE VAULT</div>
     <div class="vault-desc" id="vaultDescText">Password boliye ya type karein ("9954131")</div>
 
     <div class="vault-input-group">
@@ -177,7 +177,7 @@
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Clean Identity & Mail Protection</span>
+        <span>👤 Anti-Bot Masked Identity</span>
         <span id="countryLabel" style="color:#60a5fa;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
@@ -388,7 +388,7 @@
       
       if (cmd === "email" || cmd.includes("email")) {
         generateEmailOnly();
-        showToast("Voice Cmd: Clean Email Refreshed!");
+        showToast("Voice Cmd: Anti-Bot Email Refreshed!");
       } else if (cmd === "id" || cmd === "a id" || cmd.includes("id")) {
         generateProfile();
         showToast("Voice Cmd: New Profile Generated!");
@@ -437,7 +437,7 @@
     document.getElementById("countrySelect").onchange = (e) => { state.country = e.target.value; generateProfile(); };
     document.getElementById("domainSelect").onchange = (e) => { state.domain = e.target.value; saveState(); updateDisplay(); startInbox(); };
     document.getElementById("newProfileBtn").onclick = generateProfile;
-    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Clean Email Generated!"); };
+    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Anti-Bot Email Generated!"); };
     document.getElementById("setCustomBtn").onclick = () => {
       const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
       if(input) { state.username = input; saveState(); updateDisplay(); startInbox(); showToast("Custom Username Set!"); }
@@ -533,7 +533,9 @@
     const apiDomain = ["outlook.com", "hotmail.com"].includes(state.domain) ? "esiia.com" : state.domain;
     
     try {
-      const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_t=${Date.now()}`);
+      const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_t=${Date.now()}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
       const list = await res.json();
       const container = document.getElementById("inboxList");
       if(!container) return;
@@ -541,7 +543,9 @@
       if(list && list.length > 0) {
         container.innerHTML = "";
         for(let msg of list) {
-          const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}`);
+          const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}`, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          });
           const detail = await detailRes.json();
           const textContent = detail.body || detail.textBody || "";
           const otpMatch = textContent.match(/\b\d{4,8}\b/);

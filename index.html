@@ -3,40 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Temp Mail Engine Pro - Auto Voice</title>
+  <title>AudioCore Vault - Secured Engine</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-    body { background: #090d16; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+    body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
 
-    /* Lock Screen Styles */
+    /* Unique Speaker / Hologram Lock Screen */
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: #090d16; z-index: 99999; display: flex;
+      background: radial-gradient(circle at center, #0f172a 0%, #030712 100%); z-index: 99999; display: flex;
       justify-content: center; align-items: center; padding: 20px;
     }
-    .lock-card {
-      background: #0f172a; border: 1px solid #1e293b; border-radius: 16px;
-      padding: 30px; width: 100%; max-width: 380px; text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    .speaker-vault-card {
+      background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 24px;
+      padding: 35px 25px; width: 100%; max-width: 380px; text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(56, 189, 248, 0.05);
     }
-    .lock-title { font-size: 18px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; }
-    .lock-desc { font-size: 12px; color: #64748b; margin-bottom: 20px; }
-    .mic-icon-box {
-      width: 70px; height: 70px; background: #020617; border: 2px solid #38bdf8; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 28px;
-      transition: all 0.3s;
+    
+    /* Speaker Wave Graphic Element */
+    .speaker-core {
+      width: 90px; height: 90px; background: linear-gradient(135deg, #0284c7, #7c3aed); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 36px;
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.5); position: relative;
     }
-    .mic-icon-box.listening { border-color: #dc2626; background: rgba(220, 38, 38, 0.1); animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); } 70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(220, 38, 38, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); } }
+    .speaker-core.listening {
+      animation: soundPulse 1.8s infinite ease-in-out;
+    }
+    @keyframes soundPulse {
+      0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); transform: scale(1); }
+      50% { box-shadow: 0 0 0 20px rgba(124, 58, 237, 0); transform: scale(1.08); }
+      100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); transform: scale(1); }
+    }
 
-    .password-wrapper { position: relative; width: 100%; margin-bottom: 12px; display: flex; align-items: center; }
-    .lock-input {
-      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155;
-      background: #020617; color: #fff; font-size: 14px; text-align: center; outline: none; letter-spacing: 2px;
+    .vault-title { font-size: 18px; font-weight: 800; color: #38bdf8; margin-bottom: 6px; letter-spacing: 1px; }
+    .vault-desc { font-size: 12px; color: #94a3b8; margin-bottom: 24px; line-height: 1.4; }
+
+    .vault-input-group { position: relative; width: 100%; margin-bottom: 12px; }
+    .vault-input {
+      width: 100%; padding: 12px 15px; border-radius: 10px; border: 1px solid #334155;
+      background: rgba(2, 6, 23, 0.8); color: #fff; font-size: 14px; text-align: center; outline: none; letter-spacing: 3px;
     }
-    .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; margin-bottom: 8px; }
-    .voice-btn { width: 100%; padding: 12px; background: #7c3aed; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
-    .error-msg { color: #ef4444; font-size: 12px; margin-top: 10px; display: none; }
+    .vault-input:focus { border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+
+    .vault-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #0078d4, #0284c7); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 8px; transition: opacity 0.2s; }
+    .vault-btn:hover { opacity: 0.9; }
+    .vault-btn-alt { width: 100%; padding: 10px; background: rgba(30, 41, 59, 0.6); color: #cbd5e1; border: 1px solid #334155; border-radius: 10px; font-weight: 600; font-size: 12px; cursor: pointer; }
+    
+    .vault-error { color: #f87171; font-size: 11px; margin-top: 12px; display: none; font-weight: 600; }
 
     /* Main App Styles - Default hidden */
     .app-card { 
@@ -94,20 +107,21 @@
 </head>
 <body>
 
-<!-- Lock Screen Overlay -->
+<!-- Unique Acoustic Speaker Vault Lock Screen -->
 <div id="lockScreen">
-  <div class="lock-card">
-    <div class="lock-title">🔒 Auto Voice Unlock</div>
-    <div class="lock-desc" id="lockDescText">Listening automatically... Just say <b>9954131</b></div>
-    
-    <div class="mic-icon-box" id="micBox">🎤</div>
+  <div class="speaker-vault-card">
+    <div class="speaker-core" id="speakerIcon">🔊</div>
+    <div class="vault-title">AUDIOCORE SECURE</div>
+    <div class="vault-desc" id="vaultDescText">Listening for security voice authorization...</div>
 
-    <div class="password-wrapper">
-      <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
+    <div class="vault-input-group">
+      <input type="password" id="passInput" class="vault-input" placeholder="•••••••" autocomplete="off">
     </div>
-    <button type="button" class="lock-btn" id="unlockBtn">Unlock with Password</button>
-    <button type="button" class="voice-btn" id="retryVoiceBtn">🔄 Tap to Listen Again</button>
-    <div id="errorMsg" class="error-msg">Incorrect Password / Voice not matched!</div>
+    
+    <button type="button" class="vault-btn" id="unlockBtn">Verify Key</button>
+    <button type="button" class="vault-btn-alt" id="retryAudioBtn">🎙️ Re-listen Voice</button>
+    
+    <div id="errorMsg" class="vault-error">Access Denied: Unrecognized Authorization</div>
   </div>
 </div>
 
@@ -212,6 +226,7 @@
 <div id="toast" class="toast">Copied!</div>
 
 <script>
+  // Hidden Secret Password Code (Not visible anywhere on UI interface)
   const CORRECT_PASS = "9954131";
 
   const DB = {
@@ -250,23 +265,17 @@
 
   window.onload = function() {
     const unlockBtn = document.getElementById("unlockBtn");
-    const retryVoiceBtn = document.getElementById("retryVoiceBtn");
+    const retryAudioBtn = document.getElementById("retryAudioBtn");
     const passInput = document.getElementById("passInput");
 
     if (sessionStorage.getItem("isUnlocked") === "true") {
       unlockApp();
     } else {
-      // Start listening automatically on page load
       startAutoListening();
     }
 
-    if (unlockBtn) {
-      unlockBtn.onclick = verifyPassword;
-    }
-
-    if (retryVoiceBtn) {
-      retryVoiceBtn.onclick = startAutoListening;
-    }
+    if (unlockBtn) unlockBtn.onclick = verifyPassword;
+    if (retryAudioBtn) retryAudioBtn.onclick = startAutoListening;
 
     if (passInput) {
       passInput.onkeydown = function(e) {
@@ -281,9 +290,7 @@
 
   function startAutoListening() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      return;
-    }
+    if (!SpeechRecognition) return;
 
     if (recognition) {
       try { recognition.stop(); } catch(e) {}
@@ -294,23 +301,23 @@
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
-    const micBox = document.getElementById("micBox");
-    const lockDescText = document.getElementById("lockDescText");
+    const speakerIcon = document.getElementById("speakerIcon");
+    const vaultDescText = document.getElementById("vaultDescText");
     const errorMsg = document.getElementById("errorMsg");
 
-    micBox.classList.add("listening");
-    lockDescText.innerHTML = "Listening automatically... Say <b>9954131</b>";
+    speakerIcon.classList.add("listening");
+    vaultDescText.innerText = "Acoustic Scanner Active... Speak your passcode.";
     if (errorMsg) errorMsg.style.display = "none";
 
     try {
       recognition.start();
     } catch(e) {
-      micBox.classList.remove("listening");
+      speakerIcon.classList.remove("listening");
     }
 
     recognition.onresult = function(event) {
       const speechResult = event.results[0][0].transcript.replace(/\s+/g, '').trim();
-      micBox.classList.remove("listening");
+      speakerIcon.classList.remove("listening");
 
       const cleanedInput = speechResult.replace(/[^0-9]/g, '');
       
@@ -319,20 +326,19 @@
         unlockApp();
       } else {
         if (errorMsg) {
-          errorMsg.innerText = `Heard: "${speechResult}" - Not matched!`;
           errorMsg.style.display = "block";
         }
-        lockDescText.innerHTML = "Tap button below to try speaking again";
+        vaultDescText.innerText = "Audio mismatch. Tap re-listen or enter key manually.";
       }
     };
 
-    recognition.onerror = function(event) {
-      micBox.classList.remove("listening");
-      lockDescText.innerHTML = "Mic sleeping. Tap to listen or enter text.";
+    recognition.onerror = function() {
+      speakerIcon.classList.remove("listening");
+      vaultDescText.innerText = "Scanner sleeping. Tap re-listen to try again.";
     };
 
     recognition.onend = function() {
-      micBox.classList.remove("listening");
+      speakerIcon.classList.remove("listening");
     };
   }
 

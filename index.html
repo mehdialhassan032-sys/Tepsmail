@@ -237,7 +237,8 @@
     const unlockBtn = document.getElementById("unlockBtn");
     const passInput = document.getElementById("passInput");
 
-    if (localStorage.getItem("isUnlocked") === "true") {
+    // Use sessionStorage so password is required only if the app/tab is completely closed and reopened
+    if (sessionStorage.getItem("isUnlocked") === "true") {
       unlockApp();
     }
 
@@ -264,7 +265,7 @@
     const val = passInput.value.trim();
 
     if (val === CORRECT_PASS) {
-      localStorage.setItem("isUnlocked", "true");
+      sessionStorage.setItem("isUnlocked", "true");
       unlockApp();
     } else {
       if (errorMsg) errorMsg.style.display = "block";

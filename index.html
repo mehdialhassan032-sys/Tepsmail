@@ -212,8 +212,8 @@
     </div>
 
     <div class="actions">
-      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Refresh Email Only (Voice: "email generate")</button>
-      <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile & Email (Voice: "generate")</button>
+      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Refresh Email Only (Voice: "email")</button>
+      <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile & Email (Voice: "id")</button>
       <button class="btn-success" id="copyEmailBtn">Copy Email</button>
       <button class="btn-primary" id="copyAllBtn">📋 Copy All Info</button>
     </div>
@@ -359,13 +359,15 @@
     inAppRecognition.onresult = function(event) {
       const cmd = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
       
-      // Strict exact command mapping without speech output
-      if (cmd === "email generate" || cmd.includes("email generate")) {
+      // Strict exact command matching as requested:
+      // "id" -> Changes full Identity (Name + Email)
+      // "email" -> Changes only Email
+      if (cmd === "email" || cmd.includes("email")) {
         generateEmailOnly();
-        showToast("Voice Cmd: Email New Generated!");
-      } else if (cmd === "generate" || (cmd.includes("generate") && !cmd.includes("email"))) {
+        showToast("Voice Cmd: Email Changed!");
+      } else if (cmd === "id" || cmd === "a id" || cmd.includes("id")) {
         generateProfile();
-        showToast("Voice Cmd: Name + Email Generated!");
+        showToast("Voice Cmd: Full ID Generated!");
       } else if (cmd.includes("clear")) {
         localStorage.removeItem("savedMailState");
         generateProfile();

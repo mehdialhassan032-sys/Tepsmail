@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AudioCore Vault - Secured Engine</title>
+  <title>AudioCore Vault - Voice Command Engine</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -20,15 +20,12 @@
       box-shadow: 0 25px 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(56, 189, 248, 0.05);
     }
     
-    /* Speaker Wave Graphic Element */
     .speaker-core {
       width: 90px; height: 90px; background: linear-gradient(135deg, #0284c7, #7c3aed); border-radius: 50%;
       display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 36px;
       box-shadow: 0 0 25px rgba(124, 58, 237, 0.5); position: relative;
     }
-    .speaker-core.listening {
-      animation: soundPulse 1.8s infinite ease-in-out;
-    }
+    .speaker-core.listening { animation: soundPulse 1.8s infinite ease-in-out; }
     @keyframes soundPulse {
       0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); transform: scale(1); }
       50% { box-shadow: 0 0 0 20px rgba(124, 58, 237, 0); transform: scale(1.08); }
@@ -48,10 +45,9 @@
     .vault-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #0078d4, #0284c7); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 8px; transition: opacity 0.2s; }
     .vault-btn:hover { opacity: 0.9; }
     .vault-btn-alt { width: 100%; padding: 10px; background: rgba(30, 41, 59, 0.6); color: #cbd5e1; border: 1px solid #334155; border-radius: 10px; font-weight: 600; font-size: 12px; cursor: pointer; }
-    
     .vault-error { color: #f87171; font-size: 11px; margin-top: 12px; display: none; font-weight: 600; }
 
-    /* Main App Styles - Default hidden */
+    /* Main App Styles */
     .app-card { 
       background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
       border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
@@ -59,8 +55,16 @@
     }
     .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
     .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
-    .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; }
-    .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; }
+    
+    /* Voice Assistant Active Indicator Bar */
+    .voice-status-bar {
+      background: rgba(2, 6, 23, 0.9); border-bottom: 1px solid #1e293b; padding: 10px 16px;
+      display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #94a3b8;
+    }
+    .voice-indicator { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #38bdf8; }
+    .v-dot { width: 8px; height: 8px; background: #64748b; border-radius: 50%; transition: 0.3s; }
+    .v-dot.active { background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: blink 1.2s infinite; }
+    @keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
@@ -129,10 +133,15 @@
 <div class="app-card" id="mainApp">
   <div class="header-bar">
     <div class="header-brand">📧 Mail Engine Pro</div>
-    <div class="sync-status">
-      <span class="status-dot"></span>
-      <span>Active</span>
+    <button class="btn-secondary" id="manualLockBtn" style="padding:4px 10px; font-size:11px;">🔒 Lock Now</button>
+  </div>
+
+  <div class="voice-status-bar">
+    <div class="voice-indicator">
+      <span class="v-dot" id="vDot"></span>
+      <span id="voiceStatusText">Voice Engine Ready (Say: Change, Email Change, Clear, Lock)</span>
     </div>
+    <button id="toggleVoiceBtn" class="btn-secondary" style="padding:2px 8px; font-size:10px;">🎙️ Start Mic</button>
   </div>
 
   <div class="card-body">
@@ -226,7 +235,6 @@
 <div id="toast" class="toast">Copied!</div>
 
 <script>
-  // Hidden Secret Password Code (Not visible anywhere on UI interface)
   const CORRECT_PASS = "9954131";
 
   const DB = {
@@ -262,6 +270,8 @@
   };
 
   let recognition = null;
+  let inAppRecognition = null;
+  let isListeningInside = false;
 
   window.onload = function() {
     const unlockBtn = document.getElementById("unlockBtn");
@@ -278,9 +288,7 @@
     if (retryAudioBtn) retryAudioBtn.onclick = startAutoListening;
 
     if (passInput) {
-      passInput.onkeydown = function(e) {
-        if (e.key === "Enter") verifyPassword();
-      };
+      passInput.onkeydown = function(e) { if (e.key === "Enter") verifyPassword(); };
       passInput.oninput = function() {
         const errorMsg = document.getElementById("errorMsg");
         if (errorMsg) errorMsg.style.display = "none";
@@ -292,9 +300,7 @@
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
-    if (recognition) {
-      try { recognition.stop(); } catch(e) {}
-    }
+    if (recognition) { try { recognition.stop(); } catch(e) {} }
 
     recognition = new SpeechRecognition();
     recognition.lang = 'en-US';
@@ -309,25 +315,18 @@
     vaultDescText.innerText = "Acoustic Scanner Active... Speak your passcode.";
     if (errorMsg) errorMsg.style.display = "none";
 
-    try {
-      recognition.start();
-    } catch(e) {
-      speakerIcon.classList.remove("listening");
-    }
+    try { recognition.start(); } catch(e) { speakerIcon.classList.remove("listening"); }
 
     recognition.onresult = function(event) {
       const speechResult = event.results[0][0].transcript.replace(/\s+/g, '').trim();
       speakerIcon.classList.remove("listening");
-
       const cleanedInput = speechResult.replace(/[^0-9]/g, '');
       
       if (cleanedInput.includes(CORRECT_PASS) || speechResult.toLowerCase().includes("9954131")) {
         sessionStorage.setItem("isUnlocked", "true");
         unlockApp();
       } else {
-        if (errorMsg) {
-          errorMsg.style.display = "block";
-        }
+        if (errorMsg) errorMsg.style.display = "block";
         vaultDescText.innerText = "Audio mismatch. Tap re-listen or enter key manually.";
       }
     };
@@ -336,16 +335,11 @@
       speakerIcon.classList.remove("listening");
       vaultDescText.innerText = "Scanner sleeping. Tap re-listen to try again.";
     };
-
-    recognition.onend = function() {
-      speakerIcon.classList.remove("listening");
-    };
+    recognition.onend = function() { speakerIcon.classList.remove("listening"); };
   }
 
   function verifyPassword() {
-    if (recognition) {
-      try { recognition.stop(); } catch(e) {}
-    }
+    if (recognition) { try { recognition.stop(); } catch(e) {} }
     const passInput = document.getElementById("passInput");
     const errorMsg = document.getElementById("errorMsg");
 
@@ -363,17 +357,93 @@
   }
 
   function unlockApp() {
-    if (recognition) {
-      try { recognition.stop(); } catch(e) {}
-    }
-    const lockScreen = document.getElementById("lockScreen");
-    const mainApp = document.getElementById("mainApp");
-
-    if (lockScreen) lockScreen.style.display = "none";
-    if (mainApp) mainApp.style.display = "block";
+    if (recognition) { try { recognition.stop(); } catch(e) {} }
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("mainApp").style.display = "block";
     
     setupEvents();
     loadOrGenerateProfile();
+    startInAppVoiceEngine();
+  }
+
+  // --- INTERNAL VOICE COMMAND SYSTEM ---
+  function startInAppVoiceEngine() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
+    if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
+
+    inAppRecognition = new SpeechRecognition();
+    inAppRecognition.lang = 'en-US';
+    inAppRecognition.continuous = true;
+    inAppRecognition.interimResults = false;
+
+    const vDot = document.getElementById("vDot");
+    const voiceStatusText = document.getElementById("voiceStatusText");
+    const toggleBtn = document.getElementById("toggleVoiceBtn");
+
+    vDot.classList.add("active");
+    voiceStatusText.innerText = "Voice Control Active (Say: Change, Email Change, Clear, Lock)";
+    toggleBtn.innerText = "🎙️ Mic On";
+    isListeningInside = true;
+
+    try { inAppRecognition.start(); } catch(e) {}
+
+    inAppRecognition.onresult = function(event) {
+      const lastIndex = event.results.length - 1;
+      const command = event.results[lastIndex][0].transcript.toLowerCase().trim();
+      
+      console.log("Voice Command Heard:", command);
+
+      // 1. "change" -> Naye Name aur naye Email dono generate karega
+      if (command.includes("change") && !command.includes("email")) {
+        generateProfile();
+        showToast("Voice: Full Profile Changed!");
+      }
+      // 2. "email change" -> Sirf naya email generate karega
+      else if (command.includes("email change") || (command.includes("email") && command.includes("change"))) {
+        const randNum = Math.floor(1000 + Math.random() * 8999);
+        state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
+        saveState();
+        updateDisplay();
+        startInbox();
+        showToast("Voice: Email Changed!");
+      }
+      // 3. "clear" -> Andar bahar ka hidden/saved data completely clear
+      else if (command.includes("clear")) {
+        localStorage.removeItem("savedMailState");
+        generateProfile();
+        showToast("Voice: All Data Cleared!");
+      }
+      // 4. "lock" -> Turant lock screen par wapas
+      else if (command.includes("lock")) {
+        lockApplication();
+        showToast("Voice: Vault Locked!");
+      }
+    };
+
+    inAppRecognition.onerror = function() {
+      // Auto restart mic if it drops
+      if (isListeningInside) {
+        setTimeout(() => { try { inAppRecognition.start(); } catch(e) {} }, 1000);
+      }
+    };
+
+    inAppRecognition.onend = function() {
+      if (isListeningInside) {
+        try { inAppRecognition.start(); } catch(e) {}
+      }
+    };
+  }
+
+  function lockApplication() {
+    isListeningInside = false;
+    if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
+    sessionStorage.removeItem("isUnlocked");
+    document.getElementById("mainApp").style.display = "none";
+    document.getElementById("lockScreen").style.display = "flex";
+    document.getElementById("passInput").value = "";
+    startAutoListening();
   }
 
   function setupEvents() {
@@ -439,6 +509,26 @@
       };
     }
 
+    if(get("manualLockBtn")) get("manualLockBtn").onclick = lockApplication;
+
+    if(get("toggleVoiceBtn")) {
+      get("toggleVoiceBtn").onclick = function() {
+        const vDot = document.getElementById("vDot");
+        const voiceStatusText = document.getElementById("voiceStatusText");
+        if (isListeningInside) {
+          isListeningInside = false;
+          try { inAppRecognition.stop(); } catch(e) {}
+          vDot.classList.remove("active");
+          voiceStatusText.innerText = "Voice Control Paused";
+          this.innerText = "🎙️ Start Mic";
+        } else {
+          isListeningInside = true;
+          startInAppVoiceEngine();
+          this.innerText = "🎙️ Mic On";
+        }
+      };
+    }
+
     if(get("copyFirstBtn")) get("copyFirstBtn").onclick = () => copyVal(state.firstName);
     if(get("copyLastBtn")) get("copyLastBtn").onclick = () => copyVal(state.lastName);
     if(get("copyEmailBtn")) get("copyEmailBtn").onclick = () => copyVal(`${state.username}@${state.domain}`);
@@ -461,12 +551,7 @@
   function loadOrGenerateProfile() {
     const saved = localStorage.getItem("savedMailState");
     if (saved) {
-      try {
-        state = JSON.parse(saved);
-      } catch(e) {
-        generateProfile();
-        return;
-      }
+      try { state = JSON.parse(saved); } catch(e) { generateProfile(); return; }
       
       if(document.getElementById("countrySelect")) document.getElementById("countrySelect").value = state.country;
       if(document.getElementById("domainSelect")) document.getElementById("domainSelect").value = state.domain;
@@ -490,11 +575,8 @@
     const cData = DB[state.country] || DB.egypt;
     const gData = cData[state.gender] || cData.male;
 
-    const fName = gData.first[Math.floor(Math.random() * gData.first.length)];
-    const lName = gData.last[Math.floor(Math.random() * gData.last.length)];
-
-    state.firstName = fName;
-    state.lastName = lName;
+    state.firstName = gData.first[Math.floor(Math.random() * gData.first.length)];
+    state.lastName = gData.last[Math.floor(Math.random() * gData.last.length)];
 
     const randNum = Math.floor(1000 + Math.random() * 8999);
     state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
@@ -540,9 +622,7 @@
           let otpCode = "";
           const textContent = detail.body || detail.textBody || "";
           const otpMatch = textContent.match(/\b\d{4,8}\b/);
-          if(otpMatch) {
-            otpCode = otpMatch[0];
-          }
+          if(otpMatch) otpCode = otpMatch[0];
 
           let otpHtml = "";
           if(otpCode) {
@@ -576,9 +656,7 @@
   }
 
   function copyVal(val) {
-    navigator.clipboard.writeText(val).then(() => {
-      showToast("Copied to clipboard!");
-    });
+    navigator.clipboard.writeText(val).then(() => { showToast("Copied to clipboard!"); });
   }
 
   function showToast(msg) {
@@ -586,9 +664,7 @@
     if(!toast) return;
     toast.innerText = msg;
     toast.style.display = "block";
-    setTimeout(() => {
-      toast.style.display = "none";
-    }, 2000);
+    setTimeout(() => { toast.style.display = "none"; }, 2000);
   }
 </script>
 </body>

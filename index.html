@@ -8,7 +8,6 @@
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
 
-    /* Ultra-Modern Beautiful Lock Screen */
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: radial-gradient(circle at center, #0f172a 0%, #030712 100%); 
@@ -59,7 +58,6 @@
     .vault-btn-alt:hover { background: rgba(30, 41, 59, 0.9); }
     .vault-error { color: #f87171; font-size: 11px; margin-top: 14px; display: none; font-weight: 700; letter-spacing: 0.5px; }
 
-    /* Dashboard UI */
     .app-card { 
       background: #0f172a; border-radius: 20px; width: 100%; max-width: 480px; 
       border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
@@ -138,12 +136,11 @@
 </head>
 <body>
 
-<!-- Website Unlock Screen (Password: 9954131) -->
 <div id="lockScreen">
   <div class="holo-vault-card">
     <div class="hologram-core" id="holoCore">🛡️</div>
     <div class="vault-title">Secure Vault</div>
-    <div class="vault-desc" id="vaultDescText">Password enter karein ya voice command dein ("9954131")</div>
+    <div class="vault-desc" id="vaultDescText">Password enter karein ya voice command dein</div>
 
     <div class="vault-input-group">
       <input type="password" id="passInput" class="vault-input" placeholder="••••••••" autocomplete="current-password">
@@ -156,16 +153,15 @@
   </div>
 </div>
 
-<!-- Admin Analytics Auth Modal -->
 <div id="analyticsAuthOverlay">
   <div class="holo-vault-card" style="max-width: 340px;">
     <div class="hologram-core" style="width:70px; height:70px; font-size:28px;">📊</div>
-    <div class="vault-title" style="font-size:16px;">Real Traffic Stats</div>
-    <div class="vault-desc">Actual active tracking check karne ke liye Admin Password ("9954256") dalein:</div>
+    <div class="vault-title" style="font-size:16px;">Admin Live Analytics</div>
+    <div class="vault-desc">Active users ka data dekhne ke liye Admin Password dalein:</div>
     <div class="vault-input-group">
       <input type="password" id="analyticsPassInput" class="vault-input" placeholder="••••••••" autocomplete="current-password">
     </div>
-    <button type="button" class="vault-btn" id="verifyAnalyticsBtn">Authorize</button>
+    <button type="button" class="vault-btn" id="verifyAnalyticsBtn">Unlock Analytics</button>
     <button type="button" class="vault-btn-alt" id="cancelAnalyticsBtn">Cancel</button>
     <div id="analyticsErrorMsg" class="vault-error">Galat Admin Password!</div>
   </div>
@@ -190,7 +186,7 @@
   <div class="live-analytics-box" id="liveAnalyticsBox">
     <div class="analytics-left">
       <span class="live-pulse-dot"></span>
-      <span>🔒 Real Active Sessions</span>
+      <span>🔒 Active Sessions</span>
     </div>
     <div class="analytics-val" id="liveUserCount">1</div>
   </div>
@@ -451,14 +447,10 @@
     loadOrGenerateProfile();
   }
 
-  // Real tracking based on active local browser session / tab lifecycle
   function startRealLiveCounter() {
     const counterEl = document.getElementById("liveUserCount");
-    
-    // Check if a session identifier already exists in localStorage across tabs
     let activeSessions = parseInt(localStorage.getItem("active_vault_sessions") || "0");
     
-    // Register current session if not already counted in this tab
     if (!sessionStorage.getItem("session_counted")) {
       activeSessions += 1;
       localStorage.setItem("active_vault_sessions", activeSessions);
@@ -467,7 +459,6 @@
 
     if (counterEl) counterEl.innerText = Math.max(1, activeSessions);
 
-    // Handle tab close / unload safely to decrement active session count
     window.addEventListener('beforeunload', () => {
       let currentActive = parseInt(localStorage.getItem("active_vault_sessions") || "1");
       if (currentActive > 1) {
@@ -477,7 +468,6 @@
       }
     });
 
-    // Real-time listener for multi-tab sync
     window.addEventListener('storage', (e) => {
       if (e.key === "active_vault_sessions") {
         let updatedCount = parseInt(e.newValue || "1");

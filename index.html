@@ -224,7 +224,6 @@
     }
   };
 
-  let usedNamesHistory = [];
   let state = {
     country: "egypt",
     gender: "male",
@@ -282,7 +281,7 @@
     if (mainApp) mainApp.style.display = "block";
     
     setupEvents();
-    generateProfile();
+    loadOrGenerateProfile();
   }
 
   function setupEvents() {
@@ -316,6 +315,7 @@
     if(get("domainSelect")) {
       get("domainSelect").onchange = function(e) {
         state.domain = e.target.value;
+        saveState();
         updateDisplay();
         startInbox();
       };
@@ -327,6 +327,7 @@
       get("refreshEmailBtn").onclick = function() {
         const randNum = Math.floor(1000 + Math.random() * 8999);
         state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
+        saveState();
         updateDisplay();
         startInbox();
         showToast("Email Refreshed!");
@@ -338,6 +339,7 @@
         const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
         if(input) {
           state.username = input;
+          saveState();
           updateDisplay();
           startInbox();
           showToast("Custom Email Set!");
@@ -353,10 +355,43 @@
     
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
-        usedNamesHistory = [];
+        localStorage.removeItem("savedMailState");
         generateProfile();
         showToast("History Cleared & Reset!");
       };
+    }
+  }
+
+  function saveState() {
+    localStorage.setItem("savedMailState", JSON.stringify(state));
+  }
+
+  function loadOrGenerateProfile() {
+    const saved = localStorage.getItem("savedMailState");
+    if (saved) {
+      try {
+        state = JSON.parse(saved);
+      } catch(e) {
+        generateProfile();
+        return;
+      }
+      
+      // Update UI inputs based on loaded state
+      if(document.getElementById("countrySelect")) document.getElementById("countrySelect").value = state.country;
+      if(document.getElementById("domainSelect")) document.getElementById("domainSelect").value = state.domain;
+      
+      if(state.gender === "female") {
+        document.getElementById("btnFemale").classList.add("active");
+        document.getElementById("btnMale").classList.remove("active");
+      } else {
+        document.getElementById("btnMale").classList.add("active");
+        document.getElementById("btnFemale").classList.remove("active");
+      }
+
+      updateDisplay();
+      startInbox();
+    } else {
+      generateProfile();
     }
   }
 
@@ -364,22 +399,8 @@
     const cData = DB[state.country] || DB.egypt;
     const gData = cData[state.gender] || cData.male;
 
-    let fName = "";
-    let lName = "";
-    let fullNameKey = "";
-    let attempts = 0;
-
-    do {
-      fName = gData.first[Math.floor(Math.random() * gData.first.length)];
-      lName = gData.last[Math.floor(Math.random() * gData.last.length)];
-      fullNameKey = `${fName}_${lName}`.toLowerCase();
-      attempts++;
-    } while (usedNamesHistory.includes(fullNameKey) && attempts < 30);
-
-    usedNamesHistory.push(fullNameKey);
-    if(usedNamesHistory.length > 50) {
-      usedNamesHistory.shift();
-    }
+    const fName = gData.first[Math.floor(Math.random() * gData.first.length)];
+    const lName = gData.last[Math.floor(Math.random() * gData.last.length)];
 
     state.firstName = fName;
     state.lastName = lName;
@@ -387,6 +408,7 @@
     const randNum = Math.floor(1000 + Math.random() * 8999);
     state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
 
+    saveState();
     updateDisplay();
     startInbox();
   }

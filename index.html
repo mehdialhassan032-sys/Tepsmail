@@ -137,7 +137,7 @@
   <div class="voice-status-bar">
     <div class="voice-indicator">
       <span class="v-dot active" id="vDot"></span>
-      <span id="voiceStatusText">Silent Voice Engine Active (Listening...)</span>
+      <span id="voiceStatusText">Silent Engine Active (Listening Commands...)</span>
     </div>
   </div>
 
@@ -274,7 +274,6 @@
     document.getElementById("passInput").onkeydown = (e) => { if (e.key === "Enter") verifyPassword(); };
   };
 
-  // --- LOCK SCREEN LISTEN ONLY VOICE LISTENER ---
   function startLockListening() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return;
@@ -330,7 +329,6 @@
     startInAppVoiceEngine();
   }
 
-  // --- IN-APP LISTEN ONLY VOICE COMMANDS ---
   function startInAppVoiceEngine() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return;
@@ -348,13 +346,13 @@
     inAppRecognition.onresult = function(event) {
       const cmd = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
       
-      // Strict voice command checks (100% silent - No Speech output)
-      if (cmd.includes("email generate") || cmd === "email generate") {
+      // Strict exact command mapping without speech output
+      if (cmd === "email generate" || cmd.includes("email generate")) {
         generateEmailOnly();
-        showToast("Voice Cmd: New Email Generated!");
-      } else if (cmd.includes("generate") || cmd === "generate") {
+        showToast("Voice Cmd: Email New Generated!");
+      } else if (cmd === "generate" || (cmd.includes("generate") && !cmd.includes("email"))) {
         generateProfile();
-        showToast("Voice Cmd: New Profile & Email Generated!");
+        showToast("Voice Cmd: Name + Email Generated!");
       } else if (cmd.includes("clear")) {
         localStorage.removeItem("savedMailState");
         generateProfile();

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microsoft Anti-Bot & FB-Bypass Secure Vault</title>
+  <title>Microsoft Dynamic IP Secure Vault</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -114,7 +114,7 @@
 <div id="lockScreen">
   <div class="holo-vault-card">
     <div class="hologram-core" id="holoCore">🛡️</div>
-    <div class="vault-title">ANTI-BOT SECURE VAULT</div>
+    <div class="vault-title">DYNAMIC IP VAULT</div>
     <div class="vault-desc" id="vaultDescText">Password boliye ya type karein ("9954131")</div>
 
     <div class="vault-input-group">
@@ -130,7 +130,7 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">🔒 Microsoft High-Trust Vault</div>
+    <div class="header-brand">🔒 Microsoft Dynamic IP Vault</div>
     <button class="btn-secondary" id="manualLockBtn" style="padding:4px 10px; font-size:11px;">🔒 Lock</button>
   </div>
 
@@ -177,7 +177,7 @@
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Anti-Bot Masked Identity</span>
+        <span>👤 Dynamic IP Masked Identity</span>
         <span id="countryLabel" style="color:#60a5fa;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
@@ -292,6 +292,22 @@
   let inAppRecognition = null;
   let isListeningInside = false;
 
+  // Generator for dynamic randomized IP / proxy routing headers
+  function getDynamicIPHeaders() {
+    const r1 = Math.floor(Math.random() * 150) + 40;
+    const r2 = Math.floor(Math.random() * 200) + 10;
+    const r3 = Math.floor(Math.random() * 200) + 10;
+    const r4 = Math.floor(Math.random() * 200) + 10;
+    const fakeIP = `${r1}.${r2}.${r3}.${r4}`;
+    
+    return {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-Forwarded-For': fakeIP,
+      'X-Originating-IP': fakeIP,
+      'Client-IP': fakeIP
+    };
+  }
+
   window.onload = function() {
     if (sessionStorage.getItem("isUnlocked") === "true") {
       unlockApp();
@@ -388,7 +404,7 @@
       
       if (cmd === "email" || cmd.includes("email")) {
         generateEmailOnly();
-        showToast("Voice Cmd: Anti-Bot Email Refreshed!");
+        showToast("Voice Cmd: Clean IP Email Refreshed!");
       } else if (cmd === "id" || cmd === "a id" || cmd.includes("id")) {
         generateProfile();
         showToast("Voice Cmd: New Profile Generated!");
@@ -437,7 +453,7 @@
     document.getElementById("countrySelect").onchange = (e) => { state.country = e.target.value; generateProfile(); };
     document.getElementById("domainSelect").onchange = (e) => { state.domain = e.target.value; saveState(); updateDisplay(); startInbox(); };
     document.getElementById("newProfileBtn").onclick = generateProfile;
-    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Anti-Bot Email Generated!"); };
+    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Dynamic IP Email Generated!"); };
     document.getElementById("setCustomBtn").onclick = () => {
       const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
       if(input) { state.username = input; saveState(); updateDisplay(); startInbox(); showToast("Custom Username Set!"); }
@@ -528,13 +544,14 @@
 
   async function checkInbox(isManual = false) {
     if(!state.username) return;
-    if(isManual) showToast("Checking inbox...");
+    if(isManual) showToast("Checking inbox with dynamic IP...");
     
     const apiDomain = ["outlook.com", "hotmail.com"].includes(state.domain) ? "esiia.com" : state.domain;
     
     try {
+      const headers = getDynamicIPHeaders();
       const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_t=${Date.now()}`, {
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        headers: headers
       });
       const list = await res.json();
       const container = document.getElementById("inboxList");
@@ -544,7 +561,7 @@
         container.innerHTML = "";
         for(let msg of list) {
           const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}`, {
-            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            headers: getDynamicIPHeaders()
           });
           const detail = await detailRes.json();
           const textContent = detail.body || detail.textBody || "";

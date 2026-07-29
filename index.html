@@ -136,12 +136,15 @@
 
   <div class="voice-status-bar">
     <div class="voice-indicator">
-      <span class="v-dot active" id="vDot"></span>
-      <span id="voiceStatusText">Silent Engine Active (Listening Commands...)</span>
+      <span class="v-dot" id="vDot"></span>
+      <span id="voiceStatusText">Voice Engine Paused (Click Start Below)</span>
     </div>
   </div>
 
   <div class="card-body">
+    <!-- MIC ACTIVATION BUTTON FOR BROWSER SECURITY -->
+    <button type="button" class="btn-success btn-full" id="startMicBtn" style="margin-bottom: 14px; padding: 12px; font-size: 13px;">🎙️ Start Voice Engine (Click to Active)</button>
+
     <div class="field-group">
       <span class="field-label">Country</span>
       <select id="countrySelect">
@@ -326,12 +329,14 @@
     document.getElementById("mainApp").style.display = "block";
     setupEvents();
     loadOrGenerateProfile();
-    startInAppVoiceEngine();
   }
 
   function startInAppVoiceEngine() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) return;
+    if (!SpeechRecognition) {
+      showToast("Speech Recognition not supported in this browser!");
+      return;
+    }
     if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
 
     inAppRecognition = new SpeechRecognition();
@@ -341,7 +346,15 @@
 
     isListeningInside = true;
 
-    try { inAppRecognition.start(); } catch(e) {}
+    try {
+      inAppRecognition.start();
+      document.getElementById("vDot").classList.add("active");
+      document.getElementById("voiceStatusText").innerText = "Silent Voice Engine Active (Listening...)";
+      document.getElementById("startMicBtn").style.display = "none";
+      showToast("Microphone Activated & Listening!");
+    } catch(e) {
+      showToast("Mic start failed. Try clicking again.");
+    }
 
     inAppRecognition.onresult = function(event) {
       const cmd = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
@@ -362,7 +375,11 @@
       }
     };
 
-    inAppRecognition.onend = () => { if (isListeningInside) { try { inAppRecognition.start(); } catch(e) {} } };
+    inAppRecognition.onend = () => { 
+      if (isListeningInside) { 
+        try { inAppRecognition.start(); } catch(e) {} 
+      } 
+    };
   }
 
   function generateEmailOnly() {
@@ -376,6 +393,9 @@
   function lockApplication() {
     isListeningInside = false;
     if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
+    document.getElementById("vDot").classList.remove("active");
+    document.getElementById("voiceStatusText").innerText = "Voice Engine Paused";
+    document.getElementById("startMicBtn").style.display = "block";
     sessionStorage.removeItem("isUnlocked");
     document.getElementById("mainApp").style.display = "none";
     document.getElementById("lockScreen").style.display = "flex";
@@ -384,6 +404,7 @@
   }
 
   function setupEvents() {
+    document.getElementById("startMicBtn").onclick = startInAppVoiceEngine;
     document.getElementById("btnMale").onclick = () => { state.gender = "male"; toggleGenderUI(); generateProfile(); };
     document.getElementById("btnFemale").onclick = () => { state.gender = "female"; toggleGenderUI(); generateProfile(); };
     document.getElementById("countrySelect").onchange = (e) => { state.country = e.target.value; generateProfile(); };

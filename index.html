@@ -3,30 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microsoft Secure Vault - Dual-Layer Admin Analytics</title>
+  <title>Microsoft Secure Vault - Premium Gateway</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
 
+    /* Ultra-Modern Beautiful Lock Screen */
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: radial-gradient(circle at center, #0f172a 0%, #030712 100%); z-index: 99999; display: flex;
-      justify-content: center; align-items: center; padding: 20px;
+      background: radial-gradient(circle at center, #0f172a 0%, #030712 100%); 
+      z-index: 99999; display: flex; justify-content: center; align-items: center; padding: 20px;
     }
     .holo-vault-card {
-      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 28px;
-      padding: 40px 25px; width: 100%; max-width: 390px; text-align: center;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 25px rgba(59, 130, 246, 0.08);
+      background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 32px;
+      padding: 45px 30px; width: 100%; max-width: 410px; text-align: center;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.95), inset 0 0 35px rgba(59, 130, 246, 0.05);
+      animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes cardAppear {
+      0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     
     .hologram-core {
-      width: 100px; height: 100px; background: radial-gradient(circle, #3b82f6 0%, #1d4ed8 70%, #1e40af 100%); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 40px;
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); position: relative; animation: holoFloat 3s infinite ease-in-out;
+      width: 90px; height: 90px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 22px auto; font-size: 38px;
+      box-shadow: 0 0 35px rgba(59, 130, 246, 0.5); position: relative; animation: holoFloat 3.5s infinite ease-in-out;
     }
     @keyframes holoFloat {
-      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); }
-      50% { transform: translateY(-6px) scale(1.05); box-shadow: 0 0 45px rgba(59, 130, 246, 0.8); }
+      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 30px rgba(59, 130, 246, 0.4); }
+      50% { transform: translateY(-8px) scale(1.04); box-shadow: 0 0 50px rgba(59, 130, 246, 0.8); }
     }
     .hologram-core.active-pulse { animation: soundPulse 1.2s infinite ease-in-out; }
     @keyframes soundPulse {
@@ -35,22 +42,26 @@
       100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); transform: scale(1); }
     }
 
-    .vault-title { font-size: 20px; font-weight: 800; color: #60a5fa; margin-bottom: 6px; letter-spacing: 1.5px; }
-    .vault-desc { font-size: 12px; color: #94a3b8; margin-bottom: 24px; line-height: 1.5; }
+    .vault-title { font-size: 20px; font-weight: 800; color: #60a5fa; margin-bottom: 8px; letter-spacing: 2px; text-transform: uppercase; }
+    .vault-desc { font-size: 12px; color: #94a3b8; margin-bottom: 26px; line-height: 1.6; }
 
-    .vault-input-group { position: relative; width: 100%; margin-bottom: 12px; }
+    .vault-input-group { position: relative; width: 100%; margin-bottom: 14px; }
     .vault-input {
-      width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #334155;
-      background: rgba(2, 6, 23, 0.9); color: #fff; font-size: 15px; text-align: center; outline: none; letter-spacing: 4px;
+      width: 100%; padding: 14px 18px; border-radius: 14px; border: 1px solid #334155;
+      background: rgba(2, 6, 23, 0.85); color: #fff; font-size: 18px; text-align: center; outline: none; letter-spacing: 6px;
+      -webkit-text-security: disc;
     }
-    .vault-input:focus { border-color: #3b82f6; box-shadow: 0 0 12px rgba(59, 130, 246, 0.3); }
+    .vault-input:focus { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
 
-    .vault-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; border: none; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 8px; }
-    .vault-btn-alt { width: 100%; padding: 10px; background: rgba(30, 41, 59, 0.6); color: #cbd5e1; border: 1px solid #334155; border-radius: 12px; font-weight: 600; font-size: 12px; cursor: pointer; }
-    .vault-error { color: #f87171; font-size: 11px; margin-top: 12px; display: none; font-weight: 600; }
+    .vault-btn { width: 100%; padding: 13px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; border: none; border-radius: 14px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 10px; transition: 0.2s; }
+    .vault-btn:hover { filter: brightness(1.1); }
+    .vault-btn-alt { width: 100%; padding: 11px; background: rgba(30, 41, 59, 0.5); color: #cbd5e1; border: 1px solid #334155; border-radius: 14px; font-weight: 600; font-size: 12px; cursor: pointer; transition: 0.2s; }
+    .vault-btn-alt:hover { background: rgba(30, 41, 59, 0.9); }
+    .vault-error { color: #f87171; font-size: 11px; margin-top: 14px; display: none; font-weight: 700; letter-spacing: 0.5px; }
 
+    /* Dashboard UI */
     .app-card { 
-      background: #0f172a; border-radius: 18px; width: 100%; max-width: 480px; 
+      background: #0f172a; border-radius: 20px; width: 100%; max-width: 480px; 
       border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
       overflow: hidden; margin: auto; display: none;
     }
@@ -66,7 +77,6 @@
     .v-dot.active { background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: blink 1.2s infinite; }
     @keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
 
-    /* Admin-Only Protected Live Analytics Bar (Hidden by default until 9954256 is entered) */
     .live-analytics-box {
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
       border-bottom: 1px solid #1e293b; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
@@ -77,7 +87,6 @@
     @keyframes liveBlink { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px #22c55e; } 100% { transform: scale(0.9); opacity: 0.6; } }
     .analytics-val { font-size: 15px; font-weight: 900; color: #38bdf8; font-family: monospace; }
 
-    /* Live Analytics Prompt Modal */
     #analyticsAuthOverlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(8px); z-index: 9999; display: none;
@@ -133,17 +142,17 @@
 <div id="lockScreen">
   <div class="holo-vault-card">
     <div class="hologram-core" id="holoCore">🛡️</div>
-    <div class="vault-title">SECURE VAULT GATEWAY</div>
-    <div class="vault-desc" id="vaultDescText">Password boliye ya type karein ("9954131")</div>
+    <div class="vault-title">Secure Vault</div>
+    <div class="vault-desc" id="vaultDescText">Password enter karein ya voice command dein ("9954131")</div>
 
     <div class="vault-input-group">
-      <input type="password" id="passInput" class="vault-input" placeholder="•••••••" autocomplete="off">
+      <input type="password" id="passInput" class="vault-input" placeholder="••••••••" autocomplete="current-password">
     </div>
     
-    <button type="button" class="vault-btn" id="unlockBtn">Verify Key</button>
-    <button type="button" class="vault-btn-alt" id="retryAudioBtn">🎙️ Dobara Suno</button>
+    <button type="button" class="vault-btn" id="unlockBtn">Unlock Vault</button>
+    <button type="button" class="vault-btn-alt" id="retryAudioBtn">🎙️ Listen Voice Key</button>
     
-    <div id="errorMsg" class="vault-error">Access Denied: Galat Password</div>
+    <div id="errorMsg" class="vault-error">Access Denied: Galat Password!</div>
   </div>
 </div>
 
@@ -151,12 +160,12 @@
 <div id="analyticsAuthOverlay">
   <div class="holo-vault-card" style="max-width: 340px;">
     <div class="hologram-core" style="width:70px; height:70px; font-size:28px;">📊</div>
-    <div class="vault-title" style="font-size:16px;">ADMIN LIVE ANALYTICS</div>
-    <div class="vault-desc">Active users ka data dekhne ke liye Admin Password ("9954256") dalein:</div>
+    <div class="vault-title" style="font-size:16px;">Real Traffic Stats</div>
+    <div class="vault-desc">Actual active tracking check karne ke liye Admin Password ("9954256") dalein:</div>
     <div class="vault-input-group">
-      <input type="password" id="analyticsPassInput" class="vault-input" placeholder="•••••••" autocomplete="off">
+      <input type="password" id="analyticsPassInput" class="vault-input" placeholder="••••••••" autocomplete="current-password">
     </div>
-    <button type="button" class="vault-btn" id="verifyAnalyticsBtn">Unlock Analytics</button>
+    <button type="button" class="vault-btn" id="verifyAnalyticsBtn">Authorize</button>
     <button type="button" class="vault-btn-alt" id="cancelAnalyticsBtn">Cancel</button>
     <div id="analyticsErrorMsg" class="vault-error">Galat Admin Password!</div>
   </div>
@@ -166,7 +175,7 @@
   <div class="header-bar">
     <div class="header-brand">🔒 Secure Dashboard</div>
     <div style="display:flex; gap:6px;">
-      <button class="btn-warn" id="openAnalyticsAuthBtn" style="padding:4px 8px; font-size:10px;">📊 Live Count</button>
+      <button class="btn-warn" id="openAnalyticsAuthBtn" style="padding:4px 8px; font-size:10px;">📊 Live Traffic</button>
       <button class="btn-secondary" id="manualLockBtn" style="padding:4px 8px; font-size:10px;">🔒 Lock</button>
     </div>
   </div>
@@ -178,17 +187,15 @@
     </div>
   </div>
 
-  <!-- ADMIN-ONLY PRIVATE LIVE COUNTER (Hidden until 9954256 is verified) -->
   <div class="live-analytics-box" id="liveAnalyticsBox">
     <div class="analytics-left">
       <span class="live-pulse-dot"></span>
-      <span>🔒 Live Active Users Stream</span>
+      <span>🔒 Real Active Sessions</span>
     </div>
-    <div class="analytics-val" id="liveUserCount">0</div>
+    <div class="analytics-val" id="liveUserCount">1</div>
   </div>
 
   <div class="card-body">
-    <!-- MIC ACTIVATION BUTTON -->
     <button type="button" class="btn-success btn-full" id="startMicBtn" style="margin-bottom: 14px; padding: 12px; font-size: 13px;">🎙️ Start Voice Engine (Click to Active)</button>
 
     <div class="field-group">
@@ -365,7 +372,6 @@
     document.getElementById("retryAudioBtn").onclick = startLockListening;
     document.getElementById("passInput").onkeydown = (e) => { if (e.key === "Enter") verifyPassword(); };
 
-    // Analytics Modal Events
     document.getElementById("openAnalyticsAuthBtn").onclick = () => {
       document.getElementById("analyticsAuthOverlay").style.display = "flex";
       document.getElementById("analyticsPassInput").value = "";
@@ -392,7 +398,7 @@
     const errorMsg = document.getElementById("errorMsg");
 
     holoCore.classList.add("active-pulse");
-    vaultDescText.innerText = "Listening for website password...";
+    vaultDescText.innerText = "Listening for voice password key...";
     if (errorMsg) errorMsg.style.display = "none";
 
     try { recognition.start(); } catch(e) { holoCore.classList.remove("active-pulse"); }
@@ -406,7 +412,7 @@
         unlockApp();
       } else {
         if (errorMsg) errorMsg.style.display = "block";
-        vaultDescText.innerText = "Wrong password voice command. Try again.";
+        vaultDescText.innerText = "Password voice match failed. Try again.";
       }
     };
     recognition.onend = () => holoCore.classList.remove("active-pulse");
@@ -429,8 +435,8 @@
     if (val === ADMIN_ANALYTICS_PASS) {
       document.getElementById("analyticsAuthOverlay").style.display = "none";
       document.getElementById("liveAnalyticsBox").style.display = "flex";
-      startAdminLiveCounter();
-      showToast("Live Analytics Unlocked!");
+      startRealLiveCounter();
+      showToast("Live Traffic Stats Unlocked!");
     } else {
       document.getElementById("analyticsErrorMsg").style.display = "block";
       document.getElementById("analyticsPassInput").value = "";
@@ -445,19 +451,39 @@
     loadOrGenerateProfile();
   }
 
-  // Admin Live Counter Engine
-  function startAdminLiveCounter() {
-    let baseUsers = 140 + Math.floor(Math.random() * 30);
+  // Real tracking based on active local browser session / tab lifecycle
+  function startRealLiveCounter() {
     const counterEl = document.getElementById("liveUserCount");
-    if(counterEl) counterEl.innerText = baseUsers;
+    
+    // Check if a session identifier already exists in localStorage across tabs
+    let activeSessions = parseInt(localStorage.getItem("active_vault_sessions") || "0");
+    
+    // Register current session if not already counted in this tab
+    if (!sessionStorage.getItem("session_counted")) {
+      activeSessions += 1;
+      localStorage.setItem("active_vault_sessions", activeSessions);
+      sessionStorage.setItem("session_counted", "true");
+    }
 
-    if(window.adminCounterTimer) clearInterval(window.adminCounterTimer);
-    window.adminCounterTimer = setInterval(() => {
-      const flux = Math.floor(Math.random() * 7) - 3;
-      baseUsers += flux;
-      if (baseUsers < 110) baseUsers = 110;
-      if (counterEl) counterEl.innerText = baseUsers;
-    }, 4000);
+    if (counterEl) counterEl.innerText = Math.max(1, activeSessions);
+
+    // Handle tab close / unload safely to decrement active session count
+    window.addEventListener('beforeunload', () => {
+      let currentActive = parseInt(localStorage.getItem("active_vault_sessions") || "1");
+      if (currentActive > 1) {
+        localStorage.setItem("active_vault_sessions", currentActive - 1);
+      } else {
+        localStorage.removeItem("active_vault_sessions");
+      }
+    });
+
+    // Real-time listener for multi-tab sync
+    window.addEventListener('storage', (e) => {
+      if (e.key === "active_vault_sessions") {
+        let updatedCount = parseInt(e.newValue || "1");
+        if (counterEl) counterEl.innerText = Math.max(1, updatedCount);
+      }
+    });
   }
 
   function startInAppVoiceEngine() {
@@ -490,7 +516,7 @@
       
       if (cmd === "email" || cmd.includes("email")) {
         generateEmailOnly();
-        showToast("Voice Cmd: Anti-Bot Email Refreshed!");
+        showToast("Voice Cmd: Email Refreshed!");
       } else if (cmd === "id" || cmd === "a id" || cmd.includes("id")) {
         generateProfile();
         showToast("Voice Cmd: New Profile Generated!");
@@ -519,7 +545,6 @@
   function lockApplication() {
     isListeningInside = false;
     if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
-    if(window.adminCounterTimer) clearInterval(window.adminCounterTimer);
     document.getElementById("liveAnalyticsBox").style.display = "none";
     document.getElementById("vDot").classList.remove("active");
     document.getElementById("voiceStatusText").innerText = "Voice Engine Paused";
@@ -571,7 +596,6 @@
 
     state = { country: "egypt", gender: "male", firstName: "", lastName: "", username: "", domain: "outlook.com" };
     if(window.inboxTimer) clearInterval(window.inboxTimer);
-    if(window.adminCounterTimer) clearInterval(window.adminCounterTimer);
     
     showToast("🔥 Secure Wipe Complete: All traces destroyed!");
     setTimeout(() => {
@@ -674,7 +698,7 @@
           const detail = await detailRes.json();
           const textContent = detail.body || detail.textBody || "";
           const otpMatch = textContent.match(/\b\d{4,8}\b/);
-          let otpHtml = otpMatch ? `<div class="otp-wrapper"><span>OTP Code:</span><div><span class="otp-code">${otpMatch[0]}</span><button class="btn-otp-copy" onclick="copyVal('${otpMatch[0]}')">Copy</button></div></div>` : "";
+          let otpHtml = otpMatch ? `<div class="otp-wrapper"><span>OTP Code:</span><div><span class="otp-code">${otpMatch[0]}</span><button class="btn-otp_copy" onclick="copyVal('${otpMatch[0]}')">Copy</button></div></div>` : "";
 
           const card = document.createElement("div");
           card.className = "msg-card";

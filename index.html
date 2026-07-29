@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AudioCore Vault - Voice Command Engine</title>
+  <title>AudioCore Vault - Sweet AI Voice Assistant</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -56,7 +56,7 @@
     .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
     .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
     
-    /* Voice Assistant Active Indicator Bar */
+    /* AI Assistant Status Bar */
     .voice-status-bar {
       background: rgba(2, 6, 23, 0.9); border-bottom: 1px solid #1e293b; padding: 10px 16px;
       display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #94a3b8;
@@ -132,16 +132,16 @@
 <!-- Main Application Card -->
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Mail Engine Pro</div>
+    <div class="header-brand">🤖 Sweet AI Vault</div>
     <button class="btn-secondary" id="manualLockBtn" style="padding:4px 10px; font-size:11px;">🔒 Lock Now</button>
   </div>
 
   <div class="voice-status-bar">
     <div class="voice-indicator">
       <span class="v-dot" id="vDot"></span>
-      <span id="voiceStatusText">Voice Engine Ready (Say: Change, Email Change, Clear, Lock)</span>
+      <span id="voiceStatusText">AI Ready (Speak: Change, Email Change, Clear, Lock)</span>
     </div>
-    <button id="toggleVoiceBtn" class="btn-secondary" style="padding:2px 8px; font-size:10px;">🎙️ Start Mic</button>
+    <button id="toggleVoiceBtn" class="btn-secondary" style="padding:2px 8px; font-size:10px;">🎙️ Mic On</button>
   </div>
 
   <div class="card-body">
@@ -273,10 +273,35 @@
   let inAppRecognition = null;
   let isListeningInside = false;
 
+  // --- SWEET AI VOICE TALKING FUNCTION ---
+  function speakAI(text) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel(); // Purani aawaj roko
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.0; // Normal speed
+    utterance.pitch = 1.2; // Thodi mithi aur pyaari tone ke liye pitch high rakhi hai
+    utterance.volume = 1.0;
+
+    // Sabse acchi sweet female/natural voice dhundho
+    const voices = window.speechSynthesis.getVoices();
+    const sweetVoice = voices.find(v => v.name.includes("Google") || v.name.includes("Natural") || v.name.includes("Female") || v.lang.includes("en"));
+    if (sweetVoice) {
+      utterance.voice = sweetVoice;
+    }
+
+    window.speechSynthesis.speak(utterance);
+  }
+
   window.onload = function() {
     const unlockBtn = document.getElementById("unlockBtn");
     const retryAudioBtn = document.getElementById("retryAudioBtn");
     const passInput = document.getElementById("passInput");
+
+    // Load voices in background
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {};
+    }
 
     if (sessionStorage.getItem("isUnlocked") === "true") {
       unlockApp();
@@ -324,10 +349,12 @@
       
       if (cleanedInput.includes(CORRECT_PASS) || speechResult.toLowerCase().includes("9954131")) {
         sessionStorage.setItem("isUnlocked", "true");
+        speakAI("Access granted. Welcome back!");
         unlockApp();
       } else {
         if (errorMsg) errorMsg.style.display = "block";
         vaultDescText.innerText = "Audio mismatch. Tap re-listen or enter key manually.";
+        speakAI("Password galat hai. Dobara koshish karein.");
       }
     };
 
@@ -348,11 +375,13 @@
 
     if (val === CORRECT_PASS) {
       sessionStorage.setItem("isUnlocked", "true");
+      speakAI("Access granted. Welcome back!");
       unlockApp();
     } else {
       if (errorMsg) errorMsg.style.display = "block";
       passInput.value = "";
       passInput.focus();
+      speakAI("Galat password hai!");
     }
   }
 
@@ -366,7 +395,7 @@
     startInAppVoiceEngine();
   }
 
-  // --- INTERNAL VOICE COMMAND SYSTEM ---
+  // --- INTERNAL AI VOICE COMMAND ENGINE ---
   function startInAppVoiceEngine() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return;
@@ -383,7 +412,7 @@
     const toggleBtn = document.getElementById("toggleVoiceBtn");
 
     vDot.classList.add("active");
-    voiceStatusText.innerText = "Voice Control Active (Say: Change, Email Change, Clear, Lock)";
+    voiceStatusText.innerText = "AI Voice Assistant Online (Say: Change, Email Change, Clear, Lock)";
     toggleBtn.innerText = "🎙️ Mic On";
     isListeningInside = true;
 
@@ -393,12 +422,13 @@
       const lastIndex = event.results.length - 1;
       const command = event.results[lastIndex][0].transcript.toLowerCase().trim();
       
-      console.log("Voice Command Heard:", command);
+      console.log("AI Heard Command:", command);
 
       // 1. "change" -> Naye Name aur naye Email dono generate karega
       if (command.includes("change") && !command.includes("email")) {
         generateProfile();
-        showToast("Voice: Full Profile Changed!");
+        speakAI("Ji, naya naam aur email dono generate kar diye hain.");
+        showToast("AI: Full Profile Changed!");
       }
       // 2. "email change" -> Sirf naya email generate karega
       else if (command.includes("email change") || (command.includes("email") && command.includes("change"))) {
@@ -407,23 +437,27 @@
         saveState();
         updateDisplay();
         startInbox();
-        showToast("Voice: Email Changed!");
+        speakAI("Aapka naya email taiyar hai.");
+        showToast("AI: Email Changed!");
       }
       // 3. "clear" -> Andar bahar ka hidden/saved data completely clear
       else if (command.includes("clear")) {
         localStorage.removeItem("savedMailState");
         generateProfile();
-        showToast("Voice: All Data Cleared!");
+        speakAI("Sabhi data aur history clear kar di gayi hai.");
+        showToast("AI: All Data Cleared!");
       }
       // 4. "lock" -> Turant lock screen par wapas
       else if (command.includes("lock")) {
-        lockApplication();
-        showToast("Voice: Vault Locked!");
+        speakAI("Vault lock ho raha hai. Surakshit rahiye!");
+        setTimeout(() => {
+          lockApplication();
+        }, 1200);
+        showToast("AI: Vault Locked!");
       }
     };
 
     inAppRecognition.onerror = function() {
-      // Auto restart mic if it drops
       if (isListeningInside) {
         setTimeout(() => { try { inAppRecognition.start(); } catch(e) {} }, 1000);
       }
@@ -519,12 +553,14 @@
           isListeningInside = false;
           try { inAppRecognition.stop(); } catch(e) {}
           vDot.classList.remove("active");
-          voiceStatusText.innerText = "Voice Control Paused";
+          voiceStatusText.innerText = "AI Voice Paused";
           this.innerText = "🎙️ Start Mic";
+          speakAI("Voice assistant pause kar diya gaya hai.");
         } else {
           isListeningInside = true;
           startInAppVoiceEngine();
           this.innerText = "🎙️ Mic On";
+          speakAI("Voice assistant active ho gaya hai.");
         }
       };
     }
@@ -539,6 +575,7 @@
       get("wipeBtn").onclick = function() {
         localStorage.removeItem("savedMailState");
         generateProfile();
+        speakAI("Saara data clear kar diya hai.");
         showToast("History Cleared & Reset!");
       };
     }

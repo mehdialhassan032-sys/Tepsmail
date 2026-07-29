@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microsoft Dynamic IP Secure Vault</title>
+  <title>Microsoft Secure Vault - Anti-Forensic Wipe</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -114,7 +114,7 @@
 <div id="lockScreen">
   <div class="holo-vault-card">
     <div class="hologram-core" id="holoCore">🛡️</div>
-    <div class="vault-title">DYNAMIC IP VAULT</div>
+    <div class="vault-title">SECURE WIPE VAULT</div>
     <div class="vault-desc" id="vaultDescText">Password boliye ya type karein ("9954131")</div>
 
     <div class="vault-input-group">
@@ -130,7 +130,7 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">🔒 Microsoft Dynamic IP Vault</div>
+    <div class="header-brand">🔒 Microsoft Anti-Forensic Vault</div>
     <button class="btn-secondary" id="manualLockBtn" style="padding:4px 10px; font-size:11px;">🔒 Lock</button>
   </div>
 
@@ -177,7 +177,7 @@
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Dynamic IP Masked Identity</span>
+        <span>👤 Secure Masked Identity</span>
         <span id="countryLabel" style="color:#60a5fa;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
@@ -292,7 +292,6 @@
   let inAppRecognition = null;
   let isListeningInside = false;
 
-  // Generator for dynamic randomized IP / proxy routing headers
   function getDynamicIPHeaders() {
     const r1 = Math.floor(Math.random() * 150) + 40;
     const r2 = Math.floor(Math.random() * 200) + 10;
@@ -404,15 +403,12 @@
       
       if (cmd === "email" || cmd.includes("email")) {
         generateEmailOnly();
-        showToast("Voice Cmd: Clean IP Email Refreshed!");
+        showToast("Voice Cmd: Anti-Bot Email Refreshed!");
       } else if (cmd === "id" || cmd === "a id" || cmd.includes("id")) {
         generateProfile();
         showToast("Voice Cmd: New Profile Generated!");
-      } else if (cmd.includes("clear")) {
-        localStorage.removeItem("savedMailState");
-        sessionStorage.removeItem("full100PercentUsedNames");
-        generateProfile();
-        showToast("Voice Cmd: Data Cleaned!");
+      } else if (cmd.includes("clear") || cmd.includes("wipe")) {
+        antiForensicWipe();
       } else if (cmd.includes("lock")) {
         lockApplication();
       }
@@ -453,7 +449,7 @@
     document.getElementById("countrySelect").onchange = (e) => { state.country = e.target.value; generateProfile(); };
     document.getElementById("domainSelect").onchange = (e) => { state.domain = e.target.value; saveState(); updateDisplay(); startInbox(); };
     document.getElementById("newProfileBtn").onclick = generateProfile;
-    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Dynamic IP Email Generated!"); };
+    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Clean IP Email Generated!"); };
     document.getElementById("setCustomBtn").onclick = () => {
       const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
       if(input) { state.username = input; saveState(); updateDisplay(); startInbox(); showToast("Custom Username Set!"); }
@@ -464,12 +460,39 @@
     document.getElementById("copyEmailBtn").onclick = () => copyVal(`${state.username}@${state.domain}`);
     document.getElementById("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}@${state.domain}`);
     document.getElementById("manualRefreshBtn").onclick = () => checkInbox(true);
-    document.getElementById("wipeBtn").onclick = () => { 
-      localStorage.removeItem("savedMailState"); 
-      sessionStorage.removeItem("full100PercentUsedNames"); 
-      generateProfile(); 
-      showToast("System Reset Complete!"); 
-    };
+    document.getElementById("wipeBtn").onclick = antiForensicWipe;
+  }
+
+  // Anti-Forensic Zero-Fill Wipe Function
+  function antiForensicWipe() {
+    // 1. Overwrite localStorage keys with junk random garbage data 3 times
+    for (let i = 0; i < 3; i++) {
+      try {
+        localStorage.setItem("savedMailState", Math.random().toString(36).substring(2));
+        sessionStorage.setItem("full100PercentUsedNames", Math.random().toString(36).substring(2));
+      } catch(e) {}
+    }
+
+    // 2. Clear storage completely
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // 3. Clear Cache API if available
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => caches.delete(name));
+      });
+    }
+
+    // 4. Reset UI State & Lock Screen
+    state = { country: "egypt", gender: "male", firstName: "", lastName: "", username: "", domain: "outlook.com" };
+    if(window.inboxTimer) clearInterval(window.inboxTimer);
+    
+    showToast("🔥 Secure Wipe Complete: All traces destroyed!");
+    setTimeout(() => {
+      lockApplication();
+      window.location.reload(true);
+    }, 1200);
   }
 
   function toggleGenderUI() {

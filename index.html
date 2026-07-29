@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Temp Mail Engine Pro - Secured</title>
+  <title>Temp Mail Engine Pro - Voice Secured</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #090d16; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -21,12 +21,15 @@
     }
     .lock-title { font-size: 18px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; }
     .lock-desc { font-size: 12px; color: #64748b; margin-bottom: 20px; }
-    .password-wrapper { position: relative; width: 100%; margin-bottom: 15px; display: flex; align-items: center; }
+    .password-wrapper { position: relative; width: 100%; margin-bottom: 12px; display: flex; align-items: center; }
     .lock-input {
       width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155;
       background: #020617; color: #fff; font-size: 14px; text-align: center; outline: none; letter-spacing: 2px;
     }
-    .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
+    .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; margin-bottom: 8px; }
+    .voice-btn { width: 100%; padding: 12px; background: #7c3aed; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s; }
+    .voice-btn.listening { background: #dc2626; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
     .error-msg { color: #ef4444; font-size: 12px; margin-top: 10px; display: none; }
 
     /* Main App Styles - Default hidden */
@@ -89,12 +92,15 @@
 <div id="lockScreen">
   <div class="lock-card">
     <div class="lock-title">🔒 Private Access</div>
-    <div class="lock-desc">Enter password to unlock Mail Engine</div>
+    <div class="lock-desc" id="lockDescText">Enter password or use Voice Command</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
     </div>
-    <button type="button" class="lock-btn" id="unlockBtn">Unlock Engine</button>
-    <div id="errorMsg" class="error-msg">Incorrect Password! Try again.</div>
+    <button type="button" class="lock-btn" id="unlockBtn">Unlock with Password</button>
+    <button type="button" class="voice-btn" id="voiceUnlockBtn">
+      <span>🎤 Speak Password (9954131)</span>
+    </button>
+    <div id="errorMsg" class="error-msg">Incorrect Password / Voice not matched!</div>
   </div>
 </div>
 
@@ -178,7 +184,7 @@
     <div class="actions">
       <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Refresh Email Only</button>
       <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile & Email</button>
-      <button class="btn-success" id="copyEmailBtn">Copy Email</button>
+      <button class="btn-success" id="copyEmailDir" id="copyEmailBtn">Copy Email</button>
       <button class="btn-primary" id="copyAllBtn">📋 Copy All Info</button>
     </div>
 
@@ -235,15 +241,20 @@
 
   window.onload = function() {
     const unlockBtn = document.getElementById("unlockBtn");
+    const voiceUnlockBtn = document.getElementById("voiceUnlockBtn");
     const passInput = document.getElementById("passInput");
 
-    // Use sessionStorage so password is required only if the app/tab is completely closed and reopened
+    // Session storage check so it only locks when app is completely closed
     if (sessionStorage.getItem("isUnlocked") === "true") {
       unlockApp();
     }
 
     if (unlockBtn) {
       unlockBtn.onclick = verifyPassword;
+    }
+
+    if (voiceUnlockBtn) {
+      voiceUnlockBtn.onclick = startVoiceRecognition;
     }
 
     if (passInput) {
@@ -272,6 +283,62 @@
       passInput.value = "";
       passInput.focus();
     }
+  }
+
+  function startVoiceRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Speech recognition is not supported in this browser. Please use Chrome.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    const voiceBtn = document.getElementById("voiceUnlockBtn");
+    const lockDescText = document.getElementById("lockDescText");
+    const errorMsg = document.getElementById("errorMsg");
+
+    voiceBtn.classList.add("listening");
+    voiceBtn.innerText = "Listening... Speak now!";
+    if (errorMsg) errorMsg.style.display = "none";
+
+    recognition.start();
+
+    recognition.onresult = function(event) {
+      const speechResult = event.results[0][0].transcript.replace(/\s+/g, '').trim();
+      voiceBtn.classList.remove("listening");
+      voiceBtn.innerHTML = "<span>🎤 Speak Password (9954131)</span>";
+
+      // Clean up numbers or text matching
+      const cleanedInput = speechResult.replace(/[^0-9]/g, '');
+      
+      if (cleanedInput.includes(CORRECT_PASS) || speechResult.toLowerCase().includes("9954131")) {
+        sessionStorage.setItem("isUnlocked", "true");
+        unlockApp();
+      } else {
+        if (errorMsg) {
+          errorMsg.innerText = `Recognized: "${speechResult}" - Incorrect!`;
+          errorMsg.style.display = "block";
+        }
+      }
+    };
+
+    recognition.onerror = function(event) {
+      voiceBtn.classList.remove("listening");
+      voiceBtn.innerHTML = "<span>🎤 Speak Password (9954131)</span>";
+      if (errorMsg) {
+        errorMsg.innerText = "Voice error or permission denied. Try text password.";
+        errorMsg.style.display = "block";
+      }
+    };
+
+    recognition.onend = function() {
+      voiceBtn.classList.remove("listening");
+      voiceBtn.innerHTML = "<span>🎤 Speak Password (9954131)</span>";
+    };
   }
 
   function unlockApp() {
@@ -350,7 +417,10 @@
 
     if(get("copyFirstBtn")) get("copyFirstBtn").onclick = () => copyVal(state.firstName);
     if(get("copyLastBtn")) get("copyLastBtn").onclick = () => copyVal(state.lastName);
-    if(get("copyEmailBtn")) get("copyEmailBtn").onclick = () => copyVal(`${state.username}@${state.domain}`);
+    
+    const copyEmailBtn = get("copyEmailBtn") || get("copyEmailDir");
+    if(copyEmailBtn) copyEmailBtn.onclick = () => copyVal(`${state.username}@${state.domain}`);
+    
     if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}@${state.domain}`);
     if(get("manualRefreshBtn")) get("manualRefreshBtn").onclick = () => checkInbox(true);
     

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microsoft Secure Vault - Anti-Forensic Wipe</title>
+  <title>Microsoft Secure Vault - Live User Analytics</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -66,6 +66,16 @@
     .v-dot.active { background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: blink 1.2s infinite; }
     @keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
 
+    /* Live Analytics Bar Styling */
+    .live-analytics-box {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
+      border-bottom: 1px solid #1e293b; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .analytics-left { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: #94a3b8; }
+    .live-pulse-dot { width: 10px; height: 10px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 10px #3b82f6; animation: liveBlink 1.5s infinite; }
+    @keyframes liveBlink { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px #3b82f6; } 100% { transform: scale(0.9); opacity: 0.6; } }
+    .analytics-val { font-size: 16px; font-weight: 900; color: #60a5fa; font-family: monospace; }
+
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
     .field-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
@@ -114,7 +124,7 @@
 <div id="lockScreen">
   <div class="holo-vault-card">
     <div class="hologram-core" id="holoCore">🛡️</div>
-    <div class="vault-title">SECURE WIPE VAULT</div>
+    <div class="vault-title">LIVE ANALYTICS VAULT</div>
     <div class="vault-desc" id="vaultDescText">Password boliye ya type karein ("9954131")</div>
 
     <div class="vault-input-group">
@@ -130,7 +140,7 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">🔒 Microsoft Anti-Forensic Vault</div>
+    <div class="header-brand">🔒 Microsoft Live Vault</div>
     <button class="btn-secondary" id="manualLockBtn" style="padding:4px 10px; font-size:11px;">🔒 Lock</button>
   </div>
 
@@ -139,6 +149,15 @@
       <span class="v-dot" id="vDot"></span>
       <span id="voiceStatusText">Voice Engine Paused (Click Start Below)</span>
     </div>
+  </div>
+
+  <!-- LIVE USER ANALYTICS COUNTER BAR -->
+  <div class="live-analytics-box">
+    <div class="analytics-left">
+      <span class="live-pulse-dot"></span>
+      <span>Live Active Temp Mail Users</span>
+    </div>
+    <div class="analytics-val" id="liveUserCount">142</div>
   </div>
 
   <div class="card-body">
@@ -371,6 +390,21 @@
     document.getElementById("mainApp").style.display = "block";
     setupEvents();
     loadOrGenerateProfile();
+    startLiveUserCounter();
+  }
+
+  // Real-time user counter simulation engine
+  function startLiveUserCounter() {
+    let baseUsers = 125 + Math.floor(Math.random() * 50);
+    const counterEl = document.getElementById("liveUserCount");
+    if(counterEl) counterEl.innerText = baseUsers;
+
+    setInterval(() => {
+      const flux = Math.floor(Math.random() * 7) - 3; // fluctuating between -3 and +3
+      baseUsers += flux;
+      if (baseUsers < 95) baseUsers = 95;
+      if (counterEl) counterEl.innerText = baseUsers;
+    }, 4000);
   }
 
   function startInAppVoiceEngine() {
@@ -463,9 +497,7 @@
     document.getElementById("wipeBtn").onclick = antiForensicWipe;
   }
 
-  // Anti-Forensic Zero-Fill Wipe Function
   function antiForensicWipe() {
-    // 1. Overwrite localStorage keys with junk random garbage data 3 times
     for (let i = 0; i < 3; i++) {
       try {
         localStorage.setItem("savedMailState", Math.random().toString(36).substring(2));
@@ -473,18 +505,15 @@
       } catch(e) {}
     }
 
-    // 2. Clear storage completely
     localStorage.clear();
     sessionStorage.clear();
 
-    // 3. Clear Cache API if available
     if ('caches' in window) {
       caches.keys().then(names => {
         names.forEach(name => caches.delete(name));
       });
     }
 
-    // 4. Reset UI State & Lock Screen
     state = { country: "egypt", gender: "male", firstName: "", lastName: "", username: "", domain: "outlook.com" };
     if(window.inboxTimer) clearInterval(window.inboxTimer);
     

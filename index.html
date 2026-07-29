@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secure Outlook Vault & Unique Generator</title>
+  <title>FB-Proof Secure Vault & 100% Unique Generator</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -14,28 +14,28 @@
       justify-content: center; align-items: center; padding: 20px;
     }
     .holo-vault-card {
-      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 28px;
+      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 28px;
       padding: 40px 25px; width: 100%; max-width: 390px; text-align: center;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 25px rgba(14, 165, 233, 0.08);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 25px rgba(16, 185, 129, 0.08);
     }
     
     .hologram-core {
-      width: 100px; height: 100px; background: radial-gradient(circle, #0ea5e9 0%, #6366f1 70%, #a855f7 100%); border-radius: 50%;
+      width: 100px; height: 100px; background: radial-gradient(circle, #10b981 0%, #0ea5e9 70%, #6366f1 100%); border-radius: 50%;
       display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 40px;
-      box-shadow: 0 0 30px rgba(14, 165, 233, 0.6); position: relative; animation: holoFloat 3s infinite ease-in-out;
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.6); position: relative; animation: holoFloat 3s infinite ease-in-out;
     }
     @keyframes holoFloat {
-      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 25px rgba(14, 165, 233, 0.5); }
-      50% { transform: translateY(-6px) scale(1.05); box-shadow: 0 0 45px rgba(14, 165, 233, 0.8); }
+      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 25px rgba(16, 185, 129, 0.5); }
+      50% { transform: translateY(-6px) scale(1.05); box-shadow: 0 0 45px rgba(16, 185, 129, 0.8); }
     }
     .hologram-core.active-pulse { animation: soundPulse 1.2s infinite ease-in-out; }
     @keyframes soundPulse {
-      0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.8); transform: scale(1); }
-      50% { box-shadow: 0 0 0 25px rgba(14, 165, 233, 0); transform: scale(1.1); }
-      100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); transform: scale(1); }
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.8); transform: scale(1); }
+      50% { box-shadow: 0 0 0 25px rgba(16, 185, 129, 0); transform: scale(1.1); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); transform: scale(1); }
     }
 
-    .vault-title { font-size: 20px; font-weight: 800; color: #38bdf8; margin-bottom: 6px; letter-spacing: 1.5px; }
+    .vault-title { font-size: 20px; font-weight: 800; color: #34d399; margin-bottom: 6px; letter-spacing: 1.5px; }
     .vault-desc { font-size: 12px; color: #94a3b8; margin-bottom: 24px; line-height: 1.5; }
 
     .vault-input-group { position: relative; width: 100%; margin-bottom: 12px; }
@@ -43,9 +43,9 @@
       width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #334155;
       background: rgba(2, 6, 23, 0.9); color: #fff; font-size: 15px; text-align: center; outline: none; letter-spacing: 4px;
     }
-    .vault-input:focus { border-color: #0ea5e9; box-shadow: 0 0 12px rgba(14, 165, 233, 0.3); }
+    .vault-input:focus { border-color: #10b981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.3); }
 
-    .vault-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #0ea5e9, #6366f1); color: #fff; border: none; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 8px; }
+    .vault-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #10b981, #0ea5e9); color: #fff; border: none; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 8px; }
     .vault-btn-alt { width: 100%; padding: 10px; background: rgba(30, 41, 59, 0.6); color: #cbd5e1; border: 1px solid #334155; border-radius: 12px; font-weight: 600; font-size: 12px; cursor: pointer; }
     .vault-error { color: #f87171; font-size: 11px; margin-top: 12px; display: none; font-weight: 600; }
 
@@ -54,14 +54,14 @@
       border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
       overflow: hidden; margin: auto; display: none;
     }
-    .header-bar { background: linear-gradient(135deg, #0ea5e9, #6366f1); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
+    .header-bar { background: linear-gradient(135deg, #10b981, #0ea5e9); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
     .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
     
     .voice-status-bar {
       background: rgba(2, 6, 23, 0.95); border-bottom: 1px solid #1e293b; padding: 10px 16px;
       display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #94a3b8;
     }
-    .voice-indicator { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #38bdf8; }
+    .voice-indicator { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #34d399; }
     .v-dot { width: 8px; height: 8px; background: #64748b; border-radius: 50%; transition: 0.3s; }
     .v-dot.active { background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: blink 1.2s infinite; }
     @keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
@@ -73,32 +73,32 @@
 
     .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .gender-btn { background: #020617; color: #94a3b8; border: 1px solid #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-    .gender-btn.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+    .gender-btn.active { background: #10b981; color: #fff; border-color: #10b981; }
 
-    .email-banner { background: #020617; padding: 14px; border-radius: 10px; text-align: center; font-weight: 800; margin: 16px 0; border: 1px solid #0ea5e9; color: #38bdf8; font-size: 14px; word-break: break-all; }
+    .email-banner { background: #020617; padding: 14px; border-radius: 10px; text-align: center; font-weight: 800; margin: 16px 0; border: 1px solid #10b981; color: #34d399; font-size: 14px; word-break: break-all; }
     .email-text { font-family: monospace; letter-spacing: 0.5px; }
     
     .profile-card { background: #020617; border: 1px solid #1e293b; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 12px; }
-    .profile-title { font-weight: 800; color: #38bdf8; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
+    .profile-title { font-weight: 800; color: #34d399; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
     .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }
     .profile-val { color: #f8fafc; font-weight: 700; font-family: monospace; font-size: 13px; }
-    .btn-copy-sm { background: #1e293b; color: #38bdf8; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .btn-copy-sm { background: #1e293b; color: #34d399; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
 
     .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
     button { padding: 10px 12px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-    .btn-primary { background: #0ea5e9; color: white; }
+    .btn-primary { background: #10b981; color: white; }
     .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
     .btn-success { background: #16a34a; color: white; }
-    .btn-warn { background: #6366f1; color: white; }
+    .btn-warn { background: #0ea5e9; color: white; }
     .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; }
-    .btn-refresh { background: #6366f1; color: white; }
+    .btn-refresh { background: #0ea5e9; color: white; }
     .btn-full { grid-column: span 2; }
 
     .inbox-area { border-top: 1px solid #1e293b; padding-top: 16px; }
     .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .inbox-title { font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; }
     .msg-card { background: #020617; border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-    .msg-sender { color: #38bdf8; font-size: 12px; font-weight: 700; }
+    .msg-sender { color: #34d399; font-size: 12px; font-weight: 700; }
     .msg-subject { color: #f8fafc; font-size: 13px; font-weight: 700; margin: 4px 0 6px 0; }
     .msg-body { background: #0f172a; padding: 8px; border-radius: 6px; font-size: 12px; color: #94a3b8; white-space: pre-wrap; word-break: break-word; }
     
@@ -114,7 +114,7 @@
 <div id="lockScreen">
   <div class="holo-vault-card">
     <div class="hologram-core" id="holoCore">🛡️</div>
-    <div class="vault-title">SECURE OUTLOOK VAULT</div>
+    <div class="vault-title">FB-SAFE VAULT</div>
     <div class="vault-desc" id="vaultDescText">Password boliye ya type karein ("9954131")</div>
 
     <div class="vault-input-group">
@@ -130,7 +130,7 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">🔒 Secure Outlook Vault</div>
+    <div class="header-brand">🔒 FB-Safe Secure Vault</div>
     <button class="btn-secondary" id="manualLockBtn" style="padding:4px 10px; font-size:11px;">🔒 Lock</button>
   </div>
 
@@ -165,11 +165,11 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Secure Outlook Gateway</span>
+      <span class="field-label">FB-Compatible Domain Gateway</span>
       <select id="domainSelect">
-        <option value="outlook.com">outlook.com (Microsoft)</option>
-        <option value="hotmail.com">hotmail.com (Microsoft)</option>
-        <option value="esiia.com">esiia.com (Secure Relay)</option>
+        <option value="outlook.com">outlook.com (High Trust)</option>
+        <option value="hotmail.com">hotmail.com (High Trust)</option>
+        <option value="esiia.com">esiia.com (Secure Proxy)</option>
         <option value="1secmail.com">1secmail.com</option>
         <option value="1secmail.org">1secmail.org</option>
       </select>
@@ -177,8 +177,8 @@
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Real Identity & Outlook Protection</span>
-        <span id="countryLabel" style="color:#38bdf8;">[EGYPT - MALE]</span>
+        <span>👤 Facebook Safe Identity</span>
+        <span id="countryLabel" style="color:#34d399;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
         <span>First Name:</span>
@@ -376,9 +376,9 @@
     try {
       inAppRecognition.start();
       document.getElementById("vDot").classList.add("active");
-      document.getElementById("voiceStatusText").innerText = "Secure Voice Engine Active (Listening...)";
+      document.getElementById("voiceStatusText").innerText = "FB-Safe Voice Engine Active (Listening...)";
       document.getElementById("startMicBtn").style.display = "none";
-      showToast("Secure Mic Activated!");
+      showToast("Voice Engine Started!");
     } catch(e) {
       showToast("Mic start failed.");
     }
@@ -388,7 +388,7 @@
       
       if (cmd === "email" || cmd.includes("email")) {
         generateEmailOnly();
-        showToast("Voice Cmd: Outlook Email Secured & Refreshed!");
+        showToast("Voice Cmd: FB-Safe Email Refreshed!");
       } else if (cmd === "id" || cmd === "a id" || cmd.includes("id")) {
         generateProfile();
         showToast("Voice Cmd: 100% Unique ID Generated!");
@@ -437,10 +437,10 @@
     document.getElementById("countrySelect").onchange = (e) => { state.country = e.target.value; generateProfile(); };
     document.getElementById("domainSelect").onchange = (e) => { state.domain = e.target.value; saveState(); updateDisplay(); startInbox(); };
     document.getElementById("newProfileBtn").onclick = generateProfile;
-    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Outlook Email Secured!"); };
+    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("FB-Safe Email Generated!"); };
     document.getElementById("setCustomBtn").onclick = () => {
       const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
-      if(input) { state.username = input; saveState(); updateDisplay(); startInbox(); showToast("Custom Outlook Email Set!"); }
+      if(input) { state.username = input; saveState(); updateDisplay(); startInbox(); showToast("Custom Username Set!"); }
     };
     document.getElementById("manualLockBtn").onclick = lockApplication;
     document.getElementById("copyFirstBtn").onclick = () => copyVal(state.firstName);
@@ -528,9 +528,8 @@
 
   async function checkInbox(isManual = false) {
     if(!state.username) return;
-    if(isManual) showToast("Checking secure inbox...");
+    if(isManual) showToast("Checking inbox...");
     
-    // Microsoft / Outlook domain routing security check
     const apiDomain = ["outlook.com", "hotmail.com"].includes(state.domain) ? "esiia.com" : state.domain;
     
     try {
@@ -546,7 +545,7 @@
           const detail = await detailRes.json();
           const textContent = detail.body || detail.textBody || "";
           const otpMatch = textContent.match(/\b\d{4,8}\b/);
-          let otpHtml = otpMatch ? `<div class="otp-wrapper"><span>Secure OTP:</span><div><span class="otp-code">${otpMatch[0]}</span><button class="btn-otp-copy" onclick="copyVal('${otpMatch[0]}')">Copy</button></div></div>` : "";
+          let otpHtml = otpMatch ? `<div class="otp-wrapper"><span>OTP Code:</span><div><span class="otp-code">${otpMatch[0]}</span><button class="btn-otp-copy" onclick="copyVal('${otpMatch[0]}')">Copy</button></div></div>` : "";
 
           const card = document.createElement("div");
           card.className = "msg-card";
@@ -560,7 +559,7 @@
   }
 
   function copyVal(val) {
-    navigator.clipboard.writeText(val).then(() => showToast("Copied Securely!"));
+    navigator.clipboard.writeText(val).then(() => showToast("Copied Successfully!"));
   }
 
   function showToast(msg) {

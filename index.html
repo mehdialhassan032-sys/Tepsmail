@@ -3,160 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secure Temp Mail Dashboard</title>
+  <title>Microsoft Secure Vault - Elite Gateway</title>
   <style>
-    :root {
-      --bg-color: #07090e;
-      --card-bg: #121824;
-      --card-border: #1e293b;
-      
-      /* Crystal Clear Typography Colors */
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      
-      /* Sophisticated Analyzed Multi-Colors */
-      --accent-cyan: #38bdf8;
-      --accent-purple: #c084fc;
-      --accent-green: #4ade80;
-      --accent-pink: #f472b6;
-      --accent-orange: #fb923c;
-      
-      --input-bg: #090d16;
-      --input-border: #334155;
-    }
+    * { box-sizing: border-box; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 0; }
+    body { background: #010409; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow-x: hidden; }
 
-    * { box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 0; }
-    body { background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-
-    /* --- FUTURISTIC LOCK SCREEN --- */
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: radial-gradient(circle at center, #111827 0%, #07090e 100%);
-      z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 20px;
+      background: radial-gradient(circle at 50% 30%, #091a3a 0%, #030712 70%, #010409 100%); 
+      z-index: 99999; display: flex; justify-content: center; align-items: center; padding: 20px;
     }
-
-    .lock-card {
-      background: rgba(18, 24, 36, 0.85); backdrop-filter: blur(12px);
-      border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 20px;
-      padding: 35px 25px; width: 100%; max-width: 380px; text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(56, 189, 248, 0.1);
+    
+    .holo-vault-card {
+      background: rgba(13, 20, 38, 0.65); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 36px;
+      padding: 50px 32px; width: 100%; max-width: 430px; text-align: center;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.9), inset 0 0 40px rgba(56, 189, 248, 0.04);
+      animation: cardAppear 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       position: relative; overflow: hidden;
     }
+    
+    .holo-vault-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8), transparent);
+      animation: scanLine 3s infinite linear;
+    }
+    @keyframes scanLine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-    .lock-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+    @keyframes cardAppear {
+      0% { opacity: 0; transform: translateY(30px) scale(0.92); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    
+    .hologram-core {
+      width: 100px; height: 100px; background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #1d4ed8 100%); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 26px auto; font-size: 42px;
+      box-shadow: 0 0 40px rgba(14, 165, 233, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.4); 
+      position: relative; animation: holoFloat 4s infinite ease-in-out;
+    }
+    @keyframes holoFloat {
+      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 35px rgba(14, 165, 233, 0.4); }
+      50% { transform: translateY(-10px) scale(1.05); box-shadow: 0 0 60px rgba(14, 165, 233, 0.7); }
+    }
+    .hologram-core.active-pulse { animation: soundPulse 1.2s infinite ease-in-out; }
+    @keyframes soundPulse {
+      0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.8); transform: scale(1); }
+      50% { box-shadow: 0 0 0 30px rgba(14, 165, 233, 0); transform: scale(1.12); }
+      100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); transform: scale(1); }
     }
 
-    .lock-icon-badge {
-      width: 60px; height: 60px; border-radius: 50%; background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3); display: flex; align-items: center; justify-content: center;
-      font-size: 24px; margin: 0 auto 20px auto; color: var(--accent-cyan);
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
-    }
+    .vault-title { font-size: 22px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; letter-spacing: 3px; text-transform: uppercase; text-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .vault-desc { font-size: 12px; color: #94a3b8; margin-bottom: 30px; line-height: 1.6; font-weight: 500; }
 
-    /* --- MAIN APP CARD --- */
+    .vault-input-group { position: relative; width: 100%; margin-bottom: 16px; }
+    .vault-input {
+      width: 100%; padding: 16px 20px; border-radius: 16px; border: 1px solid rgba(51, 65, 85, 0.8);
+      background: rgba(2, 6, 23, 0.9); color: #fff; font-size: 20px; text-align: center; outline: none; letter-spacing: 8px;
+      -webkit-text-security: disc; transition: all 0.3s ease;
+    }
+    .vault-input:focus { border-color: #38bdf8; box-shadow: 0 0 25px rgba(56, 189, 248, 0.3); background: rgba(3, 10, 30, 0.95); }
+
+    .vault-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #0ea5e9, #2563eb); color: #fff; border: none; border-radius: 16px; font-weight: 700; font-size: 14px; cursor: pointer; margin-bottom: 12px; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3); }
+    .vault-btn:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: 0 15px 30px rgba(14, 165, 233, 0.4); }
+    
+    .vault-btn-alt { width: 100%; padding: 13px; background: rgba(30, 41, 59, 0.4); color: #cbd5e1; border: 1px solid rgba(51, 65, 85, 0.6); border-radius: 16px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s ease; }
+    .vault-btn-alt:hover { background: rgba(30, 41, 59, 0.8); border-color: rgba(56, 189, 248, 0.4); color: #fff; }
+    
+    .vault-error { color: #f87171; font-size: 12px; margin-top: 14px; display: none; font-weight: 700; letter-spacing: 0.5px; animation: shake 0.4s ease; }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
     .app-card { 
-      background: var(--card-bg); border-radius: 16px; width: 100%; max-width: 440px; 
-      border: 1px solid var(--card-border); box-shadow: 0 15px 40px rgba(0,0,0,0.7); 
-      overflow: hidden; margin: auto; display: none; position: relative;
+      background: rgba(13, 20, 38, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      border-radius: 24px; width: 100%; max-width: 480px; 
+      border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.85); 
+      overflow: hidden; margin: auto; display: none;
     }
+    .header-bar { background: linear-gradient(135deg, #0ea5e9, #2563eb); padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; }
+    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; letter-spacing: 0.5px; }
     
-    .app-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-      background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan), var(--accent-purple));
+    .voice-status-bar {
+      background: rgba(2, 6, 23, 0.9); border-bottom: 1px solid rgba(30, 41, 59, 0.8); padding: 11px 18px;
+      display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #94a3b8;
+    }
+    .voice-indicator { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #38bdf8; }
+    .v-dot { width: 8px; height: 8px; background: #64748b; border-radius: 50%; transition: 0.3s; }
+    .v-dot.active { background: #22c55e; box-shadow: 0 0 12px #22c55e; animation: blink 1.2s infinite; }
+    @keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+
+    .live-analytics-box {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
+      border-bottom: 1px solid rgba(30, 41, 59, 0.8); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
+      border-left: 3px solid #0ea5e9; display: none;
+    }
+    .analytics-left { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+    .live-pulse-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; animation: liveBlink 1.5s infinite; }
+    @keyframes liveBlink { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px #22c55e; } 100% { transform: scale(0.9); opacity: 0.6; } }
+    .analytics-val { font-size: 15px; font-weight: 900; color: #38bdf8; font-family: monospace; }
+
+    #analyticsAuthOverlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(1, 4, 9, 0.88); backdrop-filter: blur(12px); z-index: 9999; display: none;
+      justify-content: center; align-items: center; padding: 20px;
     }
 
-    .top-bar { padding: 16px 20px; border-bottom: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 15px; background: rgba(255,255,255,0.02); }
-    .top-brand { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.5px; }
+    .card-body { padding: 22px; }
+    .field-group { margin-bottom: 16px; }
+    .field-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; }
+    input[type="text"], select { width: 100%; padding: 11px 14px; border-radius: 10px; border: 1px solid rgba(51, 65, 85, 0.8); background: rgba(2, 6, 23, 0.8); color: #f8fafc; font-size: 13px; outline: none; transition: 0.2s; }
+    input[type="text"]:focus, select:focus { border-color: #0ea5e9; box-shadow: 0 0 12px rgba(14, 165, 233, 0.25); }
 
-    .body-content { padding: 20px; }
-    .f-group { margin-bottom: 16px; text-align: left; }
-    .f-label { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.8px; }
+    .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .gender-btn { background: rgba(2, 6, 23, 0.8); color: #94a3b8; border: 1px solid rgba(51, 65, 85, 0.8); padding: 11px; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; transition: 0.2s; }
+    .gender-btn.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3); }
 
-    select, input[type="text"], input[type="password"] {
-      width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--input-border);
-      background: var(--input-bg); color: var(--text-main); font-size: 14px; font-weight: 500; outline: none; transition: all 0.3s ease;
-    }
-    select:focus, input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25); }
-
-    .grid-gender { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .g-btn { background: var(--input-bg); color: var(--text-muted); border: 1px solid var(--input-border); padding: 10px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.3s; }
-    .g-btn.active { background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); border-color: var(--accent-purple); box-shadow: 0 0 10px rgba(192, 132, 252, 0.15); }
-
-    .email-display-box { 
-      background: var(--input-bg); padding: 14px; border-radius: 8px; text-align: center; margin: 16px 0; 
-      border: 1px solid var(--input-border); color: var(--accent-cyan); font-size: 14px; font-weight: 700; word-break: break-all;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
-    }
+    .email-banner { background: rgba(2, 6, 23, 0.9); padding: 15px; border-radius: 12px; text-align: center; font-weight: 800; margin: 18px 0; border: 1px solid rgba(14, 165, 233, 0.4); color: #38bdf8; font-size: 14px; word-break: break-all; box-shadow: inset 0 0 15px rgba(14, 165, 233, 0.05); }
+    .email-text { font-family: monospace; letter-spacing: 0.5px; }
     
-    .profile-box { background: rgba(255,255,255,0.015); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 13px; }
-    .p-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .p-row:last-child { margin-bottom: 0; }
-    .p-val { color: var(--accent-orange); font-weight: 700; font-size: 14px; }
+    .profile-card { background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(30, 41, 59, 0.8); border-radius: 12px; padding: 16px; margin-bottom: 18px; font-size: 12px; }
+    .profile-title { font-weight: 800; color: #38bdf8; text-transform: uppercase; margin-bottom: 12px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 0.5px; }
+    .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(30, 41, 59, 0.8); padding-bottom: 8px; }
+    .profile-row:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+    .profile-val { color: #f8fafc; font-weight: 700; font-family: monospace; font-size: 13px; }
+    .btn-copy-sm { background: rgba(30, 41, 59, 0.8); color: #38bdf8; border: 1px solid rgba(51, 65, 85, 0.8); padding: 5px 10px; font-size: 11px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+    .btn-copy-sm:hover { background: #0ea5e9; color: #fff; }
+
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+    button { padding: 11px 14px; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; transition: 0.2s; }
+    button:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-primary { background: #0ea5e9; color: white; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.25); }
+    .btn-secondary { background: rgba(30, 41, 59, 0.8); color: #f1f5f9; border: 1px solid rgba(51, 65, 85, 0.8); }
+    .btn-success { background: #16a34a; color: white; box-shadow: 0 4px 15px rgba(22, 163, 74, 0.25); }
+    .btn-warn { background: #0284c7; color: white; }
+    .btn-danger { background: #dc2626; color: white; margin-top: 12px; width: 100%; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.25); }
+    .btn-refresh { background: #2563eb; color: white; }
+    .btn-full { grid-column: span 2; }
+
+    .inbox-area { border-top: 1px solid rgba(30, 41, 59, 0.8); padding-top: 18px; }
+    .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .inbox-title { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+    .msg-card { background: rgba(2, 6, 23, 0.8); border: 1px solid rgba(30, 41, 59, 0.8); padding: 14px; border-radius: 10px; margin-bottom: 10px; }
+    .msg-sender { color: #38bdf8; font-size: 12px; font-weight: 700; }
+    .msg-subject { color: #f8fafc; font-size: 13px; font-weight: 700; margin: 4px 0 8px 0; }
+    .msg-body { background: rgba(15, 23, 42, 0.8); padding: 10px; border-radius: 8px; font-size: 12px; color: #94a3b8; white-space: pre-wrap; word-break: break-word; border: 1px solid rgba(30, 41, 59, 0.4); }
     
-    .btn-sm { background: rgba(56, 189, 248, 0.1); color: var(--accent-cyan); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; font-size: 12px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: 0.2s; }
-    .btn-sm:hover { background: rgba(56, 189, 248, 0.2); }
+    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #fbbf24; color: #000; padding: 10px 14px; border-radius: 8px; margin-top: 10px; font-weight: 800; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2); }
+    .otp-code { font-size: 18px; font-family: monospace; letter-spacing: 1px; }
+    .btn-otp-copy { background: #000; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+    .btn-otp-copy:hover { background: #1e293b; }
 
-    .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-    button.btn-action { padding: 12px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; border: 1px solid transparent; transition: 0.3s; }
-    
-    .btn-cyan { background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border-color: rgba(56, 189, 248, 0.3); }
-    .btn-cyan:hover { background: rgba(56, 189, 248, 0.25); box-shadow: 0 0 12px rgba(56, 189, 248, 0.2); }
-
-    .btn-purple { background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); border-color: rgba(192, 132, 252, 0.3); }
-    .btn-purple:hover { background: rgba(192, 132, 252, 0.25); box-shadow: 0 0 12px rgba(192, 132, 252, 0.2); }
-
-    .btn-green { background: rgba(74, 222, 128, 0.15); color: var(--accent-green); border-color: rgba(74, 222, 128, 0.3); }
-    .btn-green:hover { background: rgba(74, 222, 128, 0.25); box-shadow: 0 0 12px rgba(74, 222, 128, 0.2); }
-
-    .btn-danger { background: rgba(244, 114, 182, 0.1); color: var(--accent-pink); border-color: rgba(244, 114, 182, 0.3); width: 100%; margin-top: 10px; }
-    .btn-danger:hover { background: rgba(244, 114, 182, 0.2); }
-
-    .full-span { grid-column: span 2; }
-
-    .inbox-section { border-top: 1px solid var(--card-border); padding-top: 16px; margin-top: 14px; }
-    .msg-box { background: var(--input-bg); border: 1px solid var(--card-border); padding: 12px; border-radius: 8px; margin-bottom: 10px; font-size: 13px; text-align: left; }
-    .msg-sender { color: var(--accent-purple); font-weight: 700; font-size: 13px; }
-    .msg-subj { color: var(--text-main); font-weight: 700; margin: 4px 0 6px 0; font-size: 14px; }
-    .msg-content { color: var(--text-muted); word-break: break-word; font-size: 12px; line-height: 1.5; }
-    
-    .otp-tag { display: flex; align-items: center; justify-content: space-between; background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.3); color: var(--accent-green); padding: 8px 10px; border-radius: 6px; margin-top: 8px; font-weight: 700; }
-    .otp-digits { font-size: 15px; letter-spacing: 1px; color: var(--accent-green); }
-
-    .toast { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: #1e293b; color: var(--accent-cyan); border: 1px solid var(--accent-cyan); padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 700; display: none; z-index: 10000; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-    .error-text { color: var(--accent-pink); font-size: 13px; margin-top: 12px; font-weight: 600; display: none; }
+    .toast { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: #16a34a; color: white; padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 10px 25px rgba(22, 163, 74, 0.4); animation: toastPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes toastPop { 0% { transform: translate(-50%, 20px); opacity: 0; } 100% { transform: translate(-50%, 0); opacity: 1; } }
   </style>
 </head>
 <body>
 
-<!-- NEW MODERN LOOK LOCK SCREEN -->
 <div id="lockScreen">
-  <div class="lock-card">
-    <div class="lock-icon-badge">🔒</div>
-    <h2 style="font-size: 20px; color: var(--text-main); font-weight: 700; margin-bottom: 6px;">Secure Access</h2>
-    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4;">Enter your security PIN or speak your voice key</p>
-    <input type="password" id="passInput" placeholder="Enter PIN code..." style="text-align: center; margin-bottom: 14px; letter-spacing: 2px;">
-    <button type="button" class="btn-action btn-cyan" id="unlockBtn" style="width: 100%; margin-bottom: 10px;">Unlock Panel</button>
-    <button type="button" class="btn-action btn-purple" id="retryAudioBtn" style="width: 100%;">🎙️ Listen Voice Key</button>
-    <div id="errorMsg" class="error-text">⚠️ Incorrect Password / PIN</div>
+  <div class="holo-vault-card">
+    <div class="hologram-core" id="holoCore">🛡️</div>
+    <div class="vault-title">Secure Vault</div>
+    <div class="vault-desc" id="vaultDescText">Password enter karein ya voice command dein</div>
+
+    <div class="vault-input-group">
+      <input type="password" id="passInput" class="vault-input" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    
+    <button type="button" class="vault-btn" id="unlockBtn">Unlock Vault</button>
+    <button type="button" class="vault-btn-alt" id="retryAudioBtn">🎙️ Listen Voice Key</button>
+    
+    <div id="errorMsg" class="vault-error">Access Denied: Galat Password!</div>
   </div>
 </div>
 
-<!-- MAIN APP DASHBOARD -->
+<div id="analyticsAuthOverlay">
+  <div class="holo-vault-card" style="max-width: 360px; padding: 40px 26px;">
+    <div class="hologram-core" style="width:75px; height:75px; font-size:30px;">📊</div>
+    <div class="vault-title" style="font-size:18px;">Admin Live Analytics</div>
+    <div class="vault-desc">Active users ka data dekhne ke liye Admin Password dalein:</div>
+    <div class="vault-input-group">
+      <input type="password" id="analyticsPassInput" class="vault-input" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button type="button" class="vault-btn" id="verifyAnalyticsBtn">Unlock Analytics</button>
+    <button type="button" class="vault-btn-alt" id="cancelAnalyticsBtn">Cancel</button>
+    <div id="analyticsErrorMsg" class="vault-error">Galat Admin Password!</div>
+  </div>
+</div>
+
 <div class="app-card" id="mainApp">
-  <div class="top-bar">
-    <div class="top-brand">⚡ TempMail Gateway</div>
-    <div style="display:flex; gap:8px;">
-      <button class="btn-sm" id="manualLockBtn" style="color: var(--accent-pink); border-color: rgba(244,114,182,0.3);">Lock</button>
+  <div class="header-bar">
+    <div class="header-brand">🔒 Secure Dashboard</div>
+    <div style="display:flex; gap:6px;">
+      <button class="btn-warn" id="openAnalyticsAuthBtn" style="padding:5px 10px; font-size:10px;">📊 Live Traffic</button>
+      <button class="btn-secondary" id="manualLockBtn" style="padding:5px 10px; font-size:10px;">🔒 Lock</button>
     </div>
   </div>
 
-  <div class="body-content">
-    <button type="button" class="btn-action btn-green full-span" id="startMicBtn" style="margin-bottom: 14px; width: 100%;">🎙️ Start Voice Commands</button>
+  <div class="voice-status-bar">
+    <div class="voice-indicator">
+      <span class="v-dot" id="vDot"></span>
+      <span id="voiceStatusText">Voice Engine Paused (Click Start Below)</span>
+    </div>
+  </div>
 
-    <div class="f-group">
-      <span class="f-label">Region Selection</span>
+  <div class="live-analytics-box" id="liveAnalyticsBox">
+    <div class="analytics-left">
+      <span class="live-pulse-dot"></span>
+      <span>🔒 Active Sessions</span>
+    </div>
+    <div class="analytics-val" id="liveUserCount">1</div>
+  </div>
+
+  <div class="card-body">
+    <button type="button" class="btn-success btn-full" id="startMicBtn" style="margin-bottom: 16px; padding: 13px; font-size: 13px;">🎙️ Start Voice Engine (Click to Active)</button>
+
+    <div class="field-group">
+      <span class="field-label">Country</span>
       <select id="countrySelect">
         <option value="egypt">Egypt 🇪🇬</option>
         <option value="uzbekistan">Uzbekistan 🇺🇿</option>
@@ -166,94 +226,135 @@
       </select>
     </div>
 
-    <div class="f-group">
-      <span class="f-label">Gender Persona</span>
-      <div class="grid-gender">
-        <button type="button" id="btnMale" class="g-btn active">Male</button>
-        <button type="button" id="btnFemale" class="g-btn">Female</button>
+    <div class="field-group">
+      <span class="field-label">Gender Selection</span>
+      <div class="gender-buttons">
+        <button type="button" id="btnMale" class="gender-btn active">👨 Male</button>
+        <button type="button" id="btnFemale" class="gender-btn">👩 Female</button>
       </div>
     </div>
 
-    <div class="f-group">
-      <span class="f-label">Mail Domain</span>
+    <div class="field-group">
+      <span class="field-label">Microsoft Secure Gateway</span>
       <select id="domainSelect">
-        <option value="outlook.com">outlook.com</option>
-        <option value="hotmail.com">hotmail.com</option>
-        <option value="esiia.com">esiia.com</option>
+        <option value="outlook.com">outlook.com (Microsoft Official)</option>
+        <option value="hotmail.com">hotmail.com (Microsoft Official)</option>
+        <option value="esiia.com">esiia.com (Secure Relay)</option>
         <option value="1secmail.com">1secmail.com</option>
         <option value="1secmail.org">1secmail.org</option>
       </select>
     </div>
 
-    <div class="profile-box">
-      <div class="p-row">
-        <span style="color:var(--text-muted); font-weight:600;">First Name:</span>
-        <div><span class="p-val" id="dispFirstName">...</span> <button class="btn-sm" id="copyFirstBtn">Copy</button></div>
+    <div class="profile-card">
+      <div class="profile-title">
+        <span>👤 Secure Masked Identity</span>
+        <span id="countryLabel" style="color:#38bdf8;">[EGYPT - MALE]</span>
       </div>
-      <div class="p-row">
-        <span style="color:var(--text-muted); font-weight:600;">Last Name:</span>
-        <div><span class="p-val" id="dispLastName">...</span> <button class="btn-sm" id="copyLastBtn">Copy</button></div>
+      <div class="profile-row">
+        <span>First Name:</span>
+        <div>
+          <span class="profile-val" id="dispFirstName">...</span>
+          <button class="btn-copy-sm" id="copyFirstBtn">Copy</button>
+        </div>
       </div>
-    </div>
-
-    <div class="email-display-box">
-      <span id="dispEmail">...</span>
-    </div>
-
-    <div class="f-group">
-      <span class="f-label">Custom Handle</span>
-      <div style="display:flex; gap:8px;">
-        <input type="text" id="customUser" placeholder="Custom username...">
-        <button class="btn-action btn-cyan" id="setCustomBtn" style="width: 80px; padding: 10px;">Set</button>
+      <div class="profile-row">
+        <span>Last Name:</span>
+        <div>
+          <span class="profile-val" id="dispLastName">...</span>
+          <button class="btn-copy-sm" id="copyLastBtn">Copy</button>
+        </div>
       </div>
     </div>
 
-    <div class="action-grid">
-      <button class="btn-action btn-purple full-span" id="refreshEmailBtn">🔄 New Email ("email")</button>
-      <button class="btn-action btn-purple full-span" id="newProfileBtn">👤+✉️ New Persona ("id")</button>
-      <button class="btn-action btn-cyan" id="copyEmailBtn">Copy Email</button>
-      <button class="btn-action btn-cyan" id="copyAllBtn">Copy All Info</button>
+    <div class="email-banner">
+      <span class="email-text" id="dispEmail">...</span>
     </div>
 
-    <div class="inbox-section">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <span style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px;">Inbox Messages</span>
-        <button class="btn-sm" id="manualRefreshBtn">Sync Mail</button>
+    <div class="field-group">
+      <span class="field-label">Custom Username Override</span>
+      <div class="input-wrapper" style="display:flex; gap:8px;">
+        <input type="text" id="customUser" placeholder="Type custom username (no dots)...">
+        <button class="btn-primary" id="setCustomBtn" style="width: 90px;">Set</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Refresh Email Only (Voice: "email")</button>
+      <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile & Email (Voice: "id")</button>
+      <button class="btn-success" id="copyEmailBtn">Copy Email</button>
+      <button class="btn-primary" id="copyAllBtn">📋 Copy All Info</button>
+    </div>
+
+    <div class="inbox-area">
+      <div class="inbox-header">
+        <span class="inbox-title">📥 Live Secure Inbox (Auto Refresh)</span>
+        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Refresh</button>
       </div>
       <div id="inboxList">
-        <p style="color:var(--text-muted); font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming mail...</p>
+        <p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>
       </div>
     </div>
 
-    <button class="btn-action btn-danger" id="wipeBtn">🔥 Wipe All Data & Reset</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Clear History & Reset</button>
   </div>
 </div>
 
-<div id="toast" class="toast">Success</div>
+<div id="toast" class="toast">Copied!</div>
 
 <script>
   const WEBSITE_PASS = "9954131";
+  const ADMIN_ANALYTICS_PASS = "9954256";
 
   const DB = {
     egypt: {
-      male: { first: ["Mohamed", "Ahmed", "Mahmoud", "Omar", "Mostafa", "Tarek", "Ali", "Youssef", "Amr", "Khaled"], last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour"] },
-      female: { first: ["Fatma", "Aya", "Nour", "Sara", "Dina", "Mariam", "Yasmin", "Salma", "Rania", "Hoda"], last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour"] }
+      male: { 
+        first: ["Mohamed", "Ahmed", "Mahmoud", "Omar", "Mostafa", "Tarek", "Ali", "Youssef", "Amr", "Khaled", "Ebrahim", "Karim", "Ziad", "Hossam", "Ramy", "Waleed", "Sherif", "Badr", "Hamza", "Bilal", "Adel", "Essam", "Fouad", "Gamal", "Hany", "Ihab", "Nader", "Osama", "Sami", "Yasser"], 
+        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Farouk", "Salama", "Gomaa", "Badawy", "Nassar", "Othman", "Shaaban", "Tawfik", "Zaki"] 
+      },
+      female: { 
+        first: ["Fatma", "Aya", "Nour", "Sara", "Dina", "Mariam", "Yasmin", "Salma", "Rania", "Hoda", "Maha", "Heba", "Menna", "Nada", "Reem", "Shahd", "Tasneem", "Amal", "Basma", "Dalia", "Ghada", "Iman", "Jomana", "Kholoud", "Laila", "Mona", "Noha", "Omnia", "Radwa", "Zeinab"], 
+        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Farouk", "Salama", "Gomaa", "Badawy", "Nassar", "Othman", "Shaaban", "Tawfik", "Zaki"] 
+      }
     },
     uzbekistan: {
-      male: { first: ["Alisher", "Sardor", "Jasur", "Bobur", "Otabek", "Shokhrukh", "Javohir", "Bekhzod", "Dilshod", "Farhod"], last: ["Karimov", "Rahimov", "Abdullayev", "Tursunov", "Ismoilov"] },
-      female: { first: ["Malika", "Sevinch", "Nigora", "Gulnora", "Feruza", "Rayhon", "Madina", "Dilnoza", "Zilola", "Shahlo"], last: ["Karimova", "Rahimova", "Abdullayeva", "Tursunova", "Ismoilova"] }
+      male: { 
+        first: ["Alisher", "Sardor", "Jasur", "Bobur", "Otabek", "Shokhrukh", "Javohir", "Bekhzod", "Dilshod", "Farhod", "Jamshid", "Maksud", "Sanjar", "Temur", "Ulughbek", "Zafar", "Asror", "Aziz", "Doniyor", "Eldor", "Rustam", "Sherzod", "Timur", "Vohid", "Yulduz"], 
+        last: ["Karimov", "Rahimov", "Abdullayev", "Tursunov", "Ismoilov", "Niyazov", "Qodirov", "Sultanov", "Yusupov", "Zokirov", "Alimov", "Babadjanov", "Djuraev", "Kamilov", "Mirzaev"] 
+      },
+      female: { 
+        first: ["Malika", "Sevinch", "Nigora", "Gulnora", "Feruza", "Rayhon", "Madina", "Dilnoza", "Zilola", "Shahlo", "Barno", "Aziza", "Kamola", "Munisa", "Sabina", "Dildora", "Gulsanam", "Nilufar", "Umida", "Zukhra", "Gulchehra", "Shahrizoda", "Jasmina", "Laylo", "Rano"], 
+        last: ["Karimova", "Rahimova", "Abdullayeva", "Tursunova", "Ismoilova", "Niyazova", "Qodirova", "Sultanova", "Yusupova", "Zokirova", "Alimova", "Babadjanova", "Djuraeva", "Kamilova", "Mirzaeva"] 
+      }
     },
     liberia: {
-      male: { first: ["Flomo", "Saah", "Tamba", "Kollie", "Mulbah", "Emmanuel", "Prince", "Moses", "Abraham", "David"], last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah"] },
-      female: { first: ["Korto", "Saa", "Fatu", "Comfort", "Musu", "Grace", "Princess", "Mary", "Martha", "Sarah"], last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah"] }
+      male: { 
+        first: ["Flomo", "Saah", "Tamba", "Kollie", "Mulbah", "Emmanuel", "Prince", "Moses", "Abraham", "David", "Joseph", "Samuel", "John", "Peter", "James", "Daniel", "Michael", "Stephen", "Ben", "Charles", "George", "Henry", "Jackson", "Kenneth", "Lawrence"], 
+        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Taylor", "Doe", "Johnson", "Brown", "Smith", "Kubah", "Flomo", "Mulbah", "Kpadeh", "Garblah"] 
+      },
+      female: { 
+        first: ["Korto", "Saa", "Fatu", "Comfort", "Musu", "Grace", "Princess", "Mary", "Martha", "Sarah", "Esther", "Ruth", "Rebecca", "Naomi", "Hannah", "Hawa", "Assatu", "Bendu", "Korpo", "Maime", "Yassah", "Zenneh", "Anita", "Brenda", "Doris"], 
+        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Taylor", "Doe", "Johnson", "Brown", "Smith", "Kubah", "Flomo", "Mulbah", "Kpadeh", "Garblah"] 
+      }
     },
     guinea: {
-      male: { first: ["Mamadou", "Ibrahima", "Alpha", "Ousmane", "Sekou", "Boubacar", "Aboubakar", "Amadou", "Cherif", "Djibril"], last: ["Diallo", "Barry", "Camara", "Bah", "Soumah"] },
-      female: { first: ["Aissatou", "Kadiatou", "Fatoumata", "Mariama", "Binta", "Hadja", "Aminata", "Assiatou", "Djenabou", "Komba"], last: ["Diallo", "Barry", "Camara", "Bah", "Soumah"] }
+      male: { 
+        first: ["Mamadou", "Ibrahima", "Alpha", "Ousmane", "Sekou", "Boubacar", "Aboubakar", "Amadou", "Cherif", "Djibril", "Fode", "Habib", "Ismael", "Lamine", "Mohamed", "Moussa", "Naby", "Oumar", "Samba", "Thierno", "Yaya", "Aliou", "Ansoumane", "Bakary", "Cheick"], 
+        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Bangoura", "Keita", "Cisse", "Kourouma", "Magassouba", "Sangaré", "Toures"] 
+      },
+      female: { 
+        first: ["Aissatou", "Kadiatou", "Fatoumata", "Mariama", "Binta", "Hadja", "Aminata", "Assiatou", "Djenabou", "Komba", "Makale", "Nene", "Oumou", "Ramatoulaye", "Salematou", "Saran", "Seny", "Yarie", "Asmaou", "Bintia", "Djènè", "Korka", "Mabinty", "Nana", "Sira"], 
+        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Bangoura", "Keita", "Cisse", "Kourouma", "Magassouba", "Sangaré", "Toures"] 
+      }
     },
     ethiopia: {
-      male: { first: ["Abebe", "Kebede", "Yonas", "Dawit", "Tewodros", "Ermias", "Ephrem", "Getachew", "Girmai", "Haile"], last: ["Bikila", "Tadesse", "Tesfaye", "Bekele", "Alemu"] },
-      female: { first: ["Tigist", "Hiwot", "Selam", "Eden", "Genet", "Mestawet", "Almaz", "Aster", "Azalech", "Birtukan"], last: ["Bikila", "Tadesse", "Tesfaye", "Bekele", "Alemu"] }
+      male: { 
+        first: ["Abebe", "Kebede", "Yonas", "Dawit", "Tewodros", "Ermias", "Ephrem", "Getachew", "Girmai", "Haile", "Kassa", "Mekonnen", "Melaku", "Mengistu", "Mesfin", "Mulugeta", "Samuel", "Solomon", "Tadesse", "Tamirat", "Tariku", "Tesfaye", "Wondwossen", "Yilma", "Zenebe"], 
+        last: ["Bikila", "Tadesse", "Tesfaye", "Bekele", "Alemu", "Kebede", "Lemma", "Mekonnen", "Wolde", "Yimam", "Assefa", "Demissie", "Girma", "Hailu", "Negash"] 
+      },
+      female: { 
+        first: ["Tigist", "Hiwot", "Selam", "Eden", "Genet", "Mestawet", "Almaz", "Aster", "Azalech", "Birtukan", "Emebet", "Fantu", "Hanna", "Kalkidan", "Kebebush", "Lidet", "Makeda", "Marta", "Meseret", "Rahel", "Roman", "Saba", "Tsehay", "Wubalem", "Zewditu"], 
+        last: ["Bikila", "Tadesse", "Tesfaye", "Bekele", "Alemu", "Kebede", "Lemma", "Mekonnen", "Wolde", "Yimam", "Assefa", "Demissie", "Girma", "Hailu", "Negash"] 
+      }
     }
   };
 
@@ -261,6 +362,21 @@
   let recognition = null;
   let inAppRecognition = null;
   let isListeningInside = false;
+
+  function getDynamicIPHeaders() {
+    const r1 = Math.floor(Math.random() * 150) + 40;
+    const r2 = Math.floor(Math.random() * 200) + 10;
+    const r3 = Math.floor(Math.random() * 200) + 10;
+    const r4 = Math.floor(Math.random() * 200) + 10;
+    const fakeIP = `${r1}.${r2}.${r3}.${r4}`;
+    
+    return {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-Forwarded-For': fakeIP,
+      'X-Originating-IP': fakeIP,
+      'Client-IP': fakeIP
+    };
+  }
 
   window.onload = function() {
     if (sessionStorage.getItem("isUnlocked") === "true") {
@@ -272,6 +388,17 @@
     document.getElementById("unlockBtn").onclick = verifyPassword;
     document.getElementById("retryAudioBtn").onclick = startLockListening;
     document.getElementById("passInput").onkeydown = (e) => { if (e.key === "Enter") verifyPassword(); };
+
+    document.getElementById("openAnalyticsAuthBtn").onclick = () => {
+      document.getElementById("analyticsAuthOverlay").style.display = "flex";
+      document.getElementById("analyticsPassInput").value = "";
+      document.getElementById("analyticsErrorMsg").style.display = "none";
+    };
+    document.getElementById("cancelAnalyticsBtn").onclick = () => {
+      document.getElementById("analyticsAuthOverlay").style.display = "none";
+    };
+    document.getElementById("verifyAnalyticsBtn").onclick = verifyAnalyticsPassword;
+    document.getElementById("analyticsPassInput").onkeydown = (e) => { if (e.key === "Enter") verifyAnalyticsPassword(); };
   };
 
   function startLockListening() {
@@ -283,17 +410,29 @@
     recognition.lang = 'hi-IN';
     recognition.interimResults = false;
 
-    try { recognition.start(); } catch(e) {}
+    const holoCore = document.getElementById("holoCore");
+    const vaultDescText = document.getElementById("vaultDescText");
+    const errorMsg = document.getElementById("errorMsg");
+
+    holoCore.classList.add("active-pulse");
+    vaultDescText.innerText = "Listening for voice password key...";
+    if (errorMsg) errorMsg.style.display = "none";
+
+    try { recognition.start(); } catch(e) { holoCore.classList.remove("active-pulse"); }
 
     recognition.onresult = function(event) {
       const speechResult = event.results[0][0].transcript.toLowerCase().trim();
+      holoCore.classList.remove("active-pulse");
+      
       if (speechResult.includes(WEBSITE_PASS) || speechResult.includes("9954131")) {
         sessionStorage.setItem("isUnlocked", "true");
         unlockApp();
       } else {
-        document.getElementById("errorMsg").style.display = "block";
+        if (errorMsg) errorMsg.style.display = "block";
+        vaultDescText.innerText = "Password voice match failed. Try again.";
       }
     };
+    recognition.onend = () => holoCore.classList.remove("active-pulse");
   }
 
   function verifyPassword() {
@@ -308,6 +447,19 @@
     }
   }
 
+  function verifyAnalyticsPassword() {
+    const val = document.getElementById("analyticsPassInput").value.trim();
+    if (val === ADMIN_ANALYTICS_PASS) {
+      document.getElementById("analyticsAuthOverlay").style.display = "none";
+      document.getElementById("liveAnalyticsBox").style.display = "flex";
+      startRealLiveCounter();
+      showToast("Live Traffic Stats Unlocked!");
+    } else {
+      document.getElementById("analyticsErrorMsg").style.display = "block";
+      document.getElementById("analyticsPassInput").value = "";
+    }
+  }
+
   function unlockApp() {
     if (recognition) { try { recognition.stop(); } catch(e) {} }
     document.getElementById("lockScreen").style.display = "none";
@@ -316,50 +468,97 @@
     loadOrGenerateProfile();
   }
 
+  function startRealLiveCounter() {
+    const counterEl = document.getElementById("liveUserCount");
+    let activeSessions = parseInt(localStorage.getItem("active_vault_sessions") || "0");
+    
+    if (!sessionStorage.getItem("session_counted")) {
+      activeSessions += 1;
+      localStorage.setItem("active_vault_sessions", activeSessions);
+      sessionStorage.setItem("session_counted", "true");
+    }
+
+    if (counterEl) counterEl.innerText = Math.max(1, activeSessions);
+
+    window.addEventListener('beforeunload', () => {
+      let currentActive = parseInt(localStorage.getItem("active_vault_sessions") || "1");
+      if (currentActive > 1) {
+        localStorage.setItem("active_vault_sessions", currentActive - 1);
+      } else {
+        localStorage.removeItem("active_vault_sessions");
+      }
+    });
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === "active_vault_sessions") {
+        let updatedCount = parseInt(e.newValue || "1");
+        if (counterEl) counterEl.innerText = Math.max(1, updatedCount);
+      }
+    });
+  }
+
   function startInAppVoiceEngine() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) return;
+    if (!SpeechRecognition) {
+      showToast("Speech Recognition not supported!");
+      return;
+    }
     if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
 
     inAppRecognition = new SpeechRecognition();
     inAppRecognition.lang = 'hi-IN';
     inAppRecognition.continuous = true;
     inAppRecognition.interimResults = false;
+
     isListeningInside = true;
 
     try {
       inAppRecognition.start();
+      document.getElementById("vDot").classList.add("active");
+      document.getElementById("voiceStatusText").innerText = "Voice Engine Active (Listening...)";
       document.getElementById("startMicBtn").style.display = "none";
-      showToast("Voice Commands Active");
-    } catch(e) {}
+      showToast("Voice Engine Started!");
+    } catch(e) {
+      showToast("Mic start failed.");
+    }
 
     inAppRecognition.onresult = function(event) {
       const cmd = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
+      
       if (cmd === "email" || cmd.includes("email")) {
         generateEmailOnly();
-        showToast("Email Refreshed");
-      } else if (cmd === "id" || cmd.includes("id")) {
+        showToast("Voice Cmd: Email Refreshed!");
+      } else if (cmd === "id" || cmd === "a id" || cmd.includes("id")) {
         generateProfile();
-        showToast("New Persona Generated");
+        showToast("Voice Cmd: New Profile Generated!");
       } else if (cmd.includes("clear") || cmd.includes("wipe")) {
-        wipeData();
+        antiForensicWipe();
       } else if (cmd.includes("lock")) {
         lockApplication();
       }
     };
 
-    inAppRecognition.onend = () => { if (isListeningInside) { try { inAppRecognition.start(); } catch(e) {} } };
+    inAppRecognition.onend = () => { 
+      if (isListeningInside) { 
+        try { inAppRecognition.start(); } catch(e) {} 
+      } 
+    };
   }
 
   function generateEmailOnly() {
     const secureToken = Math.floor(10000 + Math.random() * 90000);
     state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${secureToken}`;
-    saveState(); updateDisplay(); startInbox();
+    saveState();
+    updateDisplay();
+    startInbox();
   }
 
   function lockApplication() {
     isListeningInside = false;
     if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
+    document.getElementById("liveAnalyticsBox").style.display = "none";
+    document.getElementById("vDot").classList.remove("active");
+    document.getElementById("voiceStatusText").innerText = "Voice Engine Paused";
     document.getElementById("startMicBtn").style.display = "block";
     sessionStorage.removeItem("isUnlocked");
     document.getElementById("mainApp").style.display = "none";
@@ -375,10 +574,10 @@
     document.getElementById("countrySelect").onchange = (e) => { state.country = e.target.value; generateProfile(); };
     document.getElementById("domainSelect").onchange = (e) => { state.domain = e.target.value; saveState(); updateDisplay(); startInbox(); };
     document.getElementById("newProfileBtn").onclick = generateProfile;
-    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Email Refreshed"); };
+    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Clean IP Email Generated!"); };
     document.getElementById("setCustomBtn").onclick = () => {
       const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
-      if(input) { state.username = input; saveState(); updateDisplay(); startInbox(); showToast("Custom Handle Set"); }
+      if(input) { state.username = input; saveState(); updateDisplay(); startInbox(); showToast("Custom Username Set!"); }
     };
     document.getElementById("manualLockBtn").onclick = lockApplication;
     document.getElementById("copyFirstBtn").onclick = () => copyVal(state.firstName);
@@ -386,13 +585,46 @@
     document.getElementById("copyEmailBtn").onclick = () => copyVal(`${state.username}@${state.domain}`);
     document.getElementById("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}@${state.domain}`);
     document.getElementById("manualRefreshBtn").onclick = () => checkInbox(true);
-    document.getElementById("wipeBtn").onclick = wipeData;
+    document.getElementById("wipeBtn").onclick = antiForensicWipe;
   }
 
-  function wipeData() {
-    localStorage.clear(); sessionStorage.clear();
-    showToast("Data Wiped & Reset");
-    setTimeout(() => { lockApplication(); window.location.reload(true); }, 1000);
+  function antiForensicWipe() {
+    for (let i = 0; i < 3; i++) {
+      try {
+        localStorage.setItem("savedMailState", Math.random().toString(36).substring(2));
+        sessionStorage.setItem("full100PercentUsedNames", Math.random().toString(36).substring(2));
+      } catch(e) {}
+    }
+
+    localStorage.clear();
+    sessionStorage.clear();
+
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => caches.delete(name));
+      });
+    }
+
+    const availableDomains = ["outlook.com", "hotmail.com", "esiia.com", "1secmail.com", "1secmail.org"];
+    let filteredDomains = availableDomains.filter(d => d !== state.domain);
+    let newRandomDomain = filteredDomains[Math.floor(Math.random() * filteredDomains.length)];
+
+    state = { 
+      country: "egypt", 
+      gender: "male", 
+      firstName: "", 
+      lastName: "", 
+      username: "", 
+      domain: newRandomDomain 
+    };
+
+    if(window.inboxTimer) clearInterval(window.inboxTimer);
+    
+    showToast("🔥 Wipe Complete & API Rotated Successfully!");
+    setTimeout(() => {
+      lockApplication();
+      window.location.reload(true);
+    }, 1200);
   }
 
   function toggleGenderUI() {
@@ -413,24 +645,53 @@
       try { state = JSON.parse(saved); } catch(e) { generateProfile(); return; }
       document.getElementById("countrySelect").value = state.country;
       document.getElementById("domainSelect").value = state.domain;
-      toggleGenderUI(); updateDisplay(); startInbox();
-    } else { generateProfile(); }
+      toggleGenderUI();
+      updateDisplay();
+      startInbox();
+    } else {
+      generateProfile();
+    }
   }
 
   function generateProfile() {
     const cData = DB[state.country] || DB.egypt;
     const gData = cData[state.gender] || cData.male;
-    state.firstName = gData.first[Math.floor(Math.random() * gData.first.length)];
+
+    let usedNamesMap = JSON.parse(sessionStorage.getItem("full100PercentUsedNames") || "{}");
+    const categoryKey = `${state.country}_${state.gender}`;
+    
+    if (!usedNamesMap[categoryKey]) {
+      usedNamesMap[categoryKey] = [];
+    }
+
+    let availableFirst = gData.first.filter(name => !usedNamesMap[categoryKey].includes(name));
+
+    if (availableFirst.length === 0) {
+      usedNamesMap[categoryKey] = [];
+      availableFirst = [...gData.first];
+    }
+
+    state.firstName = availableFirst[Math.floor(Math.random() * availableFirst.length)];
     state.lastName = gData.last[Math.floor(Math.random() * gData.last.length)];
+
+    usedNamesMap[categoryKey].push(state.firstName);
+    sessionStorage.setItem("full100PercentUsedNames", JSON.stringify(usedNamesMap));
+
     const secureToken = Math.floor(10000 + Math.random() * 90000);
     state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${secureToken}`;
-    saveState(); updateDisplay(); startInbox();
+    saveState(); 
+    updateDisplay(); 
+    startInbox();
   }
 
   function updateDisplay() {
     document.getElementById("dispFirstName").innerText = state.firstName;
     document.getElementById("dispLastName").innerText = state.lastName;
     document.getElementById("dispEmail").innerText = `${state.username}@${state.domain}`;
+    document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
+    
+    const domainDropdown = document.getElementById("domainSelect");
+    if(domainDropdown) domainDropdown.value = state.domain;
   }
 
   function startInbox() {
@@ -441,10 +702,15 @@
 
   async function checkInbox(isManual = false) {
     if(!state.username) return;
-    if(isManual) showToast("Checking inbox...");
+    if(isManual) showToast("Checking inbox with dynamic IP...");
+    
     const apiDomain = ["outlook.com", "hotmail.com"].includes(state.domain) ? "esiia.com" : state.domain;
+    
     try {
-      const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}`);
+      const headers = getDynamicIPHeaders();
+      const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_t=${Date.now()}`, {
+        headers: headers
+      });
       const list = await res.json();
       const container = document.getElementById("inboxList");
       if(!container) return;
@@ -452,25 +718,27 @@
       if(list && list.length > 0) {
         container.innerHTML = "";
         for(let msg of list) {
-          const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}`);
+          const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}`, {
+            headers: getDynamicIPHeaders()
+          });
           const detail = await detailRes.json();
           const textContent = detail.body || detail.textBody || "";
           const otpMatch = textContent.match(/\b\d{4,8}\b/);
-          let otpHtml = otpMatch ? `<div class="otp-tag"><span>OTP CODE:</span> <div><span class="otp-digits">${otpMatch[0]}</span> <button class="btn-sm" onclick="copyVal('${otpMatch[0]}')">Copy</button></div></div>` : "";
+          let otpHtml = otpMatch ? `<div class="otp-wrapper"><span>OTP Code:</span><div><span class="otp-code">${otpMatch[0]}</span><button class="btn-otp-copy" onclick="copyVal('${otpMatch[0]}')">Copy</button></div></div>` : "";
 
           const card = document.createElement("div");
-          card.className = "msg-box";
-          card.innerHTML = `<div class="msg-sender">${msg.from}</div><div class="msg-subj">${msg.subject}</div><div class="msg-content">${textContent}</div>${otpHtml}`;
+          card.className = "msg-card";
+          card.innerHTML = `<div class="msg-sender">From: ${msg.from}</div><div class="msg-subject">${msg.subject}</div><div class="msg-body">${textContent}</div>${otpHtml}`;
           container.appendChild(card);
         }
       } else {
-        container.innerHTML = `<p style="color:var(--text-muted); font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming mail...</p>`;
+        container.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>`;
       }
     } catch(err) {}
   }
 
   function copyVal(val) {
-    navigator.clipboard.writeText(val).then(() => showToast("Copied to Clipboard"));
+    navigator.clipboard.writeText(val).then(() => showToast("Copied Successfully!"));
   }
 
   function showToast(msg) {

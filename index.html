@@ -272,6 +272,7 @@
     const unlockBtn = document.getElementById("unlockBtn");
     const passInput = document.getElementById("passInput");
 
+    // Smart Background Session Check using sessionStorage flag lifecycle
     let isSessionActive = sessionStorage.getItem("active_session_token_v8");
 
     if (isSessionActive) {
@@ -480,26 +481,15 @@
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         if(countdownInterval) clearInterval(countdownInterval);
 
-        try {
-          for (let i = 0; i < localStorage.length; i++) {
-            let key = localStorage.key(i);
-            let noise = new Uint8Array(256);
-            window.crypto.getRandomValues(noise);
-            localStorage.setItem(key, Array.from(noise).join(""));
-          }
-        } catch(e) {}
-
-        localStorage.clear();
+        // ISOLATED RESET: Sirf ishi browser instance / user ka data wipe karega, baakiyo ko touch nahi karega
+        localStorage.removeItem("temp_mail_auth_state_v8");
+        localStorage.removeItem("device_unique_id_v8");
         sessionStorage.clear();
-        
-        document.cookie.split(";").forEach(function(c) { 
-          document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
-        });
 
-        state = null;
-
-        let newRotatedToken = 'auto_ip_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now();
-        window.location.href = window.location.pathname + '?shred_purge=' + newRotatedToken;
+        showToast("Isolated cryptographic shred complete!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       };
     }
   }

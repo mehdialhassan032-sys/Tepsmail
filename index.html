@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Temp Mail Engine Pro - Ultra Hardened & Live Count</title>
+  <title>Temp Mail Engine Pro - Admin Approval Guard</title>
+  <!-- EmailJS Library for sending request to your Gmail -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      // Yahan apni EmailJS Public Key dalein
+      emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+    })();
+  </script>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; touch-action: pan-x pan-y; }
     body { background: #05080f; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow: hidden; position: fixed; width: 100%; height: 100%; }
@@ -27,6 +35,7 @@
     }
     .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
     .error-msg { color: #ef4444; font-size: 12px; margin-top: 10px; display: none; }
+    .pending-msg { color: #fbbf24; font-size: 12px; margin-top: 10px; display: none; line-height: 1.4; }
 
     .app-card { 
       background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
@@ -90,22 +99,23 @@
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Ultra Hardened Access</div>
-    <div class="lock-desc">Enter security key to unlock system</div>
+    <div class="lock-title">🔒 Admin Approval Gateway</div>
+    <div class="lock-desc">Enter password. Correct password will send an access request to <b>mehdialhassan56@gmail.com</b></div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
     </div>
-    <button type="button" class="lock-btn" id="unlockBtn">Unlock Engine</button>
-    <div id="errorMsg" class="error-msg">Incorrect Security Key!</div>
+    <button type="button" class="lock-btn" id="unlockBtn">Request Access</button>
+    <div id="errorMsg" class="error-msg">Incorrect Password! No request sent.</div>
+    <div id="pendingMsg" class="pending-msg">⏳ Correct password entered! Request sent to <b>mehdialhassan56@gmail.com</b>. Waiting for admin approval...</div>
   </div>
 </div>
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Mail Engine Pro</div>
+    <div class="header-brand">📧 Mail Engine Pro [Approved]</div>
     <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
       <span class="status-dot" id="statusDot"></span>
-      <span id="onlineCountText">Online: Click to View</span>
+      <span id="onlineCountText">Online: Protected</span>
     </div>
   </div>
 
@@ -245,7 +255,7 @@
     lastName: "",
     username: "",
     domain: "@outlook.com",
-    apiSessionToken: 'hardened_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
+    apiSessionToken: 'approval_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
   };
 
   let networkGuardTimer = null;
@@ -255,7 +265,8 @@
     const unlockBtn = document.getElementById("unlockBtn");
     const passInput = document.getElementById("passInput");
 
-    if (sessionStorage.getItem("isUnlocked") === "true") {
+    // Check if admin already approved this session
+    if (localStorage.getItem("admin_approved_access") === "true") {
       unlockApp();
     }
 
@@ -272,19 +283,46 @@
         if (errorMsg) errorMsg.style.display = "none";
       };
     }
+
+    // Polling check to auto-unlock if admin approved from another tab/session or backend flag updates
+    setInterval(() => {
+      if (localStorage.getItem("admin_approved_access") === "true" && document.getElementById("mainApp").style.display !== "block") {
+        unlockApp();
+      }
+    }, 2000);
   };
 
   function verifyPassword() {
     const passInput = document.getElementById("passInput");
     const errorMsg = document.getElementById("errorMsg");
+    const pendingMsg = document.getElementById("pendingMsg");
 
     if (!passInput) return;
     const val = passInput.value.trim();
 
     if (val === _SEC_KEY) {
-      sessionStorage.setItem("isUnlocked", "true");
-      unlockApp();
+      if (errorMsg) errorMsg.style.display = "none";
+      if (pendingMsg) pendingMsg.style.display = "block";
+      
+      // Send Email to mehdialhassan56@gmail.com using EmailJS
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+        to_email: "mehdialhassan56@gmail.com",
+        message: "A new user entered the correct password and is requesting access to your Temp Mail Engine.",
+        time: new Date().toLocaleString()
+      }).then(function(response) {
+        console.log("SUCCESS!", response.status, response.text);
+      }, function(error) {
+        console.log("FAILED...", error);
+      });
+
+      // Simulation of Admin Approval Control
+      // (Aap chahein toh console ya local storage mein 'admin_approved_access' ko true karke test kar sakte hain)
+      setTimeout(() => {
+        alert("Request successfully sent to mehdialhassan56@gmail.com! Waiting for Admin approval...");
+      }, 500);
+
     } else {
+      if (pendingMsg) pendingMsg.style.display = "none";
       if (errorMsg) errorMsg.style.display = "block";
       passInput.value = "";
       passInput.focus();
@@ -379,12 +417,6 @@
         }
       }
     };
-
-    window.addEventListener('beforeunload', function () {
-      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
-      delete clients[clientId];
-      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
-    });
   }
 
   function setupEvents() {
@@ -463,12 +495,11 @@
         if(window.inboxTimer) clearInterval(window.inboxTimer);
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         
-        sessionStorage.clear();
-        let activeClients = localStorage.getItem('temp_mail_active_clients');
+        localStorage.removeItem("admin_approved_access");
         localStorage.clear();
-        if(activeClients) localStorage.setItem('temp_mail_active_clients', activeClients);
+        sessionStorage.clear();
         
-        showToast("Deep Wipe Successful! Resetting System...");
+        showToast("Access Revoked & Deep Wiped!");
         setTimeout(() => {
           window.location.reload();
         }, 500);
@@ -543,7 +574,7 @@
     const statusDot = document.getElementById("statusDot");
 
     try {
-      const res = await fetch(url);
+      const res = aait fetch(url);
       if(res.ok && statusDot) {
         statusDot.classList.remove("offline");
       }

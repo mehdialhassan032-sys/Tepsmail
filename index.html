@@ -3,82 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microsoft Secure Vault - Premium Gateway</title>
+  <title>Microsoft Secure Vault - Elite Gateway</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-    body { background: #030712; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+    * { box-sizing: border-box; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 0; }
+    body { background: #010409; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow-x: hidden; }
 
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: radial-gradient(circle at center, #0f172a 0%, #030712 100%); 
+      background: radial-gradient(circle at 50% 30%, #091a3a 0%, #030712 70%, #010409 100%); 
       z-index: 99999; display: flex; justify-content: center; align-items: center; padding: 20px;
     }
+    
     .holo-vault-card {
-      background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 32px;
-      padding: 45px 30px; width: 100%; max-width: 410px; text-align: center;
-      box-shadow: 0 30px 70px rgba(0,0,0,0.95), inset 0 0 35px rgba(59, 130, 246, 0.05);
-      animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      background: rgba(13, 20, 38, 0.65); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 36px;
+      padding: 50px 32px; width: 100%; max-width: 430px; text-align: center;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.9), inset 0 0 40px rgba(56, 189, 248, 0.04);
+      animation: cardAppear 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      position: relative; overflow: hidden;
     }
+    
+    .holo-vault-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8), transparent);
+      animation: scanLine 3s infinite linear;
+    }
+    @keyframes scanLine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
     @keyframes cardAppear {
-      0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+      0% { opacity: 0; transform: translateY(30px) scale(0.92); }
       100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     
     .hologram-core {
-      width: 90px; height: 90px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; margin: 0 auto 22px auto; font-size: 38px;
-      box-shadow: 0 0 35px rgba(59, 130, 246, 0.5); position: relative; animation: holoFloat 3.5s infinite ease-in-out;
+      width: 100px; height: 100px; background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #1d4ed8 100%); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 26px auto; font-size: 42px;
+      box-shadow: 0 0 40px rgba(14, 165, 233, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.4); 
+      position: relative; animation: holoFloat 4s infinite ease-in-out;
     }
     @keyframes holoFloat {
-      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 30px rgba(59, 130, 246, 0.4); }
-      50% { transform: translateY(-8px) scale(1.04); box-shadow: 0 0 50px rgba(59, 130, 246, 0.8); }
+      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 35px rgba(14, 165, 233, 0.4); }
+      50% { transform: translateY(-10px) scale(1.05); box-shadow: 0 0 60px rgba(14, 165, 233, 0.7); }
     }
     .hologram-core.active-pulse { animation: soundPulse 1.2s infinite ease-in-out; }
     @keyframes soundPulse {
-      0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.8); transform: scale(1); }
-      50% { box-shadow: 0 0 0 25px rgba(59, 130, 246, 0); transform: scale(1.1); }
-      100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); transform: scale(1); }
+      0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.8); transform: scale(1); }
+      50% { box-shadow: 0 0 0 30px rgba(14, 165, 233, 0); transform: scale(1.12); }
+      100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); transform: scale(1); }
     }
 
-    .vault-title { font-size: 20px; font-weight: 800; color: #60a5fa; margin-bottom: 8px; letter-spacing: 2px; text-transform: uppercase; }
-    .vault-desc { font-size: 12px; color: #94a3b8; margin-bottom: 26px; line-height: 1.6; }
+    .vault-title { font-size: 22px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; letter-spacing: 3px; text-transform: uppercase; text-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .vault-desc { font-size: 12px; color: #94a3b8; margin-bottom: 30px; line-height: 1.6; font-weight: 500; }
 
-    .vault-input-group { position: relative; width: 100%; margin-bottom: 14px; }
+    .vault-input-group { position: relative; width: 100%; margin-bottom: 16px; }
     .vault-input {
-      width: 100%; padding: 14px 18px; border-radius: 14px; border: 1px solid #334155;
-      background: rgba(2, 6, 23, 0.85); color: #fff; font-size: 18px; text-align: center; outline: none; letter-spacing: 6px;
-      -webkit-text-security: disc;
+      width: 100%; padding: 16px 20px; border-radius: 16px; border: 1px solid rgba(51, 65, 85, 0.8);
+      background: rgba(2, 6, 23, 0.9); color: #fff; font-size: 20px; text-align: center; outline: none; letter-spacing: 8px;
+      -webkit-text-security: disc; transition: all 0.3s ease;
     }
-    .vault-input:focus { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
+    .vault-input:focus { border-color: #38bdf8; box-shadow: 0 0 25px rgba(56, 189, 248, 0.3); background: rgba(3, 10, 30, 0.95); }
 
-    .vault-btn { width: 100%; padding: 13px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; border: none; border-radius: 14px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 10px; transition: 0.2s; }
-    .vault-btn:hover { filter: brightness(1.1); }
-    .vault-btn-alt { width: 100%; padding: 11px; background: rgba(30, 41, 59, 0.5); color: #cbd5e1; border: 1px solid #334155; border-radius: 14px; font-weight: 600; font-size: 12px; cursor: pointer; transition: 0.2s; }
-    .vault-btn-alt:hover { background: rgba(30, 41, 59, 0.9); }
-    .vault-error { color: #f87171; font-size: 11px; margin-top: 14px; display: none; font-weight: 700; letter-spacing: 0.5px; }
+    .vault-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #0ea5e9, #2563eb); color: #fff; border: none; border-radius: 16px; font-weight: 700; font-size: 14px; cursor: pointer; margin-bottom: 12px; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3); }
+    .vault-btn:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: 0 15px 30px rgba(14, 165, 233, 0.4); }
+    
+    .vault-btn-alt { width: 100%; padding: 13px; background: rgba(30, 41, 59, 0.4); color: #cbd5e1; border: 1px solid rgba(51, 65, 85, 0.6); border-radius: 16px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s ease; }
+    .vault-btn-alt:hover { background: rgba(30, 41, 59, 0.8); border-color: rgba(56, 189, 248, 0.4); color: #fff; }
+    
+    .vault-error { color: #f87171; font-size: 12px; margin-top: 14px; display: none; font-weight: 700; letter-spacing: 0.5px; animation: shake 0.4s ease; }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 
     .app-card { 
-      background: #0f172a; border-radius: 20px; width: 100%; max-width: 480px; 
-      border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
+      background: rgba(13, 20, 38, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      border-radius: 24px; width: 100%; max-width: 480px; 
+      border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.85); 
       overflow: hidden; margin: auto; display: none;
     }
-    .header-bar { background: linear-gradient(135deg, #3b82f6, #1d4ed8); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
-    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
+    .header-bar { background: linear-gradient(135deg, #0ea5e9, #2563eb); padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; }
+    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; letter-spacing: 0.5px; }
     
     .voice-status-bar {
-      background: rgba(2, 6, 23, 0.95); border-bottom: 1px solid #1e293b; padding: 10px 16px;
+      background: rgba(2, 6, 23, 0.9); border-bottom: 1px solid rgba(30, 41, 59, 0.8); padding: 11px 18px;
       display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #94a3b8;
     }
-    .voice-indicator { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #60a5fa; }
+    .voice-indicator { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #38bdf8; }
     .v-dot { width: 8px; height: 8px; background: #64748b; border-radius: 50%; transition: 0.3s; }
-    .v-dot.active { background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: blink 1.2s infinite; }
+    .v-dot.active { background: #22c55e; box-shadow: 0 0 12px #22c55e; animation: blink 1.2s infinite; }
     @keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
 
     .live-analytics-box {
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
-      border-bottom: 1px solid #1e293b; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
-      border-left: 3px solid #3b82f6; display: none;
+      border-bottom: 1px solid rgba(30, 41, 59, 0.8); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
+      border-left: 3px solid #0ea5e9; display: none;
     }
     .analytics-left { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
     .live-pulse-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; animation: liveBlink 1.5s infinite; }
@@ -87,51 +102,57 @@
 
     #analyticsAuthOverlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(8px); z-index: 9999; display: none;
+      background: rgba(1, 4, 9, 0.88); backdrop-filter: blur(12px); z-index: 9999; display: none;
       justify-content: center; align-items: center; padding: 20px;
     }
 
-    .card-body { padding: 20px; }
-    .field-group { margin-bottom: 14px; }
-    .field-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
-    input[type="text"], select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #020617; color: #f8fafc; font-size: 13px; outline: none; }
+    .card-body { padding: 22px; }
+    .field-group { margin-bottom: 16px; }
+    .field-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; }
+    input[type="text"], select { width: 100%; padding: 11px 14px; border-radius: 10px; border: 1px solid rgba(51, 65, 85, 0.8); background: rgba(2, 6, 23, 0.8); color: #f8fafc; font-size: 13px; outline: none; transition: 0.2s; }
+    input[type="text"]:focus, select:focus { border-color: #0ea5e9; box-shadow: 0 0 12px rgba(14, 165, 233, 0.25); }
 
     .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .gender-btn { background: #020617; color: #94a3b8; border: 1px solid #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-    .gender-btn.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+    .gender-btn { background: rgba(2, 6, 23, 0.8); color: #94a3b8; border: 1px solid rgba(51, 65, 85, 0.8); padding: 11px; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; transition: 0.2s; }
+    .gender-btn.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3); }
 
-    .email-banner { background: #020617; padding: 14px; border-radius: 10px; text-align: center; font-weight: 800; margin: 16px 0; border: 1px solid #3b82f6; color: #60a5fa; font-size: 14px; word-break: break-all; }
+    .email-banner { background: rgba(2, 6, 23, 0.9); padding: 15px; border-radius: 12px; text-align: center; font-weight: 800; margin: 18px 0; border: 1px solid rgba(14, 165, 233, 0.4); color: #38bdf8; font-size: 14px; word-break: break-all; box-shadow: inset 0 0 15px rgba(14, 165, 233, 0.05); }
     .email-text { font-family: monospace; letter-spacing: 0.5px; }
     
-    .profile-card { background: #020617; border: 1px solid #1e293b; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 12px; }
-    .profile-title { font-weight: 800; color: #60a5fa; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
-    .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }
+    .profile-card { background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(30, 41, 59, 0.8); border-radius: 12px; padding: 16px; margin-bottom: 18px; font-size: 12px; }
+    .profile-title { font-weight: 800; color: #38bdf8; text-transform: uppercase; margin-bottom: 12px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 0.5px; }
+    .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(30, 41, 59, 0.8); padding-bottom: 8px; }
+    .profile-row:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
     .profile-val { color: #f8fafc; font-weight: 700; font-family: monospace; font-size: 13px; }
-    .btn-copy-sm { background: #1e293b; color: #60a5fa; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .btn-copy-sm { background: rgba(30, 41, 59, 0.8); color: #38bdf8; border: 1px solid rgba(51, 65, 85, 0.8); padding: 5px 10px; font-size: 11px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+    .btn-copy-sm:hover { background: #0ea5e9; color: #fff; }
 
-    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-    button { padding: 10px 12px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-    .btn-primary { background: #3b82f6; color: white; }
-    .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
-    .btn-success { background: #16a34a; color: white; }
-    .btn-warn { background: #0ea5e9; color: white; }
-    .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; }
-    .btn-refresh { background: #1d4ed8; color: white; }
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+    button { padding: 11px 14px; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; transition: 0.2s; }
+    button:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-primary { background: #0ea5e9; color: white; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.25); }
+    .btn-secondary { background: rgba(30, 41, 59, 0.8); color: #f1f5f9; border: 1px solid rgba(51, 65, 85, 0.8); }
+    .btn-success { background: #16a34a; color: white; box-shadow: 0 4px 15px rgba(22, 163, 74, 0.25); }
+    .btn-warn { background: #0284c7; color: white; }
+    .btn-danger { background: #dc2626; color: white; margin-top: 12px; width: 100%; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.25); }
+    .btn-refresh { background: #2563eb; color: white; }
     .btn-full { grid-column: span 2; }
 
-    .inbox-area { border-top: 1px solid #1e293b; padding-top: 16px; }
-    .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .inbox-title { font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; }
-    .msg-card { background: #020617; border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-    .msg-sender { color: #60a5fa; font-size: 12px; font-weight: 700; }
-    .msg-subject { color: #f8fafc; font-size: 13px; font-weight: 700; margin: 4px 0 6px 0; }
-    .msg-body { background: #0f172a; padding: 8px; border-radius: 6px; font-size: 12px; color: #94a3b8; white-space: pre-wrap; word-break: break-word; }
+    .inbox-area { border-top: 1px solid rgba(30, 41, 59, 0.8); padding-top: 18px; }
+    .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .inbox-title { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+    .msg-card { background: rgba(2, 6, 23, 0.8); border: 1px solid rgba(30, 41, 59, 0.8); padding: 14px; border-radius: 10px; margin-bottom: 10px; }
+    .msg-sender { color: #38bdf8; font-size: 12px; font-weight: 700; }
+    .msg-subject { color: #f8fafc; font-size: 13px; font-weight: 700; margin: 4px 0 8px 0; }
+    .msg-body { background: rgba(15, 23, 42, 0.8); padding: 10px; border-radius: 8px; font-size: 12px; color: #94a3b8; white-space: pre-wrap; word-break: break-word; border: 1px solid rgba(30, 41, 59, 0.4); }
     
-    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #fbbf24; color: #000; padding: 8px 12px; border-radius: 6px; margin-top: 8px; font-weight: 800; }
-    .otp-code { font-size: 16px; font-family: monospace; }
-    .btn-otp-copy { background: #000; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
+    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #fbbf24; color: #000; padding: 10px 14px; border-radius: 8px; margin-top: 10px; font-weight: 800; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2); }
+    .otp-code { font-size: 18px; font-family: monospace; letter-spacing: 1px; }
+    .btn-otp-copy { background: #000; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+    .btn-otp-copy:hover { background: #1e293b; }
 
-    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #16a34a; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; }
+    .toast { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: #16a34a; color: white; padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 10px 25px rgba(22, 163, 74, 0.4); animation: toastPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes toastPop { 0% { transform: translate(-50%, 20px); opacity: 0; } 100% { transform: translate(-50%, 0); opacity: 1; } }
   </style>
 </head>
 <body>
@@ -154,9 +175,9 @@
 </div>
 
 <div id="analyticsAuthOverlay">
-  <div class="holo-vault-card" style="max-width: 340px;">
-    <div class="hologram-core" style="width:70px; height:70px; font-size:28px;">📊</div>
-    <div class="vault-title" style="font-size:16px;">Admin Live Analytics</div>
+  <div class="holo-vault-card" style="max-width: 360px; padding: 40px 26px;">
+    <div class="hologram-core" style="width:75px; height:75px; font-size:30px;">📊</div>
+    <div class="vault-title" style="font-size:18px;">Admin Live Analytics</div>
     <div class="vault-desc">Active users ka data dekhne ke liye Admin Password dalein:</div>
     <div class="vault-input-group">
       <input type="password" id="analyticsPassInput" class="vault-input" placeholder="••••••••" autocomplete="current-password">
@@ -171,8 +192,8 @@
   <div class="header-bar">
     <div class="header-brand">🔒 Secure Dashboard</div>
     <div style="display:flex; gap:6px;">
-      <button class="btn-warn" id="openAnalyticsAuthBtn" style="padding:4px 8px; font-size:10px;">📊 Live Traffic</button>
-      <button class="btn-secondary" id="manualLockBtn" style="padding:4px 8px; font-size:10px;">🔒 Lock</button>
+      <button class="btn-warn" id="openAnalyticsAuthBtn" style="padding:5px 10px; font-size:10px;">📊 Live Traffic</button>
+      <button class="btn-secondary" id="manualLockBtn" style="padding:5px 10px; font-size:10px;">🔒 Lock</button>
     </div>
   </div>
 
@@ -192,7 +213,7 @@
   </div>
 
   <div class="card-body">
-    <button type="button" class="btn-success btn-full" id="startMicBtn" style="margin-bottom: 14px; padding: 12px; font-size: 13px;">🎙️ Start Voice Engine (Click to Active)</button>
+    <button type="button" class="btn-success btn-full" id="startMicBtn" style="margin-bottom: 16px; padding: 13px; font-size: 13px;">🎙️ Start Voice Engine (Click to Active)</button>
 
     <div class="field-group">
       <span class="field-label">Country</span>
@@ -227,7 +248,7 @@
     <div class="profile-card">
       <div class="profile-title">
         <span>👤 Secure Masked Identity</span>
-        <span id="countryLabel" style="color:#60a5fa;">[EGYPT - MALE]</span>
+        <span id="countryLabel" style="color:#38bdf8;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
         <span>First Name:</span>
@@ -584,7 +605,6 @@
       });
     }
 
-    // API Domain Auto-Change / Rotation on Reset
     const availableDomains = ["outlook.com", "hotmail.com", "esiia.com", "1secmail.com", "1secmail.org"];
     let filteredDomains = availableDomains.filter(d => d !== state.domain);
     let newRandomDomain = filteredDomains[Math.floor(Math.random() * filteredDomains.length)];

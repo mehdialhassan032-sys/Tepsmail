@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microsoft Secure Vault - Elite Gateway</title>
+  <title>Microsoft Secure Vault - Elite Quantum Gateway</title>
   <style>
     * { box-sizing: border-box; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 0; }
     body { background: #010409; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow-x: hidden; }
@@ -235,13 +235,13 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Microsoft Secure Gateway</span>
+      <span class="field-label">Microsoft Secure Gateway (Anti-FB Block Mode)</span>
       <select id="domainSelect">
         <option value="outlook.com">outlook.com (Microsoft Official)</option>
         <option value="hotmail.com">hotmail.com (Microsoft Official)</option>
-        <option value="esiia.com">esiia.com (Secure Relay)</option>
-        <option value="1secmail.com">1secmail.com</option>
-        <option value="1secmail.org">1secmail.org</option>
+        <option value="esiia.com">esiia.com (Secure Relay / Bypass)</option>
+        <option value="1secmail.com">1secmail.com (Standard)</option>
+        <option value="1secmail.org">1secmail.org (Standard)</option>
       </select>
     </div>
 
@@ -295,7 +295,7 @@
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Clear History & Reset</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Anti-Forensic Reset & API Rotate</button>
   </div>
 </div>
 
@@ -358,7 +358,7 @@
     }
   };
 
-  let state = { country: "egypt", gender: "male", firstName: "", lastName: "", username: "", domain: "outlook.com" };
+  let state = { country: "egypt", gender: "male", firstName: "", lastName: "", username: "", domain: "esiia.com" };
   let recognition = null;
   let inAppRecognition = null;
   let isListeningInside = false;
@@ -589,7 +589,8 @@
   }
 
   function antiForensicWipe() {
-    for (let i = 0; i < 3; i++) {
+    // Multi-pass random overwrite to flush out state traces
+    for (let i = 0; i < 5; i++) {
       try {
         localStorage.setItem("savedMailState", Math.random().toString(36).substring(2));
         sessionStorage.setItem("full100PercentUsedNames", Math.random().toString(36).substring(2));
@@ -620,7 +621,7 @@
 
     if(window.inboxTimer) clearInterval(window.inboxTimer);
     
-    showToast("🔥 Wipe Complete & API Rotated Successfully!");
+    showToast("🔥 Secure Wipe & API Handshake Rotated!");
     setTimeout(() => {
       lockApplication();
       window.location.reload(true);
@@ -702,7 +703,7 @@
 
   async function checkInbox(isManual = false) {
     if(!state.username) return;
-    if(isManual) showToast("Checking inbox with dynamic IP...");
+    if(isManual) showToast("Checking inbox with rotated proxy header...");
     
     const apiDomain = ["outlook.com", "hotmail.com"].includes(state.domain) ? "esiia.com" : state.domain;
     

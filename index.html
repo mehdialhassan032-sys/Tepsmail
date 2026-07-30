@@ -4,12 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Temp Mail Engine Pro - Military Grade Shield</title>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
-    })();
-  </script>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; touch-action: pan-x pan-y; }
     body { background: #030712; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow: hidden; position: fixed; width: 100%; height: 100%; }
@@ -33,7 +27,6 @@
     }
     .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
     .error-msg { color: #ef4444; font-size: 12px; margin-top: 10px; display: none; }
-    .pending-msg { color: #fbbf24; font-size: 12px; margin-top: 10px; display: none; line-height: 1.4; }
 
     .app-card { 
       background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
@@ -104,14 +97,13 @@
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Gmail Approval Gateway</div>
-    <div class="lock-desc" id="lockDescText">Enter master key. New devices require admin Gmail authorization.</div>
+    <div class="lock-title">🔒 Secure Access Gateway</div>
+    <div class="lock-desc">Enter master key to unlock encrypted mail engine.</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Master Key" autocomplete="off">
     </div>
-    <button type="button" class="lock-btn" id="unlockBtn">Authorize Device</button>
+    <button type="button" class="lock-btn" id="unlockBtn">Unlock Engine</button>
     <div id="errorMsg" class="error-msg">Invalid Key! Access denied.</div>
-    <div id="pendingMsg" class="pending-msg">⏳ Key verified. Checking Gmail approval status...</div>
   </div>
 </div>
 
@@ -234,9 +226,7 @@
 
   const _SEC_KEY = ["9", "9", "5", "4", "1", "3", "1"].join("");
   const _ACT_KEY = ["9", "9", "5", "4", "2", "5", "6"].join("");
-  const ADMIN_GMAIL = "mehdialhassan56@gmail.com";
 
-  // --- SPOOFED DEVICE FINGERPRINT & GUID ENGINE ---
   function generateSpoofedDeviceSignature() {
     let randomBytes = new Uint8Array(16);
     window.crypto.getRandomValues(randomBytes);
@@ -294,12 +284,9 @@
     const passInput = document.getElementById("passInput");
 
     let isSessionActive = sessionStorage.getItem("active_session_token_v8");
-    let isDeviceAuthorized = localStorage.getItem("gmail_approved_device_" + deviceFingerprint) === "true";
 
-    if (isSessionActive && isDeviceAuthorized) {
+    if (isSessionActive) {
       unlockApp();
-    } else if (!isDeviceAuthorized && localStorage.getItem("auth_attempt_logged_" + deviceFingerprint)) {
-      document.getElementById("lockDescText").innerHTML = "<b style='color:#ef4444;'>Device Pending Gmail Approval! Admin permission required.</b>";
     }
 
     if (unlockBtn) unlockBtn.onclick = verifyPassword;
@@ -318,47 +305,15 @@
   function verifyPassword() {
     const passInput = document.getElementById("passInput");
     const errorMsg = document.getElementById("errorMsg");
-    const pendingMsg = document.getElementById("pendingMsg");
-    const lockDescText = document.getElementById("lockDescText");
 
     if (!passInput) return;
     const val = passInput.value.trim();
 
     if (val === _SEC_KEY) {
       if (errorMsg) errorMsg.style.display = "none";
-      if (pendingMsg) pendingMsg.style.display = "block";
-
-      let isAuthorized = localStorage.getItem("gmail_approved_device_" + deviceFingerprint) === "true";
-
-      if (isAuthorized) {
-        setTimeout(() => {
-          sessionStorage.setItem("active_session_token_v8", "true");
-          unlockApp();
-        }, 500);
-      } else {
-        localStorage.setItem("auth_attempt_logged_" + deviceFingerprint, "true");
-        
-        try {
-          emailjs.send("service_default", "template_default", {
-            to_email: ADMIN_GMAIL,
-            subject: "🚨 NEW DEVICE GMAIL APPROVAL REQUEST",
-            message: `A new device is trying to access the app.\n\nDevice Fingerprint: ${deviceFingerprint}\nUser Agent: ${navigator.userAgent}\nTime: ${new Date().toLocaleString()}\n\nTo approve, set local storage flag on admin panel: gmail_approved_device_${deviceFingerprint} = true`,
-            device_id: deviceFingerprint,
-            timestamp: new Date().toLocaleString()
-          }).catch(err => console.log("Email dispatch notification:", err));
-        } catch(e) {}
-
-        setTimeout(() => {
-          if (pendingMsg) pendingMsg.style.display = "none";
-          if (lockDescText) {
-            lockDescText.innerHTML = "<b style='color:#fbbf24;'>Key verified! Waiting for Gmail approval by administrator.</b>";
-          }
-          passInput.value = "";
-          passInput.focus();
-        }, 1000);
-      }
+      sessionStorage.setItem("active_session_token_v8", "true");
+      unlockApp();
     } else {
-      if (pendingMsg) pendingMsg.style.display = "none";
       if (errorMsg) errorMsg.style.display = "block";
       passInput.value = "";
       passInput.focus();
@@ -530,7 +485,6 @@
     if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}${state.domain}`);
     if(get("manualRefreshBtn")) get("manualRefreshBtn").onclick = () => checkInbox(true);
     
-    // --- MILITARY CRYPTO-SHRED & DEEP PURGE RESET BUTTON ---
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
         if (!confirm("Are you sure? This will CRYPTO-SHRED all data, reset device signature, and destroy all traces permanently.")) return;
@@ -539,7 +493,6 @@
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         if(countdownInterval) clearInterval(countdownInterval);
 
-        // Step 1: Crypto Memory Shredding (Overwrite Storage with Random Garbage Noise)
         try {
           for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
@@ -549,7 +502,6 @@
           }
         } catch(e) {}
 
-        // Step 2: Clear Storage & Cookies
         localStorage.clear();
         sessionStorage.clear();
         
@@ -557,12 +509,10 @@
           document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
         });
 
-        // Step 3: Destroy In-Memory Reference State
         state = null;
 
         showToast("🔥 DATA CRYPTO-SHREDDED & IDENTITY RESET!");
         setTimeout(() => {
-          // Force Hard Reload with Cache Busting & Fresh Device GUID
           window.location.href = window.location.pathname + '?shred_purge=' + Math.random().toString(36).substring(2) + Date.now();
         }, 600);
       };

@@ -39,6 +39,7 @@
     .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
     .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; }
     .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; }
+    .status-dot.offline { background-color: #ef4444; }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
@@ -102,9 +103,9 @@
 <div class="app-card" id="mainApp">
   <div class="header-bar">
     <div class="header-brand">📧 Mail Engine Pro</div>
-    <div class="sync-status">
-      <span class="status-dot"></span>
-      <span>Active</span>
+    <div class="sync-status" id="syncStatusIndicator">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="onlineCountText">Online: 1 User</span>
     </div>
   </div>
 
@@ -131,14 +132,14 @@
     <div class="field-group">
       <span class="field-label">Select Domain Gateway</span>
       <select id="domainSelect">
-        <option value="outlook.com">outlook.com</option>
-        <option value="hotmail.com">hotmail.com</option>
-        <option value="esiia.com">esiia.com</option>
-        <option value="1secmail.com">1secmail.com</option>
-        <option value="1secmail.org">1secmail.org</option>
-        <option value="1secmail.net">1secmail.net</option>
-        <option value="wwdmail.com">wwdmail.com</option>
-        <option value="dvcmail.com">dvcmail.com</option>
+        <option value="@outlook.com">@outlook.com</option>
+        <option value="@hotmail.com">@hotmail.com</option>
+        <option value="@esiia.com">@esiia.com</option>
+        <option value="@1secmail.com">@1secmail.com</option>
+        <option value="@1secmail.org">@1secmail.org</option>
+        <option value="@email.com">@email.com</option>
+        <option value="@gmail.com">@gmail.com</option>
+        <option value="@gmail.com">@gmail.com</option>
       </select>
     </div>
 
@@ -283,6 +284,42 @@
     
     setupEvents();
     generateProfile();
+    initActiveUserCounter(); // Start live active counter after secure unlock
+  }
+
+  function initActiveUserCounter() {
+    const countText = document.getElementById("onlineCountText");
+    const statusDot = document.getElementById("statusDot");
+    if (!countText) return;
+
+    const channel = new BroadcastChannel('temp_mail_online_users');
+    let activeTabs = parseInt(localStorage.getItem('temp_mail_active_tabs') || '0') + 1;
+    localStorage.setItem('temp_mail_active_tabs', activeTabs);
+
+    function updateDisplayCount(count) {
+      countText.innerText = `Online: ${count} User${count > 1 ? 's' : ''}`;
+      if (statusDot) statusDot.classList.remove("offline");
+    }
+
+    updateDisplayCount(activeTabs);
+    channel.postMessage({ type: 'NEW_USER', count: activeTabs });
+
+    channel.onmessage = function (event) {
+      if (event.data && event.data.count) {
+        // Keeps sync across browser windows/tabs
+        if (event.data.count > activeTabs) {
+          activeTabs = event.data.count;
+          localStorage.setItem('temp_mail_active_tabs', activeTabs);
+          updateDisplayCount(activeTabs);
+        }
+      }
+    };
+
+    window.addEventListener('beforeunload', function () {
+      let currentTabs = Math.max(1, parseInt(localStorage.getItem('temp_mail_active_tabs') || '1') - 1);
+      localStorage.setItem('temp_mail_active_tabs', currentTabs);
+      channel.postMessage({ type: 'USER_LEFT', count: currentTabs });
+    });
   }
 
   function setupEvents() {
@@ -411,8 +448,14 @@
     const apiDomain = ["outlook.com", "hotmail.com"].includes(state.domain) ? "esiia.com" : state.domain;
     const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_t=${Date.now()}`;
 
+    const statusDot = document.getElementById("statusDot");
+
     try {
       const res = await fetch(url);
+      if(res.ok && statusDot) {
+        statusDot.classList.remove("offline");
+      }
+
       const list = await res.json();
       const container = document.getElementById("inboxList");
 
@@ -459,6 +502,7 @@
       }
     } catch(err) {
       console.error("Inbox fetch error:", err);
+      if(statusDot) statusDot.classList.add("offline");
     }
   }
 

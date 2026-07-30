@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Temp Mail Engine Pro - Auto Network Guard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Temp Mail Engine Pro - Ultra Hardened Edition</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-    body { background: #090d16; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; touch-action: pan-x pan-y; }
+    body { background: #05080f; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow: hidden; position: fixed; width: 100%; height: 100%; }
 
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: #090d16; z-index: 99999; display: flex;
+      background: #05080f; z-index: 99999; display: flex;
       justify-content: center; align-items: center; padding: 20px;
     }
     .lock-card {
       background: #0f172a; border: 1px solid #1e293b; border-radius: 16px;
       padding: 30px; width: 100%; max-width: 380px; text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.9);
     }
     .lock-title { font-size: 18px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; }
     .lock-desc { font-size: 12px; color: #64748b; margin-bottom: 20px; }
@@ -30,10 +30,10 @@
 
     .app-card { 
       background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
-      border: 1px solid #1e293b; box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
-      overflow: hidden; margin: auto; display: none;
+      max-height: 95vh; border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
+      overflow-y: auto; margin: auto; display: none;
     }
-    .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
+    .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
     .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
     .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
     .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; }
@@ -79,7 +79,6 @@
     .otp-code { font-size: 16px; font-family: monospace; }
     .btn-otp-copy { background: #000; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
 
-    /* Network Fail Simulation Style */
     .bounce-card { background: #1c0c0e; border: 1px solid #7f1d1d; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
     .bounce-title { color: #f87171; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
     .bounce-text { color: #fca5a5; font-size: 11px; font-family: monospace; margin-top: 4px; }
@@ -91,19 +90,19 @@
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Private Access</div>
-    <div class="lock-desc">Enter password to unlock Mail Engine</div>
+    <div class="lock-title">🔒 Hardened Access</div>
+    <div class="lock-desc">Enter security key to unlock system</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
     </div>
     <button type="button" class="lock-btn" id="unlockBtn">Unlock Engine</button>
-    <div id="errorMsg" class="error-msg">Incorrect Password! Try again.</div>
+    <div id="errorMsg" class="error-msg">Incorrect Security Key!</div>
   </div>
 </div>
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Mail Engine Pro</div>
+    <div class="header-brand">📧 Mail Engine Pro [Hardened]</div>
     <div class="sync-status" id="syncStatusIndicator" title="Click to view online users">
       <span class="status-dot" id="statusDot"></span>
       <span id="onlineCountText">Online: Protected</span>
@@ -133,19 +132,19 @@
     <div class="field-group">
       <span class="field-label">Select Domain Gateway</span>
       <select id="domainSelect">
-        <option value="outlook.com">outlook.com</option>
-        <option value="hotmail.com">hotmail.com</option>
-        <option value="esiia.com">esiia.com</option>
-        <option value="1secmail.com">1secmail.com</option>
-        <option value="1secmail.org">1secmail.org</option>
-        <option value="email.com">email.com</option>
-        <option value="gmail.com">gmail.com</option>
+        <option value="@outlook.com">@outlook.com</option>
+        <option value="@hotmail.com">@hotmail.com</option>
+        <option value="@esiia.com">@esiia.com</option>
+        <option value="@1secmail.com">@1secmail.com</option>
+        <option value="@1secmail.org">@1secmail.org</option>
+        <option value="@email.com">@email.com</option>
+        <option value="@gmail.com">@gmail.com</option>
       </select>
     </div>
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Real Identity (FB Safe)</span>
+        <span>👤 Locked Identity Profile</span>
         <span id="countryLabel" style="color:#38bdf8;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
@@ -185,7 +184,7 @@
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">📥 Live Inbox & Auto Network Guard</span>
+        <span class="inbox-title">📥 Live Inbox & Strict Network Guard</span>
         <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Refresh</button>
       </div>
       <div id="inboxList">
@@ -200,6 +199,19 @@
 <div id="toast" class="toast">Copied!</div>
 
 <script>
+  let touchStartY = 0;
+  window.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: false });
+
+  window.addEventListener('touchmove', function(e) {
+    let touchY = e.touches[0].clientY;
+    let appCard = document.getElementById('mainApp');
+    if (appCard && appCard.scrollTop === 0 && touchY > touchStartY) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
   const _SEC_KEY = ["9", "9", "5", "4", "1", "3", "1"].join("");
   const _ACT_KEY = ["9", "9", "5", "4", "2", "5", "6"].join("");
 
@@ -226,15 +238,14 @@
     }
   };
 
-  let usedNamesHistory = [];
   let state = {
     country: "egypt",
     gender: "male",
     firstName: "",
     lastName: "",
     username: "",
-    domain: "outlook.com",
-    apiSessionToken: 'rand_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
+    domain: "@outlook.com",
+    apiSessionToken: 'hardened_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
   };
 
   let networkGuardTimer = null;
@@ -288,8 +299,36 @@
     if (mainApp) mainApp.style.display = "block";
     
     setupEvents();
-    generateProfile();
+    loadPersistentState();
     initRobustActiveUserChecker();
+  }
+
+  function loadPersistentState() {
+    const savedState = localStorage.getItem("temp_mail_hardened_state");
+    if (savedState) {
+      try {
+        state = JSON.parse(savedState);
+        document.getElementById("countrySelect").value = state.country;
+        if (state.gender === "female") {
+          document.getElementById("btnFemale").classList.add("active");
+          document.getElementById("btnMale").classList.remove("active");
+        } else {
+          document.getElementById("btnMale").classList.add("active");
+          document.getElementById("btnFemale").classList.remove("active");
+        }
+        document.getElementById("domainSelect").value = state.domain;
+        updateDisplay();
+        startInbox();
+        return;
+      } catch(e) {
+        console.error("State parse error:", e);
+      }
+    }
+    generateProfile();
+  }
+
+  function savePersistentState() {
+    localStorage.setItem("temp_mail_hardened_state", JSON.stringify(state));
   }
 
   function initRobustActiveUserChecker() {
@@ -330,22 +369,16 @@
 
     statusIndicator.onclick = function() {
       if (!isUserCountUnlocked) {
-        let enteredPass = prompt("Enter password to view active users:");
+        let enteredPass = prompt("Enter security key to view active users:");
         if (enteredPass === _ACT_KEY) {
           isUserCountUnlocked = true;
           updateActiveClients();
           showToast("Active user count unlocked!");
         } else if (enteredPass !== null) {
-          alert("Incorrect Password!");
+          alert("Incorrect Security Key!");
         }
       }
     };
-
-    window.addEventListener('beforeunload', function () {
-      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
-      delete clients[clientId];
-      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
-    });
   }
 
   function setupEvents() {
@@ -380,6 +413,7 @@
       get("domainSelect").onchange = function(e) {
         state.domain = e.target.value;
         updateDisplay();
+        savePersistentState();
         startInbox();
       };
     }
@@ -390,9 +424,11 @@
       get("refreshEmailBtn").onclick = function() {
         const randNum = Math.floor(1000 + Math.random() * 8999);
         state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
+        hasSimulatedNetworkFail = false;
         updateDisplay();
+        savePersistentState();
         startInbox();
-        showToast("Email Refreshed!");
+        showToast("Email Refreshed Successfully!");
       };
     }
 
@@ -401,17 +437,19 @@
         const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
         if(input) {
           state.username = input;
+          hasSimulatedNetworkFail = false;
           updateDisplay();
+          savePersistentState();
           startInbox();
-          showToast("Custom Email Set!");
+          showToast("Custom Email Configured!");
         }
       };
     }
 
     if(get("copyFirstBtn")) get("copyFirstBtn").onclick = () => copyVal(state.firstName);
     if(get("copyLastBtn")) get("copyLastBtn").onclick = () => copyVal(state.lastName);
-    if(get("copyEmailBtn")) get("copyEmailBtn").onclick = () => copyVal(`${state.username}@${state.domain}`);
-    if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}@${state.domain}`);
+    if(get("copyEmailBtn")) get("copyEmailBtn").onclick = () => copyVal(`${state.username}${state.domain}`);
+    if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}${state.domain}`);
     if(get("manualRefreshBtn")) get("manualRefreshBtn").onclick = () => checkInbox(true);
     
     if(get("wipeBtn")) {
@@ -419,23 +457,10 @@
         if(window.inboxTimer) clearInterval(window.inboxTimer);
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         
-        usedNamesHistory = [];
         sessionStorage.clear();
-        
-        let activeClients = localStorage.getItem('temp_mail_active_clients');
         localStorage.clear();
-        if(activeClients) localStorage.setItem('temp_mail_active_clients', activeClients);
         
-        state.apiSessionToken = 'stealth_' + Math.random().toString(36).substring(2) + '_' + Date.now().toString(36) + Math.random().toString(36);
-        state.username = "";
-        state.firstName = "";
-        state.lastName = "";
-        hasSimulatedNetworkFail = false;
-        
-        const container = document.getElementById("inboxList");
-        if(container) container.innerHTML = "";
-        
-        showToast("Deep Wipe Successful! New Identity Loading...");
+        showToast("Deep Wipe Successful! Resetting System...");
         setTimeout(() => {
           window.location.reload();
         }, 500);
@@ -447,22 +472,8 @@
     const cData = DB[state.country] || DB.egypt;
     const gData = cData[state.gender] || cData.male;
 
-    let fName = "";
-    let lName = "";
-    let fullNameKey = "";
-    let attempts = 0;
-
-    do {
-      fName = gData.first[Math.floor(Math.random() * gData.first.length)];
-      lName = gData.last[Math.floor(Math.random() * gData.last.length)];
-      fullNameKey = `${fName}_${lName}`.toLowerCase();
-      attempts++;
-    } while (usedNamesHistory.includes(fullNameKey) && attempts < 30);
-
-    usedNamesHistory.push(fullNameKey);
-    if(usedNamesHistory.length > 50) {
-      usedNamesHistory.shift();
-    }
+    let fName = gData.first[Math.floor(Math.random() * gData.first.length)];
+    let lName = gData.last[Math.floor(Math.random() * gData.last.length)];
 
     state.firstName = fName;
     state.lastName = lName;
@@ -472,13 +483,14 @@
 
     hasSimulatedNetworkFail = false;
     updateDisplay();
+    savePersistentState();
     startInbox();
   }
 
   function updateDisplay() {
     if(document.getElementById("dispFirstName")) document.getElementById("dispFirstName").innerText = state.firstName;
     if(document.getElementById("dispLastName")) document.getElementById("dispLastName").innerText = state.lastName;
-    if(document.getElementById("dispEmail")) document.getElementById("dispEmail").innerText = `${state.username}@${state.domain}`;
+    if(document.getElementById("dispEmail")) document.getElementById("dispEmail").innerText = `${state.username}${state.domain}`;
     if(document.getElementById("countryLabel")) document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
   }
 
@@ -489,10 +501,10 @@
     checkInbox();
     window.inboxTimer = setInterval(() => checkInbox(false), 3000);
 
-    // AUTOMATIC NETWORK FAILURE & REJECT SIMULATOR (Triggers after 20 seconds if no OTP arrives)
+    // Hardened Auto-Detection & Timer (Triggers exactly after 25 seconds of non-delivery)
     networkGuardTimer = setTimeout(() => {
       triggerAutomaticNetworkRejectSimulation();
-    }, 20000);
+    }, 25000);
   }
 
   function triggerAutomaticNetworkRejectSimulation() {
@@ -500,25 +512,25 @@
     const container = document.getElementById("inboxList");
     if (!container) return;
 
-    // Check if real message already exists, if so do not trigger fake error
     if (container.querySelector(".msg-card")) return;
 
     hasSimulatedNetworkFail = true;
     const bounceCard = document.createElement("div");
     bounceCard.className = "bounce-card";
     bounceCard.innerHTML = `
-      <div class="bounce-title">⚠️ SMTP Bounce-Back: Network Error 451/550</div>
-      <div class="bounce-text">Status: Connection Timeout. Mail server rejected incoming OTP request due to routing / network problem. OTP delivery failed automatically.</div>
+      <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Rejected</div>
+      <div class="bounce-text">Status: Critical Network Exception. Destination mail server dropped handshake. OTP transmission denied automatically due to routing failure.</div>
     `;
     container.prepend(bounceCard);
-    showToast("Automated Network Failure Simulated!");
+    showToast("Strict Network Reject Simulation Triggered!");
   }
 
   async function checkInbox(isManual = false) {
     if(!state.username) return;
-    if(isManual) showToast("Checking inbox...");
+    if(isManual) showToast("Checking secure inbox...");
 
-    const apiDomain = ["outlook.com", "hotmail.com"].includes(state.domain) ? "esiia.com" : state.domain;
+    let cleanDomain = state.domain.replace('@', '');
+    const apiDomain = ["outlook.com", "hotmail.com"].includes(cleanDomain) ? "esiia.com" : cleanDomain;
     const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_sess=${state.apiSessionToken}&_t=${Date.now()}`;
 
     const statusDot = document.getElementById("statusDot");
@@ -535,7 +547,6 @@
       if(!container) return;
 
       if(list && list.length > 0) {
-        // Clear network simulation error if real mail arrives successfully
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         const existingBounce = container.querySelector(".bounce-card");
         if(existingBounce) existingBounce.remove();

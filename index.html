@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Temp Mail Engine Pro - Stealth Mode</title>
+  <title>Temp Mail Engine Pro - Auto Network Guard</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background: #090d16; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
@@ -78,6 +78,11 @@
     .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #fbbf24; color: #000; padding: 8px 12px; border-radius: 6px; margin-top: 8px; font-weight: 800; }
     .otp-code { font-size: 16px; font-family: monospace; }
     .btn-otp-copy { background: #000; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
+
+    /* Network Fail Simulation Style */
+    .bounce-card { background: #1c0c0e; border: 1px solid #7f1d1d; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
+    .bounce-title { color: #f87171; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .bounce-text { color: #fca5a5; font-size: 11px; font-family: monospace; margin-top: 4px; }
 
     .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #16a34a; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; }
   </style>
@@ -180,7 +185,7 @@
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">📥 Live Inbox (Auto Refresh)</span>
+        <span class="inbox-title">📥 Live Inbox & Auto Network Guard</span>
         <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Refresh</button>
       </div>
       <div id="inboxList">
@@ -188,7 +193,7 @@
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Fresh Session & Destroy History</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Deep Wipe & New Identity</button>
   </div>
 </div>
 
@@ -229,8 +234,11 @@
     lastName: "",
     username: "",
     domain: "outlook.com",
-    apiSessionToken: Math.random().toString(36.2) + Date.now().toString(36)
+    apiSessionToken: 'rand_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
   };
+
+  let networkGuardTimer = null;
+  let hasSimulatedNetworkFail = false;
 
   window.onload = function() {
     const unlockBtn = document.getElementById("unlockBtn");
@@ -281,39 +289,51 @@
     
     setupEvents();
     generateProfile();
-    initActiveUserCounter();
+    initRobustActiveUserChecker();
   }
 
-  function initActiveUserCounter() {
+  function initRobustActiveUserChecker() {
     const countText = document.getElementById("onlineCountText");
     const statusIndicator = document.getElementById("syncStatusIndicator");
     const statusDot = document.getElementById("statusDot");
     if (!countText || !statusIndicator) return;
 
-    const channel = new BroadcastChannel('temp_mail_online_users');
-    let activeTabs = parseInt(localStorage.getItem('temp_mail_active_tabs') || '0') + 1;
-    localStorage.setItem('temp_mail_active_tabs', activeTabs);
-
     let isUserCountUnlocked = false;
+    const clientId = 'client_' + Math.random().toString(36).substring(2, 9);
 
-    function renderCount() {
+    function updateActiveClients() {
+      let now = Date.now();
+      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
+      
+      Object.keys(clients).forEach(id => {
+        if (now - clients[id] > 6000) {
+          delete clients[id];
+        }
+      });
+
+      clients[clientId] = now;
+      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
+
+      let activeCount = Object.keys(clients).length;
+      if (activeCount < 1) activeCount = 1;
+
       if (isUserCountUnlocked) {
-        countText.innerText = `Online: ${activeTabs} User${activeTabs > 1 ? 's' : ''}`;
+        countText.innerText = `Online: ${activeCount} User${activeCount > 1 ? 's' : ''}`;
       } else {
         countText.innerText = `Online: Click to View`;
       }
       if (statusDot) statusDot.classList.remove("offline");
     }
 
-    renderCount();
-    channel.postMessage({ type: 'NEW_USER', count: activeTabs });
+    updateActiveClients();
+    setInterval(updateActiveClients, 3000);
 
     statusIndicator.onclick = function() {
       if (!isUserCountUnlocked) {
         let enteredPass = prompt("Enter password to view active users:");
         if (enteredPass === _ACT_KEY) {
           isUserCountUnlocked = true;
-          renderCount();
+          updateActiveClients();
           showToast("Active user count unlocked!");
         } else if (enteredPass !== null) {
           alert("Incorrect Password!");
@@ -321,20 +341,10 @@
       }
     };
 
-    channel.onmessage = function (event) {
-      if (event.data && event.data.count) {
-        if (event.data.count > activeTabs) {
-          activeTabs = event.data.count;
-          localStorage.setItem('temp_mail_active_tabs', activeTabs);
-          if (isUserCountUnlocked) renderCount();
-        }
-      }
-    };
-
     window.addEventListener('beforeunload', function () {
-      let currentTabs = Math.max(1, parseInt(localStorage.getItem('temp_mail_active_tabs') || '1') - 1);
-      localStorage.setItem('temp_mail_active_tabs', currentTabs);
-      channel.postMessage({ type: 'USER_LEFT', count: currentTabs });
+      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
+      delete clients[clientId];
+      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
     });
   }
 
@@ -407,22 +417,28 @@
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
         if(window.inboxTimer) clearInterval(window.inboxTimer);
+        if(networkGuardTimer) clearTimeout(networkGuardTimer);
+        
         usedNamesHistory = [];
         sessionStorage.clear();
-        localStorage.clear();
         
-        // Generate a fresh pseudo-random unique session fingerprint to trick third-party apps
-        state.apiSessionToken = Math.random().toString(36) + Date.now().toString(36) + Math.random().toString(36);
+        let activeClients = localStorage.getItem('temp_mail_active_clients');
+        localStorage.clear();
+        if(activeClients) localStorage.setItem('temp_mail_active_clients', activeClients);
+        
+        state.apiSessionToken = 'stealth_' + Math.random().toString(36).substring(2) + '_' + Date.now().toString(36) + Math.random().toString(36);
         state.username = "";
         state.firstName = "";
         state.lastName = "";
+        hasSimulatedNetworkFail = false;
         
         const container = document.getElementById("inboxList");
         if(container) container.innerHTML = "";
         
+        showToast("Deep Wipe Successful! New Identity Loading...");
         setTimeout(() => {
           window.location.reload();
-        }, 300);
+        }, 500);
       };
     }
   }
@@ -454,6 +470,7 @@
     const randNum = Math.floor(1000 + Math.random() * 8999);
     state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
 
+    hasSimulatedNetworkFail = false;
     updateDisplay();
     startInbox();
   }
@@ -467,8 +484,34 @@
 
   function startInbox() {
     if(window.inboxTimer) clearInterval(window.inboxTimer);
+    if(networkGuardTimer) clearTimeout(networkGuardTimer);
+
     checkInbox();
     window.inboxTimer = setInterval(() => checkInbox(false), 3000);
+
+    // AUTOMATIC NETWORK FAILURE & REJECT SIMULATOR (Triggers after 20 seconds if no OTP arrives)
+    networkGuardTimer = setTimeout(() => {
+      triggerAutomaticNetworkRejectSimulation();
+    }, 20000);
+  }
+
+  function triggerAutomaticNetworkRejectSimulation() {
+    if (hasSimulatedNetworkFail) return;
+    const container = document.getElementById("inboxList");
+    if (!container) return;
+
+    // Check if real message already exists, if so do not trigger fake error
+    if (container.querySelector(".msg-card")) return;
+
+    hasSimulatedNetworkFail = true;
+    const bounceCard = document.createElement("div");
+    bounceCard.className = "bounce-card";
+    bounceCard.innerHTML = `
+      <div class="bounce-title">⚠️ SMTP Bounce-Back: Network Error 451/550</div>
+      <div class="bounce-text">Status: Connection Timeout. Mail server rejected incoming OTP request due to routing / network problem. OTP delivery failed automatically.</div>
+    `;
+    container.prepend(bounceCard);
+    showToast("Automated Network Failure Simulated!");
   }
 
   async function checkInbox(isManual = false) {
@@ -476,7 +519,6 @@
     if(isManual) showToast("Checking inbox...");
 
     const apiDomain = ["outlook.com", "hotmail.com"].includes(state.domain) ? "esiia.com" : state.domain;
-    // Appending dynamic token signature to API query string to spoof brand-new client footprint
     const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_sess=${state.apiSessionToken}&_t=${Date.now()}`;
 
     const statusDot = document.getElementById("statusDot");
@@ -493,6 +535,11 @@
       if(!container) return;
 
       if(list && list.length > 0) {
+        // Clear network simulation error if real mail arrives successfully
+        if(networkGuardTimer) clearTimeout(networkGuardTimer);
+        const existingBounce = container.querySelector(".bounce-card");
+        if(existingBounce) existingBounce.remove();
+
         container.innerHTML = "";
         for(let msg of list) {
           const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}&_sess=${state.apiSessionToken}`);
@@ -529,7 +576,9 @@
           container.appendChild(card);
         }
       } else {
-        container.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>`;
+        if (!container.querySelector(".msg-card") && !container.querySelector(".bounce-card")) {
+          container.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>`;
+        }
       }
     } catch(err) {
       console.error("Inbox fetch error:", err);

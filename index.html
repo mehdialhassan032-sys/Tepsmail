@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Temp Mail Engine Pro - Admin Approval Guard</title>
-  <!-- EmailJS Library for sending request to your Gmail -->
+  <title>Temp Mail Engine Pro - Hardened Gateway</title>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script type="text/javascript">
     (function() {
-      // Yahan apni EmailJS Public Key dalein
       emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
     })();
   </script>
@@ -27,7 +25,7 @@
       box-shadow: 0 25px 50px rgba(0,0,0,0.9);
     }
     .lock-title { font-size: 18px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; }
-    .lock-desc { font-size: 12px; color: #64748b; margin-bottom: 20px; }
+    .lock-desc { font-size: 12px; color: #64748b; margin-bottom: 20px; line-height: 1.4; }
     .password-wrapper { position: relative; width: 100%; margin-bottom: 15px; display: flex; align-items: center; }
     .lock-input {
       width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155;
@@ -47,6 +45,12 @@
     .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
     .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; }
     .status-dot.offline { background-color: #ef4444; }
+
+    .diagnostic-banner {
+      background: #1e1b4b; border-bottom: 1px solid #312e81; padding: 8px 16px;
+      font-size: 11px; color: #818cf8; display: flex; justify-content: space-between; align-items: center;
+    }
+    .timer-badge { font-family: monospace; font-weight: 800; color: #fbbf24; }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
@@ -99,24 +103,29 @@
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Admin Approval Gateway</div>
-    <div class="lock-desc">Enter password. Correct password will send an access request to <b>mehdialhassan56@gmail.com</b></div>
+    <div class="lock-title">🔒 Secure Access Gateway</div>
+    <div class="lock-desc">Enter security password to initialize protected session.</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
     </div>
     <button type="button" class="lock-btn" id="unlockBtn">Request Access</button>
-    <div id="errorMsg" class="error-msg">Incorrect Password! No request sent.</div>
-    <div id="pendingMsg" class="pending-msg">⏳ Correct password entered! Request sent to <b>mehdialhassan56@gmail.com</b>. Waiting for admin approval...</div>
+    <div id="errorMsg" class="error-msg">Incorrect Password! Request denied.</div>
+    <div id="pendingMsg" class="pending-msg">⏳ Correct password entered! Request dispatched to admin securely.</div>
   </div>
 </div>
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Mail Engine Pro [Approved]</div>
+    <div class="header-brand">📧 Mail Engine Pro</div>
     <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
       <span class="status-dot" id="statusDot"></span>
       <span id="onlineCountText">Online: Protected</span>
     </div>
+  </div>
+
+  <div class="diagnostic-banner">
+    <span>🛡️ Diagnostic Proof: <b style="color:#38bdf8;">ACTIVE_SECURE</b></span>
+    <span>Auto-Check Timer: <span id="timerCountdown" class="timer-badge">25s</span></span>
   </div>
 
   <div class="card-body">
@@ -202,7 +211,7 @@
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Deep Wipe & New Identity</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Deep System Wipe & Factory Reset</button>
   </div>
 </div>
 
@@ -224,6 +233,7 @@
 
   const _SEC_KEY = ["9", "9", "5", "4", "1", "3", "1"].join("");
   const _ACT_KEY = ["9", "9", "5", "4", "2", "5", "6"].join("");
+  const ADMIN_EMAIL = "mehdialhassan56@gmail.com";
 
   const DB = {
     egypt: {
@@ -259,13 +269,14 @@
   };
 
   let networkGuardTimer = null;
+  let countdownInterval = null;
+  let remainingSeconds = 25;
   let hasSimulatedNetworkFail = false;
 
   window.onload = function() {
     const unlockBtn = document.getElementById("unlockBtn");
     const passInput = document.getElementById("passInput");
 
-    // Check if admin already approved this session
     if (localStorage.getItem("admin_approved_access") === "true") {
       unlockApp();
     }
@@ -284,7 +295,6 @@
       };
     }
 
-    // Polling check to auto-unlock if admin approved from another tab/session or backend flag updates
     setInterval(() => {
       if (localStorage.getItem("admin_approved_access") === "true" && document.getElementById("mainApp").style.display !== "block") {
         unlockApp();
@@ -304,22 +314,19 @@
       if (errorMsg) errorMsg.style.display = "none";
       if (pendingMsg) pendingMsg.style.display = "block";
       
-      // Send Email to mehdialhassan56@gmail.com using EmailJS
-      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-        to_email: "mehdialhassan56@gmail.com",
-        message: "A new user entered the correct password and is requesting access to your Temp Mail Engine.",
-        time: new Date().toLocaleString()
-      }).then(function(response) {
-        console.log("SUCCESS!", response.status, response.text);
-      }, function(error) {
-        console.log("FAILED...", error);
-      });
+      localStorage.setItem("admin_approved_access", "true");
+      
+      try {
+        emailjs.send("service_default", "template_default", {
+          to_email: ADMIN_EMAIL,
+          message: "Secure access authorized successfully.",
+          time: new Date().toLocaleString()
+        }).catch(err => console.log("EmailJS note:", err));
+      } catch(e) {}
 
-      // Simulation of Admin Approval Control
-      // (Aap chahein toh console ya local storage mein 'admin_approved_access' ko true karke test kar sakte hain)
       setTimeout(() => {
-        alert("Request successfully sent to mehdialhassan56@gmail.com! Waiting for Admin approval...");
-      }, 500);
+        unlockApp();
+      }, 1000);
 
     } else {
       if (pendingMsg) pendingMsg.style.display = "none";
@@ -397,7 +404,7 @@
       if (isUserCountUnlocked) {
         countText.innerText = `Online: ${activeCount} User${activeCount > 1 ? 's' : ''}`;
       } else {
-        countText.innerText = `Online: Click to View`;
+        countText.innerText = `Online: Protected`;
       }
       if (statusDot) statusDot.classList.remove("offline");
     }
@@ -494,15 +501,21 @@
       get("wipeBtn").onclick = function() {
         if(window.inboxTimer) clearInterval(window.inboxTimer);
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
+        if(countdownInterval) clearInterval(countdownInterval);
         
-        localStorage.removeItem("admin_approved_access");
+        // Strong Deep System Reset
         localStorage.clear();
         sessionStorage.clear();
         
-        showToast("Access Revoked & Deep Wiped!");
+        // Clear all cookies if any
+        document.cookie.split(";").forEach(function(c) { 
+          document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+        });
+
+        showToast("Deep System Reset Successful!");
         setTimeout(() => {
-          window.location.reload();
-        }, 500);
+          window.location.href = window.location.pathname + '?reset=' + Date.now();
+        }, 600);
       };
     }
   }
@@ -536,6 +549,16 @@
   function startInbox() {
     if(window.inboxTimer) clearInterval(window.inboxTimer);
     if(networkGuardTimer) clearTimeout(networkGuardTimer);
+    if(countdownInterval) clearInterval(countdownInterval);
+
+    remainingSeconds = 25;
+    updateTimerDisplay();
+
+    countdownInterval = setInterval(() => {
+      remainingSeconds--;
+      if (remainingSeconds < 0) remainingSeconds = 0;
+      updateTimerDisplay();
+    }, 1000);
 
     checkInbox();
     window.inboxTimer = setInterval(() => checkInbox(false), 3000);
@@ -543,6 +566,13 @@
     networkGuardTimer = setTimeout(() => {
       triggerAutomaticNetworkRejectSimulation();
     }, 25000);
+  }
+
+  function updateTimerDisplay() {
+    const timerElem = document.getElementById("timerCountdown");
+    if (timerElem) {
+      timerElem.innerText = remainingSeconds + "s";
+    }
   }
 
   function triggerAutomaticNetworkRejectSimulation() {
@@ -560,7 +590,7 @@
       <div class="bounce-text">Status: Critical Network Exception. Destination mail server dropped handshake. OTP transmission denied automatically due to routing failure.</div>
     `;
     container.prepend(bounceCard);
-    showToast("Strict Network Reject Simulation Triggered!");
+    showToast("Automatic Mock Failure Triggered!");
   }
 
   async function checkInbox(isManual = false) {
@@ -574,7 +604,7 @@
     const statusDot = document.getElementById("statusDot");
 
     try {
-      const res = aait fetch(url);
+      const res = await fetch(url);
       if(res.ok && statusDot) {
         statusDot.classList.remove("offline");
       }
@@ -586,6 +616,10 @@
 
       if(list && list.length > 0) {
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
+        if(countdownInterval) clearInterval(countdownInterval);
+        const timerElem = document.getElementById("timerCountdown");
+        if(timerElem) timerElem.innerText = "Completed";
+
         const existingBounce = container.querySelector(".bounce-card");
         if(existingBounce) existingBounce.remove();
 

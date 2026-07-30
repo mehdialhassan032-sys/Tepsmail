@@ -237,11 +237,11 @@
     <div class="field-group">
       <span class="field-label">Microsoft Secure Gateway (Anti-FB Block Mode)</span>
       <select id="domainSelect">
-        <option value="outlook.com">outlook.com (Microsoft Official)</option>
-        <option value="hotmail.com">hotmail.com (Microsoft Official)</option>
-        <option value="esiia.com">esiia.com (Secure Relay / Bypass)</option>
-        <option value="1secmail.com">1secmail.com (Standard)</option>
-        <option value="1secmail.org">1secmail.org (Standard)</option>
+        <option value="@outlook.com">@outlook.com (Microsoft Official)</option>
+        <option value="@hotmail.com">@hotmail.com (Microsoft Official)</option>
+        <option value="@gmail.com">@gmail.com (Secure Relay / Bypass)</option>
+        <option value="@email.com">@email.com (Standard)</option>
+        <option value="@email.org">@email.org (Standard)</option>
       </select>
     </div>
 
@@ -305,7 +305,7 @@
   const WEBSITE_PASS = "9954131";
   const ADMIN_ANALYTICS_PASS = "9954256";
 
-  Const DB = {
+  const DB = {
   egypt: {
     male: { 
       first: [
@@ -853,37 +853,36 @@
         "Atlaw", "Awoke", "Ayenew", "Aysheshim", "Azene", "Badeg", "Balcha", "Bamlaku", "Baraki", "Bayu",
         "Bedlu", "Begashaw", "Belachew", "Belew", "Belay", "Belayneh", "Berhane", "Berihun", "Berisso", "Beshah",
         "Beyene", "Bezabih", "Bikila", "Bililign", "Biratu", "Birhanu", "Birlie", "Biset", "Bizu", "Bogale",
-        "Boru", "Bosena", "Chala", "Chanie", "Chemeda", "Damte", "Daniel", "Darge", "Darro", "Dasa",
-        "Dawit", "Debebe", "Debele", "Deboch", "Dedefo", "Dejene", "Dejenu", "Demelash", "Demissie", "Demoz",
-        "Deneke", "Derese", "Desalegn", "Desie", "Dessie", "Dibaba", "Dinku", "Direba", "Diro", "Disasa"
+        "Boru", "Bosena", "Chala", "Chanie", "Chemeda", "Damte", "Daniel"
       ]
     },
     female: {
       first: [
-        "Tigist", "Almaz", "Meseret", "Hanna", "Helina", "Hiwot", "Mekdes", "Mahlet", "Meron", "Rahel",
-        "Saron", "Semhal", "Senait", "Serkalem", "Selamawit", "Bethelhem", "Emebet", "Fikerte", "Genet", "Kidan",
-        "Abebech", "Adanesh", "Alemitu", "Aster", "Askale", "Ayantu", "Azalech", "Banchi", "Birtukan", "Chaltu",
-        "Dinkenesh", "Etagegn", "Fantu", "Gelan", "Gete", "Kebebush", "Lelise", "Maleda", "Marta", "Menen",
-        "Mulu", "Netsanet", "Roman", "Tsige", "Tsehay", "Wubalem", "Yeshi", "Zenebech", "Zewditu", "Zinash",
-        "Abayinesh", "Abeba", "Abay", "Aberash", "Abinet", "Adanech", "Addis", "Addisalem", "Adiam", "Afrash",
-        "Alem", "Alemnesh", "Alemtshay", "Almaz", "Amarech", "Amelmal", "Amettsion", "Aminat", "Amsale", "Anania",
-        "Anbessa", "Anissa", "Anit", "Aregash", "Arocha", "Arsema", "Askal", "Asmeret", "Aster", "Atkilt",
-        "Atnaf", "Awate", "Ayenalem", "Ayinalem", "Ayisheshim", "Azalu", "Banchamlak", "Banchialem", "Bazarinesh", "Beletu",
-        "Belen", "Berhane", "Betelehem", "Beti", "Beyenech", "Bikiltu", "Birke", "Birtukan", "Bisrat", "Bizu",
-        "Bizuayehu", "Blen", "Chaltu", "Daba", "Dalasa", "Dama", "Damitu", "Daniel", "Desta", "Dina",
-        "Donia", "Duressi", "Edlawit", "Edom", "Edomias", "Efrata", "Ejigayehu", "Elbethel", "Elfu", "Elham",
-        "Elilta", "Elisa", "Elma", "Elsabet", "Emebet", "Emnet", "Enat", "Enquay", "Ephrata", "Ermias",
-        "Eronat", "Eru", "Ese", "Eshate", "Eskedar", "Esset", "Etalemahu", "Etgenet", "Eti", "Eyosiyas",
-        "Fana", "Fantu", "Farhiya", "Fatima", "Feven", "Fikre", "Fikerte", "Fikrte", "Fitsum", "Frehiwot",
-        "Gelen", "Genet", "Genetwork", "Genetworka", "Getenesh", "Gete", "Gifty", "Gilan", "Girmech", "Gissila",
-        "Goitom", "Guday", "Gudayes", "Gutema", "Habtam", "Habtamu", "Hafiza", "Hagos", "Haimanot", "Haja",
-        "Hajer", "Hajira", "Hali", "Halima", "Hanna", "Hannah", "Hany", "Hasab", "Hasabie", "Haweni",
-        "Hawi", "Hayat", "Haymanot", "Hazen", "Hebist", "Hedged", "Hedija", "Helina", "Heman", "Henok",
-        "Heran", "Hermela", "Hirut", "Hiwot", "Hossana", "Hulunhizew", "Husniya", "Idir", "Ilham", "Iman",
-        "Inat", "Intisar", "Isat", "Ityopia", "Jalene", "Jamilah", "Janat", "Jemila", "Jenat", "Jibril",
-        "Kadija", "Kadra", "Kalam", "Kalayu", "Kalkidan", "Kaly", "Kamila", "Kassa", "Kassaye", "Kebedech",
-        "Kebebush", "Kelbessa", "Kelm", "Kemsia", "Kerima", "Kero", "Kersmo", "Ketema", "Kezia", "Khadija",
-        "Kibra", "Kidan", "Kidist", "Kidusan", "Kifle", "Kiros", "Kokeb", "Kumale", "Kumsa", "Kunzila"
+        "Almaz", "Tigist", "Meseret", "Hirut", "Menen", "Zewditu", "Aster", "Birtukan", "Konjit", "Selamawit",
+        "Tsehay", "Emebet", "Marta", "Hiwot", "Eyerusalem", "Mahlet", "Rahel", "Askale", "Birke", "Desta",
+        "Abebech", "Alem", "Almaz", "Aster", "Azalech", "Banchi", "Banchiamlak", "Berhane", "Bizu", "Bizuayehu",
+        "Chaltu", "Danait", "Demitu", "Denberu", "Desta", "Emebet", "Emuye", "Enatinesh", "Ermias", "Eyerusalem",
+        "Fikirte", "Fikrt", "Genet", "Getenesh", "Gete", "Girmawit", "Habtam", "Hana", "Hanna", "Hawi",
+        "Helen", "Helina", "Hermela", "Hiwot", "Kasech", "Kebebush", "Kedija", "Kidist", "Kokeb", "Korke",
+        "Lemlem", "Lulit", "Lydya", "Mahlet", "Maki", "Makeda", "Makiya", "Marta", "Mekdes", "Melat",
+        "Meme", "Menbere", "Meron", "Meseret", "Meskerem", "Metagesu", "Milka", "Mimi", "Misrak", "Mulu",
+        "Mulugeta", "Munit", "Nardos", "Netsanet", "Rahel", "Roman", "Ruhama", "Samrawit", "Saron", "Segen",
+        "Selam", "Selamawit", "Semhal", "Senait", "Senedu", "Serkalem", "Sifan", "Sintayehu", "Sosina", "Surafel",
+        "Tadelech", "Tadu", "Tagesse", "Tegist", "Tejinesh", "Tekabch", "Temesgen", "Tenagne", "Tensaie", "Tesfaye",
+        "Teshager", "Teshome", "Tibebe", "Tigist", "Tilahun", "Tkuye", "Tolossa", "Tsige", "Tsigereda", "Tsegaye",
+        "Tsehay", "Tuji", "Tulu", "Umer", "Waktola", "Wondwosen", "Wondimu", "Workeneh", "Worku", "Wube",
+        "Yabibal", "Yared", "Yemane", "Yemisrach", "Yohannes", "Yordanos", "Yosef", "Yonas", "Zeleke", "Zemedkun",
+        "Zenawi", "Zerihun", "Zewdu", "Abate", "Abdulkadir", "Abdu", "Abdella", "Abera", "Abraha", "Adam",
+        "Adane", "Admassu", "Agonafir", "Ahmed", "Akililu", "Alebachew", "Alemayehu", "Ali", "Almaw", "Amare",
+        "Ambaye", "Amen", "Amha", "Ammanuel", "Amsalu", "Andargachew", "Andualem", "Arega", "Aregawi", "Arficho",
+        "Asaminew", "Ashagre", "Ashenafi", "Asrat", "Assaye", "Atale", "Atlaw", "Awoke", "Ayenew", "Aysheshim",
+        "Azene", "Badeg", "Balcha", "Bamlaku", "Baraki", "Bayu", "Bedlu", "Begashaw", "Belachew", "Belew",
+        "Belay", "Belayneh", "Berhane", "Berihun", "Berisso", "Beshah", "Beyene", "Bezabih", "Bikila", "Bililign",
+        "Biratu", "Birhanu", "Birlie", "Biset", "Bizu", "Bogale", "Boru", "Bosena", "Chala", "Chanie",
+        "Chemeda", "Damte", "Daniel", "Darartu", "Dawit", "Dejene", "Demelash", "Denboba", "Derese", "Desalegn",
+        "Dessalegn", "Desta", "Dibaba", "Diriba", "Diro", "Dinku", "Ejigu", "Elias", "Endalkachew", "Endale",
+        "Ephrem", "Ermias", "Eshetu", "Eskinder", "Fasil", "Fekadu", "Fikadu", "Fitsum", "Gashaw", "Gebeyehu",
+        "Gebre", "Gebremeskel", "Gebru", "Gedion", "Gezahegn", "Girum", "Girma", "Gizaw", "Gobena", "Goshu"
       ],
       last: [
         "Abebe", "Tesfaye", "Alemu", "Bekele", "Tadesse", "Mekonnen", "Lemma", "Gebre", "Molla", "Worku",
@@ -913,405 +912,371 @@
         "Atlaw", "Awoke", "Ayenew", "Aysheshim", "Azene", "Badeg", "Balcha", "Bamlaku", "Baraki", "Bayu",
         "Bedlu", "Begashaw", "Belachew", "Belew", "Belay", "Belayneh", "Berhane", "Berihun", "Berisso", "Beshah",
         "Beyene", "Bezabih", "Bikila", "Bililign", "Biratu", "Birhanu", "Birlie", "Biset", "Bizu", "Bogale",
-        "Boru", "Bosena", "Chala", "Chanie", "Chemeda", "Damte", "Daniel", "Darge", "Darro", "Dasa",
-        "Dawit", "Debebe", "Debele", "Deboch", "Dedefo", "Dejene", "Dejenu", "Demelash", "Demissie", "Demoz",
-        "Deneke", "Derese", "Desalegn", "Desie", "Dessie", "Dibaba", "Dinku", "Direba", "Diro", "Disasa"
+        "Boru", "Bosena", "Chala", "Chanie", "Chemeda", "Damte", "Daniel"
       ]
     }
   }
 };
-  
-  let state = { country: "egypt", gender: "male", firstName: "", lastName: "", username: "", domain: "esiia.com" };
+
+  let currentCountry = "egypt";
+  let currentGender = "male";
+  let currentDomain = "rutlook.com";
+  let currentFirstName = "";
+  let currentLastName = "";
+  let currentUsername = "";
+  let activeEmail = "";
+  let inboxPollInterval = null;
   let recognition = null;
-  let inAppRecognition = null;
-  let isListeningInside = false;
+  let isVoiceActive = false;
 
-  function getDynamicIPHeaders() {
-    const r1 = Math.floor(Math.random() * 150) + 40;
-    const r2 = Math.floor(Math.random() * 200) + 10;
-    const r3 = Math.floor(Math.random() * 200) + 10;
-    const r4 = Math.floor(Math.random() * 200) + 10;
-    const fakeIP = `${r1}.${r2}.${r3}.${r4}`;
-    
-    return {
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-Forwarded-For': fakeIP,
-      'X-Originating-IP': fakeIP,
-      'Client-IP': fakeIP
-    };
+  const lockScreen = document.getElementById("lockScreen");
+  const mainApp = document.getElementById("mainApp");
+  const passInput = document.getElementById("passInput");
+  const unlockBtn = document.getElementById("unlockBtn");
+  const errorMsg = document.getElementById("errorMsg");
+  const countrySelect = document.getElementById("countrySelect");
+  const domainSelect = document.getElementById("domainSelect");
+  const btnMale = document.getElementById("btnMale");
+  const btnFemale = document.getElementById("btnFemale");
+  const dispFirstName = document.getElementById("dispFirstName");
+  const dispLastName = document.getElementById("dispLastName");
+  const dispEmail = document.getElementById("dispEmail");
+  const countryLabel = document.getElementById("countryLabel");
+  const customUser = document.getElementById("customUser");
+  const setCustomBtn = document.getElementById("setCustomBtn");
+  const refreshEmailBtn = document.getElementById("refreshEmailBtn");
+  const newProfileBtn = document.getElementById("newProfileBtn");
+  const copyEmailBtn = document.getElementById("copyEmailBtn");
+  const copyAllBtn = document.getElementById("copyAllBtn");
+  const copyFirstBtn = document.getElementById("copyFirstBtn");
+  const copyLastBtn = document.getElementById("copyLastBtn");
+  const manualRefreshBtn = document.getElementById("manualRefreshBtn");
+  const inboxList = document.getElementById("inboxList");
+  const wipeBtn = document.getElementById("wipeBtn");
+  const toast = document.getElementById("toast");
+  const manualLockBtn = document.getElementById("manualLockBtn");
+  const startMicBtn = document.getElementById("startMicBtn");
+  const vDot = document.getElementById("vDot");
+  const voiceStatusText = document.getElementById("voiceStatusText");
+  const retryAudioBtn = document.getElementById("retryAudioBtn");
+  const holoCore = document.getElementById("holoCore");
+
+  const analyticsAuthOverlay = document.getElementById("analyticsAuthOverlay");
+  const openAnalyticsAuthBtn = document.getElementById("openAnalyticsAuthBtn");
+  const analyticsPassInput = document.getElementById("analyticsPassInput");
+  const verifyAnalyticsBtn = document.getElementById("verifyAnalyticsBtn");
+  const cancelAnalyticsBtn = document.getElementById("cancelAnalyticsBtn");
+  const analyticsErrorMsg = document.getElementById("analyticsErrorMsg");
+  const liveAnalyticsBox = document.getElementById("liveAnalyticsBox");
+  const liveUserCount = document.getElementById("liveUserCount");
+
+  function showToast(text = "Copied!") {
+    toast.textContent = text;
+    toast.style.display = "block";
+    setTimeout(() => { toast.style.display = "none"; }, 2000);
   }
 
-  window.onload = function() {
-    if (sessionStorage.getItem("isUnlocked") === "true") {
-      unlockApp();
-    } else {
-      startLockListening();
+  function getRandomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function generateProfile(keepCustom = false) {
+    const countryData = DB[currentCountry][currentGender];
+    currentFirstName = getRandomItem(countryData.first);
+    currentLastName = getRandomItem(countryData.last);
+
+    dispFirstName.textContent = currentFirstName;
+    dispLastName.textContent = currentLastName;
+    countryLabel.textContent = `[${currentCountry.toUpperCase()} - ${currentGender.toUpperCase()}]`;
+
+    if (!keepCustom) {
+      const cleanFirst = currentFirstName.toLowerCase().replace(/[^a-z]/g, '');
+      const cleanLast = currentLastName.toLowerCase().replace(/[^a-z]/g, '');
+      const randNum = Math.floor(100 + Math.random() * 900);
+      currentUsername = `${cleanFirst}.${cleanLast}${randNum}`;
+      customUser.value = "";
     }
+    updateEmailString();
+  }
 
-    document.getElementById("unlockBtn").onclick = verifyPassword;
-    document.getElementById("retryAudioBtn").onclick = startLockListening;
-    document.getElementById("passInput").onkeydown = (e) => { if (e.key === "Enter") verifyPassword(); };
+  function updateEmailString() {
+    activeEmail = `${currentUsername}@${currentDomain}`;
+    dispEmail.textContent = activeEmail;
+    fetchInbox();
+  }
 
-    document.getElementById("openAnalyticsAuthBtn").onclick = () => {
-      document.getElementById("analyticsAuthOverlay").style.display = "flex";
-      document.getElementById("analyticsPassInput").value = "";
-      document.getElementById("analyticsErrorMsg").style.display = "none";
-    };
-    document.getElementById("cancelAnalyticsBtn").onclick = () => {
-      document.getElementById("analyticsAuthOverlay").style.display = "none";
-    };
-    document.getElementById("verifyAnalyticsBtn").onclick = verifyAnalyticsPassword;
-    document.getElementById("analyticsPassInput").onkeydown = (e) => { if (e.key === "Enter") verifyAnalyticsPassword(); };
-  };
+  function unlockVault() {
+    if (passInput.value === WEBSITE_PASS) {
+      lockScreen.style.display = "none";
+      mainApp.style.display = "block";
+      generateProfile();
+    } else {
+      errorMsg.style.display = "block";
+      passInput.style.borderColor = "#f87171";
+      setTimeout(() => { errorMsg.style.display = "none"; passInput.style.borderColor = ""; }, 2500);
+    }
+  }
 
-  function startLockListening() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) return;
-    if (recognition) { try { recognition.stop(); } catch(e) {} }
+  unlockBtn.addEventListener("click", unlockVault);
+  passInput.addEventListener("keypress", (e) => { if (e.key === "Enter") unlockVault(); });
 
-    recognition = new SpeechRecognition();
-    recognition.lang = 'hi-IN';
-    recognition.interimResults = false;
+  manualLockBtn.addEventListener("click", () => {
+    mainApp.style.display = "none";
+    lockScreen.style.display = "flex";
+    passInput.value = "";
+    stopVoiceEngine();
+  });
 
-    const holoCore = document.getElementById("holoCore");
-    const vaultDescText = document.getElementById("vaultDescText");
-    const errorMsg = document.getElementById("errorMsg");
+  openAnalyticsAuthBtn.addEventListener("click", () => {
+    analyticsAuthOverlay.style.display = "flex";
+    analyticsPassInput.value = "";
+  });
 
-    holoCore.classList.add("active-pulse");
-    vaultDescText.innerText = "Listening for voice password key...";
-    if (errorMsg) errorMsg.style.display = "none";
+  cancelAnalyticsBtn.addEventListener("click", () => {
+    analyticsAuthOverlay.style.display = "none";
+  });
 
-    try { recognition.start(); } catch(e) { holoCore.classList.remove("active-pulse"); }
+  verifyAnalyticsBtn.addEventListener("click", () => {
+    if (analyticsPassInput.value === ADMIN_ANALYTICS_PASS) {
+      analyticsAuthOverlay.style.display = "none";
+      liveAnalyticsBox.style.display = "flex";
+      liveUserCount.textContent = Math.floor(8 + Math.random() * 15);
+      showToast("Live Analytics Unlocked!");
+    } else {
+      analyticsErrorMsg.style.display = "block";
+      setTimeout(() => { analyticsErrorMsg.style.display = "none"; }, 2000);
+    }
+  });
 
-    recognition.onresult = function(event) {
-      const speechResult = event.results[0][0].transcript.toLowerCase().trim();
-      holoCore.classList.remove("active-pulse");
-      
-      if (speechResult.includes(WEBSITE_PASS) || speechResult.includes("9954131")) {
-        sessionStorage.setItem("isUnlocked", "true");
-        unlockApp();
+  countrySelect.addEventListener("change", (e) => {
+    currentCountry = e.target.value;
+    generateProfile();
+  });
+
+  domainSelect.addEventListener("change", (e) => {
+    currentDomain = e.target.value;
+    updateEmailString();
+  });
+
+  btnMale.addEventListener("click", () => {
+    currentGender = "male";
+    btnMale.classList.add("active");
+    btnFemale.classList.remove("active");
+    generateProfile();
+  });
+
+  btnFemale.addEventListener("click", () => {
+    currentGender = "female";
+    btnFemale.classList.add("active");
+    btnMale.classList.remove("active");
+    generateProfile();
+  });
+
+  setCustomBtn.addEventListener("click", () => {
+    const val = customUser.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+    if (val.length > 2) {
+      currentUsername = val;
+      updateEmailString();
+      showToast("Custom Username Set!");
+    } else {
+      showToast("Kam se kam 3 characters dalein!");
+    }
+  });
+
+  refreshEmailBtn.addEventListener("click", () => {
+    const cleanFirst = currentFirstName.toLowerCase().replace(/[^a-z]/g, '');
+    const cleanLast = currentLastName.toLowerCase().replace(/[^a-z]/g, '');
+    const randNum = Math.floor(1000 + Math.random() * 9000);
+    currentUsername = `${cleanFirst}.${cleanLast}${randNum}`;
+    customUser.value = "";
+    updateEmailString();
+    showToast("Email Refreshed!");
+  });
+
+  newProfileBtn.addEventListener("click", () => {
+    generateProfile(false);
+    showToast("New Profile & Email Generated!");
+  });
+
+  copyFirstBtn.addEventListener("click", () => { navigator.clipboard.writeText(currentFirstName); showToast("First Name Copied!"); });
+  copyLastBtn.addEventListener("click", () => { navigator.clipboard.writeText(currentLastName); showToast("Last Name Copied!"); });
+  copyEmailBtn.addEventListener("click", () => { navigator.clipboard.writeText(activeEmail); showToast("Email Copied!"); });
+  
+  copyAllBtn.addEventListener("click", () => {
+    const fullText = `First Name: ${currentFirstName}\nLast Name: ${currentLastName}\nEmail: ${activeEmail}\nPassword: ${WEBSITE_PASS}`;
+    navigator.clipboard.writeText(fullText);
+    showToast("All Profile Info Copied!");
+  });
+
+  wipeBtn.addEventListener("click", () => {
+    if(confirm("Kya aap sabhi sessions aur APIs ko reset karna chahte hain?")) {
+      localStorage.clear();
+      sessionStorage.clear();
+      location.reload();
+    }
+  });
+
+  async function fetchInbox() {
+    if (!activeEmail) return;
+    const parts = activeEmail.split('@');
+    const login = parts[0];
+    const domain = parts[1];
+
+    try {
+      const response = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${login}&domain=${domain}`);
+      const messages = await response.json();
+
+      if (messages && messages.length > 0) {
+        let html = "";
+        for (const msg of messages) {
+          const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${login}&domain=${domain}&id=${msg.id}`);
+          const detail = await detailRes.json();
+          
+          let otpCode = "";
+          const bodyText = detail.body || detail.textBody || "";
+          const otpMatch = bodyText.match(/\b\d{4,8}\b/);
+          if (otpMatch) {
+            otpCode = otpMatch[0];
+          }
+
+          html += `
+            <div class="msg-card">
+              <div class="msg-sender">From: ${detail.from}</div>
+              <div class="msg-subject">Subject: ${detail.subject}</div>
+              <div class="msg-body">${bodyText}</div>
+              ${otpCode ? `
+                <div class="otp-wrapper">
+                  <span>Detected OTP Code:</span>
+                  <span class="otp-code">${otpCode}</span>
+                  <button class="btn-otp-copy" onclick="navigator.clipboard.writeText('${otpCode}'); showToast('OTP Copied!');">Copy OTP</button>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }
+        inboxList.innerHTML = html;
       } else {
-        if (errorMsg) errorMsg.style.display = "block";
-        vaultDescText.innerText = "Password voice match failed. Try again.";
+        inboxList.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">No messages yet. Waiting for incoming OTP...</p>`;
       }
-    };
-    recognition.onend = () => holoCore.classList.remove("active-pulse");
-  }
-
-  function verifyPassword() {
-    if (recognition) { try { recognition.stop(); } catch(e) {} }
-    const val = document.getElementById("passInput").value.trim();
-    if (val === WEBSITE_PASS) {
-      sessionStorage.setItem("isUnlocked", "true");
-      unlockApp();
-    } else {
-      document.getElementById("errorMsg").style.display = "block";
-      document.getElementById("passInput").value = "";
+    } catch (err) {
+      console.error("Inbox fetch error:", err);
     }
   }
 
-  function verifyAnalyticsPassword() {
-    const val = document.getElementById("analyticsPassInput").value.trim();
-    if (val === ADMIN_ANALYTICS_PASS) {
-      document.getElementById("analyticsAuthOverlay").style.display = "none";
-      document.getElementById("liveAnalyticsBox").style.display = "flex";
-      startRealLiveCounter();
-      showToast("Live Traffic Stats Unlocked!");
-    } else {
-      document.getElementById("analyticsErrorMsg").style.display = "block";
-      document.getElementById("analyticsPassInput").value = "";
+  manualRefreshBtn.addEventListener("click", () => {
+    fetchInbox();
+    showToast("Inbox Refreshed!");
+  });
+
+  if (inboxPollInterval) clearInterval(inboxPollInterval);
+  inboxPollInterval = setInterval(fetchInbox, 10000);
+
+  function speakText(text, callback) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'hi-IN';
+      utterance.rate = 1.0;
+      if (callback) utterance.onend = callback;
+      window.speechSynthesis.speak(utterance);
+    } else if (callback) {
+      callback();
     }
   }
 
-  function unlockApp() {
-    if (recognition) { try { recognition.stop(); } catch(e) {} }
-    document.getElementById("lockScreen").style.display = "none";
-    document.getElementById("mainApp").style.display = "block";
-    setupEvents();
-    loadOrGenerateProfile();
-  }
+  retryAudioBtn.addEventListener("click", () => {
+    speakText("Microsoft Secure Vault mein aapka swagat hai. Kripya password enter karein ya voice engine start karein.");
+  });
 
-  function startRealLiveCounter() {
-    const counterEl = document.getElementById("liveUserCount");
-    let activeSessions = parseInt(localStorage.getItem("active_vault_sessions") || "0");
-    
-    if (!sessionStorage.getItem("session_counted")) {
-      activeSessions += 1;
-      localStorage.setItem("active_vault_sessions", activeSessions);
-      sessionStorage.setItem("session_counted", "true");
-    }
-
-    if (counterEl) counterEl.innerText = Math.max(1, activeSessions);
-
-    window.addEventListener('beforeunload', () => {
-      let currentActive = parseInt(localStorage.getItem("active_vault_sessions") || "1");
-      if (currentActive > 1) {
-        localStorage.setItem("active_vault_sessions", currentActive - 1);
-      } else {
-        localStorage.removeItem("active_vault_sessions");
-      }
-    });
-
-    window.addEventListener('storage', (e) => {
-      if (e.key === "active_vault_sessions") {
-        let updatedCount = parseInt(e.newValue || "1");
-        if (counterEl) counterEl.innerText = Math.max(1, updatedCount);
-      }
-    });
-  }
-
-  function startInAppVoiceEngine() {
+  function startVoiceEngine() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      showToast("Speech Recognition not supported!");
+      alert("Aapka browser Speech Recognition support nahi karta. Kripya Chrome ya Edge use karein.");
       return;
     }
-    if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
 
-    inAppRecognition = new SpeechRecognition();
-    inAppRecognition.lang = 'hi-IN';
-    inAppRecognition.continuous = true;
-    inAppRecognition.interimResults = false;
-
-    isListeningInside = true;
-
-    try {
-      inAppRecognition.start();
-      document.getElementById("vDot").classList.add("active");
-      document.getElementById("voiceStatusText").innerText = "Voice Engine Active (Listening...)";
-      document.getElementById("startMicBtn").style.display = "none";
-      showToast("Voice Engine Started!");
-    } catch(e) {
-      showToast("Mic start failed.");
+    if (recognition) {
+      try { recognition.stop(); } catch(e){}
     }
 
-    inAppRecognition.onresult = function(event) {
-      const cmd = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
-      
-      if (cmd === "email" || cmd.includes("email")) {
-        generateEmailOnly();
-        showToast("Voice Cmd: Email Refreshed!");
-      } else if (cmd === "id" || cmd === "a id" || cmd.includes("id")) {
-        generateProfile();
-        showToast("Voice Cmd: New Profile Generated!");
-      } else if (cmd.includes("clear") || cmd.includes("wipe")) {
-        antiForensicWipe();
-      } else if (cmd.includes("lock")) {
-        lockApplication();
+    recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+      isVoiceActive = true;
+      vDot.classList.add("active");
+      voiceStatusText.textContent = "Voice Engine Active (Listening commands...)";
+      startMicBtn.textContent = "🎙️ Voice Engine Running (Listening...)";
+      startMicBtn.style.background = "#16a34a";
+      holoCore.classList.add("active-pulse");
+    };
+
+    recognition.onresult = (event) => {
+      const lastResultIndex = event.results.length - 1;
+      const transcript = event.results[lastResultIndex][0].transcript.trim().toLowerCase();
+      console.log("Voice Command Recognized:", transcript);
+
+      if (transcript.includes("email") || transcript.includes("refresh email")) {
+        refreshEmailBtn.click();
+        speakText("Email refreshed successfully.");
+      } else if (transcript.includes("id") || transcript.includes("profile") || transcript.includes("new")) {
+        newProfileBtn.click();
+        speakText("New profile and email generated.");
+      } else if (transcript.includes("copy email")) {
+        copyEmailBtn.click();
+        speakText("Email copied to clipboard.");
+      } else if (transcript.includes("copy all")) {
+        copyAllBtn.click();
+        speakText("All profile information copied.");
+      } else if (transcript.includes("lock vault") || transcript.includes("lock")) {
+        manualLockBtn.click();
+        speakText("Vault locked.");
       }
     };
 
-    inAppRecognition.onend = () => { 
-      if (isListeningInside) { 
-        try { inAppRecognition.start(); } catch(e) {} 
-      } 
-    };
-  }
-
-  function generateEmailOnly() {
-    const secureToken = Math.floor(10000 + Math.random() * 90000);
-    state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${secureToken}`;
-    saveState();
-    updateDisplay();
-    startInbox();
-  }
-
-  function lockApplication() {
-    isListeningInside = false;
-    if (inAppRecognition) { try { inAppRecognition.stop(); } catch(e) {} }
-    document.getElementById("liveAnalyticsBox").style.display = "none";
-    document.getElementById("vDot").classList.remove("active");
-    document.getElementById("voiceStatusText").innerText = "Voice Engine Paused";
-    document.getElementById("startMicBtn").style.display = "block";
-    sessionStorage.removeItem("isUnlocked");
-    document.getElementById("mainApp").style.display = "none";
-    document.getElementById("lockScreen").style.display = "flex";
-    document.getElementById("passInput").value = "";
-    startLockListening();
-  }
-
-  function setupEvents() {
-    document.getElementById("startMicBtn").onclick = startInAppVoiceEngine;
-    document.getElementById("btnMale").onclick = () => { state.gender = "male"; toggleGenderUI(); generateProfile(); };
-    document.getElementById("btnFemale").onclick = () => { state.gender = "female"; toggleGenderUI(); generateProfile(); };
-    document.getElementById("countrySelect").onchange = (e) => { state.country = e.target.value; generateProfile(); };
-    document.getElementById("domainSelect").onchange = (e) => { state.domain = e.target.value; saveState(); updateDisplay(); startInbox(); };
-    document.getElementById("newProfileBtn").onclick = generateProfile;
-    document.getElementById("refreshEmailBtn").onclick = () => { generateEmailOnly(); showToast("Clean IP Email Generated!"); };
-    document.getElementById("setCustomBtn").onclick = () => {
-      const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
-      if(input) { state.username = input; saveState(); updateDisplay(); startInbox(); showToast("Custom Username Set!"); }
-    };
-    document.getElementById("manualLockBtn").onclick = lockApplication;
-    document.getElementById("copyFirstBtn").onclick = () => copyVal(state.firstName);
-    document.getElementById("copyLastBtn").onclick = () => copyVal(state.lastName);
-    document.getElementById("copyEmailBtn").onclick = () => copyVal(`${state.username}@${state.domain}`);
-    document.getElementById("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}@${state.domain}`);
-    document.getElementById("manualRefreshBtn").onclick = () => checkInbox(true);
-    document.getElementById("wipeBtn").onclick = antiForensicWipe;
-  }
-
-  function antiForensicWipe() {
-    // Multi-pass random overwrite to flush out state traces
-    for (let i = 0; i < 5; i++) {
-      try {
-        localStorage.setItem("savedMailState", Math.random().toString(36).substring(2));
-        sessionStorage.setItem("full100PercentUsedNames", Math.random().toString(36).substring(2));
-      } catch(e) {}
-    }
-
-    localStorage.clear();
-    sessionStorage.clear();
-
-    if ('caches' in window) {
-      caches.keys().then(names => {
-        names.forEach(name => caches.delete(name));
-      });
-    }
-
-    const availableDomains = ["outlook.com", "hotmail.com", "esiia.com", "1secmail.com", "1secmail.org"];
-    let filteredDomains = availableDomains.filter(d => d !== state.domain);
-    let newRandomDomain = filteredDomains[Math.floor(Math.random() * filteredDomains.length)];
-
-    state = { 
-      country: "egypt", 
-      gender: "male", 
-      firstName: "", 
-      lastName: "", 
-      username: "", 
-      domain: newRandomDomain 
+    recognition.onerror = (event) => {
+      console.warn("Speech recognition error:", event.error);
     };
 
-    if(window.inboxTimer) clearInterval(window.inboxTimer);
-    
-    showToast("🔥 Secure Wipe & API Handshake Rotated!");
-    setTimeout(() => {
-      lockApplication();
-      window.location.reload(true);
-    }, 1200);
-  }
-
-  function toggleGenderUI() {
-    if(state.gender === "female") {
-      document.getElementById("btnFemale").classList.add("active");
-      document.getElementById("btnMale").classList.remove("active");
-    } else {
-      document.getElementById("btnMale").classList.add("active");
-      document.getElementById("btnFemale").classList.remove("active");
-    }
-  }
-
-  function saveState() { localStorage.setItem("savedMailState", JSON.stringify(state)); }
-
-  function loadOrGenerateProfile() {
-    const saved = localStorage.getItem("savedMailState");
-    if (saved) {
-      try { state = JSON.parse(saved); } catch(e) { generateProfile(); return; }
-      document.getElementById("countrySelect").value = state.country;
-      document.getElementById("domainSelect").value = state.domain;
-      toggleGenderUI();
-      updateDisplay();
-      startInbox();
-    } else {
-      generateProfile();
-    }
-  }
-
-  function generateProfile() {
-    const cData = DB[state.country] || DB.egypt;
-    const gData = cData[state.gender] || cData.male;
-
-    let usedNamesMap = JSON.parse(sessionStorage.getItem("full100PercentUsedNames") || "{}");
-    const categoryKey = `${state.country}_${state.gender}`;
-    
-    if (!usedNamesMap[categoryKey]) {
-      usedNamesMap[categoryKey] = [];
-    }
-
-    let availableFirst = gData.first.filter(name => !usedNamesMap[categoryKey].includes(name));
-
-    if (availableFirst.length === 0) {
-      usedNamesMap[categoryKey] = [];
-      availableFirst = [...gData.first];
-    }
-
-    state.firstName = availableFirst[Math.floor(Math.random() * availableFirst.length)];
-    state.lastName = gData.last[Math.floor(Math.random() * gData.last.length)];
-
-    usedNamesMap[categoryKey].push(state.firstName);
-    sessionStorage.setItem("full100PercentUsedNames", JSON.stringify(usedNamesMap));
-
-    const secureToken = Math.floor(10000 + Math.random() * 90000);
-    state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${secureToken}`;
-    saveState(); 
-    updateDisplay(); 
-    startInbox();
-  }
-
-  function updateDisplay() {
-    document.getElementById("dispFirstName").innerText = state.firstName;
-    document.getElementById("dispLastName").innerText = state.lastName;
-    document.getElementById("dispEmail").innerText = `${state.username}@${state.domain}`;
-    document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
-    
-    const domainDropdown = document.getElementById("domainSelect");
-    if(domainDropdown) domainDropdown.value = state.domain;
-  }
-
-  function startInbox() {
-    if(window.inboxTimer) clearInterval(window.inboxTimer);
-    checkInbox();
-    window.inboxTimer = setInterval(() => checkInbox(false), 3000);
-  }
-
-  async function checkInbox(isManual = false) {
-    if(!state.username) return;
-    if(isManual) showToast("Checking inbox with rotated proxy header...");
-    
-    const apiDomain = ["outlook.com", "hotmail.com"].includes(state.domain) ? "esiia.com" : state.domain;
-    
-    try {
-      const headers = getDynamicIPHeaders();
-      const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_t=${Date.now()}`, {
-        headers: headers
-      });
-      const list = await res.json();
-      const container = document.getElementById("inboxList");
-      if(!container) return;
-
-      if(list && list.length > 0) {
-        container.innerHTML = "";
-        for(let msg of list) {
-          const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}`, {
-            headers: getDynamicIPHeaders()
-          });
-          const detail = await detailRes.json();
-          const textContent = detail.body || detail.textBody || "";
-          const otpMatch = textContent.match(/\b\d{4,8}\b/);
-          let otpHtml = otpMatch ? `<div class="otp-wrapper"><span>OTP Code:</span><div><span class="otp-code">${otpMatch[0]}</span><button class="btn-otp-copy" onclick="copyVal('${otpMatch[0]}')">Copy</button></div></div>` : "";
-
-          const card = document.createElement("div");
-          card.className = "msg-card";
-          card.innerHTML = `<div class="msg-sender">From: ${msg.from}</div><div class="msg-subject">${msg.subject}</div><div class="msg-body">${textContent}</div>${otpHtml}`;
-          container.appendChild(card);
-        }
+    recognition.onend = () => {
+      if (isVoiceActive) {
+        try { recognition.start(); } catch(e){}
       } else {
-        container.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>`;
+        stopVoiceEngine();
       }
-    } catch(err) {}
+    };
+
+    try {
+      recognition.start();
+    } catch(e) {
+      console.error(e);
+    }
   }
 
-  function copyVal(val) {
-    navigator.clipboard.writeText(val).then(() => showToast("Copied Successfully!"));
+  function stopVoiceEngine() {
+    isVoiceActive = false;
+    if (recognition) {
+      try { recognition.stop(); } catch(e){}
+    }
+    vDot.classList.remove("active");
+    voiceStatusText.textContent = "Voice Engine Paused (Click Start Below)";
+    startMicBtn.textContent = "🎙️ Start Voice Engine (Click to Active)";
+    startMicBtn.style.background = "#16a34a";
+    holoCore.classList.remove("active-pulse");
   }
 
-  function showToast(msg) {
-    const toast = document.getElementById("toast");
-    if(!toast) return;
-    toast.innerText = msg;
-    toast.style.display = "block";
-    setTimeout(() => toast.style.display = "none", 2000);
-  }
+  startMicBtn.addEventListener("click", () => {
+    if (!isVoiceActive) {
+      startVoiceEngine();
+      speakText("Voice engine activated. Aap commands bol sakte hain.");
+    } else {
+      stopVoiceEngine();
+      speakText("Voice engine paused.");
+    }
+  });
+
 </script>
 </body>
 </html>

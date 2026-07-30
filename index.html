@@ -32,6 +32,7 @@
       background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
       max-height: 95vh; border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
       overflow-y: auto; margin: auto; display: none;
+      padding-bottom: 40px; /* Fixed scroll padding so wipe button is fully visible */
     }
     .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
     .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
@@ -69,7 +70,7 @@
     .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
     .btn-success { background: #16a34a; color: white; }
     .btn-warn { background: #0284c7; color: white; }
-    .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; }
+    .btn-danger { background: #dc2626; color: white; margin-top: 15px; width: 100%; padding: 14px; font-size: 13px; }
     .btn-refresh { background: #0284c7; color: white; }
     .btn-full { grid-column: span 2; }
 

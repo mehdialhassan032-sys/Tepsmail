@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Temp Mail Engine Pro - Ultra Hardened Kernel</title>
+  <title>Temp Mail Engine Pro - Military Grade Shield</title>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script type="text/javascript">
     (function() {
@@ -41,16 +41,17 @@
       overflow-y: auto; margin: auto; display: none;
     }
     .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
-    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
+    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; color: #ffffff; }
     .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
     .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; }
     .status-dot.offline { background-color: #ef4444; }
 
     .diagnostic-banner {
       background: #1e1b4b; border-bottom: 1px solid #312e81; padding: 8px 16px;
-      font-size: 11px; color: #818cf8; display: flex; justify-content: space-between; align-items: center;
+      font-size: 10px; color: #818cf8; display: flex; justify-content: space-between; align-items: center;
     }
     .timer-badge { font-family: monospace; font-weight: 800; color: #fbbf24; }
+    .fp-badge { color: #34d399; font-family: monospace; font-weight: 700; }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
@@ -76,7 +77,7 @@
     .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
     .btn-success { background: #16a34a; color: white; }
     .btn-warn { background: #0284c7; color: white; }
-    .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; }
+    .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; font-size: 11px; letter-spacing: 0.5px; }
     .btn-refresh { background: #0284c7; color: white; }
     .btn-full { grid-column: span 2; }
 
@@ -103,29 +104,29 @@
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Maximum Security Gateway</div>
-    <div class="lock-desc">Enter authorization master key to decrypt kernel environment.</div>
+    <div class="lock-title">🔒 Gmail Approval Gateway</div>
+    <div class="lock-desc" id="lockDescText">Enter master key. New devices require admin Gmail authorization.</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Master Key" autocomplete="off">
     </div>
-    <button type="button" class="lock-btn" id="unlockBtn">Authorize & Connect</button>
-    <div id="errorMsg" class="error-msg">Invalid Key! Authorization rejected.</div>
-    <div id="pendingMsg" class="pending-msg">⏳ Key verified. Dispatching Gmail authorization protocol...</div>
+    <button type="button" class="lock-btn" id="unlockBtn">Authorize Device</button>
+    <div id="errorMsg" class="error-msg">Invalid Key! Access denied.</div>
+    <div id="pendingMsg" class="pending-msg">⏳ Key verified. Checking Gmail approval status...</div>
   </div>
 </div>
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Mail Engine Pro [Ultra]</div>
+    <div class="header-brand">🛡️ Mail Engine Pro [Military Shield]</div>
     <div class="sync-status" id="syncStatusIndicator" title="Click to view live active nodes">
       <span class="status-dot" id="statusDot"></span>
-      <span id="onlineCountText">Nodes: Secured</span>
+      <span id="onlineCountText">Nodes: Calculating...</span>
     </div>
   </div>
 
   <div class="diagnostic-banner">
-    <span>🛡️ Shield: <b style="color:#38bdf8;">ACTIVE_ENCRYPTED_v5</b></span>
-    <span>Timer Matrix: <span id="timerCountdown" class="timer-badge">25s</span></span>
+    <span>Virtual Identity: <b id="deviceSignatureBadge" class="fp-badge">DEV-INIT</b></span>
+    <span>Gateway Status: <span id="timerCountdown" class="timer-badge">25s</span></span>
   </div>
 
   <div class="card-body">
@@ -149,7 +150,7 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Select Domain Gateway</span>
+      <span class="field-label">Select Dynamic Domain Gateway</span>
       <select id="domainSelect">
         <option value="@outlook.com">@outlook.com</option>
         <option value="@hotmail.com">@hotmail.com</option>
@@ -195,8 +196,8 @@
     </div>
 
     <div class="actions">
-      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Refresh Email Only</button>
-      <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile & Email</button>
+      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Rotate Email & Dynamic Routing</button>
+      <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile, Identity & Domain</button>
       <button class="btn-success" id="copyEmailBtn">Copy Email</button>
       <button class="btn-primary" id="copyAllBtn">📋 Copy All Info</button>
     </div>
@@ -211,7 +212,7 @@
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Deep Factory Purge & Reset</button>
+    <button class="btn-danger" id="wipeBtn">🔥 MILITARY CRYPTO-SHRED & FULL IDENTITY RESET</button>
   </div>
 </div>
 
@@ -234,6 +235,20 @@
   const _SEC_KEY = ["9", "9", "5", "4", "1", "3", "1"].join("");
   const _ACT_KEY = ["9", "9", "5", "4", "2", "5", "6"].join("");
   const ADMIN_GMAIL = "mehdialhassan56@gmail.com";
+
+  // --- SPOOFED DEVICE FINGERPRINT & GUID ENGINE ---
+  function generateSpoofedDeviceSignature() {
+    let randomBytes = new Uint8Array(16);
+    window.crypto.getRandomValues(randomBytes);
+    let hex = Array.from(randomBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+    return 'SIG-' + hex.substring(0, 8).toUpperCase() + '-' + hex.substring(8, 12).toUpperCase();
+  }
+
+  let deviceFingerprint = localStorage.getItem("device_unique_id_v8");
+  if (!deviceFingerprint) {
+    deviceFingerprint = generateSpoofedDeviceSignature();
+    localStorage.setItem("device_unique_id_v8", deviceFingerprint);
+  }
 
   const DB = {
     egypt: {
@@ -265,7 +280,8 @@
     lastName: "",
     username: "",
     domain: "@outlook.com",
-    apiSessionToken: 'ultra_kernel_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
+    apiSessionToken: 'auth_kernel_' + Math.random().toString(36).substring(2) + Date.now().toString(36),
+    virtualFingerprint: deviceFingerprint
   };
 
   let networkGuardTimer = null;
@@ -277,13 +293,16 @@
     const unlockBtn = document.getElementById("unlockBtn");
     const passInput = document.getElementById("passInput");
 
-    if (localStorage.getItem("master_auth_token_v5") === "true") {
+    let isSessionActive = sessionStorage.getItem("active_session_token_v8");
+    let isDeviceAuthorized = localStorage.getItem("gmail_approved_device_" + deviceFingerprint) === "true";
+
+    if (isSessionActive && isDeviceAuthorized) {
       unlockApp();
+    } else if (!isDeviceAuthorized && localStorage.getItem("auth_attempt_logged_" + deviceFingerprint)) {
+      document.getElementById("lockDescText").innerHTML = "<b style='color:#ef4444;'>Device Pending Gmail Approval! Admin permission required.</b>";
     }
 
-    if (unlockBtn) {
-      unlockBtn.onclick = verifyPassword;
-    }
+    if (unlockBtn) unlockBtn.onclick = verifyPassword;
 
     if (passInput) {
       passInput.onkeydown = function(e) {
@@ -294,18 +313,13 @@
         if (errorMsg) errorMsg.style.display = "none";
       };
     }
-
-    setInterval(() => {
-      if (localStorage.getItem("master_auth_token_v5") === "true" && document.getElementById("mainApp").style.display !== "block") {
-        unlockApp();
-      }
-    }, 1000);
   };
 
   function verifyPassword() {
     const passInput = document.getElementById("passInput");
     const errorMsg = document.getElementById("errorMsg");
     const pendingMsg = document.getElementById("pendingMsg");
+    const lockDescText = document.getElementById("lockDescText");
 
     if (!passInput) return;
     const val = passInput.value.trim();
@@ -313,24 +327,36 @@
     if (val === _SEC_KEY) {
       if (errorMsg) errorMsg.style.display = "none";
       if (pendingMsg) pendingMsg.style.display = "block";
-      
-      localStorage.setItem("master_auth_token_v5", "true");
-      
-      // ULTRA STRONG GMAIL AUTHORIZATION NOTIFICATION DISPATCHER
-      try {
-        emailjs.send("service_default", "template_default", {
-          to_email: ADMIN_GMAIL,
-          subject: "🛡️ AUTHORIZATION ALERT: Master Key Verified",
-          message: "Master key successfully authenticated. User session granted with full administrative permissions.",
-          timestamp: new Date().toLocaleString(),
-          client_ip_fingerprint: navigator.userAgent
-        }).catch(err => console.log("Gmail notification log:", err));
-      } catch(e) {}
 
-      setTimeout(() => {
-        unlockApp();
-      }, 700);
+      let isAuthorized = localStorage.getItem("gmail_approved_device_" + deviceFingerprint) === "true";
 
+      if (isAuthorized) {
+        setTimeout(() => {
+          sessionStorage.setItem("active_session_token_v8", "true");
+          unlockApp();
+        }, 500);
+      } else {
+        localStorage.setItem("auth_attempt_logged_" + deviceFingerprint, "true");
+        
+        try {
+          emailjs.send("service_default", "template_default", {
+            to_email: ADMIN_GMAIL,
+            subject: "🚨 NEW DEVICE GMAIL APPROVAL REQUEST",
+            message: `A new device is trying to access the app.\n\nDevice Fingerprint: ${deviceFingerprint}\nUser Agent: ${navigator.userAgent}\nTime: ${new Date().toLocaleString()}\n\nTo approve, set local storage flag on admin panel: gmail_approved_device_${deviceFingerprint} = true`,
+            device_id: deviceFingerprint,
+            timestamp: new Date().toLocaleString()
+          }).catch(err => console.log("Email dispatch notification:", err));
+        } catch(e) {}
+
+        setTimeout(() => {
+          if (pendingMsg) pendingMsg.style.display = "none";
+          if (lockDescText) {
+            lockDescText.innerHTML = "<b style='color:#fbbf24;'>Key verified! Waiting for Gmail approval by administrator.</b>";
+          }
+          passInput.value = "";
+          passInput.focus();
+        }, 1000);
+      }
     } else {
       if (pendingMsg) pendingMsg.style.display = "none";
       if (errorMsg) errorMsg.style.display = "block";
@@ -352,7 +378,7 @@
   }
 
   function loadPersistentState() {
-    const savedState = localStorage.getItem("temp_mail_ultra_state_v5");
+    const savedState = localStorage.getItem("temp_mail_auth_state_v8");
     if (savedState) {
       try {
         let decoded = atob(savedState);
@@ -369,9 +395,7 @@
         updateDisplay();
         startInbox();
         return;
-      } catch(e) {
-        console.error("State decryption error:", e);
-      }
+      } catch(e) {}
     }
     generateProfile();
   }
@@ -380,7 +404,7 @@
     try {
       let raw = JSON.stringify(state);
       let encoded = btoa(raw);
-      localStorage.setItem("temp_mail_ultra_state_v5", encoded);
+      localStorage.setItem("temp_mail_auth_state_v8", encoded);
     } catch(e) {}
   }
 
@@ -395,24 +419,24 @@
 
     function syncActiveNodes() {
       let now = Date.now();
-      let nodes = JSON.parse(localStorage.getItem('temp_mail_active_nodes_v5') || '{}');
+      let nodes = JSON.parse(localStorage.getItem('temp_mail_active_nodes_v8') || '{}');
       
       Object.keys(nodes).forEach(id => {
-        if (now - nodes[id] > 4000) {
+        if (now - nodes[id] > 5000) {
           delete nodes[id];
         }
       });
 
       nodes[nodeInstanceId] = now;
-      localStorage.setItem('temp_mail_active_nodes_v5', JSON.stringify(nodes));
+      localStorage.setItem('temp_mail_active_nodes_v8', JSON.stringify(nodes));
 
       let activeCount = Object.keys(nodes).length;
       if (activeCount < 1) activeCount = 1;
 
       if (isNodesUnlocked) {
-        countText.innerText = `Nodes: ${activeCount} Online`;
+        countText.innerText = `Nodes: ${activeCount} Online Live`;
       } else {
-        countText.innerText = `Nodes: Secured`;
+        countText.innerText = `Nodes: Secured (${activeCount})`;
       }
       if (statusDot) statusDot.classList.remove("offline");
     }
@@ -475,13 +499,14 @@
 
     if(get("refreshEmailBtn")) {
       get("refreshEmailBtn").onclick = function() {
-        const randNum = Math.floor(1000 + Math.random() * 8999);
+        const randNum = Math.floor(10000 + Math.random() * 89999);
         state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
+        state.apiSessionToken = 'auth_kernel_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
         hasSimulatedNetworkFail = false;
         updateDisplay();
         savePersistentState();
         startInbox();
-        showToast("Email Rotated Securely!");
+        showToast("Email & Dynamic Routing Rotated!");
       };
     }
 
@@ -505,13 +530,26 @@
     if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}${state.domain}`);
     if(get("manualRefreshBtn")) get("manualRefreshBtn").onclick = () => checkInbox(true);
     
+    // --- MILITARY CRYPTO-SHRED & DEEP PURGE RESET BUTTON ---
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
+        if (!confirm("Are you sure? This will CRYPTO-SHRED all data, reset device signature, and destroy all traces permanently.")) return;
+
         if(window.inboxTimer) clearInterval(window.inboxTimer);
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         if(countdownInterval) clearInterval(countdownInterval);
-        
-        // ULTRA STRONG DEEP FACTORY PURGE & RESET
+
+        // Step 1: Crypto Memory Shredding (Overwrite Storage with Random Garbage Noise)
+        try {
+          for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            let noise = new Uint8Array(256);
+            window.crypto.getRandomValues(noise);
+            localStorage.setItem(key, Array.from(noise).join(""));
+          }
+        } catch(e) {}
+
+        // Step 2: Clear Storage & Cookies
         localStorage.clear();
         sessionStorage.clear();
         
@@ -519,10 +557,14 @@
           document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
         });
 
-        showToast("System Completely Wiped & Purged!");
+        // Step 3: Destroy In-Memory Reference State
+        state = null;
+
+        showToast("🔥 DATA CRYPTO-SHREDDED & IDENTITY RESET!");
         setTimeout(() => {
-          window.location.href = window.location.pathname + '?purge_kernel=' + Date.now();
-        }, 500);
+          // Force Hard Reload with Cache Busting & Fresh Device GUID
+          window.location.href = window.location.pathname + '?shred_purge=' + Math.random().toString(36).substring(2) + Date.now();
+        }, 600);
       };
     }
   }
@@ -537,8 +579,10 @@
     state.firstName = fName;
     state.lastName = lName;
 
-    const randNum = Math.floor(1000 + Math.random() * 8999);
+    const randNum = Math.floor(10000 + Math.random() * 89999);
     state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
+    state.apiSessionToken = 'auth_kernel_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+    state.virtualFingerprint = generateSpoofedDeviceSignature();
 
     hasSimulatedNetworkFail = false;
     updateDisplay();
@@ -551,6 +595,7 @@
     if(document.getElementById("dispLastName")) document.getElementById("dispLastName").innerText = state.lastName;
     if(document.getElementById("dispEmail")) document.getElementById("dispEmail").innerText = `${state.username}${state.domain}`;
     if(document.getElementById("countryLabel")) document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
+    if(document.getElementById("deviceSignatureBadge")) document.getElementById("deviceSignatureBadge").innerText = state.virtualFingerprint || "SIG-GEN-77";
   }
 
   function startInbox() {
@@ -559,6 +604,7 @@
     if(countdownInterval) clearInterval(countdownInterval);
 
     remainingSeconds = 25;
+    hasSimulatedNetworkFail = false;
     updateTimerDisplay();
 
     countdownInterval = setInterval(() => {
@@ -577,7 +623,7 @@
 
   function updateTimerDisplay() {
     const timerElem = document.getElementById("timerCountdown");
-    if (timerElem) {
+    if (timerElem && !hasSimulatedNetworkFail) {
       timerElem.innerText = remainingSeconds + "s";
     }
   }
@@ -590,6 +636,11 @@
     if (container.querySelector(".msg-card")) return;
 
     hasSimulatedNetworkFail = true;
+    if(countdownInterval) clearInterval(countdownInterval);
+    
+    const timerElem = document.getElementById("timerCountdown");
+    if(timerElem) timerElem.innerText = "Timed Out";
+
     const bounceCard = document.createElement("div");
     bounceCard.className = "bounce-card";
     bounceCard.innerHTML = `
@@ -601,7 +652,7 @@
   }
 
   async function checkInbox(isManual = false) {
-    if(!state.username) return;
+    if(!state || !state.username) return;
     if(isManual) showToast("Polling secure gateway...");
 
     let cleanDomain = state.domain.replace('@', '');
@@ -624,6 +675,8 @@
       if(list && list.length > 0) {
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         if(countdownInterval) clearInterval(countdownInterval);
+        hasSimulatedNetworkFail = true;
+        
         const timerElem = document.getElementById("timerCountdown");
         if(timerElem) timerElem.innerText = "Synchronized";
 

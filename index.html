@@ -584,10 +584,23 @@
       });
     }
 
-    state = { country: "egypt", gender: "male", firstName: "", lastName: "", username: "", domain: "outlook.com" };
+    // API Domain Auto-Change / Rotation on Reset
+    const availableDomains = ["outlook.com", "hotmail.com", "esiia.com", "1secmail.com", "1secmail.org"];
+    let filteredDomains = availableDomains.filter(d => d !== state.domain);
+    let newRandomDomain = filteredDomains[Math.floor(Math.random() * filteredDomains.length)];
+
+    state = { 
+      country: "egypt", 
+      gender: "male", 
+      firstName: "", 
+      lastName: "", 
+      username: "", 
+      domain: newRandomDomain 
+    };
+
     if(window.inboxTimer) clearInterval(window.inboxTimer);
     
-    showToast("🔥 Secure Wipe Complete: All traces destroyed!");
+    showToast("🔥 Wipe Complete & API Rotated Successfully!");
     setTimeout(() => {
       lockApplication();
       window.location.reload(true);
@@ -656,6 +669,9 @@
     document.getElementById("dispLastName").innerText = state.lastName;
     document.getElementById("dispEmail").innerText = `${state.username}@${state.domain}`;
     document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
+    
+    const domainDropdown = document.getElementById("domainSelect");
+    if(domainDropdown) domainDropdown.value = state.domain;
   }
 
   function startInbox() {
@@ -688,7 +704,7 @@
           const detail = await detailRes.json();
           const textContent = detail.body || detail.textBody || "";
           const otpMatch = textContent.match(/\b\d{4,8}\b/);
-          let otpHtml = otpMatch ? `<div class="otp-wrapper"><span>OTP Code:</span><div><span class="otp-code">${otpMatch[0]}</span><button class="btn-otp_copy" onclick="copyVal('${otpMatch[0]}')">Copy</button></div></div>` : "";
+          let otpHtml = otpMatch ? `<div class="otp-wrapper"><span>OTP Code:</span><div><span class="otp-code">${otpMatch[0]}</span><button class="btn-otp-copy" onclick="copyVal('${otpMatch[0]}')">Copy</button></div></div>` : "";
 
           const card = document.createElement("div");
           card.className = "msg-card";

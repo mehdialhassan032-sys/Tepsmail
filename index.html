@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Temp Mail Engine Pro - Military Grade Shield</title>
+  <title>Temp Mail Engine Pro - Ultra Hardened & Live Count</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-    body { background: #030712; color: #f8fafc; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 15px; overflow-y: auto; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; touch-action: pan-x pan-y; }
+    body { background: #05080f; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow: hidden; position: fixed; width: 100%; height: 100%; }
 
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: #030712; z-index: 99999; display: flex;
+      background: #05080f; z-index: 99999; display: flex;
       justify-content: center; align-items: center; padding: 20px;
     }
     .lock-card {
       background: #0f172a; border: 1px solid #1e293b; border-radius: 16px;
       padding: 30px; width: 100%; max-width: 380px; text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.95);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.9);
     }
     .lock-title { font-size: 18px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; }
-    .lock-desc { font-size: 12px; color: #64748b; margin-bottom: 20px; line-height: 1.4; }
+    .lock-desc { font-size: 12px; color: #64748b; margin-bottom: 20px; }
     .password-wrapper { position: relative; width: 100%; margin-bottom: 15px; display: flex; align-items: center; }
     .lock-input {
       width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155;
@@ -30,21 +30,14 @@
 
     .app-card { 
       background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
-      border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.95); 
-      margin: auto; display: none; margin-bottom: 30px;
+      max-height: 95vh; border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
+      overflow-y: auto; margin: auto; display: none;
     }
-    .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; border-top-left-radius: 16px; border-top-right-radius: 16px; }
-    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; color: #ffffff; }
-    .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
+    .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
+    .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
     .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; }
     .status-dot.offline { background-color: #ef4444; }
-
-    .diagnostic-banner {
-      background: #1e1b4b; border-bottom: 1px solid #312e81; padding: 8px 16px;
-      font-size: 10px; color: #818cf8; display: flex; justify-content: space-between; align-items: center;
-    }
-    .timer-badge { font-family: monospace; font-weight: 800; color: #fbbf24; }
-    .fp-badge { color: #34d399; font-family: monospace; font-weight: 700; }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
@@ -70,7 +63,7 @@
     .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
     .btn-success { background: #16a34a; color: white; }
     .btn-warn { background: #0284c7; color: white; }
-    .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; font-size: 11px; letter-spacing: 0.5px; }
+    .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; }
     .btn-refresh { background: #0284c7; color: white; }
     .btn-full { grid-column: span 2; }
 
@@ -97,28 +90,23 @@
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Secure Access Gateway</div>
-    <div class="lock-desc">Enter master key to unlock encrypted mail engine.</div>
+    <div class="lock-title">🔒 Ultra Hardened Access</div>
+    <div class="lock-desc">Enter security key to unlock system</div>
     <div class="password-wrapper">
-      <input type="password" id="passInput" class="lock-input" placeholder="Enter Master Key" autocomplete="off">
+      <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
     </div>
     <button type="button" class="lock-btn" id="unlockBtn">Unlock Engine</button>
-    <div id="errorMsg" class="error-msg">Invalid Key! Access denied.</div>
+    <div id="errorMsg" class="error-msg">Incorrect Security Key!</div>
   </div>
 </div>
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">🛡️ Mail Engine Pro [Military Shield]</div>
-    <div class="sync-status" id="syncStatusIndicator" title="Click to view live active nodes">
+    <div class="header-brand">📧 Mail Engine Pro</div>
+    <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
       <span class="status-dot" id="statusDot"></span>
-      <span id="onlineCountText">Nodes: Calculating...</span>
+      <span id="onlineCountText">Online: Click to View</span>
     </div>
-  </div>
-
-  <div class="diagnostic-banner">
-    <span>Virtual Identity: <b id="deviceSignatureBadge" class="fp-badge">DEV-INIT</b></span>
-    <span>Gateway Status: <span id="timerCountdown" class="timer-badge">25s</span></span>
   </div>
 
   <div class="card-body">
@@ -142,7 +130,7 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Select Dynamic Domain Gateway</span>
+      <span class="field-label">Select Domain Gateway</span>
       <select id="domainSelect">
         <option value="@outlook.com">@outlook.com</option>
         <option value="@hotmail.com">@hotmail.com</option>
@@ -156,7 +144,7 @@
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Verified Identity Profile</span>
+        <span>👤 Locked Identity Profile</span>
         <span id="countryLabel" style="color:#38bdf8;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
@@ -188,46 +176,44 @@
     </div>
 
     <div class="actions">
-      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Rotate Email & Dynamic Routing</button>
-      <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile, Identity & Domain</button>
+      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Refresh Email Only</button>
+      <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile & Email</button>
       <button class="btn-success" id="copyEmailBtn">Copy Email</button>
       <button class="btn-primary" id="copyAllBtn">📋 Copy All Info</button>
     </div>
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">📥 Live Secure Inbox & Filter</span>
+        <span class="inbox-title">📥 Live Inbox & Strict Network Guard</span>
         <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Refresh</button>
       </div>
       <div id="inboxList">
-        <p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming secure payload...</p>
+        <p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 MILITARY CRYPTO-SHRED & FULL IDENTITY RESET</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Deep Wipe & New Identity</button>
   </div>
 </div>
 
 <div id="toast" class="toast">Copied!</div>
 
 <script>
+  let touchStartY = 0;
+  window.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: false });
+
+  window.addEventListener('touchmove', function(e) {
+    let touchY = e.touches[0].clientY;
+    let appCard = document.getElementById('mainApp');
+    if (appCard && appCard.scrollTop === 0 && touchY > touchStartY) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
   const _SEC_KEY = ["9", "9", "5", "4", "1", "3", "1"].join("");
   const _ACT_KEY = ["9", "9", "5", "4", "2", "5", "6"].join("");
-
-  function generateSpoofedDeviceSignature() {
-    let randomBytes = new Uint8Array(16);
-    window.crypto.getRandomValues(randomBytes);
-    let hex = Array.from(randomBytes).map(b => b.toString(16).padStart(2, '0')).join('');
-    let mockIpOctet1 = Math.floor(40 + Math.random() * 160);
-    let mockIpOctet2 = Math.floor(10 + Math.random() * 200);
-    return 'SIG-' + hex.substring(0, 6).toUpperCase() + ` [IP: ${mockIpOctet1}.${mockIpOctet2}.X.X]`;
-  }
-
-  let deviceFingerprint = localStorage.getItem("device_unique_id_v8");
-  if (!deviceFingerprint) {
-    deviceFingerprint = generateSpoofedDeviceSignature();
-    localStorage.setItem("device_unique_id_v8", deviceFingerprint);
-  }
 
   const DB = {
     egypt: {
@@ -259,27 +245,23 @@
     lastName: "",
     username: "",
     domain: "@outlook.com",
-    apiSessionToken: 'auth_kernel_' + Math.random().toString(36).substring(2) + Date.now().toString(36),
-    virtualFingerprint: deviceFingerprint
+    apiSessionToken: 'hardened_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
   };
 
   let networkGuardTimer = null;
-  let countdownInterval = null;
-  let remainingSeconds = 25;
   let hasSimulatedNetworkFail = false;
 
   window.onload = function() {
     const unlockBtn = document.getElementById("unlockBtn");
     const passInput = document.getElementById("passInput");
 
-    // Smart Background Session Check using sessionStorage flag lifecycle
-    let isSessionActive = sessionStorage.getItem("active_session_token_v8");
-
-    if (isSessionActive) {
+    if (sessionStorage.getItem("isUnlocked") === "true") {
       unlockApp();
     }
 
-    if (unlockBtn) unlockBtn.onclick = verifyPassword;
+    if (unlockBtn) {
+      unlockBtn.onclick = verifyPassword;
+    }
 
     if (passInput) {
       passInput.onkeydown = function(e) {
@@ -300,8 +282,7 @@
     const val = passInput.value.trim();
 
     if (val === _SEC_KEY) {
-      if (errorMsg) errorMsg.style.display = "none";
-      sessionStorage.setItem("active_session_token_v8", "true");
+      sessionStorage.setItem("isUnlocked", "true");
       unlockApp();
     } else {
       if (errorMsg) errorMsg.style.display = "block";
@@ -319,15 +300,14 @@
     
     setupEvents();
     loadPersistentState();
-    initUltraActiveNodeCounter();
+    initRobustActiveUserChecker();
   }
 
   function loadPersistentState() {
-    const savedState = localStorage.getItem("temp_mail_auth_state_v8");
+    const savedState = localStorage.getItem("temp_mail_hardened_state");
     if (savedState) {
       try {
-        let decoded = atob(savedState);
-        state = JSON.parse(decoded);
+        state = JSON.parse(savedState);
         document.getElementById("countrySelect").value = state.country;
         if (state.gender === "female") {
           document.getElementById("btnFemale").classList.add("active");
@@ -340,67 +320,71 @@
         updateDisplay();
         startInbox();
         return;
-      } catch(e) {}
+      } catch(e) {
+        console.error("State parse error:", e);
+      }
     }
     generateProfile();
   }
 
   function savePersistentState() {
-    try {
-      let raw = JSON.stringify(state);
-      let encoded = btoa(raw);
-      localStorage.setItem("temp_mail_auth_state_v8", encoded);
-    } catch(e) {}
+    localStorage.setItem("temp_mail_hardened_state", JSON.stringify(state));
   }
 
-  function initUltraActiveNodeCounter() {
+  function initRobustActiveUserChecker() {
     const countText = document.getElementById("onlineCountText");
     const statusIndicator = document.getElementById("syncStatusIndicator");
     const statusDot = document.getElementById("statusDot");
     if (!countText || !statusIndicator) return;
 
-    let isNodesUnlocked = false;
-    const nodeInstanceId = 'node_' + Math.random().toString(36).substring(2, 10);
+    let isUserCountUnlocked = false;
+    const clientId = 'client_' + Math.random().toString(36).substring(2, 9);
 
-    function syncActiveNodes() {
+    function updateActiveClients() {
       let now = Date.now();
-      let nodes = JSON.parse(localStorage.getItem('temp_mail_active_nodes_v8') || '{}');
+      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
       
-      Object.keys(nodes).forEach(id => {
-        if (now - nodes[id] > 5000) {
-          delete nodes[id];
+      Object.keys(clients).forEach(id => {
+        if (now - clients[id] > 6000) {
+          delete clients[id];
         }
       });
 
-      nodes[nodeInstanceId] = now;
-      localStorage.setItem('temp_mail_active_nodes_v8', JSON.stringify(nodes));
+      clients[clientId] = now;
+      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
 
-      let activeCount = Object.keys(nodes).length;
+      let activeCount = Object.keys(clients).length;
       if (activeCount < 1) activeCount = 1;
 
-      if (isNodesUnlocked) {
-        countText.innerText = `Nodes: ${activeCount} Online Live`;
+      if (isUserCountUnlocked) {
+        countText.innerText = `Online: ${activeCount} User${activeCount > 1 ? 's' : ''}`;
       } else {
-        countText.innerText = `Nodes: Secured (${activeCount})`;
+        countText.innerText = `Online: Click to View`;
       }
       if (statusDot) statusDot.classList.remove("offline");
     }
 
-    syncActiveNodes();
-    setInterval(syncActiveNodes, 2000);
+    updateActiveClients();
+    setInterval(updateActiveClients, 3000);
 
     statusIndicator.onclick = function() {
-      if (!isNodesUnlocked) {
-        let enteredKey = prompt("Enter Active Node Validation Key:");
-        if (enteredKey === _ACT_KEY) {
-          isNodesUnlocked = true;
-          syncActiveNodes();
-          showToast("Live node telemetry unlocked!");
-        } else if (enteredKey !== null) {
-          alert("Invalid Validation Key!");
+      if (!isUserCountUnlocked) {
+        let enteredPass = prompt("Enter security key to view active users:");
+        if (enteredPass === _ACT_KEY) {
+          isUserCountUnlocked = true;
+          updateActiveClients();
+          showToast("Active user count unlocked!");
+        } else if (enteredPass !== null) {
+          alert("Incorrect Security Key!");
         }
       }
     };
+
+    window.addEventListener('beforeunload', function () {
+      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
+      delete clients[clientId];
+      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
+    });
   }
 
   function setupEvents() {
@@ -444,14 +428,13 @@
 
     if(get("refreshEmailBtn")) {
       get("refreshEmailBtn").onclick = function() {
-        const randNum = Math.floor(10000 + Math.random() * 89999);
+        const randNum = Math.floor(1000 + Math.random() * 8999);
         state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
-        state.apiSessionToken = 'auth_kernel_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
         hasSimulatedNetworkFail = false;
         updateDisplay();
         savePersistentState();
         startInbox();
-        showToast("Email & Dynamic Routing Rotated!");
+        showToast("Email Refreshed Successfully!");
       };
     }
 
@@ -464,7 +447,7 @@
           updateDisplay();
           savePersistentState();
           startInbox();
-          showToast("Custom Alias Configured!");
+          showToast("Custom Email Configured!");
         }
       };
     }
@@ -479,17 +462,16 @@
       get("wipeBtn").onclick = function() {
         if(window.inboxTimer) clearInterval(window.inboxTimer);
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
-        if(countdownInterval) clearInterval(countdownInterval);
-
-        // ISOLATED RESET: Sirf ishi browser instance / user ka data wipe karega, baakiyo ko touch nahi karega
-        localStorage.removeItem("temp_mail_auth_state_v8");
-        localStorage.removeItem("device_unique_id_v8");
+        
         sessionStorage.clear();
-
-        showToast("Isolated cryptographic shred complete!");
+        let activeClients = localStorage.getItem('temp_mail_active_clients');
+        localStorage.clear();
+        if(activeClients) localStorage.setItem('temp_mail_active_clients', activeClients);
+        
+        showToast("Deep Wipe Successful! Resetting System...");
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 500);
       };
     }
   }
@@ -504,10 +486,8 @@
     state.firstName = fName;
     state.lastName = lName;
 
-    const randNum = Math.floor(10000 + Math.random() * 89999);
+    const randNum = Math.floor(1000 + Math.random() * 8999);
     state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
-    state.apiSessionToken = 'auth_kernel_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
-    state.virtualFingerprint = generateSpoofedDeviceSignature();
 
     hasSimulatedNetworkFail = false;
     updateDisplay();
@@ -520,37 +500,18 @@
     if(document.getElementById("dispLastName")) document.getElementById("dispLastName").innerText = state.lastName;
     if(document.getElementById("dispEmail")) document.getElementById("dispEmail").innerText = `${state.username}${state.domain}`;
     if(document.getElementById("countryLabel")) document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
-    if(document.getElementById("deviceSignatureBadge")) document.getElementById("deviceSignatureBadge").innerText = state.virtualFingerprint || "SIG-GEN-77";
   }
 
   function startInbox() {
     if(window.inboxTimer) clearInterval(window.inboxTimer);
     if(networkGuardTimer) clearTimeout(networkGuardTimer);
-    if(countdownInterval) clearInterval(countdownInterval);
-
-    remainingSeconds = 25;
-    hasSimulatedNetworkFail = false;
-    updateTimerDisplay();
-
-    countdownInterval = setInterval(() => {
-      remainingSeconds--;
-      if (remainingSeconds < 0) remainingSeconds = 0;
-      updateTimerDisplay();
-    }, 1000);
 
     checkInbox();
-    window.inboxTimer = setInterval(() => checkInbox(false), 2500);
+    window.inboxTimer = setInterval(() => checkInbox(false), 3000);
 
     networkGuardTimer = setTimeout(() => {
       triggerAutomaticNetworkRejectSimulation();
     }, 25000);
-  }
-
-  function updateTimerDisplay() {
-    const timerElem = document.getElementById("timerCountdown");
-    if (timerElem && !hasSimulatedNetworkFail) {
-      timerElem.innerText = remainingSeconds + "s";
-    }
   }
 
   function triggerAutomaticNetworkRejectSimulation() {
@@ -561,24 +522,19 @@
     if (container.querySelector(".msg-card")) return;
 
     hasSimulatedNetworkFail = true;
-    if(countdownInterval) clearInterval(countdownInterval);
-    
-    const timerElem = document.getElementById("timerCountdown");
-    if(timerElem) timerElem.innerText = "Timed Out";
-
     const bounceCard = document.createElement("div");
     bounceCard.className = "bounce-card";
     bounceCard.innerHTML = `
-      <div class="bounce-title">⚠️ SMTP 451 / 550 Routing Exception</div>
-      <div class="bounce-text">Status: Handshake Dropped. Network socket exception on mail server exchange. OTP delivery rejected automatically due to timeout.</div>
+      <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Rejected</div>
+      <div class="bounce-text">Status: Critical Network Exception. Destination mail server dropped handshake. OTP transmission denied automatically due to routing failure.</div>
     `;
     container.prepend(bounceCard);
-    showToast("Automatic Mock Failure Triggered!");
+    showToast("Strict Network Reject Simulation Triggered!");
   }
 
   async function checkInbox(isManual = false) {
-    if(!state || !state.username) return;
-    if(isManual) showToast("Polling secure gateway...");
+    if(!state.username) return;
+    if(isManual) showToast("Checking secure inbox...");
 
     let cleanDomain = state.domain.replace('@', '');
     const apiDomain = ["outlook.com", "hotmail.com"].includes(cleanDomain) ? "esiia.com" : cleanDomain;
@@ -599,12 +555,6 @@
 
       if(list && list.length > 0) {
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
-        if(countdownInterval) clearInterval(countdownInterval);
-        hasSimulatedNetworkFail = true;
-        
-        const timerElem = document.getElementById("timerCountdown");
-        if(timerElem) timerElem.innerText = "Synchronized";
-
         const existingBounce = container.querySelector(".bounce-card");
         if(existingBounce) existingBounce.remove();
 
@@ -624,7 +574,7 @@
           if(otpCode) {
             otpHtml = `
               <div class="otp-wrapper">
-                <span>Secure OTP Captured:</span>
+                <span>OTP Code Detected:</span>
                 <div>
                   <span class="otp-code">${otpCode}</span>
                   <button class="btn-otp-copy" onclick="copyVal('${otpCode}')">Copy OTP</button>
@@ -645,11 +595,11 @@
         }
       } else {
         if (!container.querySelector(".msg-card") && !container.querySelector(".bounce-card")) {
-          container.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming secure payload...</p>`;
+          container.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>`;
         }
       }
     } catch(err) {
-      console.error("Gateway fetch error:", err);
+      console.error("Inbox fetch error:", err);
       if(statusDot) statusDot.classList.add("offline");
     }
   }

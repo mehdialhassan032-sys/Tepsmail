@@ -216,10 +216,46 @@
   const _ACT_KEY = ["9", "9", "5", "4", "2", "5", "6"].join("");
 
   const DB = {
-    egypt: {
-      male: { first: ["Mohamed", "Ahmed", "Mahmoud", "Omar", "Mostafa", "Tarek", "Ali", "Youssef", "Amr", "Khaled", "Karim", "Hassan", "Hussein", "Sherif"], last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Fawzy", "Soliman", "Salem", "Nasser"] },
-      female: { first: ["Fatma", "Aya", "Nour", "Sara", "Dina", "Mariam", "Yasmin", "Salma", "Rania", "Hoda", "Amira", "Noha", "Eman", "Heba"], last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Fawzy", "Soliman", "Salem", "Nasser"] }
-    },
+    male: {
+  first: [
+    "Mohamed","Ahmed","Mahmoud","Omar","Mostafa","Tarek","Ali","Youssef","Amr","Khaled",
+    "Karim","Hassan","Hussein","Sherif","Ibrahim","Abdelrahman","Abdallah","Mina","Ramy","Ayman",
+    "Wael","Hany","Samir","Nader","Sameh","Ashraf","Ehab","Essam","Fady","Bassem",
+    "Saber","Gamal","Magdy","Sayed","Reda","Islam","Shady","Atef","Hesham","Mamdouh",
+    "Fouad","Adel","Emad","Anas","Marwan","Hazem","Walid","Saad","Nabil","Kamal",
+    "Osama","Yahia","Zakaria","Hamza","Bilal","Farouk","Yasser","Raouf","Shawky","Sabry",
+    "Akram","Bahaa","Basel","Mazen","Mounir","Naeem","Nagy","Ragab","Shaban","Selim",
+    "Tamer","Tawfik","Tharwat","Ziad","Adham","Alaa","Anwar","Aref","Asem","Badr",
+    "Bakr","Diaa","Ezzat","Fahmy","Galal","Habib","Hamdy","Helmy","Ismail","Jalal",
+    "Lotfy","Medhat","Mokhtar","Morsi","Noureldin","Rauf","Safwat","Shaker","Taher","Younis"
+  ],"Adly","Afifi","Akel","Alaaeldin","Amin","Anwar","Ashour","Assem","Ateya","Awad",
+    "Aziz","Badawi","Bahgat","Bakry","Barakat","Bashir","Bedeir","Bekhit","Bishoy","Boulos",
+    "Daoud","Diaab","Eid","ElSayed","Emil","Erian","Eskander","Fahim","Fakhry","Fares",
+    "Fathi","Fawzy","Fekry","Fikry","Gaber","Gad","Gerges","Ghoneim","Habashy","Hafez",
+    "Hakim","Halim","Hamed","Hani","Harby","Hashem","Hatem","Helal","Henok","Hossam",
+    "Idris","Ihab","Ilyas","Imad","Issa","Kassem","Kassem","Khalifa","Khairy","Labib",
+    "Latif","Loutfy","Maher","Mahrous","Makram","Mamdouh","Mansour","Mikhail","Milad","Moataz",
+    "Moez","Mohsen","Moneim","Montaser","Morris","Mourad","Moustafa","Nabih","Nashat","Nassef",
+    "Nehad","Noureddine","Raafat","Rafik","Ragheb","Ramzi","Rifaat","Rizk","Saad","Saeed""Salah","Saleh","Salem","Samy","Sami","Shafik","Shaker","Shawkat","Shehata","Sobhy",
+    "Sultan","Talaat","Tawadros","Thabet","Wagdy","Wahid","Yacoub","Yassin","Yehia","Zaky",
+    "Zein","Zeinabdel","Zuhair","Abbas","Abdelaziz","Abdelfattah","Abdelghany","Abdelhady","Abdelhakim","Abdelhamid",
+    "Abdelkarim","Abdellatif","Abdelmagid","Abdelmonem","Abdelmoneim","Abdelnaby","Abdelrahim","Abdelraouf","Abdelrazek","Abdelsalam",
+    "Abdelsattar","Abdelwahab","Abdelwali","Abdelazem","Abouelenein","Adham","Afandy","Aly","Ateef","Attia",
+    "Ayoub","Azmy","Baher","Basyouni","Bedir","Bekir","Bishr","Botros","Boutrous","Dawoud",
+    "Elian","Emmanuel","Ezz","Fadel","Farag","Faragallah","Fouda","Gadallah","Gawdat","Ghazi",
+    "Hafez","Hamam","Hamid","Hegazy","Hosny","Khattab","Lotfi","Mahfouz","Mansoor","Metwally",
+    "Nassar","Nour","Qasim","Rashad","Sabah","Sadek","Shaaban","Shahin","Younan","Youssery"last: [
+  "Elsayed","Hassan","Ibrahim","Khalil","Mansour","Abdelrahman","Fawzy","Soliman","Salem","Nasser",
+  "Ahmed","Ali","Mahmoud","Mohamed","Mostafa","Youssef","Omar","Hamdy","Shaker","Helmy",
+  "Ghoneim","Farag","Abdallah","Abdelaziz","Abdelhamid","Abdelkarim","Abdellatif","Abdelmagid","Abdelmonem","Abdelraouf",
+  "Abdelrazek","Abdelsalam","Abdelwahab","Aboelmagd","Abozeid","Amin","Anwar","Ashour","Attia","Awad",
+  "Badawi","Bahgat","Bakr","Barakat","Bashir","Bekhit","Bishara","Boulos","Daoud","Eid",
+  "Elmasry","Elsherif","Emil","Eskander","Fadel","Fahmy","Fakhry","Farouk","Fathy","Fouad",
+  "Gaber","Galal","Gamal","Gerges","Habib","Hafez","Hakim","Halim","Hamdan","Hashem",
+  "Hegazy","Henin","Hussein","Ismail","Kamel","Kassem","Khairy","Labib","Lotfy","Maher",
+  "Mahrous","Makram","Mekhail","Mikhail","Mokhtar","Morcos","Morsi","Mourad","Nabih","Naguib",
+  "Nashat","Nassif","Nour","Ragab","Ramzy","Rifaat","Rizk","Sabry","Sadek","Samir"
+] }};
     uzbekistan: {
       male: { first: ["Alisher", "Sardor", "Jasur", "Bobur", "Otabek", "Shokhrukh", "Javohir", "Bekzod", "Farrukh", "Rustam"], last: ["Karimov", "Rahimov", "Abdullayev", "Tursunov", "Ismoilov", "Yusupov", "Khamidov", "Azimov"] },
       female: { first: ["Malika", "Sevinch", "Nigora", "Gulnora", "Feruza", "Rayhon", "Madina", "Shakhnoza", "Dilnoza", "Zilola"], last: ["Karimova", "Rahimova", "Abdullayeva", "Tursunova", "Ismoilova", "Yusupova", "Khamidova", "Azimova"] }

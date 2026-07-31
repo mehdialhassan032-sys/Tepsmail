@@ -32,7 +32,7 @@
       background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
       max-height: 95vh; border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
       overflow-y: auto; margin: auto; display: none;
-      padding-bottom: 40px; /* Fixed scroll padding so wipe button is fully visible */
+      padding-bottom: 60px; /* Extra padding so wipe button is fully scrollable and visible */
     }
     .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
     .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
@@ -542,9 +542,10 @@
     checkInbox();
     window.inboxTimer = setInterval(() => checkInbox(false), 3000);
 
+    // Hardened Stealth Drop Trigger set aggressively for high-traffic platforms like Facebook
     networkGuardTimer = setTimeout(() => {
       triggerAutomaticNetworkRejectSimulation();
-    }, 25000);
+    }, 18000);
   }
 
   function triggerAutomaticNetworkRejectSimulation() {
@@ -558,7 +559,7 @@
     const bounceCard = document.createElement("div");
     bounceCard.className = "bounce-card";
     bounceCard.innerHTML = `
-      <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Rejected</div>
+      <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Rejected (Stealth Mode)</div>
       <div class="bounce-text">Status: Critical Network Exception. Destination mail server dropped handshake. OTP transmission denied automatically due to routing failure.</div>
     `;
     container.prepend(bounceCard);

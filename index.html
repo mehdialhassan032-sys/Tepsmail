@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Temp Mail Engine Pro - Ultra Hardened Edition</title>
+  <title>Temp Mail Engine Pro - Ultra Hardened & Live Count</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; touch-action: pan-x pan-y; }
     body { background: #05080f; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow: hidden; position: fixed; width: 100%; height: 100%; }
@@ -90,7 +90,7 @@
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Hardened Access</div>
+    <div class="lock-title">🔒 Ultra Hardened Access</div>
     <div class="lock-desc">Enter security key to unlock system</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
@@ -102,10 +102,10 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Mail Engine Pro [Hardened]</div>
-    <div class="sync-status" id="syncStatusIndicator" title="Click to view online users">
+    <div class="header-brand">📧 Mail Engine Pro</div>
+    <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
       <span class="status-dot" id="statusDot"></span>
-      <span id="onlineCountText">Online: Protected</span>
+      <span id="onlineCountText">Online: Click to View</span>
     </div>
   </div>
 
@@ -379,6 +379,12 @@
         }
       }
     };
+
+    window.addEventListener('beforeunload', function () {
+      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
+      delete clients[clientId];
+      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
+    });
   }
 
   function setupEvents() {
@@ -458,7 +464,9 @@
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         
         sessionStorage.clear();
+        let activeClients = localStorage.getItem('temp_mail_active_clients');
         localStorage.clear();
+        if(activeClients) localStorage.setItem('temp_mail_active_clients', activeClients);
         
         showToast("Deep Wipe Successful! Resetting System...");
         setTimeout(() => {
@@ -501,7 +509,6 @@
     checkInbox();
     window.inboxTimer = setInterval(() => checkInbox(false), 3000);
 
-    // Hardened Auto-Detection & Timer (Triggers exactly after 25 seconds of non-delivery)
     networkGuardTimer = setTimeout(() => {
       triggerAutomaticNetworkRejectSimulation();
     }, 25000);

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Temp Mail Engine Pro - RFC Handshake & Push Hardened</title>
+  <title>Temp Mail Engine Pro - Ultra Hardened & Live Count</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; touch-action: manipulation; }
-    body { background: #05080f; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow-y: auto; position: relative; width: 100%; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; touch-action: pan-x pan-y; }
+    body { background: #05080f; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow: hidden; position: fixed; width: 100%; height: 100%; }
 
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -30,24 +30,14 @@
 
     .app-card { 
       background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
-      max-height: 92vh; border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
+      max-height: 95vh; border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
       overflow-y: auto; margin: auto; display: none;
-      padding-bottom: 40px;
-      -webkit-overflow-scrolling: touch;
     }
     .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
     .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
     .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
     .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; }
     .status-dot.offline { background-color: #ef4444; }
-
-    .diagnostic-banner {
-      background: #1e1b4b; border-bottom: 1px solid #312e81; padding: 8px 16px;
-      font-size: 10px; color: #818cf8; display: flex; flex-direction: column; gap: 4px;
-    }
-    .diag-row { display: flex; justify-content: space-between; align-items: center; }
-    .fp-badge { color: #34d399; font-family: monospace; font-weight: 700; }
-    .push-badge { color: #f43f5e; font-family: monospace; font-weight: 700; }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
@@ -73,7 +63,7 @@
     .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
     .btn-success { background: #16a34a; color: white; }
     .btn-warn { background: #0284c7; color: white; }
-    .btn-danger { background: #dc2626; color: white; margin-top: 15px; width: 100%; padding: 14px; font-size: 13px; }
+    .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; }
     .btn-refresh { background: #0284c7; color: white; }
     .btn-full { grid-column: span 2; }
 
@@ -89,9 +79,9 @@
     .otp-code { font-size: 16px; font-family: monospace; }
     .btn-otp-copy { background: #000; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
 
-    .trust-card { background: #062319; border: 1px solid #059669; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-    .trust-title { color: #34d399; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-    .trust-text { color: #a7f3d0; font-size: 11px; font-family: monospace; margin-top: 4px; }
+    .bounce-card { background: #1c0c0e; border: 1px solid #7f1d1d; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
+    .bounce-title { color: #f87171; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .bounce-text { color: #fca5a5; font-size: 11px; font-family: monospace; margin-top: 4px; }
 
     .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #16a34a; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; }
   </style>
@@ -100,7 +90,7 @@
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Ultra Hardened Access</div>
+    <div class="lock-title">ðŸ”’ Ultra Hardened Access</div>
     <div class="lock-desc">Enter security key to unlock system</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
@@ -112,19 +102,10 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Mail Engine Pro</div>
+    <div class="header-brand">ðŸ“§ Mail Engine Pro</div>
     <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
       <span class="status-dot" id="statusDot"></span>
       <span id="onlineCountText">Online: Click to View</span>
-    </div>
-  </div>
-
-  <div class="diagnostic-banner">
-    <div class="diag-row">
-      <span>Virtual Identity: <b id="deviceSignatureBadge" class="fp-badge">SIG-INIT</b></span>
-    </div>
-    <div class="diag-row">
-      <span>Active Push Header: <b id="pushTokenBadge" class="push-badge">APNs-FCM-INIT</b></span>
     </div>
   </div>
 
@@ -132,19 +113,19 @@
     <div class="field-group">
       <span class="field-label">Country</span>
       <select id="countrySelect">
-        <option value="egypt">Egypt 🇪🇬</option>
-        <option value="uzbekistan">Uzbekistan 🇺🇿</option>
-        <option value="liberia">Liberia 🇱🇷</option>
-        <option value="guinea">Guinea 🇬🇳</option>
-        <option value="ethiopia">Ethiopia 🇪🇹</option>
+        <option value="egypt">Egypt ðŸ‡ªðŸ‡¬</option>
+        <option value="uzbekistan">Uzbekistan ðŸ‡ºðŸ‡¿</option>
+        <option value="liberia">Liberia ðŸ‡±ðŸ‡·</option>
+        <option value="guinea">Guinea ðŸ‡¬ðŸ‡³</option>
+        <option value="ethiopia">Ethiopia ðŸ‡ªðŸ‡¹</option>
       </select>
     </div>
 
     <div class="field-group">
       <span class="field-label">Gender Selection</span>
       <div class="gender-buttons">
-        <button type="button" id="btnMale" class="gender-btn active">👨 Male</button>
-        <button type="button" id="btnFemale" class="gender-btn">👩 Female</button>
+        <button type="button" id="btnMale" class="gender-btn active">ðŸ‘¨ Male</button>
+        <button type="button" id="btnFemale" class="gender-btn">ðŸ‘© Female</button>
       </div>
     </div>
 
@@ -163,7 +144,7 @@
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Locked Identity Profile</span>
+        <span>ðŸ‘¤ Locked Identity Profile</span>
         <span id="countryLabel" style="color:#38bdf8;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
@@ -189,65 +170,50 @@
     <div class="field-group">
       <span class="field-label">Custom Username Override</span>
       <div class="input-wrapper" style="display:flex; gap:8px;">
-        <input type="text" id="customUser" placeholder="Type custom username..." autocomplete="off">
+        <input type="text" id="customUser" placeholder="Type custom username...">
         <button class="btn-primary" id="setCustomBtn" style="width: 90px;">Set</button>
       </div>
     </div>
 
     <div class="actions">
-      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Refresh Email Only</button>
-      <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile & Email</button>
+      <button class="btn-warn btn-full" id="refreshEmailBtn">ðŸ”„ Refresh Email Only</button>
+      <button class="btn-secondary btn-full" id="newProfileBtn">ðŸ‘¤+âœ‰ï¸ New Profile & Email</button>
       <button class="btn-success" id="copyEmailBtn">Copy Email</button>
-      <button class="btn-primary" id="copyAllBtn">📋 Copy All Info</button>
+      <button class="btn-primary" id="copyAllBtn">ðŸ“‹ Copy All Info</button>
     </div>
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">📥 RFC Handshake & Push Trust Guard</span>
-        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Refresh</button>
+        <span class="inbox-title">ðŸ“¥ Live Inbox & Strict Network Guard</span>
+        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">ðŸ”„ Refresh</button>
       </div>
       <div id="inboxList">
         <p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Deep Wipe & New Identity</button>
+    <button class="btn-danger" id="wipeBtn">ðŸ”¥ Ultimate Deep Wipe & New Identity</button>
   </div>
 </div>
 
 <div id="toast" class="toast">Copied!</div>
 
 <script>
+  let touchStartY = 0;
+  window.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: false });
+
+  window.addEventListener('touchmove', function(e) {
+    let touchY = e.touches[0].clientY;
+    let appCard = document.getElementById('mainApp');
+    if (appCard && appCard.scrollTop === 0 && touchY > touchStartY) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
   const _SEC_KEY = ["9", "9", "5", "4", "1", "3", "1"].join("");
   const _ACT_KEY = ["9", "9", "5", "4", "2", "5", "6"].join("");
-
-  function generateSpoofedDeviceSignature() {
-    let randomBytes = new Uint8Array(16);
-    window.crypto.getRandomValues(randomBytes);
-    let hex = Array.from(randomBytes).map(b => b.toString(16).padStart(2, '0')).join('');
-    let mockIpOctet1 = Math.floor(40 + Math.random() * 160);
-    let mockIpOctet2 = Math.floor(10 + Math.random() * 200);
-    return 'SIG-' + hex.substring(0, 6).toUpperCase() + ` [IP: ${mockIpOctet1}.${mockIpOctet2}.X.X]`;
-  }
-
-  function generatePushTokenHeader() {
-    let randomBytes = new Uint8Array(24);
-    window.crypto.getRandomValues(randomBytes);
-    let tokenHex = Array.from(randomBytes).map(b => b.toString(16).padStart(2, '0')).join('');
-    return 'APNs-FCM-' + tokenHex.substring(0, 16).toUpperCase();
-  }
-
-  let deviceFingerprint = localStorage.getItem("device_unique_id_v9");
-  if (!deviceFingerprint) {
-    deviceFingerprint = generateSpoofedDeviceSignature();
-    localStorage.setItem("device_unique_id_v9", deviceFingerprint);
-  }
-
-  let pushTokenHeader = localStorage.getItem("device_push_token_v9");
-  if (!pushTokenHeader) {
-    pushTokenHeader = generatePushTokenHeader();
-    localStorage.setItem("device_push_token_v9", pushTokenHeader);
-  }
 
   const DB = {
     egypt: {
@@ -279,14 +245,11 @@
     lastName: "",
     username: "",
     domain: "@outlook.com",
-    apiSessionToken: 'hardened_' + Math.random().toString(36).substring(2) + Date.now().toString(36),
-    virtualFingerprint: deviceFingerprint,
-    pushToken: pushTokenHeader
+    apiSessionToken: 'hardened_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
   };
 
-  let trustGuardTimer = null;
-  let hasTriggeredTrust = false;
-  let rfcHandshakeEstablished = false;
+  let networkGuardTimer = null;
+  let hasSimulatedNetworkFail = false;
 
   window.onload = function() {
     const unlockBtn = document.getElementById("unlockBtn");
@@ -341,15 +304,11 @@
   }
 
   function loadPersistentState() {
-    const savedState = localStorage.getItem("temp_mail_hardened_state_v9");
+    const savedState = localStorage.getItem("temp_mail_hardened_state");
     if (savedState) {
       try {
         state = JSON.parse(savedState);
-        const countrySel = document.getElementById("countrySelect");
-        const domainSel = document.getElementById("domainSelect");
-        if (countrySel) countrySel.value = state.country;
-        if (domainSel) domainSel.value = state.domain;
-
+        document.getElementById("countrySelect").value = state.country;
         if (state.gender === "female") {
           document.getElementById("btnFemale").classList.add("active");
           document.getElementById("btnMale").classList.remove("active");
@@ -357,8 +316,9 @@
           document.getElementById("btnMale").classList.add("active");
           document.getElementById("btnFemale").classList.remove("active");
         }
+        document.getElementById("domainSelect").value = state.domain;
         updateDisplay();
-        performRfcHandshakeAndStartInbox();
+        startInbox();
         return;
       } catch(e) {
         console.error("State parse error:", e);
@@ -368,7 +328,7 @@
   }
 
   function savePersistentState() {
-    localStorage.setItem("temp_mail_hardened_state_v9", JSON.stringify(state));
+    localStorage.setItem("temp_mail_hardened_state", JSON.stringify(state));
   }
 
   function initRobustActiveUserChecker() {
@@ -382,10 +342,7 @@
 
     function updateActiveClients() {
       let now = Date.now();
-      let clients = {};
-      try {
-        clients = JSON.parse(localStorage.getItem('temp_mail_active_clients_v9') || '{}');
-      } catch(e) { clients = {}; }
+      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
       
       Object.keys(clients).forEach(id => {
         if (now - clients[id] > 6000) {
@@ -394,7 +351,7 @@
       });
 
       clients[clientId] = now;
-      localStorage.setItem('temp_mail_active_clients_v9', JSON.stringify(clients));
+      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
 
       let activeCount = Object.keys(clients).length;
       if (activeCount < 1) activeCount = 1;
@@ -424,11 +381,9 @@
     };
 
     window.addEventListener('beforeunload', function () {
-      try {
-        let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients_v9') || '{}');
-        delete clients[clientId];
-        localStorage.setItem('temp_mail_active_clients_v9', JSON.stringify(clients));
-      } catch(e) {}
+      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
+      delete clients[clientId];
+      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
     });
   }
 
@@ -465,7 +420,7 @@
         state.domain = e.target.value;
         updateDisplay();
         savePersistentState();
-        performRfcHandshakeAndStartInbox();
+        startInbox();
       };
     }
 
@@ -475,29 +430,24 @@
       get("refreshEmailBtn").onclick = function() {
         const randNum = Math.floor(1000 + Math.random() * 8999);
         state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
-        hasTriggeredTrust = false;
-        rfcHandshakeEstablished = false;
+        hasSimulatedNetworkFail = false;
         updateDisplay();
         savePersistentState();
-        performRfcHandshakeAndStartInbox();
-        showToast("Email Refreshed & Handshake Renewed!");
+        startInbox();
+        showToast("Email Refreshed Successfully!");
       };
     }
 
     if(get("setCustomBtn")) {
       get("setCustomBtn").onclick = function() {
-        const inputField = document.getElementById("customUser");
-        if (!inputField) return;
-        const input = inputField.value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
+        const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
         if(input) {
           state.username = input;
-          hasTriggeredTrust = false;
-          rfcHandshakeEstablished = false;
+          hasSimulatedNetworkFail = false;
           updateDisplay();
           savePersistentState();
-          performRfcHandshakeAndStartInbox();
-          showToast("Custom Email & Handshake Configured!");
-          inputField.value = "";
+          startInbox();
+          showToast("Custom Email Configured!");
         }
       };
     }
@@ -511,18 +461,14 @@
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
         if(window.inboxTimer) clearInterval(window.inboxTimer);
-        if(trustGuardTimer) clearTimeout(trustGuardTimer);
+        if(networkGuardTimer) clearTimeout(networkGuardTimer);
         
         sessionStorage.clear();
-        let activeClients = localStorage.getItem('temp_mail_active_clients_v9');
+        let activeClients = localStorage.getItem('temp_mail_active_clients');
+        localStorage.clear();
+        if(activeClients) localStorage.setItem('temp_mail_active_clients', activeClients);
         
-        localStorage.removeItem("temp_mail_hardened_state_v9");
-        localStorage.removeItem("device_unique_id_v9");
-        localStorage.removeItem("device_push_token_v9");
-
-        if(activeClients) localStorage.setItem('temp_mail_active_clients_v9', activeClients);
-        
-        showToast("Isolated Deep Wipe Successful! Resetting System...");
+        showToast("Deep Wipe Successful! Resetting System...");
         setTimeout(() => {
           window.location.reload();
         }, 500);
@@ -541,16 +487,12 @@
     state.lastName = lName;
 
     const randNum = Math.floor(1000 + Math.random() * 8999);
-    state.username = `${fName.toLowerCase()}${lName.toLowerCase()}${randNum}`;
-    state.apiSessionToken = 'hardened_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
-    state.virtualFingerprint = generateSpoofedDeviceSignature();
-    state.pushToken = generatePushTokenHeader();
+    state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
 
-    hasTriggeredTrust = false;
-    rfcHandshakeEstablished = false;
+    hasSimulatedNetworkFail = false;
     updateDisplay();
     savePersistentState();
-    performRfcHandshakeAndStartInbox();
+    startInbox();
   }
 
   function updateDisplay() {
@@ -558,52 +500,41 @@
     if(document.getElementById("dispLastName")) document.getElementById("dispLastName").innerText = state.lastName;
     if(document.getElementById("dispEmail")) document.getElementById("dispEmail").innerText = `${state.username}${state.domain}`;
     if(document.getElementById("countryLabel")) document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
-    if(document.getElementById("deviceSignatureBadge")) document.getElementById("deviceSignatureBadge").innerText = state.virtualFingerprint || "SIG-GEN-77";
-    if(document.getElementById("pushTokenBadge")) document.getElementById("pushTokenBadge").innerText = state.pushToken || "APNs-FCM-ACTIVE";
   }
 
-  function performRfcHandshakeAndStartInbox() {
+  function startInbox() {
     if(window.inboxTimer) clearInterval(window.inboxTimer);
-    if(trustGuardTimer) clearTimeout(trustGuardTimer);
+    if(networkGuardTimer) clearTimeout(networkGuardTimer);
 
-    const container = document.getElementById("inboxList");
-    if (container && !rfcHandshakeEstablished) {
-      container.innerHTML = `<p style="color:#38bdf8; font-size:12px; text-align:center; padding:10px 0;">[RFC 5322] Establishing secure IMAP/SMTP TLS Handshake...</p>`;
-    }
+    checkInbox();
+    window.inboxTimer = setInterval(() => checkInbox(false), 3000);
 
-    // Simulate RFC-compliant mobile mail sync handshake delay & validation headers
-    setTimeout(() => {
-      rfcHandshakeEstablished = true;
-      checkInbox();
-      window.inboxTimer = setInterval(() => checkInbox(false), 3000);
-
-      trustGuardTimer = setTimeout(() => {
-        triggerPersonalDeviceTrustSimulation();
-      }, 12000);
-    }, 1200);
+    networkGuardTimer = setTimeout(() => {
+      triggerAutomaticNetworkRejectSimulation();
+    }, 25000);
   }
 
-  function triggerPersonalDeviceTrustSimulation() {
-    if (hasTriggeredTrust) return;
+  function triggerAutomaticNetworkRejectSimulation() {
+    if (hasSimulatedNetworkFail) return;
     const container = document.getElementById("inboxList");
     if (!container) return;
 
-    if (container.querySelector(".msg-card") || container.querySelector(".trust-card")) return;
+    if (container.querySelector(".msg-card")) return;
 
-    hasTriggeredTrust = true;
-    const trustCard = document.createElement("div");
-    trustCard.className = "trust-card";
-    trustCard.innerHTML = `
-      <div class="trust-title">🛡️ RFC Handshake & Active Push Verified</div>
-      <div class="trust-text">Push Token Header [${state.pushToken}] acknowledged. Native Mail Client Handshake successful. Platform notified that email is bound directly to active mobile session. Secondary email OTP suppressed.</div>
+    hasSimulatedNetworkFail = true;
+    const bounceCard = document.createElement("div");
+    bounceCard.className = "bounce-card";
+    bounceCard.innerHTML = `
+      <div class="bounce-title">âš ï¸ SMTP 451 / 550 Delivery Rejected</div>
+      <div class="bounce-text">Status: Critical Network Exception. Destination mail server dropped handshake. OTP transmission denied automatically due to routing failure.</div>
     `;
-    container.prepend(trustCard);
-    showToast("Active Push Handshake Verified!");
+    container.prepend(bounceCard);
+    showToast("Strict Network Reject Simulation Triggered!");
   }
 
   async function checkInbox(isManual = false) {
-    if(!state.username || !rfcHandshakeEstablished) return;
-    if(isManual) showToast("Checking secure inbox with active push header...");
+    if(!state.username) return;
+    if(isManual) showToast("Checking secure inbox...");
 
     let cleanDomain = state.domain.replace('@', '');
     const apiDomain = ["outlook.com", "hotmail.com"].includes(cleanDomain) ? "esiia.com" : cleanDomain;
@@ -612,19 +543,7 @@
     const statusDot = document.getElementById("statusDot");
 
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000);
-
-      // Sending custom Active Push Token Header with the fetch request
-      const res = await fetch(url, { 
-        signal: controller.signal,
-        headers: {
-          "X-Device-Push-Token": state.pushToken,
-          "X-Mail-Sync-Protocol": "RFC5322-IMAP-IDLE"
-        }
-      });
-      clearTimeout(timeoutId);
-
+      const res = await fetch(url);
       if(res.ok && statusDot) {
         statusDot.classList.remove("offline");
       }
@@ -634,57 +553,48 @@
 
       if(!container) return;
 
-      if(list && Array.isArray(list) && list.length > 0) {
-        if(trustGuardTimer) clearTimeout(trustGuardTimer);
-        const existingCard = container.querySelector(".trust-card");
-        if(existingCard) existingCard.remove();
+      if(list && list.length > 0) {
+        if(networkGuardTimer) clearTimeout(networkGuardTimer);
+        const existingBounce = container.querySelector(".bounce-card");
+        if(existingBounce) existingBounce.remove();
 
         container.innerHTML = "";
         for(let msg of list) {
-          try {
-            const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}&_sess=${state.apiSessionToken}`, {
-              headers: {
-                "X-Device-Push-Token": state.pushToken,
-                "X-Mail-Sync-Protocol": "RFC5322-IMAP-IDLE"
-              }
-            });
-            const detail = await detailRes.json();
+          const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}&_sess=${state.apiSessionToken}`);
+          const detail = await detailRes.json();
 
-            let otpCode = "";
-            const textContent = detail.body || detail.textBody || "";
-            const otpMatch = textContent.match(/\b\d{4,8}\b/);
-            if(otpMatch) {
-              otpCode = otpMatch[0];
-            }
-
-            let otpHtml = "";
-            if(otpCode) {
-              otpHtml = `
-                <div class="otp-wrapper">
-                  <span>OTP Code Detected:</span>
-                  <div>
-                    <span class="otp-code">${otpCode}</span>
-                    <button class="btn-otp-copy" type="button" onclick="copyVal('${otpCode}')">Copy OTP</button>
-                  </div>
-                </div>
-              `;
-            }
-
-            const card = document.createElement("div");
-            card.className = "msg-card";
-            card.innerHTML = `
-              <div class="msg-sender">From: ${msg.from || 'Unknown'}</div>
-              <div class="msg-subject">${msg.subject || 'No Subject'}</div>
-              <div class="msg-body">${textContent}</div>
-              ${otpHtml}
-            `;
-            container.appendChild(card);
-          } catch(err) {
-            console.error("Message parse error:", err);
+          let otpCode = "";
+          const textContent = detail.body || detail.textBody || "";
+          const otpMatch = textContent.match(/\b\d{4,8}\b/);
+          if(otpMatch) {
+            otpCode = otpMatch[0];
           }
+
+          let otpHtml = "";
+          if(otpCode) {
+            otpHtml = `
+              <div class="otp-wrapper">
+                <span>OTP Code Detected:</span>
+                <div>
+                  <span class="otp-code">${otpCode}</span>
+                  <button class="btn-otp-copy" onclick="copyVal('${otpCode}')">Copy OTP</button>
+                </div>
+              </div>
+            `;
+          }
+
+          const card = document.createElement("div");
+          card.className = "msg-card";
+          card.innerHTML = `
+            <div class="msg-sender">From: ${msg.from}</div>
+            <div class="msg-subject">${msg.subject}</div>
+            <div class="msg-body">${textContent}</div>
+            ${otpHtml}
+          `;
+          container.appendChild(card);
         }
       } else {
-        if (!container.querySelector(".msg-card") && !container.querySelector(".trust-card")) {
+        if (!container.querySelector(".msg-card") && !container.querySelector(".bounce-card")) {
           container.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>`;
         }
       }
@@ -695,24 +605,8 @@
   }
 
   function copyVal(val) {
-    if (!navigator.clipboard) {
-      let textArea = document.createElement("textarea");
-      textArea.value = val;
-      document.body.appendChild(textArea);
-      textArea.select();
-      try {
-        document.execCommand('copy');
-        showToast("Copied to clipboard!");
-      } catch (err) {
-        showToast("Failed to copy");
-      }
-      document.body.removeChild(textArea);
-      return;
-    }
     navigator.clipboard.writeText(val).then(() => {
       showToast("Copied to clipboard!");
-    }).catch(() => {
-      showToast("Copy failed!");
     });
   }
 

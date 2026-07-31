@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Temp Mail Engine Pro - Ultra Hardened & Live Count</title>
+  <title>Temp Mail Engine Pro - Ultra Hardened Edition</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; touch-action: pan-x pan-y; }
     body { background: #05080f; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; overflow: hidden; position: fixed; width: 100%; height: 100%; }
@@ -90,7 +90,7 @@
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">ðŸ”’ Ultra Hardened Access</div>
+    <div class="lock-title">🔒 Hardened Access</div>
     <div class="lock-desc">Enter security key to unlock system</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
@@ -102,10 +102,10 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">ðŸ“§ Mail Engine Pro</div>
-    <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
+    <div class="header-brand">📧 Mail Engine Pro [Hardened]</div>
+    <div class="sync-status" id="syncStatusIndicator" title="Click to view online users">
       <span class="status-dot" id="statusDot"></span>
-      <span id="onlineCountText">Online: Click to View</span>
+      <span id="onlineCountText">Online: Protected</span>
     </div>
   </div>
 
@@ -113,19 +113,19 @@
     <div class="field-group">
       <span class="field-label">Country</span>
       <select id="countrySelect">
-        <option value="egypt">Egypt ðŸ‡ªðŸ‡¬</option>
-        <option value="uzbekistan">Uzbekistan ðŸ‡ºðŸ‡¿</option>
-        <option value="liberia">Liberia ðŸ‡±ðŸ‡·</option>
-        <option value="guinea">Guinea ðŸ‡¬ðŸ‡³</option>
-        <option value="ethiopia">Ethiopia ðŸ‡ªðŸ‡¹</option>
+        <option value="egypt">Egypt 🇪🇬</option>
+        <option value="uzbekistan">Uzbekistan 🇺🇿</option>
+        <option value="liberia">Liberia 🇱🇷</option>
+        <option value="guinea">Guinea 🇬🇳</option>
+        <option value="ethiopia">Ethiopia 🇪🇹</option>
       </select>
     </div>
 
     <div class="field-group">
       <span class="field-label">Gender Selection</span>
       <div class="gender-buttons">
-        <button type="button" id="btnMale" class="gender-btn active">ðŸ‘¨ Male</button>
-        <button type="button" id="btnFemale" class="gender-btn">ðŸ‘© Female</button>
+        <button type="button" id="btnMale" class="gender-btn active">👨 Male</button>
+        <button type="button" id="btnFemale" class="gender-btn">👩 Female</button>
       </div>
     </div>
 
@@ -144,7 +144,7 @@
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>ðŸ‘¤ Locked Identity Profile</span>
+        <span>👤 Locked Identity Profile</span>
         <span id="countryLabel" style="color:#38bdf8;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
@@ -176,23 +176,23 @@
     </div>
 
     <div class="actions">
-      <button class="btn-warn btn-full" id="refreshEmailBtn">ðŸ”„ Refresh Email Only</button>
-      <button class="btn-secondary btn-full" id="newProfileBtn">ðŸ‘¤+âœ‰ï¸ New Profile & Email</button>
+      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Refresh Email Only</button>
+      <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile & Email</button>
       <button class="btn-success" id="copyEmailBtn">Copy Email</button>
-      <button class="btn-primary" id="copyAllBtn">ðŸ“‹ Copy All Info</button>
+      <button class="btn-primary" id="copyAllBtn">📋 Copy All Info</button>
     </div>
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">ðŸ“¥ Live Inbox & Strict Network Guard</span>
-        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">ðŸ”„ Refresh</button>
+        <span class="inbox-title">📥 Live Inbox & Strict Network Guard</span>
+        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Refresh</button>
       </div>
       <div id="inboxList">
         <p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">ðŸ”¥ Ultimate Deep Wipe & New Identity</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Deep Wipe & New Identity</button>
   </div>
 </div>
 
@@ -379,12 +379,6 @@
         }
       }
     };
-
-    window.addEventListener('beforeunload', function () {
-      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
-      delete clients[clientId];
-      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
-    });
   }
 
   function setupEvents() {
@@ -464,9 +458,7 @@
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         
         sessionStorage.clear();
-        let activeClients = localStorage.getItem('temp_mail_active_clients');
         localStorage.clear();
-        if(activeClients) localStorage.setItem('temp_mail_active_clients', activeClients);
         
         showToast("Deep Wipe Successful! Resetting System...");
         setTimeout(() => {
@@ -509,6 +501,7 @@
     checkInbox();
     window.inboxTimer = setInterval(() => checkInbox(false), 3000);
 
+    // Hardened Auto-Detection & Timer (Triggers exactly after 25 seconds of non-delivery)
     networkGuardTimer = setTimeout(() => {
       triggerAutomaticNetworkRejectSimulation();
     }, 25000);
@@ -525,7 +518,7 @@
     const bounceCard = document.createElement("div");
     bounceCard.className = "bounce-card";
     bounceCard.innerHTML = `
-      <div class="bounce-title">âš ï¸ SMTP 451 / 550 Delivery Rejected</div>
+      <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Rejected</div>
       <div class="bounce-text">Status: Critical Network Exception. Destination mail server dropped handshake. OTP transmission denied automatically due to routing failure.</div>
     `;
     container.prepend(bounceCard);

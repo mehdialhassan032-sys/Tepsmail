@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Temp Mail Engine Pro - Real Personal Gmail Simulation Matrix</title>
+  <title>Temp Mail Engine Pro - Military-Grade Anti-Forensic & Domain Mutation Matrix</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     
@@ -41,69 +41,66 @@
       border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
       margin: 10px auto; display: none; position: relative; z-index: 1;
     }
-    .header-bar { background: linear-gradient(135deg, #1a73e8, #4285f4); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-top-left-radius: 16px; border-top-right-radius: 16px; }
+    .header-bar { background: linear-gradient(135deg, #0078d4, #0284c7); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-top-left-radius: 16px; border-top-right-radius: 16px; }
     .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
     .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
-    .status-dot { width: 8px; height: 8px; background-color: #34a853; border-radius: 50%; display: inline-block; }
-    .status-dot.offline { background-color: #ea4335; }
+    .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; }
+    .status-dot.offline { background-color: #ef4444; }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
-    .field-label { font-size: 11px; font-weight: 700; color: #9aa0a6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+    .field-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
     input[type="text"], select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #020617; color: #f8fafc; font-size: 13px; outline: none; }
 
     .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .gender-btn { background: #020617; color: #94a3b8; border: 1px solid #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; }
-    .gender-btn.active { background: #1a73e8; color: #fff; border-color: #1a73e8; }
+    .gender-btn.active { background: #0078d4; color: #fff; border-color: #0078d4; }
 
-    .email-banner { background: #020617; padding: 14px; border-radius: 10px; text-align: center; font-weight: 800; margin: 16px 0; border: 1px solid #4285f4; color: #8ab4f8; font-size: 14px; word-break: break-all; }
+    .email-banner { background: #020617; padding: 14px; border-radius: 10px; text-align: center; font-weight: 800; margin: 16px 0; border: 1px solid #0078d4; color: #38bdf8; font-size: 14px; word-break: break-all; }
     .email-text { font-family: monospace; letter-spacing: 0.5px; }
     
     .profile-card { background: #020617; border: 1px solid #1e293b; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 12px; }
-    .profile-title { font-weight: 800; color: #8ab4f8; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
+    .profile-title { font-weight: 800; color: #38bdf8; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
     .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }
     .profile-val { color: #f8fafc; font-weight: 700; font-family: monospace; font-size: 13px; }
-    .btn-copy-sm { background: #1e293b; color: #8ab4f8; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .btn-copy-sm { background: #1e293b; color: #38bdf8; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
 
-    .stealth-badge { background: #0d3b23; border: 1px solid #137333; color: #81c995; font-size: 10px; font-weight: 800; padding: 4px 8px; border-radius: 6px; margin-bottom: 14px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .stealth-badge { background: #064e3b; border: 1px solid #059669; color: #34d399; font-size: 10px; font-weight: 800; padding: 4px 8px; border-radius: 6px; margin-bottom: 14px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
 
     .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
     button { padding: 10px 12px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-    .btn-primary { background: #1a73e8; color: white; }
+    .btn-primary { background: #0078d4; color: white; }
     .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
-    .btn-success { background: #137333; color: white; }
-    .btn-warn { background: #f29900; color: #000; }
-    .btn-danger { background: #ea4335; color: white; margin-top: 10px; width: 100%; }
-    .btn-refresh { background: #4285f4; color: white; }
+    .btn-success { background: #16a34a; color: white; }
+    .btn-warn { background: #0284c7; color: white; }
+    .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; }
+    .btn-refresh { background: #0284c7; color: white; }
     .btn-full { grid-column: span 2; }
 
     .inbox-area { border-top: 1px solid #1e293b; padding-top: 16px; }
     .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .inbox-title { font-size: 12px; font-weight: 800; color: #9aa0a6; text-transform: uppercase; }
+    .inbox-title { font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+    .msg-card { background: #020617; border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
+    .msg-sender { color: #38bdf8; font-size: 12px; font-weight: 700; }
+    .msg-subject { color: #f8fafc; font-size: 13px; font-weight: 700; margin: 4px 0 6px 0; }
+    .msg-body { background: #0f172a; padding: 8px; border-radius: 6px; font-size: 12px; color: #94a3b8; white-space: pre-wrap; word-break: break-word; }
     
-    .gmail-thread-card { background: #202124; border: 1px solid #3c4043; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
-    .gmail-sender-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .gmail-sender-name { color: #e8eaed; font-size: 13px; font-weight: 700; }
-    .gmail-time { color: #9aa0a6; font-size: 11px; }
-    .gmail-subject { color: #8ab4f8; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
-    .gmail-body { color: #bdc1c6; font-size: 12px; line-height: 1.4; white-space: pre-wrap; word-break: break-word; background: #171717; padding: 10px; border-radius: 6px; border: 1px solid #333; }
-    
-    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #fce8e6; color: #c5221f; padding: 8px 12px; border-radius: 6px; margin-top: 10px; font-weight: 800; border: 1px solid #fad2cf; }
-    .otp-code { font-size: 16px; font-family: monospace; letter-spacing: 1px; }
-    .btn-otp-copy { background: #c5221f; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
+    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #fbbf24; color: #000; padding: 8px 12px; border-radius: 6px; margin-top: 8px; font-weight: 800; }
+    .otp-code { font-size: 16px; font-family: monospace; }
+    .btn-otp-copy { background: #000; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
 
-    .bounce-card { background: #3c1618; border: 1px solid #a50e0e; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-    .bounce-title { color: #f28b82; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-    .bounce-text { color: #f6aea9; font-size: 11px; font-family: monospace; margin-top: 4px; }
+    .bounce-card { background: #1c0c0e; border: 1px solid #7f1d1d; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
+    .bounce-title { color: #f87171; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .bounce-text { color: #fca5a5; font-size: 11px; font-family: monospace; margin-top: 4px; }
 
-    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #137333; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #16a34a; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; }
   </style>
 </head>
 <body>
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Real Gmail Personal Matrix</div>
+    <div class="lock-title">🔒 Ultra Hardened Access</div>
     <div class="lock-desc">Enter security key to unlock system</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
@@ -115,7 +112,7 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Gmail Personal Suite Pro</div>
+    <div class="header-brand">📧 Mail Engine Pro</div>
     <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
       <span class="status-dot" id="statusDot"></span>
       <span id="onlineCountText">Online: Click to View</span>
@@ -124,11 +121,11 @@
 
   <div class="card-body">
     <div class="stealth-badge">
-      ✨ Authentic Personal Email & Header Simulation: ACTIVE
+      🛡️ Anti-Fraud Dynamic Identity & Fingerprint Spoofer: ACTIVE
     </div>
 
     <div class="field-group">
-      <span class="field-label">Country Demographics</span>
+      <span class="field-label">Country</span>
       <select id="countrySelect">
         <option value="egypt">Egypt 🇪🇬</option>
         <option value="uzbekistan">Uzbekistan 🇺🇿</option>
@@ -147,19 +144,22 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Select Personal Domain Extension</span>
+      <span class="field-label">Select Domain Gateway</span>
       <select id="domainSelect">
-        <option value="@gmail.com">@gmail.com (Personal Real)</option>
-        <option value="@outlook.com">@outlook.com (Personal Outlook)</option>
-        <option value="@hotmail.com">@hotmail.com (Personal Hotmail)</option>
-        <option value="@esiia.com">@esiia.com (Secure Routing)</option>
+        <option value="@outlook.com">@outlook.com</option>
+        <option value="@hotmail.com">@hotmail.com</option>
+        <option value="@esiia.com">@esiia.com</option>
+        <option value="@1secmail.com">@1secmail.com</option>
+        <option value="@1secmail.org">@1secmail.org</option>
+        <option value="@email.com">@email.com</option>
+        <option value="@gmail.com">@gmail.com</option>
       </select>
     </div>
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Personal Account Identity</span>
-        <span id="countryLabel" style="color:#8ab4f8;">[EGYPT - MALE]</span>
+        <span>👤 Locked Identity Profile</span>
+        <span id="countryLabel" style="color:#38bdf8;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
         <span>First Name:</span>
@@ -182,15 +182,15 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Custom Personal Alias Override</span>
+      <span class="field-label">Custom Username Override</span>
       <div class="input-wrapper" style="display:flex; gap:8px;">
-        <input type="text" id="customUser" placeholder="e.g. john.official.2026">
+        <input type="text" id="customUser" placeholder="Type custom username...">
         <button class="btn-primary" id="setCustomBtn" style="width: 90px;">Set</button>
       </div>
     </div>
 
     <div class="actions">
-      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Generate New Personal Email</button>
+      <button class="btn-warn btn-full" id="refreshEmailBtn">🔄 Refresh Email Only</button>
       <button class="btn-secondary btn-full" id="newProfileBtn">👤+✉️ New Profile & Fingerprint Mutator</button>
       <button class="btn-success" id="copyEmailBtn">Copy Email</button>
       <button class="btn-primary" id="copyAllBtn">📋 Copy All Info</button>
@@ -198,24 +198,27 @@
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">📥 Gmail Web-View Live Inbox</span>
-        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Check Mail</button>
+        <span class="inbox-title">📥 Live Inbox & Strict Network Guard</span>
+        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Refresh</button>
       </div>
       <div id="inboxList">
-        <p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">No new messages. Inbox is up to date.</p>
+        <p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Complete System Hard Reset + Real-Profile Shredder</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Complete System Hard Reset + Fingerprint & IP Mutator</button>
   </div>
 </div>
 
 <div id="toast" class="toast">Copied!</div>
 
 <script>
+  // Advanced Dynamic Browser Fingerprint & User-Agent Spoofer Matrix
   const spooferProfiles = [
-    { ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36", platform: "Win32", cores: 8, memory: 8 },
-    { ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2.1 Safari/605.1.15", platform: "MacIntel", cores: 6, memory: 16 }
+    { ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36", platform: "Win32", cores: 8, memory: 8, vendor: "Google Inc. (NVIDIA)" },
+    { ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2.1 Safari/605.1.15", platform: "MacIntel", cores: 6, memory: 16, vendor: "Apple Inc." },
+    { ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0", platform: "Win32", cores: 12, memory: 16, vendor: "Mozilla / AMD" },
+    { ua: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36", platform: "Linux x86_64", cores: 4, memory: 8, vendor: "Google Inc. (Intel)" }
   ];
 
   function applyFingerprintMutation() {
@@ -225,6 +228,7 @@
       Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => randomProfile.cores });
       Object.defineProperty(navigator, 'deviceMemory', { get: () => randomProfile.memory });
       Object.defineProperty(navigator, 'platform', { get: () => randomProfile.platform });
+      window.chrome = { runtime: {} };
     } catch(e) {}
   }
   applyFingerprintMutation();
@@ -235,57 +239,57 @@
   const DB = {
     egypt: {
       male: {
-        first: ["Adly", "Afifi", "Alaaeldin", "Amin", "Anwar", "Assem", "Ateya", "Awad", "Aziz", "Badawi", "Bahgat", "Bakry", "Barakat", "Bashir", "Daoud", "Fahim", "Fakhry", "Fares", "Fathi", "Fawzy", "Fekry", "Gaber", "Gad", "Ghoneim", "Hafez", "Hakim", "Halim", "Hamed", "Hani", "Hashem", "Hatem", "Helal", "Hossam", "Idris", "Ihab", "Ilyas", "Imad", "Issa", "Kassem", "Khalifa", "Khairy", "Labib", "Latif", "Maher", "Mahrous", "Makram", "Mamdouh", "Mansour", "Moataz", "Moez", "Mohsen", "Montaser", "Mourad", "Moustafa", "Nabih", "Raafat", "Rafik", "Ragheb", "Ramzi", "Rifaat", "Rizk", "Saad", "Saeed", "Salah", "Saleh", "Salem", "Samy", "Sami", "Shafik", "Shaker", "Shawkat", "Sobhy", "Sultan", "Talaat", "Thabet", "Wagdy", "Wahid", "Yassin", "Yehia", "Zaky", "Zein", "Ahmed", "Ali", "Mahmoud", "Mohamed", "Mostafa", "Youssef", "Omar", "Hamdy", "Helmy", "Farag", "Ismail", "Kamel", "Tamer", "Sherif", "Amr", "Khaled", "Hassan", "Ibrahim", "Tarek", "Ziad", "Karim", "Maged", "Wael", "Ashraf", "Essam"],
-        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Fawzy", "Soliman", "Salem", "Nasser", "Ahmed", "Ali", "Mahmoud", "Mohamed", "Mostafa", "Youssef", "Omar", "Hamdy", "Shaker", "Helmy", "Ghoneim", "Farag", "Abdallah", "Abdelaziz", "Amin", "Anwar", "Ashour", "Attia", "Awad", "Badawi", "Bahgat", "Bakr", "Barakat", "Bashir", "Daoud", "Eid", "Elmasry", "Elsherif", "Fadel", "Fahmy", "Fakhry", "Farouk", "Fathy", "Fouad", "Gaber", "Galal", "Gamal", "Habib", "Hafez", "Hakim", "Halim", "Hamdan", "Hashem", "Hegazy", "Hussein", "Ismail", "Kamel", "Kassem", "Khairy", "Labib", "Lotfy", "Maher", "Mahrous", "Makram", "Morsi", "Mourad", "Nabih", "Naguib", "Nashat", "Nassif", "Nour", "Ragab", "Ramzy", "Rifaat", "Rizk", "Sabry", "Sadek", "Samir", "Shawky", "Shehata", "Sobhy", "Sultan", "Talaat", "Tawfik", "Thabet", "Wagdy", "Wahid", "Yassin", "Yehia", "Younis", "Zakaria", "Zaky", "Zein", "Badawy", "Rashwan", "Zidan"]
+        first: ["Adly", "Afifi", "Akel", "Alaaeldin", "Amin", "Anwar", "Ashour", "Assem", "Ateya", "Awad", "Aziz", "Badawi", "Bahgat", "Bakry", "Barakat", "Bashir", "Bedeir", "Bekhit", "Bishoy", "Boulos", "Daoud", "Diaab", "Eid", "ElSayed", "Emil", "Erian", "Eskander", "Fahim", "Fakhry", "Fares", "Fathi", "Fawzy", "Fekry", "Fikry", "Gaber", "Gad", "Gerges", "Ghoneim", "Habashy", "Hafez", "Hakim", "Halim", "Hamed", "Hani", "Harby", "Hashem", "Hatem", "Helal", "Henok", "Hossam", "Idris", "Ihab", "Ilyas", "Imad", "Issa", "Kassem", "Khalifa", "Khairy", "Labib", "Latif", "Loutfy", "Maher", "Mahrous", "Makram", "Mamdouh", "Mansour", "Mikhail", "Milad", "Moataz", "Moez", "Mohsen", "Moneim", "Montaser", "Morris", "Mourad", "Moustafa", "Nabih", "Nashat", "Nassef", "Nehad", "Noureddine", "Raafat", "Rafik", "Ragheb", "Ramzi", "Rifaat", "Rizk", "Saad", "Saeed", "Salah", "Saleh", "Salem", "Samy", "Sami", "Shafik", "Shaker", "Shawkat", "Shehata", "Sobhy", "Sultan", "Talaat", "Tawadros", "Thabet", "Wagdy", "Wahid", "Yacoub", "Yassin", "Yehia", "Zaky", "Zein", "Zuhair", "Ahmed", "Ali", "Mahmoud", "Mohamed", "Mostafa", "Youssef", "Omar", "Hamdy", "Helmy", "Farag", "Ismail", "Kamel", "Tamer", "Sherif", "Amr", "Khaled", "Hassan", "Ibrahim", "Tarek", "Ziad", "Karim", "Maged", "Wael", "Ashraf", "Essam", "Ehab", "Osama", "Ramy", "Moustafa", "Alaa", "Bahaa", "Hossam"],
+        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Fawzy", "Soliman", "Salem", "Nasser", "Ahmed", "Ali", "Mahmoud", "Mohamed", "Mostafa", "Youssef", "Omar", "Hamdy", "Shaker", "Helmy", "Ghoneim", "Farag", "Abdallah", "Abdelaziz", "Abdelhamid", "Abdelkarim", "Abdellatif", "Abdelmagid", "Abdelmonem", "Abdelraouf", "Abdelrazek", "Abdelsalam", "Abdelwahab", "Aboelmagd", "Abozeid", "Amin", "Anwar", "Ashour", "Attia", "Awad", "Badawi", "Bahgat", "Bakr", "Barakat", "Bashir", "Bekhit", "Bishara", "Boulos", "Daoud", "Eid", "Elmasry", "Elsherif", "Emil", "Eskander", "Fadel", "Fahmy", "Fakhry", "Farouk", "Fathy", "Fouad", "Gaber", "Galal", "Gamal", "Gerges", "Habib", "Hafez", "Hakim", "Halim", "Hamdan", "Hashem", "Hegazy", "Henin", "Hussein", "Ismail", "Kamel", "Kassem", "Khairy", "Labib", "Lotfy", "Maher", "Mahrous", "Makram", "Mekhail", "Mikhail", "Mokhtar", "Morcos", "Morsi", "Mourad", "Nabih", "Naguib", "Nashat", "Nassif", "Nour", "Ragab", "Ramzy", "Rifaat", "Rizk", "Sabry", "Sadek", "Samir", "Shawky", "Shehata", "Sobhy", "Sultan", "Talaat", "Tawfik", "Thabet", "Wagdy", "Wahid", "Yassin", "Yehia", "Younis", "Zakaria", "Zaky", "Zein", "Badawy", "Rashwan", "Zidan", "El-Din", "Al-Masry", "Barakat", "El-Beheiry"]
       },
       female: {
-        first: ["Fatma", "Fatima", "Aya", "Nour", "Sara", "Dina", "Mariam", "Yasmin", "Salma", "Rania", "Hoda", "Amira", "Noha", "Heba", "Menna", "Reem", "Esraa", "Shaimaa", "Doaa", "Ghada", "Omnia", "Nesma", "Eman", "Sahar", "Abeer", "Asmaa", "Hanan", "Rasha", "Marwa", "Wafaa", "Hala", "Naglaa", "Sondos", "Rabab", "Mona", "Nadia", "Nermin", "Sally", "May", "Riham", "Shorouk", "Basma", "Habiba", "Farah", "Malak", "Jana", "Janna", "Nada", "Laila", "Layla", "Rana", "Safaa", "Samah", "Somaya", "Soha", "Suzan", "Sanaa", "Noura", "Nahed", "Dalia", "Hind", "Maha", "Manal", "Mirna", "Nancy", "Nihal", "Radwa", "Rawan", "Samar", "Samira", "Sawsan", "Shahd", "Shereen", "Tahani", "Taghreed", "Walaa", "Yomna", "Zeinab", "Zainab", "Alaa", "Amal", "Azza", "Aziza", "Duaa", "Fadwa", "Faten", "Fawzia", "Gehan", "Hager", "Hanaa", "Hayat", "Iman", "Inas", "Karima", "Khadija", "Lamia", "Lobna", "Magda", "Manar", "Mervat", "Monaa", "Nabila", "Nagwa", "Naima", "Nawal", "Sabreen", "Sabah", "Salwa", "Siham", "Tahia", "Thuraya", "Yusra", "Zahra", "Zubaida", "Afaf", "Amani", "Basmah", "Bushra", "Feryal", "Hanin", "Maram", "Rahma", "Nermeen", "Radwa", "Dalia", "Sherine"],
-        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Fawzy", "Soliman", "Salem", "Nasser", "Ahmed", "Ali", "Mahmoud", "Mohamed", "Mostafa", "Youssef", "Omar", "Hamdy", "Shaker", "Helmy", "Ghoneim", "Farag", "Abdallah", "Abdelaziz", "Amin", "Anwar", "Ashour", "Attia", "Awad", "Badawi", "Bahgat", "Bakr", "Barakat", "Bashir", "Daoud", "Eid", "Elmasry", "Elsherif", "Fadel", "Fahmy", "Fakhry", "Farouk", "Fathy", "Fouad", "Gaber", "Galal", "Gamal", "Habib", "Hafez", "Hakim", "Halim", "Hamdan", "Hashem", "Hegazy", "Hussein", "Ismail", "Kamel", "Kassem", "Khairy", "Labib", "Lotfy", "Maher", "Mahrous", "Makram", "Morsi", "Mourad", "Nabih", "Naguib", "Nashat", "Nassif", "Nour", "Ragab", "Ramzy", "Rifaat", "Rizk", "Sabry", "Sadek", "Samir", "Shawky", "Shehata", "Sobhy", "Sultan", "Talaat", "Tawfik", "Thabet", "Wagdy", "Wahid", "Yassin", "Yehia", "Younis", "Zakaria", "Zaky", "Zein", "Badawy", "Rashwan", "Zidan"]
+        first: ["Fatma", "Fatima", "Aya", "Nour", "Sara", "Dina", "Mariam", "Yasmin", "Salma", "Rania", "Hoda", "Amira", "Noha", "Heba", "Menna", "Reem", "Esraa", "Shaimaa", "Doaa", "Ghada", "Omnia", "Nesma", "Eman", "Sahar", "Abeer", "Asmaa", "Hanan", "Rasha", "Marwa", "Wafaa", "Hala", "Naglaa", "Sondos", "Rabab", "Mona", "Nadia", "Nermin", "Sally", "May", "Riham", "Shorouk", "Basma", "Habiba", "Farah", "Malak", "Jana", "Janna", "Nada", "Laila", "Layla", "Rana", "Ranaa", "Safaa", "Samah", "Somaya", "Soha", "Suzan", "Sanaa", "Noura", "Nahed", "Dalia", "Hind", "Maha", "Manal", "Mirna", "Nancy", "Nihal", "Radwa", "Rawan", "Rim", "Ruqayya", "Samar", "Samira", "Sawsan", "Shahd", "Shaymaa", "Shereen", "Tahani", "Taghreed", "Walaa", "Yomna", "Zeinab", "Zainab", "Alaa", "Amal", "Azza", "Aziza", "Buthaina", "Duaa", "Fadwa", "Faten", "Fawzia", "Gehan", "Gihan", "Hager", "Hanaa", "Hayat", "Hiam", "Ikram", "Iman", "Inas", "Intisar", "Karima", "Khadija", "Lamia", "Lobna", "Magda", "Manar", "Mervat", "Monaa", "Muneera", "Nabila", "Nagwa", "Naima", "Nawal", "Sabreen", "Sabah", "Salwa", "Siham", "Tahia", "Thuraya", "Yusra", "Zahra", "Zubaida", "Afaf", "Amani", "Basmah", "Bushra", "Feryal", "Hanin", "Maram", "Rahma", "Nermeen", "Radwa", "Passant", "Dalia", "Sherine"],
+        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Fawzy", "Soliman", "Salem", "Nasser", "Ahmed", "Ali", "Mahmoud", "Mohamed", "Mostafa", "Youssef", "Omar", "Hamdy", "Shaker", "Helmy", "Ghoneim", "Farag", "Abdallah", "Abdelaziz", "Abdelhamid", "Abdelkarim", "Abdellatif", "Abdelmagid", "Abdelmonem", "Abdelraouf", "Abdelrazek", "Abdelsalam", "Abdelwahab", "Aboelmagd", "Abozeid", "Amin", "Anwar", "Ashour", "Attia", "Awad", "Badawi", "Bahgat", "Bakr", "Barakat", "Bashir", "Bekhit", "Bishara", "Boulos", "Daoud", "Eid", "Elmasry", "Elsherif", "Emil", "Eskander", "Fadel", "Fahmy", "Fakhry", "Farouk", "Fathy", "Fouad", "Gaber", "Galal", "Gamal", "Gerges", "Habib", "Hafez", "Hakim", "Halim", "Hamdan", "Hashem", "Hegazy", "Henin", "Hussein", "Ismail", "Kamel", "Kassem", "Khairy", "Labib", "Lotfy", "Maher", "Mahrous", "Makram", "Mekhail", "Mikhail", "Mokhtar", "Morcos", "Morsi", "Mourad", "Nabih", "Naguib", "Nashat", "Nassif", "Nour", "Ragab", "Ramzy", "Rifaat", "Rizk", "Sabry", "Sadek", "Samir", "Shawky", "Shehata", "Sobhy", "Sultan", "Talaat", "Tawfik", "Thabet", "Wagdy", "Wahid", "Yassin", "Yehia", "Younis", "Zakaria", "Zaky", "Zein", "Badawy", "Rashwan", "Zidan", "El-Din", "Al-Masry", "Barakat", "El-Beheiry"]
       }
     },
     uzbekistan: {
       male: {
-        first: ["Alisher", "Sardor", "Jasur", "Bobur", "Otabek", "Shokhrukh", "Javohir", "Bekzod", "Farrukh", "Rustam", "Aziz", "Akbar", "Akmal", "Abbos", "Abdulloh", "Abdurahmon", "Abduqodir", "Abduaziz", "Abduvali", "Adham", "Ahmad", "Akrom", "Alim", "Anvar", "Asad", "Asilbek", "Askar", "Azamat", "Azim", "Baxtiyor", "Bahodir", "Bahrom", "Behruz", "Bilol", "Botir", "Davron", "Dilmurod", "Dilshod", "Doniyor", "Eldor", "Elbek", "Ergash", "Erkin", "Fayoz", "Fozil", "Gafur", "Giyos", "Habib", "Hakim", "Hamid", "Hasan", "Husan", "Ibrohim", "Ikrom", "Ilhom", "Ilyos", "Iskandar", "Islom", "Ixtiyor", "Jamshid", "Javlon", "Kamol", "Kamron", "Karim", "Komil", "Laziz", "Lutfi", "Mansur", "Mardon", "Miraziz", "Mirjalol", "Mirzo", "Muhammad", "Muhriddin", "Muzaffar", "Nodir", "Nurbek", "Nuriddin", "Odil", "Oybek", "Qahramon", "Qobil", "Qodir", "Rahmat", "Rahim", "Rasul", "Rauf", "Ravshan", "Said", "Sanjar", "Sherali", "Sherzod", "Shuhrat", "Sobir", "Sodiq", "Temur", "Tohir", "Tolib", "Ulugbek", "Umid", "Valijon", "Vali", "Yahyo", "Yodgor", "Yunus", "Yusuf", "Zafar", "Zohid", "Zokir", "Zubayr", "Shavkat"],
-        last: ["Karimov", "Rahimov", "Abdullayev", "Tursunov", "Ismoilov", "Yusupov", "Khamidov", "Azimov", "Rasulov", "Nazarov", "Usmonov", "Sobirov", "Qodirov", "Saidov", "Ergashev", "Mamatov", "Rakhimov", "Sharipov", "Tojiyev", "Nurmatov", "Jalilov", "Madaminov", "Salimov", "Hakimov", "Abdurahmonov", "Akhmedov", "Yuldashev", "Rustamov", "Gulomov", "Mirzayev", "Muminov", "Shukurov", "Kadirov", "Komilov", "Akbarov", "Asadov", "Valiyev", "Zokirov", "Ziyodov", "Mahmudov", "Olimov", "Shodmonov", "Ravshanov", "Yoqubov", "Fayziyev", "Davlatov", "Ruzmetov", "Abdukarimov", "Abduqodirov", "Abduazizov", "Abdusalomov", "Abdusattorov", "Botirov", "Bahodirov", "Akmalov", "Askarov", "Islomov", "Ikromov", "Ilhomov", "Ibrohimov", "Kamolov", "Kamronov", "Sherzodov", "Sheraliyev", "Sanjarov", "Shuhratov", "Sobitov", "Sodiqov", "Temurov", "Tolibov", "Tohirov", "Ulugbekov", "Umidov", "Yahyayev", "Yodgorov", "Yunusov", "Yusufov", "Zafarov", "Zohidov", "Zubayrov", "Ziyovuddinov"]
+        first: ["Alisher", "Sardor", "Jasur", "Bobur", "Otabek", "Shokhrukh", "Javohir", "Bekzod", "Farrukh", "Rustam", "Aziz", "Akbar", "Akmal", "Abbos", "Abdulloh", "Abdurahmon", "Abduqodir", "Abduaziz", "Abduvali", "Adham", "Ahmad", "Akrom", "Alim", "Anvar", "Asad", "Asilbek", "Askar", "Azamat", "Azim", "Baxtiyor", "Bahodir", "Bahrom", "Behruz", "Bekmirza", "Bektosh", "Bilol", "Botir", "Davron", "Dilmurod", "Dilshod", "Doniyor", "Eldor", "Elbek", "Ergash", "Erkin", "Fayoz", "Fozil", "Gafur", "Giyos", "Habib", "Hakim", "Hamid", "Hasan", "Husan", "Ibrohim", "Ikrom", "Ilhom", "Ilyos", "Iskandar", "Islom", "Ixtiyor", "Jamshid", "Javlon", "Kamol", "Kamron", "Karim", "Komil", "Laziz", "Lutfi", "Mansur", "Mardon", "Miraziz", "Mirjalol", "Mirzo", "Muhammad", "Muhriddin", "Muzaffar", "Nodir", "Nurbek", "Nuriddin", "Odil", "Oybek", "Oyat", "Qahramon", "Qobil", "Qodir", "Rahmat", "Rahim", "Rasul", "Rauf", "Ravshan", "Rinat", "Said", "Sanjar", "Sherali", "Sherzod", "Shuhrat", "Siroj", "Sobir", "Sodiq", "Temur", "Temurbek", "Tohir", "Tolib", "Ulugbek", "Umid", "Valijon", "Vali", "Yahyo", "Yodgor", "Yunus", "Yusuf", "Zafar", "Zohid", "Zokir", "Zubayr", "Ziyod", "Shavkat"],
+        last: ["Karimov", "Rahimov", "Abdullayev", "Tursunov", "Ismoilov", "Yusupov", "Khamidov", "Azimov", "Rasulov", "Nazarov", "Usmonov", "Sobirov", "Qodirov", "Saidov", "Ergashev", "Mamatov", "Rakhimov", "Sharipov", "Tojiyev", "Nurmatov", "Jalilov", "Madaminov", "Salimov", "Hakimov", "Abdurahmonov", "Akhmedov", "Yuldashev", "Rustamov", "Bekmurodov", "Gulomov", "Mirzayev", "Muminov", "Shukurov", "Kadirov", "Komilov", "Akbarov", "Asadov", "Valiyev", "Zokirov", "Ziyodov", "Mahmudov", "Alimuhamedov", "Olimov", "Narzullayeva", "Shodmonov", "Xudoyberdiyev", "Ravshanov", "Yoqubov", "Fayziyev", "Davlatov", "Ruzmetov", "Abdukarimov", "Abduqodirov", "Abduazizov", "Abdusalomov", "Abdusattorov", "Abdumalikov", "Abduganiyev", "Botirov", "Bahodirov", "Akmalov", "Askarov", "Islomov", "Ikromov", "Ilhomov", "Ibrohimov", "Kamolov", "Kamronov", "Sherzodov", "Sheraliyev", "Sanjarov", "Shuhratov", "Sobitov", "Sodiqov", "Temurov", "Temurbekov", "Tolibov", "Tohirov", "Ulugbekov", "Umidov", "Valiyev", "Valijonov", "Yahyayev", "Yodgorov", "Yunusov", "Yusufov", "Zafarov", "Zohidov", "Zubayrov", "Ziyovuddinov", "Mirjalolov", "Mirzayev", "Muzaffarov", "Muhriddinov", "Nodirov", "Nuriddinov", "Oybekov", "Odilov", "Qobilov", "Qahramonov", "Sharofov", "Otabekov"]
       },
       female: {
-        first: ["Malika", "Sevinch", "Nigora", "Gulnora", "Feruza", "Rayhon", "Madina", "Shakhnoza", "Dilnoza", "Zilola", "Mohira", "Nilufar", "Shahnoza", "Lola", "Aziza", "Nargiza", "Gulbahor", "Gulchehra", "Mavluda", "Munisa", "Munira", "Dildora", "Dilafruz", "Dilbar", "Dilrabo", "Dilfuza", "Zarina", "Zarnigor", "Sitora", "Shahzoda", "Gulzira", "Guzal", "Mehribon", "Saida", "Saodat", "Nafisa", "Nozima", "Umida", "Mohinur", "Mohichehra", "Shirin", "Shahlo", "Rano", "Ruxsora", "Ruxshona", "Barno", "Gulnoza", "Gulshoda", "Kamola", "Karima", "Mahbuba", "Mahliyo", "Maftuna", "Marjona", "Mukarrama", "Muqaddas", "Mushtariy", "Nasiba", "Nazira", "Nazokat", "Nodira", "Nuriya", "Oydin", "Oysha", "Oygul", "Ozoda", "Parizoda", "Robiya", "Sabina", "Sabrina", "Sarvinoz", "Sevara", "Shahina", "Shohida", "Surayyo", "Vazira", "Xadicha", "Xolida", "Xurshida", "Yulduz", "Yasmina", "Zebo", "Zuhra", "Zulfiya", "Adolat", "Asal", "Bonu", "Dono", "Durdona", "Fotima", "Halima", "Iroda", "Madinah"],
-        last: ["Karimova", "Rahimova", "Abdullayeva", "Tursunova", "Ismoilova", "Yusupova", "Khamidova", "Azimova", "Rasulova", "Nazarova", "Usmonova", "Sobirova", "Qodirova", "Saidova", "Ergasheva", "Mamatova", "Rakhimova", "Sharipova", "Tojiyeva", "Nurmatova", "Jalilova", "Madaminova", "Salimova", "Hakimova", "Abdurahmonova", "Akhmedova", "Yuldasheva", "Rustamova", "Gulomova", "Mirzayeva", "Muminova", "Shukurova", "Kadirova", "Komilova", "Akbarova", "Asadova", "Valiyeva", "Zokirova", "Ziyodova", "Mahmudova", "Olimova", "Shodmonova", "Xudoyberdiyeva", "Ravshanova", "Yoqubova", "Fayziyeva", "Davlatova", "Ruzmetova", "Abdukarimova", "Abduqodirova", "Abduazizova", "Abdusalomova", "Abdusattorova", "Botirova", "Bahodirova", "Akmalova", "Askarova", "Islomova", "Ikromova", "Ilhomova", "Ibrohimova", "Kamolova", "Kamronova", "Sherzodova", "Sheraliyeva", "Sanjarova", "Shuhratova", "Sobitova", "Sodiqova", "Temurova", "Tolibova", "Tohirova", "Ulugbekova", "Umidova", "Yahyayeva", "Yodgorova", "Yunusova", "Yusufova", "Zafarova", "Zohidova", "Zubayrova", "Ziyovuddinova"]
+        first: ["Malika", "Sevinch", "Nigora", "Gulnora", "Feruza", "Rayhon", "Madina", "Shakhnoza", "Dilnoza", "Zilola", "Mohira", "Nilufar", "Shahnoza", "Lola", "Aziza", "Nargiza", "Gulbahor", "Gulchehra", "Mavluda", "Munisa", "Munira", "Dildora", "Dilafruz", "Dilbar", "Dilrabo", "Dilfuza", "Zarina", "Zarnigor", "Sitora", "Shahzoda", "Gulzira", "Guzal", "Mehribon", "Mehriniso", "Saida", "Saodat", "Nafisa", "Nozima", "Nozimahon", "Noziba", "Umida", "Umidaxon", "Mohinur", "Mohichehra", "Mohigul", "Mohiniso", "Shirin", "Shahlo", "Rano", "Rokhiya", "Ruxsora", "Ruxshona", "Barno", "Gulnoza", "Gulshoda", "Gulruh", "Gulsum", "Gulandom", "Kamola", "Karima", "Latofat", "Lobar", "Lutfiya", "Mahbuba", "Mahliyo", "Maftuna", "Maqsuda", "Marjona", "Mukarrama", "Muqaddas", "Mushtariy", "Nasiba", "Nazira", "Nazokat", "Nodira", "Nurbonu", "Nuriya", "Oydin", "Oysha", "Oygul", "Oyjamol", "Oynisa", "Ozoda", "Parizoda", "Ra'no", "Robiya", "Sabina", "Sabrina", "Sanam", "Sarvinoz", "Sarvara", "Sevara", "Shahina", "Shohida", "Shohsanam", "Surayyo", "Tamara", "Vazira", "Xadicha", "Xolida", "Xurshida", "Yulduz", "Yoqut", "Yasmina", "Zebo", "Zebohon", "Zebiniso", "Zuhra", "Zumrad", "Zulfiya", "Adolat", "Anora", "Asal", "Bonu", "Dono", "Durdona", "Fotima", "Halima", "Iroda", "Madinah", "Mukhlisa"],
+        last: ["Karimova", "Rahimova", "Abdullayeva", "Tursunova", "Ismoilova", "Yusupova", "Khamidova", "Azimova", "Rasulova", "Nazarova", "Usmonova", "Sobirova", "Qodirova", "Saidova", "Ergasheva", "Mamatova", "Rakhimova", "Sharipova", "Tojiyeva", "Nurmatova", "Jalilova", "Madaminova", "Salimova", "Hakimova", "Abdurahmonova", "Akhmedova", "Yuldasheva", "Rustamova", "Bekmurodova", "Gulomova", "Mirzayeva", "Muminova", "Shukurova", "Kadirova", "Komilova", "Akbarova", "Asadova", "Valiyeva", "Zokirova", "Ziyodova", "Mahmudova", "Alimuhamedova", "Olimova", "Narzullayeva", "Shodmonova", "Xudoyberdiyeva", "Ravshanova", "Yoqubova", "Fayziyeva", "Davlatova", "Ruzmetova", "Abdukarimova", "Abduqodirova", "Abduazizova", "Abdusalomova", "Abdusattorova", "Abdumalikova", "Abduganiyeva", "Botirova", "Bahodirova", "Akmalova", "Askarova", "Islomova", "Ikromova", "Ilhomova", "Ibrohimova", "Kamolova", "Kamronova", "Sherzodova", "Sheraliyeva", "Sanjarova", "Shuhratova", "Sobitova", "Sodiqova", "Temurova", "Temurbekova", "Tolibova", "Tohirova", "Ulugbekova", "Umidova", "Valiyeva", "Valijonova", "Yahyayeva", "Yodgorova", "Yunusova", "Yusufova", "Zafarova", "Zohidova", "Zubayrova", "Ziyovuddinova", "Mirjalolova", "Muzaffarova", "Muhriddinova", "Nodirova", "Nuriddinova", "Oybekova", "Odilova", "Qobilova", "Qahramonova", "Rahmatova", "Rahmonova", "Sharofova", "Otabekova"]
       }
     },
     liberia: {
       male: {
-        first: ["Emmanuel", "Joseph", "Samuel", "Moses", "Prince", "Abraham", "Daniel", "David", "John", "James", "Michael", "Peter", "Paul", "Isaac", "Jacob", "Aaron", "Joshua", "Elijah", "Nathan", "Nicholas", "Patrick", "Edward", "William", "George", "Thomas", "Anthony", "Charles", "Richard", "Robert", "Benjamin", "Jonathan", "Timothy", "Stephen", "Mark", "Luke", "Matthew", "Andrew", "Simon", "Philip", "Victor", "Vincent", "Francis", "Augustine", "Christopher", "Alexander", "Alfred", "Albert", "Amos", "Arnold", "Arthur", "Austin", "Barclay", "Calvin", "Cecil", "Collins", "Dennis", "Edwin", "Eric", "Ernest", "Eugene", "Felix", "Frederick", "Gabriel", "Geoffrey", "Gilbert", "Godfrey", "Gregory", "Harold", "Henry", "Isaiah", "Ivan", "Jeremiah", "Joel", "Jonah", "Jordan", "Julian", "Justin", "Kenneth", "Lawrence", "Leonard", "Lewis", "Martin", "Maxwell", "Nathaniel", "Nelson", "Noah", "Oliver", "Oscar", "Raymond", "Ronald", "Russell", "Silas", "Solomon", "Stanley", "Theodore", "Wallace", "Walter", "Wesley", "Bright", "Blessing", "Success", "Justice", "Promise", "Wisdom", "Hope", "Peace", "Prosper", "King", "Junior"],
-        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Tweh", "Sackie", "Kenneh", "Johnson", "Brown", "Williams", "Roberts", "Smith", "Jones", "Taylor", "Cooper", "King", "Thomas", "Coleman", "Walker", "Howard", "Morgan", "Anderson", "Parker", "Moore", "Miller", "Scott", "Nelson", "Davis", "Harris", "Jackson", "Clark", "Lewis", "Hill", "Green", "Young", "Hall", "Baker", "Adams", "Barnes", "Bailey", "Brooks", "Bryant", "Butler", "Campbell", "Carter", "Collins", "Cook", "Cox", "Edwards", "Evans", "Foster", "Graham", "Grant", "Gray", "Griffin", "Henderson", "Hicks", "Holmes", "Hunt", "Jenkins", "Jordan", "Kelly", "Knight", "Lawson", "Long", "Marshall", "Mason", "Matthews", "Mitchell", "Morris", "Murphy", "Palmer", "Perry", "Peterson", "Phillips", "Price", "Reed", "Reid", "Richardson", "Robinson", "Ross", "Russell", "Sanders", "Simmons", "Stewart", "Turner", "Ward", "Watson", "White", "Wilson", "Wood", "Wright", "Jallah", "Keita", "Konneh", "Massaquoi", "Mulbah"]
+        first: ["Emmanuel", "Joseph", "Samuel", "Moses", "Prince", "Abraham", "Daniel", "David", "John", "James", "Michael", "Peter", "Paul", "Isaac", "Jacob", "Aaron", "Joshua", "Elijah", "Elisha", "Nathan", "Nicholas", "Patrick", "Edward", "William", "George", "Thomas", "Anthony", "Charles", "Richard", "Robert", "Benjamin", "Jonathan", "Timothy", "Stephen", "Mark", "Luke", "Matthew", "Andrew", "Simon", "Philip", "Victor", "Vincent", "Francis", "Augustine", "Christopher", "Christian", "Alexander", "Alfred", "Albert", "Allan", "Amos", "Arnold", "Arthur", "Austin", "Barclay", "Benedict", "Calvin", "Cecil", "Collins", "Cyril", "Dennis", "Dominic", "Edwin", "Eric", "Ernest", "Eugene", "Felix", "Frederick", "Gabriel", "Geoffrey", "Gilbert", "Godfrey", "Gregory", "Harold", "Harry", "Henry", "Hubert", "Ignatius", "Isaiah", "Ivan", "Jeremiah", "Joel", "Jonah", "Jordan", "Julian", "Justin", "Kenneth", "Lawrence", "Leonard", "Lewis", "Martin", "Maxwell", "Nathaniel", "Nelson", "Noah", "Oliver", "Oscar", "Percy", "Raymond", "Ronald", "Russell", "Silas", "Solomon", "Stanley", "Theodore", "Wallace", "Walter", "Wesley", "Wilfred", "Bright", "Blessing", "Success", "Justice", "Promise", "Wisdom", "Hope", "Peace", "Prosper", "Marvelous", "Lucky", "King", "Junior", "Courage", "Precious", "Honour"],
+        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Tweh", "Sackie", "Kenneh", "Johnson", "Brown", "Williams", "Roberts", "Smith", "Jones", "Taylor", "Cooper", "King", "Thomas", "Coleman", "Walker", "Howard", "Morgan", "Anderson", "Parker", "Moore", "Miller", "Scott", "Nelson", "Davis", "Harris", "Jackson", "Clark", "Lewis", "Hill", "Green", "Young", "Hall", "Baker", "Adams", "Barnes", "Bailey", "Brooks", "Bryant", "Butler", "Campbell", "Carter", "Collins", "Cook", "Cox", "Edwards", "Evans", "Foster", "Graham", "Grant", "Gray", "Griffin", "Henderson", "Hicks", "Holmes", "Hunt", "Jenkins", "Jordan", "Kelly", "Knight", "Lawson", "Long", "Marshall", "Mason", "Matthews", "Mitchell", "Morris", "Murphy", "Palmer", "Perry", "Peterson", "Phillips", "Price", "Reed", "Reid", "Richardson", "Rivers", "Robinson", "Ross", "Russell", "Sanders", "Simmons", "Stewart", "Turner", "Ward", "Watson", "White", "Wilson", "Wood", "Wright", "Barbu", "Bility", "Boe", "Boley", "Bracewell", "Dolo", "Dweh", "Fahnbulleh", "Fofana", "Garley", "Gbala", "Gbegbe", "Gibson", "Gono", "Jallah", "Kai", "Kanneh", "Karmo", "Karnley", "Keita", "Konneh", "Korvah", "Kromah", "Kuyon", "Larmin", "Massaquoi", "Murray", "Nagbe", "Nyan", "Saye", "Sherman", "Sonpon", "Toe", "Varney", "Wolo", "Wreh", "Zayzay", "Zeon", "Zubah", "Zuo", "Mulbah", "Kpadeh"]
       },
       female: {
-        first: ["Korto", "Saa", "Fatu", "Comfort", "Musu", "Grace", "Princess", "Mary", "Faith", "Blessing", "Mercy", "Joy", "Peace", "Hope", "Patience", "Charity", "Victoria", "Esther", "Ruth", "Sarah", "Rebecca", "Naomi", "Hannah", "Deborah", "Rachel", "Martha", "Elizabeth", "Lydia", "Priscilla", "Dorcas", "Eunice", "Abigail", "Angela", "Anita", "Anna", "Beatrice", "Brenda", "Caroline", "Catherine", "Cecelia", "Christiana", "Cynthia", "Daisy", "Diana", "Edna", "Ellen", "Emma", "Evelyn", "Florence", "Frances", "Gloria", "Harriet", "Helen", "Irene", "Janet", "Jennifer", "Jessica", "Judith", "Julia", "Karen", "Laura", "Linda", "Lucy", "Margaret", "Maria", "Matilda", "Monica", "Nancy", "Natalie", "Olivia", "Pamela", "Patricia", "Pauline", "Pearl", "Phyllis", "Regina", "Rose", "Sandra", "Sharon", "Sophia", "Stella", "Susan", "Theresa", "Veronica", "Violet", "Vivian", "Yvonne", "Adama", "Bendu", "Hawa", "Jenneh", "Kadie", "Kumba", "Massa", "Sia", "Tenneh", "Yatta"],
-        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Tweh", "Sackie", "Kenneh", "Johnson", "Brown", "Williams", "Roberts", "Smith", "Jones", "Taylor", "Cooper", "King", "Thomas", "Coleman", "Walker", "Howard", "Morgan", "Anderson", "Parker", "Moore", "Miller", "Scott", "Nelson", "Davis", "Harris", "Jackson", "Clark", "Lewis", "Hill", "Green", "Young", "Hall", "Baker", "Adams", "Barnes", "Bailey", "Brooks", "Bryant", "Butler", "Campbell", "Carter", "Collins", "Cook", "Cox", "Edwards", "Evans", "Foster", "Graham", "Grant", "Gray", "Griffin", "Henderson", "Hicks", "Holmes", "Hunt", "Jenkins", "Jordan", "Kelly", "Knight", "Lawson", "Long", "Marshall", "Mason", "Matthews", "Mitchell", "Morris", "Murphy", "Palmer", "Perry", "Peterson", "Phillips", "Price", "Reed", "Reid", "Richardson", "Robinson", "Ross", "Russell", "Sanders", "Simmons", "Stewart", "Turner", "Ward", "Watson", "White", "Wilson", "Wood", "Wright", "Jallah", "Keita", "Konneh", "Massaquoi", "Mulbah"]
+        first: ["Korto", "Saa", "Fatu", "Comfort", "Musu", "Grace", "Princess", "Mary", "Faith", "Blessing", "Mercy", "Joy", "Peace", "Hope", "Patience", "Charity", "Victoria", "Esther", "Ruth", "Sarah", "Rebecca", "Naomi", "Hannah", "Deborah", "Rachel", "Martha", "Elizabeth", "Lydia", "Priscilla", "Dorcas", "Eunice", "Abigail", "Angela", "Anita", "Anna", "Beatrice", "Brenda", "Caroline", "Catherine", "Cecelia", "Christiana", "Cynthia", "Daisy", "Diana", "Edna", "Ellen", "Emma", "Evelyn", "Florence", "Frances", "Gloria", "Harriet", "Helen", "Irene", "Janet", "Jennifer", "Jessica", "Judith", "Julia", "Karen", "Laura", "Linda", "Lucy", "Margaret", "Maria", "Matilda", "Monica", "Nancy", "Natalie", "Olivia", "Pamela", "Patricia", "Pauline", "Pearl", "Phyllis", "Regina", "Rose", "Roseline", "Sandra", "Sharon", "Sophia", "Stella", "Susan", "Theresa", "Veronica", "Violet", "Vivian", "Yvonne", "Agnes", "Amelia", "Amy", "Bella", "Bianca", "Clara", "Constance", "Debbie", "Delphine", "Edith", "Ella", "Felicia", "Fiona", "Georgina", "Gifty", "Gladys", "Golda", "Hazel", "Henrietta", "Josephine", "Juliana", "Leah", "Leticia", "Louisa", "Mabel", "Mavis", "Melissa", "Mildred", "Miranda", "Paulina", "Rita", "Samantha", "Selina", "Sonia", "Sylvia", "Tabitha", "Tracy", "Vanessa", "Winifred", "Zoe", "Adama", "Bendu", "Hawa", "Jenneh", "Kadie", "Kumba", "Massa", "Sia", "Tenneh", "Yatta", "Zainab"],
+        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Tweh", "Sackie", "Kenneh", "Johnson", "Brown", "Williams", "Roberts", "Smith", "Jones", "Taylor", "Cooper", "King", "Thomas", "Coleman", "Walker", "Howard", "Morgan", "Anderson", "Parker", "Moore", "Miller", "Scott", "Nelson", "Davis", "Harris", "Jackson", "Clark", "Lewis", "Hill", "Green", "Young", "Hall", "Baker", "Adams", "Barnes", "Bailey", "Brooks", "Bryant", "Butler", "Campbell", "Carter", "Collins", "Cook", "Cox", "Edwards", "Evans", "Foster", "Graham", "Grant", "Gray", "Griffin", "Henderson", "Hicks", "Holmes", "Hunt", "Jenkins", "Jordan", "Kelly", "Knight", "Lawson", "Long", "Marshall", "Mason", "Matthews", "Mitchell", "Morris", "Murphy", "Palmer", "Perry", "Peterson", "Phillips", "Price", "Reed", "Reid", "Richardson", "Rivers", "Robinson", "Ross", "Russell", "Sanders", "Simmons", "Stewart", "Turner", "Ward", "Watson", "White", "Wilson", "Wood", "Wright", "Barbu", "Bility", "Boe", "Boley", "Bracewell", "Dolo", "Dweh", "Fahnbulleh", "Fofana", "Garley", "Gbala", "Gbegbe", "Gibson", "Gono", "Jallah", "Kai", "Kanneh", "Karmo", "Karnley", "Keita", "Konneh", "Korvah", "Kromah", "Kuyon", "Larmin", "Massaquoi", "Murray", "Nagbe", "Nyan", "Saye", "Sherman", "Sonpon", "Toe", "Varney", "Wolo", "Wreh", "Zayzay", "Zeon", "Zubah", "Zuo", "Mulbah", "Kpadeh"]
       }
     },
     guinea: {
       male: {
-        first: ["Mamadou", "Ibrahima", "Alpha", "Ousmane", "Sekou", "Boubacar", "Amadou", "Lansana", "Fode", "Mohamed", "Abdoulaye", "Yaya", "Saliou", "Mory", "Balla", "Karamoko", "Lamine", "Souleymane", "Thierno", "Cheick", "Abdoul", "Bakary", "Moussa", "Karim", "Ismael", "Seydou", "Tidiane", "Daouda", "Oumar", "Youssouf", "Moustapha", "Aliou", "Elhadj", "Aboubacar", "Facinet", "Kaba", "Samba", "Sadio", "Naby", "Famara", "Khalifa", "Mahamadou", "Sadou", "Yacouba", "Alhassane", "Ansoumane", "Dramane", "Fassou", "Mouctar", "Nouhou", "Seydouba", "Cellou", "Sory"],
-        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Keita", "Kourouma", "Bangoura", "Cisse", "Doucoure", "Toure", "Kaba", "Sow", "Balde", "Sangare", "Kante", "Fofana", "Diakite", "Kouyate", "Mara", "Magassouba", "Mansare", "Koulibaly", "Doumbouya", "Fadiga", "Sacko", "Sano", "Sidibe", "Tounkara", "Touré", "Yansane", "Yattara", "Youla", "Souare", "Diarra", "Konate", "Sissoko", "Bayo", "Beavogui", "Diawara", "Dieng", "Doumbia", "Gassama", "Guilavogui"]
+        first: ["Mamadou", "Ibrahima", "Alpha", "Ousmane", "Sekou", "Boubacar", "Amadou", "Lansana", "Fode", "Mohamed", "Abdoulaye", "Yaya", "Saliou", "Mory", "Balla", "Karamoko", "Lamine", "Souleymane", "Thierno", "Cheick", "Abdoul", "Bakary", "Moussa", "Karim", "Ismael", "Mamadouba", "Seydou", "Tidiane", "Daouda", "Oumar", "Youssouf", "Moustapha", "Aliou", "Elhadj", "Fanta", "Aboubacar", "Makan", "Facinet", "Kaba", "Samba", "Sadio", "Naby", "Nfaly", "Famara", "Khalifa", "Mahamadou", "Sadou", "Saifoulaye", "Yacouba", "Alhassane", "Ansoumane", "Dramane", "Fakaba", "Fassou", "Karifa", "Kourouma", "Mouctar", "Nassir", "Nouhou", "Seydouba", "Tierno", "Abdoulkader", "Cellou", "Fodeba", "Kandet", "Lansana", "Sory", "Guillaume", "Mamadi"],
+        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Keita", "Kourouma", "Bangoura", "Cisse", "Doucoure", "Toure", "Kaba", "Sow", "Balde", "Sangare", "Kante", "Fofana", "Diakite", "Kouyate", "Mara", "Drammeh", "Condé", "Magassouba", "Mansare", "Diané", "Koulibaly", "Doumbouya", "Fadiga", "Sacko", "Sano", "Sidibe", "Tounkara", "Touré", "Yansane", "Yattara", "Youla", "Souare", "Soumahoro", "Diarra", "Dramé", "Konate", "Ouattara", "Sissoko", "Bayo", "Beavogui", "Boiro", "Cissé", "Conté", "Daffé", "Diawara", "Dieng", "Doumbia", "Gassama", "Guilavogui", "Kakande", "Kanteh", "Labe", "Marah", "Nabé", "Naby", "Onivogui", "Sakho", "Sall", "Savané", "Souaré", "Traoré", "Yacine", "Yombouno", "Zogbo", "Zoumanigui", "Zogola", "Kouyaté"]
       },
       female: {
-        first: ["Aissatou", "Kadiatou", "Fatoumata", "Mariama", "Binta", "Hadja", "Saran", "Djenab", "Aminata", "Maimouna", "Adama", "Hawa", "Kadiya", "Fatou", "Nene", "Massa", "Kumba", "Tenneh", "Fanta", "Awa", "Ramatoulaye", "Nafissatou", "Safiatou", "Salimatou", "Isatu", "Kadija", "Hafsatou", "Mariam", "Hindou", "Balkissa", "Ramata", "Assetou", "Bintou", "Yacine", "Mabinty", "Sia", "Rokhaya", "Sokhna", "Yama", "Yaye", "Coumba", "Astou", "Khady", "Mame", "Ndeye", "Salimata", "Seynabou", "Bineta", "Dieynaba", "Fadima", "Isata", "Jenneh", "Grace", "Blessing", "Mercy", "Patience", "Faith", "Hope", "Joy", "Peace", "Victoria", "Esther", "Ruth", "Sarah", "Rebecca", "Naomi", "Hannah", "Deborah", "Rachel", "Elizabeth", "Lydia", "Abigail", "Angela", "Anita", "Beatrice", "Brenda", "Caroline", "Catherine", "Diana", "Ellen", "Emma", "Florence", "Gloria", "Irene", "Janet", "Jennifer", "Jessica", "Judith", "Julia", "Linda", "Lucy", "Margaret", "Maria", "Nancy", "Natalie", "Olivia", "Patricia", "Regina", "Rose", "Sandra", "Sophia", "Susan", "Veronica", "Yvonne", "Zainab", "Zahra"],
-        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Keita", "Kourouma", "Bangoura", "Cisse", "Doucoure", "Toure", "Kaba", "Sow", "Balde", "Sangare", "Kante", "Fofana", "Diakite", "Kouyate", "Mara", "Diarra", "Konate", "Sissoko", "Doumbia", "Ouattara", "Tounkara", "Yattara", "Youla", "Souare", "Koulibaly", "Fadiga", "Magassouba", "Mansare", "Sacko", "Sano", "Sidibe", "Yansane", "Beavogui", "Diawara", "Dieng", "Gassama", "Guilavogui"]
+        first: ["Aissatou", "Kadiatou", "Fatoumata", "Mariama", "Binta", "Hadja", "Saran", "Djenab", "Aminata", "Maimouna", "Adama", "Hawa", "Kadiya", "Fatou", "Nene", "Massa", "Kumba", "Tenneh", "Fanta", "Awa", "Ramatoulaye", "Nafissatou", "Safiatou", "Salimatou", "Isatu", "Kadija", "Hafsatou", "Mariam", "Hindou", "Balkissa", "Ramata", "Assetou", "Bintou", "Yacine", "Mabinty", "Neneh", "Sia", "Rokhaya", "Sokhna", "Yama", "Yaye", "Coumba", "Astou", "Khady", "Mame", "Maguette", "Ndeye", "Salimata", "Seynabou", "Bineta", "Dieynaba", "Fadima", "Isata", "Jenneh", "Korto", "Musu", "Comfort", "Grace", "Blessing", "Mercy", "Patience", "Faith", "Hope", "Joy", "Peace", "Charity", "Victoria", "Esther", "Ruth", "Sarah", "Rebecca", "Naomi", "Hannah", "Deborah", "Rachel", "Elizabeth", "Lydia", "Abigail", "Angela", "Anita", "Beatrice", "Brenda", "Caroline", "Catherine", "Clara", "Diana", "Ellen", "Emma", "Florence", "Gloria", "Irene", "Janet", "Jennifer", "Jessica", "Judith", "Julia", "Linda", "Lucy", "Margaret", "Maria", "Nancy", "Natalie", "Olivia", "Patricia", "Regina", "Rose", "Sandra", "Sophia", "Susan", "Veronica", "Yvonne", "Zainab", "Zahra", "Asmaou", "Makalé"],
+        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Keita", "Kourouma", "Bangoura", "Cisse", "Doucoure", "Toure", "Kaba", "Sow", "Balde", "Sangare", "Kante", "Fofana", "Diakite", "Kouyate", "Mara", "Drammeh", "Diarra", "Konate", "Sissoko", "Doumbia", "Ouattara", "Tounkara", "Yattara", "Youla", "Souare", "Koulibaly", "Fadiga", "Magassouba", "Mansare", "Sacko", "Sano", "Sidibe", "Yansane", "Diané", "Beavogui", "Boiro", "Daffé", "Diawara", "Dieng", "Gassama", "Guilavogui", "Kakande", "Kanteh", "Labe", "Marah", "Nabé", "Naby", "Onivogui", "Sakho", "Sall", "Savané", "Zogbo", "Zoumanigui", "Yombouno", "Kouyaté"]
       }
     },
     ethiopia: {
       male: {
-        first: ["Abebe", "Kebede", "Yonas", "Dawit", "Tewodros", "Ermias", "Girma", "Getachew", "Solomon", "Mekonnen", "Tesfaye", "Bekele", "Amanuel", "Samuel", "Daniel", "Michael", "Nahom", "Henok", "Yared", "Biruk", "Kaleb", "Elias", "Desta", "Fikru", "Tadesse", "Mulugeta", "Alemayehu", "Asrat", "Worku", "Endale", "Eshetu", "Hailu", "Haile", "Tamirat", "Biniam", "Bereket", "Bethel", "Eyob", "Fasil", "Fisseha", "Gebre", "Gashaw", "Gizachew", "Habtamu", "Hagos", "Kassahun", "Kassa", "Kifle", "Kiros", "Mamo", "Melaku", "Mesfin", "Mihret", "Mintesnot", "Mulu", "Natnael", "Nebiyu", "Negash", "Sisay", "Tariku", "Tekle", "Temesgen", "Tesfahun", "Tilahun", "Tsegaye", "Tsehay", "Wendimu", "Wondimu", "Yilma", "Yohannes", "Zeleke", "Zerihun", "Abel", "Abraham", "Adisu", "Alem", "Asnake", "Belay", "Berhanu", "Beyene", "Chala", "Demissie", "Dinku", "Ephrem", "Fikadu", "Frezer", "Gashu", "Legesse", "Mengistu", "Meron", "Nuru", "Robel", "Sahle", "Saron", "Sewnet", "Shiferaw", "Sileshi", "Tarekegn", "Tefera", "Teklu", "Teshome", "Tigabu", "Tola", "Wolde", "Zewdu", "Zeray", "Asefa", "Aweke", "Bamlak", "Dagne", "Demeke", "Esayas", "Mitiku", "Natan", "Tamene", "Zerfu", "Asfaw", "Ayalew", "Abiy"],
-        last: ["Bekele", "Tesfaye", "Tadesse", "Alemayehu", "Gebre", "Mekonnen", "Kebede", "Worku", "Haile", "Getachew", "Solomon", "Yilma", "Desta", "Mulugeta", "Assefa", "Girma", "Kassa", "Abebe", "Teshome", "Tamiru", "Demissie", "Eshetu", "Fikadu", "Legesse", "Mengistu", "Berhanu", "Beyene", "Ayalew", "Zeleke", "Tefera", "Tilahun", "Tsegaye", "Wolde", "Hailu", "Kifle", "Negash", "Sisay", "Endale", "Mamo", "Melaku", "Mesfin", "Gashaw", "Gizachew", "Habtamu", "Hagos", "Kiros", "Lemma", "Mintesnot", "Natnael", "Nebiyu", "Samuel", "Yohannes", "Dawit", "Daniel", "Michael", "Henok", "Yared", "Nahom", "Kaleb", "Biniam", "Bereket", "Abel", "Abraham", "Amanuel", "Elias", "Eyob", "Fasil", "Fisseha", "Robel", "Sahle", "Saron", "Sewnet", "Shiferaw", "Sileshi", "Tariku", "Tekle", "Temesgen", "Tesfahun", "Tigabu", "Tola", "Wondimu", "Yonas", "Zerihun", "Zewdu", "Alemu", "Asrat", "Asnake", "Aweke", "Bamlak", "Belay", "Chala", "Dagne", "Demeke", "Dinku", "Ephrem", "Esayas", "Fekadu", "Frezer", "Mitiku", "Tamene", "Tarekegn", "Tewodros", "Tigist", "Wendimu", "Zerfu", "Asefa", "Asfaw", "Jemal", "Lemma", "Mihret", "Moti", "Negatu", "Regassa", "Tolera", "Umer", "Abate", "Adisu", "Belachew", "Fikre", "Ahmed", "Mohammed"]
+        first: ["Abebe", "Kebede", "Yonas", "Dawit", "Tewodros", "Ermias", "Girma", "Getachew", "Solomon", "Mekonnen", "Tesfaye", "Bekele", "Amanuel", "Samuel", "Daniel", "Michael", "Nahom", "Henok", "Yared", "Biruk", "Kaleb", "Elias", "Desta", "Fikru", "Tadesse", "Mulugeta", "Alemayehu", "Asrat", "Worku", "Endale", "Eshetu", "Hailu", "Haile", "Tamirat", "Biniam", "Bereket", "Bethel", "Eyob", "Fasil", "Fisseha", "Gebre", "Gebremedhin", "Gashaw", "Gizachew", "Habtamu", "Hagos", "Kassahun", "Kassa", "Kifle", "Kiros", "Lemlem", "Liya", "Mamo", "Melaku", "Mesfin", "Mihret", "Mintesnot", "Mulu", "Natnael", "Nebiyu", "Negash", "Nega", "Nigus", "Sisay", "Tariku", "Tekle", "Temesgen", "Tesfahun", "Tilahun", "Tsegaye", "Tsehay", "Wendimu", "Wondimu", "Yilma", "Yohannes", "Zeleke", "Zerihun", "Abel", "Abraham", "Adisu", "Alem", "Asnake", "Belay", "Berhanu", "Beyene", "Chala", "Demissie", "Dinku", "Ephrem", "Fikadu", "Frezer", "Gashu", "Girmaw", "Legesse", "Mekbib", "Mengistu", "Meron", "Nuru", "Robel", "Sahle", "Saron", "Sewnet", "Shiferaw", "Sileshi", "Tarekegn", "Tefera", "Teklu", "Teshome", "Tigabu", "Tola", "Wolde", "Wondafrash", "Zewdu", "Zeray", "Asefa", "Aweke", "Bamlak", "Dagne", "Demeke", "Esayas", "Mitiku", "Natan", "Tamene", "Zerfu", "Asfaw", "Ayalew", "Abiy"],
+        last: ["Bekele", "Tesfaye", "Tadesse", "Alemayehu", "Gebre", "Mekonnen", "Kebede", "Worku", "Haile", "Getachew", "Solomon", "Yilma", "Desta", "Mulugeta", "Assefa", "Girma", "Kassa", "Abebe", "Teshome", "Tamiru", "Demissie", "Eshetu", "Fikadu", "Legesse", "Mengistu", "Berhanu", "Beyene", "Ayalew", "Zeleke", "Tefera", "Tilahun", "Tsegaye", "Wolde", "Hailu", "Kifle", "Negash", "Nega", "Sisay", "Endale", "Mamo", "Melaku", "Mesfin", "Mekbib", "Gashaw", "Gizachew", "Habtamu", "Hagos", "Kiros", "Lemma", "Mintesnot", "Natnael", "Nebiyu", "Samuel", "Yohannes", "Dawit", "Daniel", "Michael", "Henok", "Yared", "Nahom", "Kaleb", "Biniam", "Bereket", "Abel", "Abraham", "Amanuel", "Elias", "Eyob", "Fasil", "Fisseha", "Gebremedhin", "Girmaw", "Kassahun", "Mulu", "Nuru", "Robel", "Sahle", "Saron", "Sewnet", "Shiferaw", "Sileshi", "Tariku", "Tekle", "Temesgen", "Tesfahun", "Tigabu", "Tola", "Wondimu", "Woldeyes", "Yonas", "Zerihun", "Zewdu", "Alemu", "Asrat", "Asnake", "Aweke", "Bamlak", "Belay", "Chala", "Dagne", "Demeke", "Dinku", "Ephrem", "Esayas", "Fekadu", "Frezer", "Gashu", "Haileselassie", "Kalkidan", "Kassaye", "Meron", "Mitiku", "Tamene", "Tarekegn", "Tewodros", "Tigist", "Wendimu", "Wondafrash", "Zerfu", "Asefa", "Asfaw", "Bonsa", "Daba", "Fanta", "Guta", "Jemal", "Kumsa", "Lemma", "Mihret", "Moti", "Negatu", "Regassa", "Sori", "Tolera", "Umer", "Wako", "Yadeta", "Zerga", "Zewdie", "Abate", "Adisu", "Belachew", "Fikre", "Girmai", "Ahmed", "Mohammed"]
       },
       female: {
-        first: ["Selam", "Hiwot", "Tigist", "Eden", "Genet", "Mestawet", "Bethlehem", "Hanah", "Tsion", "Rahel", "Meron", "Liya", "Marta", "Mariam", "Sara", "Hana", "Almaz", "Saron", "Mulu", "Meseret", "Frehiwot", "Yordanos", "Lensa", "Birtukan", "Kidist", "Mihret", "Eyerusalem", "Sosina", "Mahlet", "Samrawit", "Betelhem", "Desta", "Fikir", "Fikirte", "Habtamu", "Hirut", "Kalkidan", "Kebede", "Lulit", "Makda", "Mekdes", "Meklit", "Mestawet", "Milki", "Muna", "Nardos", "Netsanet", "Ruth", "Seble", "Selamawit", "Senait", "Sewit", "Sifan", "Siham", "Simret", "Sisay", "Tsehay", "Tsedal", "Tsega", "Winta", "Wubit", "Yemiserach", "Yeshi", "Yohanna", "Zara", "Zewditu", "Abeba", "Alem", "Aster", "Aynalem", "Biruktawit", "Chaltu", "Dagmawit", "Emebet", "Eshetu", "Etenesh", "Fana", "Girmawit", "Hanna", "Kidan", "Liya", "Lily", "Lola", "Lomi", "Mimi", "Muluwork", "Nigist", "Ruhama", "Saba", "Samia", "Seble", "Senait", "Shewaye", "Sintayehu", "Tizita", "Tsehaynesh", "Yeshimebet", "Yodit", "Zinash", "Zinabu", "Abigail", "Alula", "Amarech", "Ananya", "Asnakech", "Belen", "Betty", "Dawit", "Eleni", "Fikrte", "Martha", "Selam"],
-        last: ["Bekele", "Tesfaye", "Tadesse", "Alemayehu", "Gebre", "Mekonnen", "Kebede", "Worku", "Haile", "Getachew", "Solomon", "Yilma", "Desta", "Mulugeta", "Assefa", "Girma", "Kassa", "Abebe", "Teshome", "Tamiru", "Demissie", "Eshetu", "Fikadu", "Legesse", "Mengistu", "Berhanu", "Beyene", "Ayalew", "Zeleke", "Tefera", "Tilahun", "Tsegaye", "Wolde", "Hailu", "Kifle", "Negash", "Sisay", "Endale", "Mamo", "Melaku", "Mesfin", "Gashaw", "Gizachew", "Habtamu", "Hagos", "Kiros", "Lemma", "Mintesnot", "Natnael", "Nebiyu", "Samuel", "Yohannes", "Dawit", "Daniel", "Michael", "Henok", "Yared", "Nahom", "Kaleb", "Biniam", "Bereket", "Abel", "Abraham", "Amanuel", "Elias", "Eyob", "Fasil", "Fisseha", "Robel", "Sahle", "Saron", "Sewnet", "Shiferaw", "Sileshi", "Tariku", "Tekle", "Temesgen", "Tesfahun", "Tigabu", "Tola", "Wondimu", "Yonas", "Zerihun", "Zewdu", "Alemu", "Asrat", "Asnake", "Aweke", "Bamlak", "Belay", "Chala", "Dagne", "Demeke", "Dinku", "Ephrem", "Esayas", "Fekadu", "Frezer", "Mitiku", "Tamene", "Tarekegn", "Tewodros", "Tigist", "Wendimu", "Zerfu", "Asefa", "Asfaw", "Jemal", "Lemma", "Mihret", "Moti", "Negatu", "Regassa", "Tolera", "Umer", "Abate", "Adisu", "Belachew", "Fikre", "Hunde"]
+        first: ["Selam", "Hiwot", "Tigist", "Eden", "Genet", "Mestawet", "Bethlehem", "Hanah", "Tsion", "Rahel", "Meron", "Liya", "Marta", "Mariam", "Sara", "Hana", "Almaz", "Saron", "Mulu", "Meseret", "Frehiwot", "Yordanos", "Lensa", "Birtukan", "Kidist", "Mihret", "Eyerusalem", "Sosina", "Mahlet", "Samrawit", "Betelhem", "Desta", "Fikir", "Fikirte", "Habtamu", "Hirut", "Kalkidan", "Kebede", "Lulit", "Makda", "Mekdes", "Meklit", "Mestawet", "Milki", "Muna", "Nardos", "Netsanet", "Ruth", "Seble", "Selamawit", "Senait", "Sewit", "Sifan", "Siham", "Simret", "Sisay", "Tsehay", "Tsedal", "Tsega", "Winta", "Wubit", "Yemiserach", "Yeshi", "Yohanna", "Zara", "Zewditu", "Abeba", "Alem", "Aster", "Aynalem", "Biruktawit", "Chaltu", "Dagmawit", "Emebet", "Eshetu", "Etenesh", "Fana", "Girmawit", "Hanna", "Kidan", "Liya", "Lily", "Lola", "Lomi", "Mimi", "Muluwork", "Nigist", "Ruhama", "Saba", "Samia", "Seble", "Senait", "Shewaye", "Sintayehu", "Tizita", "Tsehaynesh", "Yeshimebet", "Yodit", "Zinash", "Zinabu", "Abigail", "Alula", "Amarech", "Ananya", "Asnakech", "Belen", "Betty", "Dawit", "Eleni", "Fikrte", "Kidanemariam", "Martha", "Selam"],
+        last: ["Bekele", "Tesfaye", "Tadesse", "Alemayehu", "Gebre", "Mekonnen", "Kebede", "Worku", "Haile", "Getachew", "Solomon", "Yilma", "Desta", "Mulugeta", "Assefa", "Girma", "Kassa", "Abebe", "Teshome", "Tamiru", "Demissie", "Eshetu", "Fikadu", "Legesse", "Mengistu", "Berhanu", "Beyene", "Ayalew", "Zeleke", "Tefera", "Tilahun", "Tsegaye", "Wolde", "Hailu", "Kifle", "Negash", "Nega", "Sisay", "Endale", "Mamo", "Melaku", "Mesfin", "Mekbib", "Gashaw", "Gizachew", "Habtamu", "Hagos", "Kiros", "Lemma", "Mintesnot", "Natnael", "Nebiyu", "Samuel", "Yohannes", "Dawit", "Daniel", "Michael", "Henok", "Yared", "Nahom", "Kaleb", "Biniam", "Bereket", "Abel", "Abraham", "Amanuel", "Elias", "Eyob", "Fasil", "Fisseha", "Gebremedhin", "Girmaw", "Kassahun", "Mulu", "Nuru", "Robel", "Sahle", "Saron", "Sewnet", "Shiferaw", "Sileshi", "Tariku", "Tekle", "Temesgen", "Tesfahun", "Tigabu", "Tola", "Wondimu", "Woldeyes", "Yonas", "Zerihun", "Zewdu", "Alemu", "Asrat", "Asnake", "Aweke", "Bamlak", "Belay", "Chala", "Dagne", "Demeke", "Dinku", "Ephrem", "Esayas", "Fekadu", "Frezer", "Gashu", "Haileselassie", "Kalkidan", "Kassaye", "Meron", "Mitiku", "Tamene", "Tarekegn", "Tewodros", "Tigist", "Wendimu", "Wondafrash", "Zerfu", "Asefa", "Asfaw", "Bonsa", "Daba", "Fanta", "Guta", "Jemal", "Kumsa", "Lemma", "Mihret", "Moti", "Negatu", "Regassa", "Sori", "Tolera", "Umer", "Wako", "Yadeta", "Zerga", "Zewdie", "Abate", "Adisu", "Belachew", "Fikre", "Girmai", "Hunde", "Jilo", "Kebedech", "Mekuria"]
       }
     }
   };
 
-  const availableDomainsPool = ["@gmail.com", "@outlook.com", "@hotmail.com", "@esiia.com"];
+  const availableDomainsPool = ["@outlook.com", "@hotmail.com", "@esiia.com", "@1secmail.com", "@1secmail.org", "@email.com", "@gmail.com", "@mail-safe.net", "@box-post.org"];
 
   let state = {
     country: "egypt",
@@ -293,8 +297,8 @@
     firstName: "",
     lastName: "",
     username: "",
-    domain: "@gmail.com",
-    apiSessionToken: 'personal_' + Math.random().toString(36).substring(2) + Date.now().toString(36),
+    domain: "@outlook.com",
+    apiSessionToken: 'mutated_' + Math.random().toString(36).substring(2) + Date.now().toString(36),
     virtualIpSignature: '197.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255)
   };
 
@@ -309,30 +313,45 @@
       unlockApp();
     }
 
-    if (unlockBtn) unlockBtn.onclick = verifyPassword;
+    if (unlockBtn) {
+      unlockBtn.onclick = verifyPassword;
+    }
+
     if (passInput) {
-      passInput.onkeydown = (e) => { if (e.key === "Enter") verifyPassword(); };
-      passInput.oninput = () => { document.getElementById("errorMsg").style.display = "none"; };
+      passInput.onkeydown = function(e) {
+        if (e.key === "Enter") verifyPassword();
+      };
+      passInput.oninput = function() {
+        const errorMsg = document.getElementById("errorMsg");
+        if (errorMsg) errorMsg.style.display = "none";
+      };
     }
   };
 
   function verifyPassword() {
     const passInput = document.getElementById("passInput");
     const errorMsg = document.getElementById("errorMsg");
+
     if (!passInput) return;
-    if (passInput.value.trim() === _SEC_KEY) {
+    const val = passInput.value.trim();
+
+    if (val === _SEC_KEY) {
       sessionStorage.setItem("isUnlocked", "true");
       unlockApp();
     } else {
-      errorMsg.style.display = "block";
+      if (errorMsg) errorMsg.style.display = "block";
       passInput.value = "";
       passInput.focus();
     }
   }
 
   function unlockApp() {
-    document.getElementById("lockScreen").style.display = "none";
-    document.getElementById("mainApp").style.display = "block";
+    const lockScreen = document.getElementById("lockScreen");
+    const mainApp = document.getElementById("mainApp");
+
+    if (lockScreen) lockScreen.style.display = "none";
+    if (mainApp) mainApp.style.display = "block";
+    
     setupEvents();
     loadSessionSpecificState();
     initRobustActiveUserChecker();
@@ -355,7 +374,9 @@
         updateDisplay();
         startInbox();
         return;
-      } catch(e) {}
+      } catch(e) {
+        console.error("State parse error:", e);
+      }
     }
     generateProfile();
   }
@@ -376,17 +397,25 @@
     function updateActiveClients() {
       let now = Date.now();
       let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
-      Object.keys(clients).forEach(id => { if (now - clients[id] > 6000) delete clients[id]; });
+      
+      Object.keys(clients).forEach(id => {
+        if (now - clients[id] > 6000) {
+          delete clients[id];
+        }
+      });
+
       clients[clientId] = now;
       localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
 
-      let activeCount = Object.keys(clients).length || 1;
+      let activeCount = Object.keys(clients).length;
+      if (activeCount < 1) activeCount = 1;
+
       if (isUserCountUnlocked) {
         countText.innerText = `Online: ${activeCount} User${activeCount > 1 ? 's' : ''} [IP: ${state.virtualIpSignature}]`;
       } else {
         countText.innerText = `Online: Click to View`;
       }
-      statusDot.classList.remove("offline");
+      if (statusDot) statusDot.classList.remove("offline");
     }
 
     updateActiveClients();
@@ -410,27 +439,70 @@
     const get = (id) => document.getElementById(id);
 
     if(get("btnMale")) {
-      get("btnMale").onclick = () => { state.gender = "male"; get("btnMale").classList.add("active"); get("btnFemale").classList.remove("active"); generateProfile(); };
+      get("btnMale").onclick = function() {
+        state.gender = "male";
+        get("btnMale").classList.add("active");
+        get("btnFemale").classList.remove("active");
+        generateProfile();
+      };
     }
+
     if(get("btnFemale")) {
-      get("btnFemale").onclick = () => { state.gender = "female"; get("btnFemale").classList.add("active"); get("btnMale").classList.remove("active"); generateProfile(); };
+      get("btnFemale").onclick = function() {
+        state.gender = "female";
+        get("btnFemale").classList.add("active");
+        get("btnMale").classList.remove("active");
+        generateProfile();
+      };
     }
+
     if(get("countrySelect")) {
-      get("countrySelect").onchange = (e) => { state.country = e.target.value; generateProfile(); };
+      get("countrySelect").onchange = function(e) {
+        state.country = e.target.value;
+        generateProfile();
+      };
     }
+
     if(get("domainSelect")) {
-      get("domainSelect").onchange = (e) => { state.domain = e.target.value; updateDisplay(); saveSessionSpecificState(); startInbox(); };
+      get("domainSelect").onchange = function(e) {
+        state.domain = e.target.value;
+        updateDisplay();
+        saveSessionSpecificState();
+        startInbox();
+      };
     }
+
     if(get("newProfileBtn")) {
-      get("newProfileBtn").onclick = () => { applyFingerprintMutation(); generateProfile(); showToast("New Profile & Fingerprint Mutated!"); };
+      get("newProfileBtn").onclick = function() {
+        applyFingerprintMutation();
+        generateProfile();
+        showToast("New Profile & Fingerprint Mutated!");
+      };
     }
+
     if(get("refreshEmailBtn")) {
-      get("refreshEmailBtn").onclick = () => { generatePersonalUsername(); hasSimulatedNetworkFail = false; updateDisplay(); saveSessionSpecificState(); startInbox(); showToast("New Personal Email Generated!"); };
+      get("refreshEmailBtn").onclick = function() {
+        const randNum = Math.floor(1000 + Math.random() * 8999);
+        state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
+        hasSimulatedNetworkFail = false;
+        updateDisplay();
+        saveSessionSpecificState();
+        startInbox();
+        showToast("Email Refreshed Successfully!");
+      };
     }
+
     if(get("setCustomBtn")) {
-      get("setCustomBtn").onclick = () => {
-        let input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
-        if(input) { state.username = input; hasSimulatedNetworkFail = false; updateDisplay(); saveSessionSpecificState(); startInbox(); showToast("Custom Personal Email Configured!"); }
+      get("setCustomBtn").onclick = function() {
+        const input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
+        if(input) {
+          state.username = input;
+          hasSimulatedNetworkFail = false;
+          updateDisplay();
+          saveSessionSpecificState();
+          startInbox();
+          showToast("Custom Email Configured!");
+        }
       };
     }
 
@@ -440,46 +512,83 @@
     if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}${state.domain}`);
     if(get("manualRefreshBtn")) get("manualRefreshBtn").onclick = () => checkInbox(true);
     
+    // COMPLETE SYSTEM RESET WITH FINGERPRINT, API, IP MUTATION & DEEP SHRED
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
         if(window.inboxTimer) clearInterval(window.inboxTimer);
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         
-        try { localStorage.clear(); sessionStorage.clear(); } catch(e) {}
+        // 1. Storage & Cookie Deep Shredding
+        try {
+          const keys = Object.keys(localStorage);
+          for (let k of keys) {
+            localStorage.setItem(k, Math.random().toString(36).repeat(50));
+            localStorage.removeItem(k);
+          }
+          localStorage.clear();
+        } catch(e) {}
+
+        try {
+          const sKeys = Object.keys(sessionStorage);
+          for (let sk of sKeys) {
+            sessionStorage.setItem(sk, Math.random().toString(36).repeat(50));
+            sessionStorage.removeItem(sk);
+          }
+          sessionStorage.clear();
+        } catch(e) {}
+
+        try {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i];
+            let eqPos = cookie.indexOf("=");
+            let name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+          }
+        } catch(e) {}
+
+        // 2. MUTATE BROWSER FINGERPRINT & USER-AGENT ON HARD RESET
         applyFingerprintMutation();
 
+        // 3. FORCE CHANGE API TOKEN & IP SIGNATURE
         state.apiSessionToken = 'shredded_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
-        const subnets = ['41.', '102.', '196.', '197.', '154.', '185.'];
-        state.virtualIpSignature = subnets[Math.floor(Math.random()*subnets.length)] + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10);
-        state.domain = "@gmail.com";
-        document.getElementById("domainSelect").value = "@gmail.com";
+        
+        const activeSubnets = ['41.', '102.', '196.', '197.', '154.', '129.', '185.', '190.'];
+        const randomSubnet = activeSubnets[Math.floor(Math.random() * activeSubnets.length)];
+        state.virtualIpSignature = randomSubnet + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10);
 
-        document.getElementById("inboxList").innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">History wiped and permanently shredded.</p>`;
-        setTimeout(() => { generateProfile(); showToast("🔥 Hard Reset Complete! Personal Profile Sanitized."); }, 300);
+        const randomDomain = availableDomainsPool[Math.floor(Math.random() * availableDomainsPool.length)];
+        state.domain = randomDomain;
+        const domainSelectElem = document.getElementById("domainSelect");
+        if(domainSelectElem) domainSelectElem.value = randomDomain;
+
+        // 4. Reset UI
+        const inboxContainer = document.getElementById("inboxList");
+        if(inboxContainer) {
+          inboxContainer.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">History wiped and permanently shredded.</p>`;
+        }
+
+        setTimeout(() => {
+          generateProfile();
+          showToast("🔥 Hard Reset Complete! Fingerprint, IP & API Mutated.");
+        }, 300);
       };
     }
   }
 
-  function generatePersonalUsername() {
+  function generateProfile() {
     const cData = DB[state.country] || DB.egypt;
     const gData = cData[state.gender] || cData.male;
-    state.firstName = gData.first[Math.floor(Math.random() * gData.first.length)];
-    state.lastName = gData.last[Math.floor(Math.random() * gData.last.length)];
 
-    const f = state.firstName.toLowerCase();
-    const l = state.lastName.toLowerCase();
-    const formats = [
-      `${f}.${l}`,
-      `${f}_${l}`,
-      `${f}.${l}.${Math.floor(10 + Math.random() * 89)}`,
-      `${f}${l.charAt(0)}`,
-      `${f.charAt(0)}.${l}`
-    ];
-    state.username = formats[Math.floor(Math.random() * formats.length)];
-  }
+    let fName = gData.first[Math.floor(Math.random() * gData.first.length)];
+    let lName = gData.last[Math.floor(Math.random() * gData.last.length)];
 
-  function generateProfile() {
-    generatePersonalUsername();
+    state.firstName = fName;
+    state.lastName = lName;
+
+    const randNum = Math.floor(1000 + Math.random() * 8999);
+    state.username = `${state.firstName.toLowerCase()}${state.lastName.toLowerCase()}${randNum}`;
+
     hasSimulatedNetworkFail = false;
     updateDisplay();
     saveSessionSpecificState();
@@ -487,10 +596,10 @@
   }
 
   function updateDisplay() {
-    document.getElementById("dispFirstName").innerText = state.firstName;
-    document.getElementById("dispLastName").innerText = state.lastName;
-    document.getElementById("dispEmail").innerText = `${state.username}${state.domain}`;
-    document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
+    if(document.getElementById("dispFirstName")) document.getElementById("dispFirstName").innerText = state.firstName;
+    if(document.getElementById("dispLastName")) document.getElementById("dispLastName").innerText = state.lastName;
+    if(document.getElementById("dispEmail")) document.getElementById("dispEmail").innerText = `${state.username}${state.domain}`;
+    if(document.getElementById("countryLabel")) document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
   }
 
   function startInbox() {
@@ -501,32 +610,54 @@
     window.inboxTimer = setInterval(() => checkInbox(false), 3000);
 
     networkGuardTimer = setTimeout(() => {
-      if (!hasSimulatedNetworkFail && !document.querySelector(".gmail-thread-card")) {
-        hasSimulatedNetworkFail = true;
-        const container = document.getElementById("inboxList");
-        const bounceCard = document.createElement("div");
-        bounceCard.className = "bounce-card";
-        bounceCard.innerHTML = `
-          <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Exception</div>
-          <div class="bounce-text">Status: Personal Route Verification [IP: ${state.virtualIpSignature}]. Handshake handshake delayed by upstream server.</div>
-        `;
-        container.prepend(bounceCard);
-      }
+      triggerAutomaticNetworkRejectSimulation();
     }, 25000);
+  }
+
+  function triggerAutomaticNetworkRejectSimulation() {
+    if (hasSimulatedNetworkFail) return;
+    const container = document.getElementById("inboxList");
+    if (!container) return;
+
+    if (container.querySelector(".msg-card")) return;
+
+    hasSimulatedNetworkFail = true;
+    const bounceCard = document.createElement("div");
+    bounceCard.className = "bounce-card";
+    bounceCard.innerHTML = `
+      <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Rejected</div>
+      <div class="bounce-text">Status: Critical Network Exception [IP: ${state.virtualIpSignature}]. Destination mail server dropped handshake. OTP transmission denied automatically due to routing failure.</div>
+    `;
+    container.prepend(bounceCard);
+    showToast("Strict Network Reject Simulation Triggered!");
   }
 
   async function checkInbox(isManual = false) {
     if(!state.username) return;
-    if(isManual) showToast("Checking secure personal inbox...");
+    if(isManual) showToast("Checking secure inbox with mutated API token...");
 
     let cleanDomain = state.domain.replace('@', '');
-    const apiDomain = ["gmail.com", "outlook.com", "hotmail.com"].includes(cleanDomain) ? "esiia.com" : cleanDomain;
+    const apiDomain = ["outlook.com", "hotmail.com"].includes(cleanDomain) ? "esiia.com" : cleanDomain;
     const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_sess=${state.apiSessionToken}&_ip=${state.virtualIpSignature}&_t=${Date.now()}`;
 
+    const statusDot = document.getElementById("statusDot");
+
     try {
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Sec-Ch-Ua': '"Not_A Brand";v="8", "Chromium";v="120"',
+          'X-Forwarded-For': state.virtualIpSignature
+        }
+      });
+      if(res.ok && statusDot) {
+        statusDot.classList.remove("offline");
+      }
+
       const list = await res.json();
       const container = document.getElementById("inboxList");
+
+      if(!container) return;
 
       if(list && list.length > 0) {
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
@@ -541,41 +672,48 @@
           let otpCode = "";
           const textContent = detail.body || detail.textBody || "";
           const otpMatch = textContent.match(/\b\d{4,8}\b/);
-          if(otpMatch) otpCode = otpMatch[0];
+          if(otpMatch) {
+            otpCode = otpMatch[0];
+          }
 
-          let otpHtml = otpCode ? `
-            <div class="otp-wrapper">
-              <span>🔐 Verified Personal OTP:</span>
-              <div>
-                <span class="otp-code">${otpCode}</span>
-                <button class="btn-otp-copy" onclick="copyVal('${otpCode}')">Copy</button>
+          let otpHtml = "";
+          if(otpCode) {
+            otpHtml = `
+              <div class="otp-wrapper">
+                <span>OTP Code Detected:</span>
+                <div>
+                  <span class="otp-code">${otpCode}</span>
+                  <button class="btn-otp-copy" onclick="copyVal('${otpCode}')">Copy OTP</button>
+                </div>
               </div>
-            </div>
-          ` : "";
+            `;
+          }
 
           const card = document.createElement("div");
-          card.className = "gmail-thread-card";
+          card.className = "msg-card";
           card.innerHTML = `
-            <div class="gmail-sender-row">
-              <span class="gmail-sender-name">From: ${msg.from}</span>
-              <span class="gmail-time">${msg.date || 'Just now'}</span>
-            </div>
-            <div class="gmail-subject">${msg.subject}</div>
-            <div class="gmail-body">${textContent}</div>
+            <div class="msg-sender">From: ${msg.from}</div>
+            <div class="msg-subject">${msg.subject}</div>
+            <div class="msg-body">${textContent}</div>
             ${otpHtml}
           `;
           container.appendChild(card);
         }
       } else {
-        if (!container.querySelector(".gmail-thread-card") && !container.querySelector(".bounce-card")) {
-          container.innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">No new messages. Inbox is up to date.</p>`;
+        if (!container.querySelector(".msg-card") && !container.querySelector(".bounce-card")) {
+          container.innerHTML = `<p style="color:#64748b; font-size:12px; text-align:center; padding:15px 0;">Waiting for incoming OTP / Email...</p>`;
         }
       }
-    } catch(err) {}
+    } catch(err) {
+      console.error("Inbox fetch error:", err);
+      if(statusDot) statusDot.classList.add("offline");
+    }
   }
 
   function copyVal(val) {
-    navigator.clipboard.writeText(val).then(() => showToast("Copied to clipboard!"));
+    navigator.clipboard.writeText(val).then(() => {
+      showToast("Copied to clipboard!");
+    });
   }
 
   function showToast(msg) {
@@ -583,7 +721,9 @@
     if(!toast) return;
     toast.innerText = msg;
     toast.style.display = "block";
-    setTimeout(() => { toast.style.display = "none"; }, 2000);
+    setTimeout(() => {
+      toast.style.display = "none";
+    }, 2000);
   }
 </script>
 </body>

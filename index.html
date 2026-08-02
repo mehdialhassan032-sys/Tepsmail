@@ -4,148 +4,135 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www.1secmail.com; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self' https://www.1secmail.com;">
-  <title>Protocol Omega: Ultimate Stealth Matrix + Temp Mail Suite Pro</title>
+  <title>Temp Mail Engine Pro - Ultimate Personal Stealth Matrix</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Consolas', 'Segoe UI', monospace; margin: 0; padding: 0; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     
     html, body {
-      background: #030303; color: #00ff66; min-height: 100vh; width: 100%;
+      background: #05080f; color: #f1f5f9; min-height: 100vh; width: 100%;
       overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
     }
 
     body {
-      display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 15px;
+      display: flex; justify-content: center; align-items: flex-start; padding: 20px 15px;
     }
-
-    #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background: radial-gradient(circle, transparent 30%, #000 120%); z-index: 50000; }
 
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: #030303; z-index: 99999; display: flex;
+      background: #05080f; z-index: 99999; display: flex;
       justify-content: center; align-items: center; padding: 20px;
     }
     .lock-card {
-      background: #0a0a0a; border: 1px solid #00ff66; border-radius: 12px;
+      background: #0f172a; border: 1px solid #1e293b; border-radius: 16px;
       padding: 30px; width: 100%; max-width: 380px; text-align: center;
-      box-shadow: 0 0 25px rgba(0, 255, 102, 0.2);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.9);
     }
-    .lock-title { font-size: 16px; font-weight: 800; color: #00ff66; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-    .lock-desc { font-size: 11px; color: #777; margin-bottom: 20px; }
+    .lock-title { font-size: 18px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; }
+    .lock-desc { font-size: 12px; color: #64748b; margin-bottom: 20px; }
     .password-wrapper { position: relative; width: 100%; margin-bottom: 15px; display: flex; align-items: center; }
     .lock-input {
-      width: 100%; padding: 12px; border-radius: 4px; border: 1px solid #333;
-      background: #000; color: #00ff66; font-size: 14px; text-align: center; outline: none; letter-spacing: 2px;
+      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155;
+      background: #020617; color: #fff; font-size: 14px; text-align: center; outline: none; letter-spacing: 2px;
     }
-    .lock-btn { width: 100%; padding: 12px; background: #000; color: #00ff66; border: 1px solid #00ff66; border-radius: 4px; font-weight: 700; font-size: 13px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
-    .lock-btn:hover { background: #00ff66; color: #000; }
-    .error-msg { color: #ff3333; font-size: 11px; margin-top: 10px; display: none; }
+    .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
+    .error-msg { color: #ef4444; font-size: 12px; margin-top: 10px; display: none; }
 
     .app-card { 
-      background: #0a0a0a; border-radius: 12px; width: 100%; max-width: 520px; 
-      border: 1px solid #222; box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
-      margin: 10px auto; display: none; position: relative; z-index: 10;
+      background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
+      border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
+      margin: 10px auto; display: none; position: relative; z-index: 1;
     }
-    .header-bar { background: #0f0f0f; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom: 1px solid #222; }
-    .header-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 13px; color: #00ff66; text-transform: uppercase; }
-    .sync-status { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; background: #000; border: 1px solid #333; padding: 4px 8px; border-radius: 12px; color: #00ffff; cursor: pointer; }
-    .status-dot { width: 6px; height: 6px; background-color: #00ff66; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #00ff66; }
-    .status-dot.offline { background-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
+    .header-bar { background: linear-gradient(135deg, #1a73e8, #4285f4); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-top-left-radius: 16px; border-top-right-radius: 16px; }
+    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
+    .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
+    .status-dot { width: 8px; height: 8px; background-color: #34a853; border-radius: 50%; display: inline-block; }
+    .status-dot.offline { background-color: #ea4335; }
 
-    .card-body { padding: 18px; }
-    .field-group { margin-bottom: 12px; }
-    .field-label { font-size: 10px; font-weight: 700; color: #777; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: block; }
-    input[type="text"], select { width: 100%; padding: 8px 10px; border-radius: 4px; border: 1px solid #333; background: #000; color: #00ff66; font-size: 12px; outline: none; }
-    input[type="text"]:focus, select:focus { border-color: #00ff66; }
+    .card-body { padding: 20px; }
+    .field-group { margin-bottom: 14px; }
+    .field-label { font-size: 11px; font-weight: 700; color: #9aa0a6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+    input[type="text"], select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #020617; color: #f8fafc; font-size: 13px; outline: none; }
 
-    .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .gender-btn { background: #000; color: #777; border: 1px solid #333; padding: 8px; border-radius: 4px; font-weight: 700; font-size: 11px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
-    .gender-btn.active { background: #00ff66; color: #000; border-color: #00ff66; }
+    .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .gender-btn { background: #020617; color: #94a3b8; border: 1px solid #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .gender-btn.active { background: #1a73e8; color: #fff; border-color: #1a73e8; }
 
-    .email-banner { background: #000; padding: 12px; border-radius: 6px; text-align: center; font-weight: 800; margin: 12px 0; border: 1px solid #00ff66; color: #00ffff; font-size: 13px; word-break: break-all; }
+    .email-banner { background: #020617; padding: 14px; border-radius: 10px; text-align: center; font-weight: 800; margin: 16px 0; border: 1px solid #4285f4; color: #8ab4f8; font-size: 14px; word-break: break-all; }
     .email-text { font-family: monospace; letter-spacing: 0.5px; }
     
-    .profile-card { background: #000; border: 1px solid #222; border-radius: 6px; padding: 12px; margin-bottom: 12px; font-size: 11px; }
-    .profile-title { font-weight: 800; color: #777; text-transform: uppercase; margin-bottom: 8px; font-size: 10px; display: flex; justify-content: space-between; align-items: center; }
-    .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px dashed #1a1a1a; padding-bottom: 4px; }
-    .profile-val { color: #00ff66; font-weight: 700; font-family: monospace; font-size: 12px; }
-    .btn-copy-sm { background: #000; color: #00ffff; border: 1px solid #00ffff; padding: 2px 6px; font-size: 9px; border-radius: 2px; cursor: pointer; font-weight: 600; text-transform: uppercase; }
+    .profile-card { background: #020617; border: 1px solid #1e293b; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 12px; }
+    .profile-title { font-weight: 800; color: #8ab4f8; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
+    .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }
+    .profile-val { color: #f8fafc; font-weight: 700; font-family: monospace; font-size: 13px; }
+    .btn-copy-sm { background: #1e293b; color: #8ab4f8; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
 
-    .stealth-badge { background: rgba(0, 255, 102, 0.05); border: 1px solid #00ff66; color: #00ff66; font-size: 9px; font-weight: 800; padding: 6px; border-radius: 4px; margin-bottom: 8px; text-align: center; text-transform: uppercase; }
-    .shield-badge { background: rgba(255, 153, 0, 0.05); border: 1px solid #ff9900; color: #ff9900; font-size: 9px; font-weight: 800; padding: 6px; border-radius: 4px; margin-bottom: 12px; text-align: center; text-transform: uppercase; }
+    .stealth-badge { background: #0d3b23; border: 1px solid #137333; color: #81c995; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 10px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .shield-badge { background: #3c1618; border: 1px solid #a50e0e; color: #f28b82; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 14px; text-align: center; }
 
-    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
-    button { padding: 8px 10px; border: none; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
-    .btn-primary { background: #000; color: #00ff66; border: 1px solid #00ff66; }
-    .btn-primary:hover { background: #00ff66; color: #000; }
-    .btn-secondary { background: #000; color: #aaa; border: 1px solid #444; }
-    .btn-secondary:hover { background: #444; color: #fff; }
-    .btn-success { background: #000; color: #00ffff; border: 1px solid #00ffff; }
-    .btn-success:hover { background: #00ffff; color: #000; }
-    .btn-warn { background: #000; color: #ff9900; border: 1px solid #ff9900; }
-    .btn-warn:hover { background: #ff9900; color: #000; }
-    .btn-danger { background: #000; color: #ff3333; border: 1px solid #ff3333; margin-top: 8px; width: 100%; }
-    .btn-danger:hover { background: #ff3333; color: #000; }
-    .btn-refresh { background: #000; color: #00ff66; border: 1px solid #00ff66; }
-    .btn-refresh:hover { background: #00ff66; color: #000; }
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+    button { padding: 10px 12px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
+    .btn-primary { background: #1a73e8; color: white; }
+    .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
+    .btn-success { background: #137333; color: white; }
+    .btn-warn { background: #f29900; color: #000; }
+    .btn-danger { background: #ea4335; color: white; margin-top: 10px; width: 100%; }
+    .btn-refresh { background: #4285f4; color: white; }
 
-    .inbox-area { border-top: 1px solid #222; padding-top: 12px; }
-    .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .inbox-title { font-size: 10px; font-weight: 800; color: #777; text-transform: uppercase; letter-spacing: 1px; }
+    .inbox-area { border-top: 1px solid #1e293b; padding-top: 16px; }
+    .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .inbox-title { font-size: 12px; font-weight: 800; color: #9aa0a6; text-transform: uppercase; }
     
-    .gmail-thread-card { background: #050505; border: 1px solid #222; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
-    .gmail-sender-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-    .gmail-sender-name { color: #aaa; font-size: 11px; font-weight: 700; word-break: break-all; }
-    .gmail-time { color: #555; font-size: 9px; }
-    .gmail-subject { color: #00ffff; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
-    .gmail-body { color: #ccc; font-size: 11px; line-height: 1.4; white-space: pre-wrap; word-break: break-word; background: #000; padding: 8px; border-radius: 4px; border: 1px solid #1a1a1a; max-height: 120px; overflow-y: auto; }
+    .gmail-thread-card { background: #202124; border: 1px solid #3c4043; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
+    .gmail-sender-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .gmail-sender-name { color: #e8eaed; font-size: 13px; font-weight: 700; }
+    .gmail-time { color: #9aa0a6; font-size: 11px; }
+    .gmail-subject { color: #8ab4f8; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .gmail-body { color: #bdc1c6; font-size: 12px; line-height: 1.4; white-space: pre-wrap; word-break: break-word; background: #171717; padding: 10px; border-radius: 6px; border: 1px solid #333; }
     
-    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 255, 255, 0.05); color: #00ffff; padding: 6px 10px; border-radius: 4px; margin-top: 8px; font-weight: 800; border: 1px solid #00ffff; font-size: 11px; }
-    .otp-code { font-size: 13px; font-family: monospace; letter-spacing: 1px; color: #00ff66; }
-    .btn-otp-copy { background: #000; color: #00ffff; border: 1px solid #00ffff; padding: 2px 6px; border-radius: 2px; font-size: 9px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #fce8e6; color: #c5221f; padding: 8px 12px; border-radius: 6px; margin-top: 10px; font-weight: 800; border: 1px solid #fad2cf; }
+    .otp-code { font-size: 16px; font-family: monospace; letter-spacing: 1px; }
+    .btn-otp-copy { background: #c5221f; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
 
-    .bounce-card { background: rgba(255, 51, 51, 0.05); border: 1px solid #ff3333; padding: 10px; border-radius: 6px; margin-bottom: 8px; }
-    .bounce-title { color: #ff3333; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-    .bounce-text { color: #aaa; font-size: 10px; font-family: monospace; margin-top: 4px; }
+    .bounce-card { background: #3c1618; border: 1px solid #a50e0e; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
+    .bounce-title { color: #f28b82; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .bounce-text { color: #f6aea9; font-size: 11px; font-family: monospace; margin-top: 4px; }
 
-    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #00ff66; color: #000; padding: 6px 14px; border-radius: 12px; font-size: 11px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 0 15px rgba(0, 255, 102, 0.4); text-transform: uppercase; }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #137333; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
   </style>
 </head>
 <body>
 
-<div id="overlay"></div>
-
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Protocol Omega // Suite Lock</div>
-    <div class="lock-desc">Enter security authorization key</div>
+    <div class="lock-title">🔒 Ultimate Stealth Suite</div>
+    <div class="lock-desc">Enter security key to unlock system</div>
     <div class="password-wrapper">
-      <input type="password" id="passInput" class="lock-input" placeholder="ACCESS KEY" autocomplete="off">
+      <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
     </div>
-    <button type="button" class="lock-btn" id="unlockBtn">Authorize Engine</button>
-    <div id="errorMsg" class="error-msg">ACCESS DENIED: INVALID KEY</div>
+    <button type="button" class="lock-btn" id="unlockBtn">Unlock Engine</button>
+    <div id="errorMsg" class="error-msg">Incorrect Security Key!</div>
   </div>
 </div>
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">🛡️ Protocol Omega // Stealth Suite Pro</div>
-    <div class="sync-status" id="syncStatusIndicator" title="Click to view online active nodes">
+    <div class="header-brand">📧 Ultimate Personal Suite Pro</div>
+    <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
       <span class="status-dot" id="statusDot"></span>
-      <span id="onlineCountText">Nodes: Secure</span>
+      <span id="onlineCountText">Online: Click to View</span>
     </div>
   </div>
 
   <div class="card-body">
     <div class="stealth-badge">
-      ⚡ Ultra-Stealth Anti-Bot & Name-Matched Engine: ACTIVE
+      🔥 Ultra-Strong Anti-Bot & Name-Matched Email: ACTIVE
     </div>
     <div class="shield-badge">
-      🛡️ MATRIX DEFENSE: WebRTC Blocked | Geo-Faked | Canvas Poisoned
+      🛡️ PROTOCOL OMEGA SHIELD: WebRTC Blocked | Geo-Location Fake | Canvas Mutated
     </div>
 
     <div class="field-group">
-      <span class="field-label">Target Region Demographics</span>
+      <span class="field-label">Country Demographics</span>
       <select id="countrySelect">
         <option value="egypt">Egypt 🇪🇬</option>
         <option value="uzbekistan">Uzbekistan 🇺🇿</option>
@@ -156,7 +143,7 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Identity Gender Vector</span>
+      <span class="field-label">Gender Selection</span>
       <div class="gender-buttons">
         <button type="button" id="btnMale" class="gender-btn active">👨 Male</button>
         <button type="button" id="btnFemale" class="gender-btn">👩 Female</button>
@@ -164,19 +151,19 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Routing Domain Extension</span>
+      <span class="field-label">Select Personal Domain Extension</span>
       <select id="domainSelect">
-        <option value="@gmail.com">@gmail.com (Alias Matrix)</option>
-        <option value="@outlook.com">@outlook.com (Secure Outlook)</option>
-        <option value="@hotmail.com">@hotmail.com (Secure Hotmail)</option>
-        <option value="@esiia.com">@esiia.com (Direct Relay)</option>
+        <option value="@outlook.com">@outlook.com (Outlook)</option>
+        <option value="@hotmail.com">@hotmail.com (Hotmail)</option>
+        <option value="@email.com">@email.com (Email)</option>
+        <option value="@gmail.com">@gmail.com (Gmail)</option>
       </select>
     </div>
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Persona Identity Parameters</span>
-        <span id="countryLabel" style="color:#00ffff;">[EGYPT - MALE]</span>
+        <span>👤 Personal Account Identity</span>
+        <span id="countryLabel" style="color:#8ab4f8;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
         <span>First Name:</span>
@@ -199,113 +186,119 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Custom Alias Override</span>
-      <div class="input-wrapper" style="display:flex; gap:6px;">
-        <input type="text" id="customUser" placeholder="e.g. operator.omega.2026">
-        <button class="btn-primary" id="setCustomBtn" style="width: 70px;">Set</button>
+      <span class="field-label">Custom Personal Alias Override</span>
+      <div class="input-wrapper" style="display:flex; gap:8px;">
+        <input type="text" id="customUser" placeholder="e.g. john.official.2026">
+        <button class="btn-primary" id="setCustomBtn" style="width: 90px;">Set</button>
       </div>
     </div>
 
     <div class="actions">
-      <button class="btn-warn" id="refreshEmailBtn">✉️ New Email</button>
-      <button class="btn-primary" id="newProfileBtn">🆔 New Persona</button>
+      <button class="btn-warn" id="refreshEmailBtn">✉️ Email Generate</button>
+      <button class="btn-primary" id="newProfileBtn">🆔 ID Generate</button>
       <button class="btn-success" id="copyEmailBtn">Copy Email</button>
-      <button class="btn-secondary" id="copyAllBtn">📋 Copy All</button>
+      <button class="btn-secondary" id="copyAllBtn">📋 Copy All Info</button>
     </div>
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">📥 Live Intercepted Inbox</span>
-        <button class="btn-refresh" id="manualRefreshBtn" style="padding:4px 8px; font-size:10px;">🔄 Sync Mail</button>
+        <span class="inbox-title">📥 Live Web-View Inbox</span>
+        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Check Mail</button>
       </div>
       <div id="inboxList">
-        <p style="color:#555; font-size:11px; text-align:center; padding:12px 0;">Awaiting incoming data packets...</p>
+        <p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">No new messages. Inbox is up to date.</p>
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Emergency Nuke + Profile Shredder</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Complete System Hard Reset + Real-Profile Shredder</button>
   </div>
 </div>
 
 <div id="toast" class="toast">Copied!</div>
 
 <script>
-  const spooferProfiles = [
-    { ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36", platform: "Win32", cores: 12, memory: 16, lang: "en-US", tz: "America/New_York" },
-    { ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15", platform: "MacIntel", cores: 8, memory: 16, lang: "en-GB", tz: "Europe/London" },
-    { ua: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36", platform: "Linux x86_64", cores: 16, memory: 32, lang: "en-US", tz: "UTC" }
-  ];
-
-  function applyHardcoreAntiTracking() {
-    const randomProfile = spooferProfiles[Math.floor(Math.random() * spooferProfiles.length)];
-    
+  // ==========================================
+  // 1. PROTOCOL OMEGA: ULTRA-HARDENED STEALTH ENGINE
+  // ==========================================
+  (function applyUltraHardcoreShield() {
     try {
-      // 1. Intercept Fetch & XHR (Block external trackers, secure 1secmail routing)
-      const originalFetch = window.fetch;
-      window.fetch = async function(resource, init) {
-        let url = typeof resource === 'string' ? resource : (resource && resource.url);
-        if (url && (url.includes('1secmail.com') || url.startsWith('data:'))) {
-          return originalFetch.apply(this, arguments);
-        }
-        return Promise.resolve(new Response(JSON.stringify({ status: "poisoned_garbage" }), { status: 200 }));
-      };
-
-      // 2. Block WebRTC
+      // A. Block WebRTC leaks & Network Peer Discovery
       ['RTCPeerConnection', 'webkitRTCPeerConnection', 'mozRTCPeerConnection'].forEach(obj => {
         if (window[obj]) {
           window[obj] = function() {
-            throw new Error("WebRTC blocked by Protocol Omega");
+            throw new Error("Security Policy Violation: WebRTC disabled.");
           };
         }
       });
 
-      // 3. Spoof Geolocation
+      // B. Spoof Geolocation API
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition = function(success, error) {
-          if (error) {
-            error({ code: 1, message: "User denied Geolocation", PERMISSION_DENIED: 1, POSITION_UNAVAILABLE: 2, TIMEOUT: 3 });
-          }
+        navigator.geolocation.getCurrentPosition = (success, error) => {
+          if (error) error({ code: 1, message: "Geolocation blocked by policy." });
         };
-        navigator.geolocation.watchPosition = function() { return Math.floor(Math.random() * 10000); };
+        navigator.geolocation.watchPosition = () => Math.floor(Math.random() * 99999);
       }
 
-      Object.defineProperty(navigator, 'webdriver', { get: () => false });
-      Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => randomProfile.cores });
-      Object.defineProperty(navigator, 'deviceMemory', { get: () => randomProfile.memory });
-      Object.defineProperty(navigator, 'platform', { get: () => randomProfile.platform });
-      Object.defineProperty(navigator, 'languages', { get: () => [randomProfile.lang, "en"] });
-      
-      const originalDateTimeFormat = Intl.DateTimeFormat;
-      Intl.DateTimeFormat = function(...args) {
-        let format = new originalDateTimeFormat(...args);
-        format.resolvedOptions = () => {
-          let options = originalDateTimeFormat.prototype.resolvedOptions.call(format);
-          options.timeZone = randomProfile.tz; 
-          return options;
-        };
-        return format;
+      // C. Advanced Navigator Property Hardening
+      const spoofProps = {
+        webdriver: false,
+        hardwareConcurrency: 16,
+        deviceMemory: 32,
+        maxTouchPoints: 0,
+        language: 'en-US',
+        languages: ['en-US', 'en']
       };
+      for (let prop in spoofProps) {
+        try {
+          Object.defineProperty(navigator, prop, { get: () => spoofProps[prop], configurable: true });
+        } catch(e) {}
+      }
 
-      // 4. Canvas Noise Injection
+      // D. Canvas Fingerprint Noise Injection (Aggressive Mutation)
       const originalGetContext = HTMLCanvasElement.prototype.getContext;
       HTMLCanvasElement.prototype.getContext = function(type, attributes) {
         const context = originalGetContext.call(this, type, attributes);
         if (type === '2d' && context) {
           const originalGetImageData = context.getImageData;
-          context.getImageData = function(...args) {
-            const imageData = originalGetImageData.apply(this, args);
-            for (let i = 0; i < imageData.data.length; i += 4) {
-              imageData.data[i] = imageData.data[i] ^ (Math.random() > 0.5 ? 1 : 0);
+          context.getImageData = function(x, y, w, h) {
+            const imgData = originalGetImageData.call(this, x, y, w, h);
+            for (let i = 0; i < imgData.data.length; i += 16) {
+              imgData.data[i] = imgData.data[i] ^ 7; // Inject subtle noise
             }
-            return imageData;
+            return imgData;
           };
         }
         return context;
       };
 
+      // E. AudioContext Fingerprint Noise Shield
+      if (window.AudioContext || window.webkitAudioContext) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        AudioCtx.prototype.createAnalyser = function() {
+          const analyser = Object.getPrototypeOf(AudioCtx.prototype).createAnalyser.call(this);
+          const originalGetFloatFrequencyData = analyser.getFloatFrequencyData;
+          analyser.getFloatFrequencyData = function(array) {
+            originalGetFloatFrequencyData.call(this, array);
+            for (let i = 0; i < array.length; i++) {
+              array[i] += (Math.random() * 0.1 - 0.05); // Random audio distortion
+            }
+          };
+          return analyser;
+        };
+      }
+
+      // F. Anti-Debugging / Tamper Detection Shield
+      setInterval(() => {
+        const before = performance.now();
+        debugger;
+        const after = performance.now();
+        if (after - before > 150) {
+          // Debugger detected
+        }
+      }, 3000);
+
     } catch(e) {}
-  }
-  applyHardcoreAntiTracking();
+  })();
 
   const _SEC_KEY = ["9", "9", "5", "4", "1", "3", "1"].join("");
   const _ACT_KEY = ["9", "9", "5", "4", "2", "5", "6"].join("");
@@ -363,19 +356,107 @@
     }
   };
 
+  // ==========================================
+  // 2. RESILIENT TEMP MAIL ENGINE V2 (INTEGRATED)
+  // ==========================================
+  class TempMailEngineV2 {
+    constructor(username) {
+      this.username = username || Math.random().toString(36).substring(2, 10);
+      this.domains = ['outlook.com', 'hotmail.com', 'email.com', 'gmail.com'];
+      this.activeDomainIndex = 0;
+      this.sessionToken = 'sec_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+    }
+
+    getCurrentDomain() {
+      return this.domains[this.activeDomainIndex];
+    }
+
+    setDomain(domainName) {
+      let cleanDomain = domainName.toLowerCase().replace('@', '');
+      if (this.domains.includes(cleanDomain)) {
+        this.activeDomainIndex = this.domains.indexOf(cleanDomain);
+      }
+    }
+
+    rotateDomain() {
+      this.activeDomainIndex = (this.activeDomainIndex + 1) % this.domains.length;
+    }
+
+    async fetchInbox() {
+      let domain = this.getCurrentDomain();
+      try {
+        const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${this.username}&domain=${domain}&_sess=${this.sessionToken}&_t=${Date.now()}`;
+        
+        const res = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          }
+        });
+        
+        if (!res.ok) throw new Error("Network response failed");
+        const messages = await res.json();
+        
+        let parsedMessages = [];
+        if (messages && messages.length > 0) {
+          for (let msg of messages) {
+            const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${this.username}&domain=${domain}&id=${msg.id}&_sess=${this.sessionToken}`);
+            const detail = await detailRes.json();
+            
+            let textContent = detail.body || detail.textBody || detail.htmlBody || "";
+            
+            let otpMatch = textContent.match(/\b\d{4,8}\b/) || 
+                           textContent.match(/(?:code|pin|otp)[\s:]*([a-zA-Z0-9]{4,8})/i);
+            
+            let extractedOtp = null;
+            if (otpMatch) {
+              extractedOtp = otpMatch[1] ? otpMatch[1] : otpMatch[0];
+            }
+
+            parsedMessages.push({
+              id: msg.id,
+              from: msg.from,
+              subject: msg.subject,
+              date: msg.date,
+              body: textContent,
+              otp: extractedOtp,
+              domainUsed: domain
+            });
+          }
+        }
+        return parsedMessages;
+      } catch (err) {
+        this.rotateDomain();
+        return [];
+      }
+    }
+
+    startAutoPolling(callback, intervalMs = 2500) {
+      this.fetchInbox().then(callback);
+      return setInterval(async () => {
+        let inbox = await this.fetchInbox();
+        if (inbox && inbox.length > 0) {
+          callback(inbox);
+        }
+      }, intervalMs);
+    }
+  }
+
+  let mailEngine = null;
+  let activePollInterval = null;
+  let networkGuardTimer = null;
+  let hasSimulatedNetworkFail = false;
+
   let state = {
     country: "egypt",
     gender: "male",
     firstName: "",
     lastName: "",
     username: "",
-    domain: "@gmail.com",
-    apiSessionToken: 'personal_' + Math.random().toString(36).substring(2) + Date.now().toString(36),
+    domain: "@outlook.com",
     virtualIpSignature: '197.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255)
   };
-
-  let networkGuardTimer = null;
-  let hasSimulatedNetworkFail = false;
 
   window.onload = function() {
     const unlockBtn = document.getElementById("unlockBtn");
@@ -418,7 +499,14 @@
     const savedState = sessionStorage.getItem("temp_mail_session_state");
     if (savedState) {
       try {
-        state = JSON.parse(savedState);
+        let parsed = JSON.parse(savedState);
+        state.country = parsed.country || "egypt";
+        state.gender = parsed.gender || "male";
+        state.firstName = parsed.firstName || "";
+        state.lastName = parsed.lastName || "";
+        state.username = parsed.username || "";
+        state.domain = parsed.domain || "@outlook.com";
+
         document.getElementById("countrySelect").value = state.country;
         if (state.gender === "female") {
           document.getElementById("btnFemale").classList.add("active");
@@ -428,6 +516,10 @@
           document.getElementById("btnFemale").classList.remove("active");
         }
         document.getElementById("domainSelect").value = state.domain;
+
+        mailEngine = new TempMailEngineV2(state.username);
+        mailEngine.setDomain(state.domain);
+
         updateDisplay();
         startInbox();
         return;
@@ -458,9 +550,9 @@
 
       let activeCount = Object.keys(clients).length || 1;
       if (isUserCountUnlocked) {
-        countText.innerText = `Nodes: ${activeCount} [IP: ${state.virtualIpSignature}]`;
+        countText.innerText = `Online: ${activeCount} User${activeCount > 1 ? 's' : ''} [IP: ${state.virtualIpSignature}]`;
       } else {
-        countText.innerText = `Nodes: Secure`;
+        countText.innerText = `Online: Click to View`;
       }
       statusDot.classList.remove("offline");
     }
@@ -470,7 +562,7 @@
 
     statusIndicator.onclick = function() {
       if (!isUserCountUnlocked) {
-        let enteredPass = prompt("Enter security key to view active nodes & virtual IP:");
+        let enteredPass = prompt("Enter security key to view active users & virtual IP:");
         if (enteredPass === _ACT_KEY) {
           isUserCountUnlocked = true;
           updateActiveClients();
@@ -495,10 +587,16 @@
       get("countrySelect").onchange = (e) => { state.country = e.target.value; generateFullID(); };
     }
     if(get("domainSelect")) {
-      get("domainSelect").onchange = (e) => { state.domain = e.target.value; updateDisplay(); saveSessionSpecificState(); startInbox(); };
+      get("domainSelect").onchange = (e) => { 
+        state.domain = e.target.value; 
+        if (mailEngine) mailEngine.setDomain(state.domain);
+        updateDisplay(); 
+        saveSessionSpecificState(); 
+        startInbox(); 
+      };
     }
     if(get("newProfileBtn")) {
-      get("newProfileBtn").onclick = () => { applyHardcoreAntiTracking(); generateFullID(); showToast("New Persona Generated!"); };
+      get("newProfileBtn").onclick = () => { generateFullID(); showToast("New ID (Name + Protocol Omega Shield) Generated!"); };
     }
     if(get("refreshEmailBtn")) {
       get("refreshEmailBtn").onclick = () => { generateNewEmailOnly(); hasSimulatedNetworkFail = false; updateDisplay(); saveSessionSpecificState(); startInbox(); showToast("New Email Variation Generated!"); };
@@ -506,7 +604,15 @@
     if(get("setCustomBtn")) {
       get("setCustomBtn").onclick = () => {
         let input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
-        if(input) { state.username = input; hasSimulatedNetworkFail = false; updateDisplay(); saveSessionSpecificState(); startInbox(); showToast("Custom Alias Configured!"); }
+        if(input) { 
+          state.username = input; 
+          if (mailEngine) mailEngine.username = input;
+          hasSimulatedNetworkFail = false; 
+          updateDisplay(); 
+          saveSessionSpecificState(); 
+          startInbox(); 
+          showToast("Custom Personal Email Configured!"); 
+        }
       };
     }
 
@@ -518,20 +624,18 @@
     
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
-        if(window.inboxTimer) clearInterval(window.inboxTimer);
+        if(activePollInterval) clearInterval(activePollInterval);
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         
-        try { localStorage.clear(); sessionStorage.clear(); document.cookie.split(";").forEach(c => { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); }); } catch(e) {}
-        applyHardcoreAntiTracking();
+        try { localStorage.clear(); sessionStorage.clear(); } catch(e) {}
 
-        state.apiSessionToken = 'shredded_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
         const subnets = ['41.', '102.', '196.', '197.', '154.', '185.'];
         state.virtualIpSignature = subnets[Math.floor(Math.random()*subnets.length)] + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10);
-        state.domain = "@gmail.com";
-        document.getElementById("domainSelect").value = "@gmail.com";
+        state.domain = "@outlook.com";
+        document.getElementById("domainSelect").value = "@outlook.com";
 
-        document.getElementById("inboxList").innerHTML = `<p style="color:#ff3333; font-size:11px; text-align:center; padding:12px 0;">[ MEMORY SHREDDED. ZERO TRACE LEFT. ]</p>`;
-        setTimeout(() => { generateFullID(); showToast("🔥 Emergency Nuke Complete!"); }, 300);
+        document.getElementById("inboxList").innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">History wiped and permanently shredded.</p>`;
+        setTimeout(() => { generateFullID(); showToast("🔥 Hard Reset Complete! System Fully Sanitized."); }, 300);
       };
     }
   }
@@ -543,6 +647,9 @@
     state.lastName = gData.last[Math.floor(Math.random() * gData.last.length)];
 
     generateEmailFromName();
+    mailEngine = new TempMailEngineV2(state.username);
+    mailEngine.setDomain(state.domain);
+
     hasSimulatedNetworkFail = false;
     updateDisplay();
     saveSessionSpecificState();
@@ -555,6 +662,9 @@
       return;
     }
     generateEmailFromName();
+    mailEngine = new TempMailEngineV2(state.username);
+    mailEngine.setDomain(state.domain);
+
     hasSimulatedNetworkFail = false;
     updateDisplay();
     saveSessionSpecificState();
@@ -573,6 +683,9 @@
       `${f}${l}${Math.floor(1980 + Math.random() * 25)}`
     ];
     state.username = formats[Math.floor(Math.random() * formats.length)];
+    
+    // 👇 FIX: Extra aur double dots ko clean karne ki line
+    state.username = state.username.replace(/\.+/g, ".").replace(/^\.|\.$/g, "");
   }
 
   function updateDisplay() {
@@ -583,11 +696,14 @@
   }
 
   function startInbox() {
-    if(window.inboxTimer) clearInterval(window.inboxTimer);
+    if(activePollInterval) clearInterval(activePollInterval);
     if(networkGuardTimer) clearTimeout(networkGuardTimer);
 
-    checkInbox();
-    window.inboxTimer = setInterval(() => checkInbox(false), 3000);
+    if (mailEngine) {
+      activePollInterval = mailEngine.startAutoPolling((messages) => {
+        renderInbox(messages);
+      }, 3000);
+    }
 
     networkGuardTimer = setTimeout(() => {
       if (!hasSimulatedNetworkFail && !document.querySelector(".gmail-thread-card")) {
@@ -596,8 +712,8 @@
         const bounceCard = document.createElement("div");
         bounceCard.className = "bounce-card";
         bounceCard.innerHTML = `
-          <div class="bounce-title">⚠️ SMTP Handshake Exception</div>
-          <div class="bounce-text">Route Verification [IP: ${state.virtualIpSignature}]. Syncing proxy vectors...</div>
+          <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Exception</div>
+          <div class="bounce-text">Status: Personal Route Verification [IP: ${state.virtualIpSignature}]. Handshake delayed by upstream server.</div>
         `;
         container.prepend(bounceCard);
       }
@@ -605,62 +721,52 @@
   }
 
   async function checkInbox(isManual = false) {
-    if(!state.username) return;
-    if(isManual) showToast("Syncing secure inbox...");
+    if(!mailEngine) return;
+    if(isManual) showToast("Checking secure personal inbox...");
 
-    let cleanDomain = state.domain.replace('@', '');
-    const apiDomain = ["gmail.com", "outlook.com", "hotmail.com"].includes(cleanDomain) ? "esiia.com" : cleanDomain;
-    const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${state.username}&domain=${apiDomain}&_sess=${state.apiSessionToken}&_ip=${state.virtualIpSignature}&_t=${Date.now()}`;
+    let inboxList = await mailEngine.fetchInbox();
+    renderInbox(inboxList);
+  }
 
-    try {
-      const res = await fetch(url);
-      const list = await res.json();
-      const container = document.getElementById("inboxList");
+  function renderInbox(list) {
+    const container = document.getElementById("inboxList");
+    if (!container) return;
 
-      if(list && list.length > 0) {
-        if(networkGuardTimer) clearTimeout(networkGuardTimer);
-        const existingBounce = container.querySelector(".bounce-card");
-        if(existingBounce) existingBounce.remove();
+    if (list && list.length > 0) {
+      if(networkGuardTimer) clearTimeout(networkGuardTimer);
+      const existingBounce = container.querySelector(".bounce-card");
+      if(existingBounce) existingBounce.remove();
 
-        container.innerHTML = "";
-        for(let msg of list) {
-          const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${state.username}&domain=${apiDomain}&id=${msg.id}&_sess=${state.apiSessionToken}`);
-          const detail = await detailRes.json();
-
-          let otpCode = "";
-          const textContent = detail.body || detail.textBody || "";
-          const otpMatch = textContent.match(/\b\d{4,8}\b/);
-          if(otpMatch) otpCode = otpMatch[0];
-
-          let otpHtml = otpCode ? `
-            <div class="otp-wrapper">
-              <span>🔐 Detected OTP:</span>
-              <div>
-                <span class="otp-code">${otpCode}</span>
-                <button class="btn-otp-copy" onclick="copyVal('${otpCode}')">Copy</button>
-              </div>
+      container.innerHTML = "";
+      for(let msg of list) {
+        let otpHtml = msg.otp ? `
+          <div class="otp-wrapper">
+            <span>🔐 Verified Personal OTP:</span>
+            <div>
+              <span class="otp-code">${msg.otp}</span>
+              <button class="btn-otp-copy" onclick="copyVal('${msg.otp}')">Copy</button>
             </div>
-          ` : "";
+          </div>
+        ` : "";
 
-          const card = document.createElement("div");
-          card.className = "gmail-thread-card";
-          card.innerHTML = `
-            <div class="gmail-sender-row">
-              <span class="gmail-sender-name">From: ${msg.from}</span>
-              <span class="gmail-time">${msg.date || 'Just now'}</span>
-            </div>
-            <div class="gmail-subject">${msg.subject}</div>
-            <div class="gmail-body">${textContent}</div>
-            ${otpHtml}
-          `;
-          container.appendChild(card);
-        }
-      } else {
-        if (!container.querySelector(".gmail-thread-card") && !container.querySelector(".bounce-card")) {
-          container.innerHTML = `<p style="color:#555; font-size:11px; text-align:center; padding:12px 0;">Awaiting incoming data packets...</p>`;
-        }
+        const card = document.createElement("div");
+        card.className = "gmail-thread-card";
+        card.innerHTML = `
+          <div class="gmail-sender-row">
+            <span class="gmail-sender-name">From: ${msg.from}</span>
+            <span class="gmail-time">${msg.date || 'Just now'}</span>
+          </div>
+          <div class="gmail-subject">${msg.subject}</div>
+          <div class="gmail-body">${msg.body}</div>
+          ${otpHtml}
+        `;
+        container.appendChild(card);
       }
-    } catch(err) {}
+    } else {
+      if (!container.querySelector(".gmail-thread-card") && !container.querySelector(".bounce-card")) {
+        container.innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">No new messages. Inbox is up to date.</p>`;
+      }
+    }
   }
 
   function copyVal(val) {

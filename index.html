@@ -4,146 +4,159 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Temp Mail Engine Pro - Ultimate Personal Stealth Matrix</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www.1secmail.com; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self' https://www.1secmail.com;">
+  <title>Protocol Omega: Ultimate Stealth Matrix + Temp Mail Suite Pro</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+    * { box-sizing: border-box; font-family: 'Consolas', 'Segoe UI', monospace; margin: 0; padding: 0; }
     
     html, body {
-      background: #05080f; color: #f1f5f9; min-height: 100vh; width: 100%;
+      background: #030303; color: #00ff66; min-height: 100vh; width: 100%;
       overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
     }
 
     body {
-      display: flex; justify-content: center; align-items: flex-start; padding: 20px 15px;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 15px;
     }
+
+    #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background: radial-gradient(circle, transparent 30%, #000 120%); z-index: 50000; }
 
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: #05080f; z-index: 99999; display: flex;
+      background: #030303; z-index: 99999; display: flex;
       justify-content: center; align-items: center; padding: 20px;
     }
     .lock-card {
-      background: #0f172a; border: 1px solid #1e293b; border-radius: 16px;
+      background: #0a0a0a; border: 1px solid #00ff66; border-radius: 12px;
       padding: 30px; width: 100%; max-width: 380px; text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.9);
+      box-shadow: 0 0 25px rgba(0, 255, 102, 0.2);
     }
-    .lock-title { font-size: 18px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; }
-    .lock-desc { font-size: 12px; color: #64748b; margin-bottom: 20px; }
+    .lock-title { font-size: 16px; font-weight: 800; color: #00ff66; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .lock-desc { font-size: 11px; color: #777; margin-bottom: 20px; }
     .password-wrapper { position: relative; width: 100%; margin-bottom: 15px; display: flex; align-items: center; }
     .lock-input {
-      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155;
-      background: #020617; color: #fff; font-size: 14px; text-align: center; outline: none; letter-spacing: 2px;
+      width: 100%; padding: 12px; border-radius: 4px; border: 1px solid #333;
+      background: #000; color: #00ff66; font-size: 14px; text-align: center; outline: none; letter-spacing: 2px;
     }
-    .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
-    .error-msg { color: #ef4444; font-size: 12px; margin-top: 10px; display: none; }
+    .lock-btn { width: 100%; padding: 12px; background: #000; color: #00ff66; border: 1px solid #00ff66; border-radius: 4px; font-weight: 700; font-size: 13px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+    .lock-btn:hover { background: #00ff66; color: #000; }
+    .error-msg { color: #ff3333; font-size: 11px; margin-top: 10px; display: none; }
 
     .app-card { 
-      background: #0f172a; border-radius: 16px; width: 100%; max-width: 480px; 
-      border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
-      margin: 10px auto; display: none; position: relative; z-index: 1;
+      background: #0a0a0a; border-radius: 12px; width: 100%; max-width: 520px; 
+      border: 1px solid #222; box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
+      margin: 10px auto; display: none; position: relative; z-index: 10;
     }
-    .header-bar { background: linear-gradient(135deg, #1a73e8, #4285f4); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-top-left-radius: 16px; border-top-right-radius: 16px; }
-    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
-    .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
-    .status-dot { width: 8px; height: 8px; background-color: #34a853; border-radius: 50%; display: inline-block; }
-    .status-dot.offline { background-color: #ea4335; }
+    .header-bar { background: #0f0f0f; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom: 1px solid #222; }
+    .header-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 13px; color: #00ff66; text-transform: uppercase; }
+    .sync-status { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; background: #000; border: 1px solid #333; padding: 4px 8px; border-radius: 12px; color: #00ffff; cursor: pointer; }
+    .status-dot { width: 6px; height: 6px; background-color: #00ff66; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #00ff66; }
+    .status-dot.offline { background-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
 
-    .card-body { padding: 20px; }
-    .field-group { margin-bottom: 14px; }
-    .field-label { font-size: 11px; font-weight: 700; color: #9aa0a6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
-    input[type="text"], select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #020617; color: #f8fafc; font-size: 13px; outline: none; }
+    .card-body { padding: 18px; }
+    .field-group { margin-bottom: 12px; }
+    .field-label { font-size: 10px; font-weight: 700; color: #777; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: block; }
+    input[type="text"], select { width: 100%; padding: 8px 10px; border-radius: 4px; border: 1px solid #333; background: #000; color: #00ff66; font-size: 12px; outline: none; }
+    input[type="text"]:focus, select:focus { border-color: #00ff66; }
 
-    .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .gender-btn { background: #020617; color: #94a3b8; border: 1px solid #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; }
-    .gender-btn.active { background: #1a73e8; color: #fff; border-color: #1a73e8; }
+    .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .gender-btn { background: #000; color: #777; border: 1px solid #333; padding: 8px; border-radius: 4px; font-weight: 700; font-size: 11px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+    .gender-btn.active { background: #00ff66; color: #000; border-color: #00ff66; }
 
-    .email-banner { background: #020617; padding: 14px; border-radius: 10px; text-align: center; font-weight: 800; margin: 16px 0; border: 1px solid #4285f4; color: #8ab4f8; font-size: 14px; word-break: break-all; }
+    .email-banner { background: #000; padding: 12px; border-radius: 6px; text-align: center; font-weight: 800; margin: 12px 0; border: 1px solid #00ff66; color: #00ffff; font-size: 13px; word-break: break-all; }
     .email-text { font-family: monospace; letter-spacing: 0.5px; }
     
-    .profile-card { background: #020617; border: 1px solid #1e293b; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 12px; }
-    .profile-title { font-weight: 800; color: #8ab4f8; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
-    .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }
-    .profile-val { color: #f8fafc; font-weight: 700; font-family: monospace; font-size: 13px; }
-    .btn-copy-sm { background: #1e293b; color: #8ab4f8; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .profile-card { background: #000; border: 1px solid #222; border-radius: 6px; padding: 12px; margin-bottom: 12px; font-size: 11px; }
+    .profile-title { font-weight: 800; color: #777; text-transform: uppercase; margin-bottom: 8px; font-size: 10px; display: flex; justify-content: space-between; align-items: center; }
+    .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px dashed #1a1a1a; padding-bottom: 4px; }
+    .profile-val { color: #00ff66; font-weight: 700; font-family: monospace; font-size: 12px; }
+    .btn-copy-sm { background: #000; color: #00ffff; border: 1px solid #00ffff; padding: 2px 6px; font-size: 9px; border-radius: 2px; cursor: pointer; font-weight: 600; text-transform: uppercase; }
 
-    .stealth-badge { background: #0d3b23; border: 1px solid #137333; color: #81c995; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 10px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
-    .shield-badge { background: #3c1618; border: 1px solid #a50e0e; color: #f28b82; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 14px; text-align: center; }
+    .stealth-badge { background: rgba(0, 255, 102, 0.05); border: 1px solid #00ff66; color: #00ff66; font-size: 9px; font-weight: 800; padding: 6px; border-radius: 4px; margin-bottom: 8px; text-align: center; text-transform: uppercase; }
+    .shield-badge { background: rgba(255, 153, 0, 0.05); border: 1px solid #ff9900; color: #ff9900; font-size: 9px; font-weight: 800; padding: 6px; border-radius: 4px; margin-bottom: 12px; text-align: center; text-transform: uppercase; }
 
-    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-    button { padding: 10px 12px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-    .btn-primary { background: #1a73e8; color: white; }
-    .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
-    .btn-success { background: #137333; color: white; }
-    .btn-warn { background: #f29900; color: #000; }
-    .btn-danger { background: #ea4335; color: white; margin-top: 10px; width: 100%; }
-    .btn-refresh { background: #4285f4; color: white; }
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
+    button { padding: 8px 10px; border: none; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+    .btn-primary { background: #000; color: #00ff66; border: 1px solid #00ff66; }
+    .btn-primary:hover { background: #00ff66; color: #000; }
+    .btn-secondary { background: #000; color: #aaa; border: 1px solid #444; }
+    .btn-secondary:hover { background: #444; color: #fff; }
+    .btn-success { background: #000; color: #00ffff; border: 1px solid #00ffff; }
+    .btn-success:hover { background: #00ffff; color: #000; }
+    .btn-warn { background: #000; color: #ff9900; border: 1px solid #ff9900; }
+    .btn-warn:hover { background: #ff9900; color: #000; }
+    .btn-danger { background: #000; color: #ff3333; border: 1px solid #ff3333; margin-top: 8px; width: 100%; }
+    .btn-danger:hover { background: #ff3333; color: #000; }
+    .btn-refresh { background: #000; color: #00ff66; border: 1px solid #00ff66; }
+    .btn-refresh:hover { background: #00ff66; color: #000; }
 
-    .inbox-area { border-top: 1px solid #1e293b; padding-top: 16px; }
-    .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .inbox-title { font-size: 12px; font-weight: 800; color: #9aa0a6; text-transform: uppercase; }
+    .inbox-area { border-top: 1px solid #222; padding-top: 12px; }
+    .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .inbox-title { font-size: 10px; font-weight: 800; color: #777; text-transform: uppercase; letter-spacing: 1px; }
     
-    .gmail-thread-card { background: #202124; border: 1px solid #3c4043; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
-    .gmail-sender-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .gmail-sender-name { color: #e8eaed; font-size: 13px; font-weight: 700; }
-    .gmail-time { color: #9aa0a6; font-size: 11px; }
-    .gmail-subject { color: #8ab4f8; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
-    .gmail-body { color: #bdc1c6; font-size: 12px; line-height: 1.4; white-space: pre-wrap; word-break: break-word; background: #171717; padding: 10px; border-radius: 6px; border: 1px solid #333; }
+    .gmail-thread-card { background: #050505; border: 1px solid #222; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
+    .gmail-sender-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .gmail-sender-name { color: #aaa; font-size: 11px; font-weight: 700; word-break: break-all; }
+    .gmail-time { color: #555; font-size: 9px; }
+    .gmail-subject { color: #00ffff; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+    .gmail-body { color: #ccc; font-size: 11px; line-height: 1.4; white-space: pre-wrap; word-break: break-word; background: #000; padding: 8px; border-radius: 4px; border: 1px solid #1a1a1a; max-height: 120px; overflow-y: auto; }
     
-    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #fce8e6; color: #c5221f; padding: 8px 12px; border-radius: 6px; margin-top: 10px; font-weight: 800; border: 1px solid #fad2cf; }
-    .otp-code { font-size: 16px; font-family: monospace; letter-spacing: 1px; }
-    .btn-otp-copy { background: #c5221f; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
+    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 255, 255, 0.05); color: #00ffff; padding: 6px 10px; border-radius: 4px; margin-top: 8px; font-weight: 800; border: 1px solid #00ffff; font-size: 11px; }
+    .otp-code { font-size: 13px; font-family: monospace; letter-spacing: 1px; color: #00ff66; }
+    .btn-otp-copy { background: #000; color: #00ffff; border: 1px solid #00ffff; padding: 2px 6px; border-radius: 2px; font-size: 9px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
 
-    .bounce-card { background: #3c1618; border: 1px solid #a50e0e; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-    .bounce-title { color: #f28b82; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-    .bounce-text { color: #f6aea9; font-size: 11px; font-family: monospace; margin-top: 4px; }
+    .bounce-card { background: rgba(255, 51, 51, 0.05); border: 1px solid #ff3333; padding: 10px; border-radius: 6px; margin-bottom: 8px; }
+    .bounce-title { color: #ff3333; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .bounce-text { color: #aaa; font-size: 10px; font-family: monospace; margin-top: 4px; }
 
-    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #137333; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #00ff66; color: #000; padding: 6px 14px; border-radius: 12px; font-size: 11px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 0 15px rgba(0, 255, 102, 0.4); text-transform: uppercase; }
   </style>
 </head>
 <body>
 
+<div id="overlay"></div>
+
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Ultimate Stealth Suite</div>
-    <div class="lock-desc">Enter security key to unlock system</div>
+    <div class="lock-title">🔒 Protocol Omega // Suite Lock</div>
+    <div class="lock-desc">Enter security authorization key</div>
     <div class="password-wrapper">
-      <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
+      <input type="password" id="passInput" class="lock-input" placeholder="ACCESS KEY" autocomplete="off">
     </div>
-    <button type="button" class="lock-btn" id="unlockBtn">Unlock Engine</button>
-    <div id="errorMsg" class="error-msg">Incorrect Security Key!</div>
+    <button type="button" class="lock-btn" id="unlockBtn">Authorize Engine</button>
+    <div id="errorMsg" class="error-msg">ACCESS DENIED: INVALID KEY</div>
   </div>
 </div>
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Ultimate Personal Suite Pro</div>
-    <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
+    <div class="header-brand">🛡️ Protocol Omega // Stealth Suite Pro</div>
+    <div class="sync-status" id="syncStatusIndicator" title="Click to view online active nodes">
       <span class="status-dot" id="statusDot"></span>
-      <span id="onlineCountText">Online: Click to View</span>
+      <span id="onlineCountText">Nodes: Secure</span>
     </div>
   </div>
 
   <div class="card-body">
     <div class="stealth-badge">
-      🔥 Ultra-Strong Anti-Bot & Name-Matched Email: ACTIVE
+      ⚡ Ultra-Stealth Anti-Bot & Name-Matched Engine: ACTIVE
     </div>
     <div class="shield-badge">
-      🛡️ HARDCORE SHIELD: WebRTC Blocked | Geo-Location Fake | Canvas Mutated
+      🛡️ MATRIX DEFENSE: WebRTC Blocked | Geo-Faked | Canvas Poisoned
     </div>
 
     <div class="field-group">
-      <span class="field-label">Country Demographics</span>
+      <span class="field-label">Target Region Demographics</span>
       <select id="countrySelect">
         <option value="egypt">Egypt 🇪🇬</option>
         <option value="uzbekistan">Uzbekistan 🇺🇿</option>
         <option value="liberia">Liberia 🇱🇷</option>
         <option value="guinea">Guinea 🇬🇳</option>
-        <option value="ethiopia">Ethiopia 🇪thiopia 🇪🇹</option>
+        <option value="ethiopia">Ethiopia 🇪🇹</option>
       </select>
     </div>
 
     <div class="field-group">
-      <span class="field-label">Gender Selection</span>
+      <span class="field-label">Identity Gender Vector</span>
       <div class="gender-buttons">
         <button type="button" id="btnMale" class="gender-btn active">👨 Male</button>
         <button type="button" id="btnFemale" class="gender-btn">👩 Female</button>
@@ -151,19 +164,19 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Select Personal Domain Extension</span>
+      <span class="field-label">Routing Domain Extension</span>
       <select id="domainSelect">
-        <option value="@gmail.com">@gmail.com (Personal Real)</option>
-        <option value="@outlook.com">@outlook.com (Personal Outlook)</option>
-        <option value="@hotmail.com">@hotmail.com (Personal Hotmail)</option>
-        <option value="@esiia.com">@esiia.com (Secure Routing)</option>
+        <option value="@gmail.com">@gmail.com (Alias Matrix)</option>
+        <option value="@outlook.com">@outlook.com (Secure Outlook)</option>
+        <option value="@hotmail.com">@hotmail.com (Secure Hotmail)</option>
+        <option value="@esiia.com">@esiia.com (Direct Relay)</option>
       </select>
     </div>
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Personal Account Identity</span>
-        <span id="countryLabel" style="color:#8ab4f8;">[EGYPT - MALE]</span>
+        <span>👤 Persona Identity Parameters</span>
+        <span id="countryLabel" style="color:#00ffff;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
         <span>First Name:</span>
@@ -186,31 +199,31 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Custom Personal Alias Override</span>
-      <div class="input-wrapper" style="display:flex; gap:8px;">
-        <input type="text" id="customUser" placeholder="e.g. john.official.2026">
-        <button class="btn-primary" id="setCustomBtn" style="width: 90px;">Set</button>
+      <span class="field-label">Custom Alias Override</span>
+      <div class="input-wrapper" style="display:flex; gap:6px;">
+        <input type="text" id="customUser" placeholder="e.g. operator.omega.2026">
+        <button class="btn-primary" id="setCustomBtn" style="width: 70px;">Set</button>
       </div>
     </div>
 
     <div class="actions">
-      <button class="btn-warn" id="refreshEmailBtn">✉️ Email Generate</button>
-      <button class="btn-primary" id="newProfileBtn">🆔 ID Generate</button>
+      <button class="btn-warn" id="refreshEmailBtn">✉️ New Email</button>
+      <button class="btn-primary" id="newProfileBtn">🆔 New Persona</button>
       <button class="btn-success" id="copyEmailBtn">Copy Email</button>
-      <button class="btn-secondary" id="copyAllBtn">📋 Copy All Info</button>
+      <button class="btn-secondary" id="copyAllBtn">📋 Copy All</button>
     </div>
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">📥 Live Web-View Inbox</span>
-        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Check Mail</button>
+        <span class="inbox-title">📥 Live Intercepted Inbox</span>
+        <button class="btn-refresh" id="manualRefreshBtn" style="padding:4px 8px; font-size:10px;">🔄 Sync Mail</button>
       </div>
       <div id="inboxList">
-        <p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">No new messages. Inbox is up to date.</p>
+        <p style="color:#555; font-size:11px; text-align:center; padding:12px 0;">Awaiting incoming data packets...</p>
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Complete System Hard Reset + Real-Profile Shredder</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Emergency Nuke + Profile Shredder</button>
   </div>
 </div>
 
@@ -227,14 +240,26 @@
     const randomProfile = spooferProfiles[Math.floor(Math.random() * spooferProfiles.length)];
     
     try {
+      // 1. Intercept Fetch & XHR (Block external trackers, secure 1secmail routing)
+      const originalFetch = window.fetch;
+      window.fetch = async function(resource, init) {
+        let url = typeof resource === 'string' ? resource : (resource && resource.url);
+        if (url && (url.includes('1secmail.com') || url.startsWith('data:'))) {
+          return originalFetch.apply(this, arguments);
+        }
+        return Promise.resolve(new Response(JSON.stringify({ status: "poisoned_garbage" }), { status: 200 }));
+      };
+
+      // 2. Block WebRTC
       ['RTCPeerConnection', 'webkitRTCPeerConnection', 'mozRTCPeerConnection'].forEach(obj => {
         if (window[obj]) {
           window[obj] = function() {
-            throw new Error("WebRTC blocked by Stealth Engine");
+            throw new Error("WebRTC blocked by Protocol Omega");
           };
         }
       });
 
+      // 3. Spoof Geolocation
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition = function(success, error) {
           if (error) {
@@ -261,6 +286,7 @@
         return format;
       };
 
+      // 4. Canvas Noise Injection
       const originalGetContext = HTMLCanvasElement.prototype.getContext;
       HTMLCanvasElement.prototype.getContext = function(type, attributes) {
         const context = originalGetContext.call(this, type, attributes);
@@ -432,9 +458,9 @@
 
       let activeCount = Object.keys(clients).length || 1;
       if (isUserCountUnlocked) {
-        countText.innerText = `Online: ${activeCount} User${activeCount > 1 ? 's' : ''} [IP: ${state.virtualIpSignature}]`;
+        countText.innerText = `Nodes: ${activeCount} [IP: ${state.virtualIpSignature}]`;
       } else {
-        countText.innerText = `Online: Click to View`;
+        countText.innerText = `Nodes: Secure`;
       }
       statusDot.classList.remove("offline");
     }
@@ -444,7 +470,7 @@
 
     statusIndicator.onclick = function() {
       if (!isUserCountUnlocked) {
-        let enteredPass = prompt("Enter security key to view active users & virtual IP:");
+        let enteredPass = prompt("Enter security key to view active nodes & virtual IP:");
         if (enteredPass === _ACT_KEY) {
           isUserCountUnlocked = true;
           updateActiveClients();
@@ -472,7 +498,7 @@
       get("domainSelect").onchange = (e) => { state.domain = e.target.value; updateDisplay(); saveSessionSpecificState(); startInbox(); };
     }
     if(get("newProfileBtn")) {
-      get("newProfileBtn").onclick = () => { applyHardcoreAntiTracking(); generateFullID(); showToast("New ID (Name + Encrypted Shield) Generated!"); };
+      get("newProfileBtn").onclick = () => { applyHardcoreAntiTracking(); generateFullID(); showToast("New Persona Generated!"); };
     }
     if(get("refreshEmailBtn")) {
       get("refreshEmailBtn").onclick = () => { generateNewEmailOnly(); hasSimulatedNetworkFail = false; updateDisplay(); saveSessionSpecificState(); startInbox(); showToast("New Email Variation Generated!"); };
@@ -480,7 +506,7 @@
     if(get("setCustomBtn")) {
       get("setCustomBtn").onclick = () => {
         let input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
-        if(input) { state.username = input; hasSimulatedNetworkFail = false; updateDisplay(); saveSessionSpecificState(); startInbox(); showToast("Custom Personal Email Configured!"); }
+        if(input) { state.username = input; hasSimulatedNetworkFail = false; updateDisplay(); saveSessionSpecificState(); startInbox(); showToast("Custom Alias Configured!"); }
       };
     }
 
@@ -495,7 +521,7 @@
         if(window.inboxTimer) clearInterval(window.inboxTimer);
         if(networkGuardTimer) clearTimeout(networkGuardTimer);
         
-        try { localStorage.clear(); sessionStorage.clear(); } catch(e) {}
+        try { localStorage.clear(); sessionStorage.clear(); document.cookie.split(";").forEach(c => { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); }); } catch(e) {}
         applyHardcoreAntiTracking();
 
         state.apiSessionToken = 'shredded_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -504,8 +530,8 @@
         state.domain = "@gmail.com";
         document.getElementById("domainSelect").value = "@gmail.com";
 
-        document.getElementById("inboxList").innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">History wiped and permanently shredded.</p>`;
-        setTimeout(() => { generateFullID(); showToast("🔥 Hard Reset Complete! System Fully Sanitized."); }, 300);
+        document.getElementById("inboxList").innerHTML = `<p style="color:#ff3333; font-size:11px; text-align:center; padding:12px 0;">[ MEMORY SHREDDED. ZERO TRACE LEFT. ]</p>`;
+        setTimeout(() => { generateFullID(); showToast("🔥 Emergency Nuke Complete!"); }, 300);
       };
     }
   }
@@ -570,8 +596,8 @@
         const bounceCard = document.createElement("div");
         bounceCard.className = "bounce-card";
         bounceCard.innerHTML = `
-          <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Exception</div>
-          <div class="bounce-text">Status: Personal Route Verification [IP: ${state.virtualIpSignature}]. Handshake delayed by upstream server.</div>
+          <div class="bounce-title">⚠️ SMTP Handshake Exception</div>
+          <div class="bounce-text">Route Verification [IP: ${state.virtualIpSignature}]. Syncing proxy vectors...</div>
         `;
         container.prepend(bounceCard);
       }
@@ -580,7 +606,7 @@
 
   async function checkInbox(isManual = false) {
     if(!state.username) return;
-    if(isManual) showToast("Checking secure personal inbox...");
+    if(isManual) showToast("Syncing secure inbox...");
 
     let cleanDomain = state.domain.replace('@', '');
     const apiDomain = ["gmail.com", "outlook.com", "hotmail.com"].includes(cleanDomain) ? "esiia.com" : cleanDomain;
@@ -608,7 +634,7 @@
 
           let otpHtml = otpCode ? `
             <div class="otp-wrapper">
-              <span>🔐 Verified Personal OTP:</span>
+              <span>🔐 Detected OTP:</span>
               <div>
                 <span class="otp-code">${otpCode}</span>
                 <button class="btn-otp-copy" onclick="copyVal('${otpCode}')">Copy</button>
@@ -631,7 +657,7 @@
         }
       } else {
         if (!container.querySelector(".gmail-thread-card") && !container.querySelector(".bounce-card")) {
-          container.innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">No new messages. Inbox is up to date.</p>`;
+          container.innerHTML = `<p style="color:#555; font-size:11px; text-align:center; padding:12px 0;">Awaiting incoming data packets...</p>`;
         }
       }
     } catch(err) {}

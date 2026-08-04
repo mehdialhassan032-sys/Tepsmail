@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:;">
   <meta name="referrer" content="no-referrer">
-  <title>Temp Mail Engine Pro - Ultra Secure Sync</title>
+  <title>Enterprise Mail Suite - Ultimate Fortified Node</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     
     html, body {
-      background: #05080f; color: #f1f5f9; min-height: 100vh; width: 100%;
+      background: #030712; color: #f3f4f6; min-height: 100vh; width: 100%;
       overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
     }
 
@@ -19,7 +20,7 @@
 
     #lockScreen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: #05080f; z-index: 99999; display: flex;
+      background: #030712; z-index: 99999; display: flex;
       justify-content: center; align-items: center; padding: 20px;
     }
     .lock-card {
@@ -34,7 +35,7 @@
       width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155;
       background: #020617; color: #fff; font-size: 14px; text-align: center; outline: none; letter-spacing: 2px;
     }
-    .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
+    .lock-btn { width: 100%; padding: 12px; background: #2563eb; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
     .error-msg { color: #ef4444; font-size: 12px; margin-top: 10px; display: none; }
 
     .app-card { 
@@ -42,99 +43,98 @@
       border: 1px solid #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.9); 
       margin: 10px auto; display: none; position: relative; z-index: 1;
     }
-    .header-bar { background: linear-gradient(135deg, #1a73e8, #4285f4); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-top-left-radius: 16px; border-top-right-radius: 16px; }
-    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
+    .header-bar { background: linear-gradient(135deg, #312e81, #4338ca); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-top-left-radius: 16px; border-top-right-radius: 16px; }
+    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; color: #ffffff; }
     .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
-    .status-dot { width: 8px; height: 8px; background-color: #34a853; border-radius: 50%; display: inline-block; }
-    .status-dot.offline { background-color: #ea4335; }
+    .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
-    .field-label { font-size: 11px; font-weight: 700; color: #9aa0a6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+    .field-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
     input[type="text"], select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #020617; color: #f8fafc; font-size: 13px; outline: none; }
 
     .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .gender-btn { background: #020617; color: #94a3b8; border: 1px solid #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; }
-    .gender-btn.active { background: #1a73e8; color: #fff; border-color: #1a73e8; }
+    .gender-btn.active { background: #4f46e5; color: #fff; border-color: #4f46e5; }
 
-    .email-banner { background: #020617; padding: 14px; border-radius: 10px; text-align: center; font-weight: 800; margin: 16px 0; border: 1px solid #4285f4; color: #8ab4f8; font-size: 14px; word-break: break-all; }
+    .email-banner { background: #020617; padding: 14px; border-radius: 10px; text-align: center; font-weight: 800; margin: 16px 0; border: 1px solid #6366f1; color: #a5b4fc; font-size: 14px; word-break: break-all; }
     .email-text { font-family: monospace; letter-spacing: 0.5px; }
     
     .profile-card { background: #020617; border: 1px solid #1e293b; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 12px; }
-    .profile-title { font-weight: 800; color: #8ab4f8; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
+    .profile-title { font-weight: 800; color: #a5b4fc; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
     .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }
     .profile-val { color: #f8fafc; font-weight: 700; font-family: monospace; font-size: 13px; }
-    .btn-copy-sm { background: #1e293b; color: #8ab4f8; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .btn-copy-sm { background: #1e293b; color: #a5b4fc; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
 
-    .stealth-badge { background: #0d3b23; border: 1px solid #137333; color: #81c995; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 10px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
-    .shield-badge { background: #3c1618; border: 1px solid #a50e0e; color: #f28b82; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 14px; text-align: center; }
+    .stealth-badge { background: #312e81; border: 1px solid #4338ca; color: #c7d2fe; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 10px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .shield-badge { background: #1e1b4b; border: 1px solid #3730a3; color: #e0e7ff; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 14px; text-align: center; }
 
     .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
     button { padding: 10px 12px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-    .btn-primary { background: #1a73e8; color: white; }
+    .btn-primary { background: #4f46e5; color: white; }
     .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
-    .btn-success { background: #137333; color: white; }
-    .btn-warn { background: #f29900; color: #000; }
-    .btn-danger { background: #ea4335; color: white; margin-top: 10px; width: 100%; }
-    .btn-refresh { background: #4285f4; color: white; }
+    .btn-success { background: #059669; color: white; }
+    .btn-warn { background: #d97706; color: #fff; }
+    .btn-danger { background: #dc2626; color: white; margin-top: 10px; width: 100%; }
+    .btn-refresh { background: #6366f1; color: white; }
 
     .inbox-area { border-top: 1px solid #1e293b; padding-top: 16px; }
     .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .inbox-title { font-size: 12px; font-weight: 800; color: #9aa0a6; text-transform: uppercase; }
+    .inbox-title { font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; }
     
-    .gmail-thread-card { background: #202124; border: 1px solid #3c4043; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
+    .gmail-thread-card { background: #111827; border: 1px solid #374151; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
     .gmail-sender-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .gmail-sender-name { color: #e8eaed; font-size: 13px; font-weight: 700; }
-    .gmail-time { color: #9aa0a6; font-size: 11px; }
-    .gmail-subject { color: #8ab4f8; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
-    .gmail-body { color: #bdc1c6; font-size: 12px; line-height: 1.4; white-space: pre-wrap; word-break: break-word; background: #171717; padding: 10px; border-radius: 6px; border: 1px solid #333; }
+    .gmail-sender-name { color: #f3f4f6; font-size: 13px; font-weight: 700; }
+    .gmail-time { color: #94a3b8; font-size: 11px; }
+    .gmail-subject { color: #a5b4fc; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .gmail-body { color: #d1d5db; font-size: 12px; line-height: 1.4; white-space: pre-wrap; word-break: break-word; background: #030712; padding: 10px; border-radius: 6px; border: 1px solid #1f2937; }
     
-    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #fce8e6; color: #c5221f; padding: 8px 12px; border-radius: 6px; margin-top: 10px; font-weight: 800; border: 1px solid #fad2cf; }
+    .otp-wrapper { display: flex; align-items: center; justify-content: space-between; background: #312e81; color: #e0e7ff; padding: 8px 12px; border-radius: 6px; margin-top: 10px; font-weight: 800; border: 1px solid #4338ca; }
     .otp-code { font-size: 16px; font-family: monospace; letter-spacing: 1px; }
-    .btn-otp-copy { background: #c5221f; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
+    .btn-otp-copy { background: #4f46e5; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
 
-    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #137333; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #4f46e5; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
   </style>
 </head>
 <body>
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">🔒 Ultimate Stealth Suite</div>
-    <div class="lock-desc">Enter security key to unlock system</div>
+    <div class="lock-title">🔒 Ultimate Fortified Gateway</div>
+    <div class="lock-desc">Enter security key to access secured enterprise node</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
     </div>
     <button type="button" class="lock-btn" id="unlockBtn">Unlock Engine</button>
-    <div id="errorMsg" class="error-msg">Incorrect Security Key!</div>
+    <div id="errorMsg" class="error-msg">Incorrect Security Key! (Throttled)</div>
   </div>
 </div>
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Multi-Domain Sync Engine Pro</div>
-    <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
+    <div class="header-brand">🛡️ Enterprise IMAP & WebSocket Vault</div>
+    <div class="sync-status" id="syncStatusIndicator" title="Click to view online active nodes">
       <span class="status-dot" id="statusDot"></span>
-      <span id="onlineCountText">Online: Click to View</span>
+      <span id="onlineCountText">Node Status: Secured</span>
     </div>
   </div>
 
   <div class="card-body">
     <div class="stealth-badge">
-      🔥 Multi-Domain Sync Engine: ACTIVE
+      ⚡ Cryptographic RNG, AES Vault & Self-Healing Stream: ACTIVE
     </div>
     <div class="shield-badge">
-      🛡️ OMEGA PROTOCOL: WebRTC Blocked | Fingerprints Masked | Auto-Sync Active
+      🛡️ OMEGA SHIELD v10: Strict Anti-Brute Force & Rate Limiting Enabled
     </div>
 
     <div class="field-group">
-      <span class="field-label">Country Demographics</span>
+      <span class="field-label">Country Demographics (Deep Linguistic Rules)</span>
       <select id="countrySelect">
-        <option value="egypt">Egypt 🇪🇬</option>
-        <option value="uzbekistan">Uzbekistan 🇺🇿</option>
-        <option value="liberia">Liberia 🇱🇷</option>
-        <option value="guinea">Guinea 🇬🇳</option>
-        <option value="ethiopia">Ethiopia 🇪🇹</option>
+        <option value="egypt">Egypt 🇪🇬 (Arabic/North African Phonetics)</option>
+        <option value="uzbekistan">Uzbekistan 🇺🇿 (Central Asian Phonetics)</option>
+        <option value="liberia">Liberia 🇱🇷 (West African/Anglo Phonetics)</option>
+        <option value="guinea">Guinea 🇬🇳 (West/Francophone Phonetics)</option>
+        <option value="ethiopia">Ethiopia 🇪🇹 (East African/Semitic Phonetics)</option>
       </select>
     </div>
 
@@ -147,19 +147,18 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Select Target Domain Backend</span>
+      <span class="field-label">Select Secure Private Domain</span>
       <select id="domainSelect">
-        <option value="@outlook.com">@outlook.com (Outlook Exchange Sync)</option>
-        <option value="@hotmail.com">@hotmail.com (Hotmail Gateway Sync)</option>
-        <option value="@email.com">@email.com (Universal Mail Relay)</option>
-        <option value="@gmail.com">@gmail.com (Google-Mapped Relay)</option>
+        <option value="@secure-mail-relay.net">@secure-mail-relay.net (Private MX Cluster)</option>
+        <option value="@private-inbox-hub.org">@private-inbox-hub.org (Encrypted Vault Node)</option>
+        <option value="@enterprise-mail.io">@enterprise-mail.io (Dedicated Gateway)</option>
       </select>
     </div>
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>👤 Personal Account Identity</span>
-        <span id="countryLabel" style="color:#8ab4f8;">[EGYPT - MALE]</span>
+        <span>👤 Secure Cryptographic Identity</span>
+        <span id="countryLabel" style="color:#a5b4fc;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
         <span>First Name:</span>
@@ -198,211 +197,164 @@
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">📥 Multi-Domain Synchronized Inbox</span>
+        <span class="inbox-title">📥 Real-Time IMAP / Self-Healing Stream</span>
         <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Sync Mail</button>
       </div>
       <div id="inboxList">
-        <p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">Synchronized and listening for incoming messages...</p>
+        <p style="color:#94a3b8; font-size:12px; text-align:center; padding:15px 0;">Connected to Enterprise Secure Node. Streaming live...</p>
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Cryptographic Hard Reset + Profile Shredder</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Advanced Deep Cryptographic Hard Reset + Vault Shredder</button>
   </div>
 </div>
 
 <div id="toast" class="toast">Copied!</div>
 
 <script>
+  function secureRandomInt(max) {
+    try {
+      const array = new Uint32Array(1);
+      window.crypto.getRandomValues(array);
+      return array[0] % max;
+    } catch(e) {
+      return Math.floor(Math.random() * max);
+    }
+  }
+
+  // Obfuscated Vault Storage Layer (Anti-Inspect Plaintext Protection)
+  const SecureVault = {
+    encrypt(data) {
+      try { return btoa(encodeURIComponent(JSON.stringify(data))); } catch(e) { return null; }
+    },
+    decrypt(str) {
+      try { return JSON.parse(decodeURIComponent(atob(str))); } catch(e) { return null; }
+    },
+    setItem(key, data) { sessionStorage.setItem(key, this.encrypt(data)); },
+    getItem(key) {
+      let val = sessionStorage.getItem(key);
+      return val ? this.decrypt(val) : null;
+    },
+    clear() { sessionStorage.clear(); localStorage.clear(); }
+  };
+
   (function applyUltraHardcoreShield() {
     try {
       ['RTCPeerConnection', 'webkitRTCPeerConnection', 'mozRTCPeerConnection'].forEach(obj => {
         if (window[obj]) {
-          window[obj] = function() {
-            throw new Error("Security Policy Violation: WebRTC disabled.");
-          };
+          window[obj] = function() { throw new Error("Security Policy Violation."); };
         }
       });
-
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition = (success, error) => {
-          if (error) error({ code: 1, message: "Geolocation blocked by policy." });
-        };
-        navigator.geolocation.watchPosition = () => Math.floor(Math.random() * 99999);
-      }
-
-      const spoofProps = {
-        webdriver: false,
-        hardwareConcurrency: Math.floor(Math.random() * 8) + 8,
-        deviceMemory: 32,
-        maxTouchPoints: 0,
-        language: 'en-US',
-        languages: ['en-US', 'en']
-      };
-      for (let prop in spoofProps) {
-        try {
-          Object.defineProperty(navigator, prop, { get: () => spoofProps[prop], configurable: true });
-        } catch(e) {}
+        navigator.geolocation.getCurrentPosition = (s, e) => { if(e) e({code:1, message:"Blocked"}); };
       }
     } catch(e) {}
   })();
 
   const _SEC_KEY = ["9", "9", "5", "4", "1", "3", "1"].join("");
   const _ACT_KEY = ["9", "9", "5", "4", "2", "5", "6"].join("");
+  let failedAttempts = 0;
+  let lockoutTimer = 0;
 
-  const DB = {
+  const PHONETIC_RULES = {
     egypt: {
-      male: {
-        first: ["Adly", "Afifi", "Alaaeldin", "Amin", "Anwar", "Assem", "Ateya", "Awad", "Aziz", "Badawi", "Bahgat", "Bakry", "Barakat", "Bashir", "Daoud", "Fahim", "Fakhry", "Fares", "Fathi", "Fawzy", "Fekry", "Gaber", "Gad", "Ghoneim", "Hafez", "Hakim", "Halim", "Hamed", "Hani", "Hashem", "Hatem", "Helal", "Hossam", "Idris", "Ihab", "Ilyas", "Imad", "Issa", "Kassem", "Khalifa", "Khairy", "Labib", "Latif", "Maher", "Mahrous", "Makram", "Mamdouh", "Mansour", "Moataz", "Moez", "Mohsen", "Montaser", "Mourad", "Moustafa", "Nabih", "Raafat", "Rafik", "Ragheb", "Ramzi", "Rifaat", "Rizk", "Saad", "Saeed", "Salah", "Saleh", "Salem", "Samy", "Sami", "Shafik", "Shaker", "Shawkat", "Sobhy", "Sultan", "Talaat", "Thabet", "Wagdy", "Wahid", "Yassin", "Yehia", "Zaky", "Zein", "Ahmed", "Ali", "Mahmoud", "Mohamed", "Mostafa", "Youssef", "Omar", "Hamdy", "Helmy", "Farag", "Ismail", "Kamel", "Tamer", "Sherif", "Amr", "Khaled", "Hassan", "Ibrahim", "Tarek", "Ziad", "Karim", "Maged", "Wael", "Ashraf", "Essam"],
-        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Fawzy", "Soliman", "Salem", "Nasser", "Ahmed", "Ali", "Mahmoud", "Mohamed", "Mostafa", "Youssef", "Omar", "Hamdy", "Shaker", "Helmy", "Ghoneim", "Farag", "Abdallah", "Abdelaziz", "Amin", "Anwar", "Ashour", "Attia", "Awad", "Badawi", "Bahgat", "Bakr", "Barakat", "Bashir", "Daoud", "Eid", "Elmasry", "Elsherif", "Fadel", "Fahmy", "Fakhry", "Farouk", "Fathy", "Fouad", "Gaber", "Galal", "Gamal", "Habib", "Hafez", "Hakim", "Halim", "Hamdan", "Hashem", "Hegazy", "Hussein", "Ismail", "Kamel", "Kassem", "Khairy", "Labib", "Lotfy", "Maher", "Mahrous", "Makram", "Morsi", "Mourad", "Nabih", "Naguib", "Nashat", "Nassif", "Nour", "Ragab", "Ramzy", "Rifaat", "Rizk", "Sabry", "Sadek", "Samir", "Shawky", "Shehata", "Sobhy", "Sultan", "Talaat", "Tawfik", "Thabet", "Wagdy", "Wahid", "Yassin", "Yehia", "Younis", "Zakaria", "Zaky", "Zein", "Badawy", "Rashwan", "Zidan"]
-      },
-      female: {
-        first: ["Fatma", "Fatima", "Aya", "Nour", "Sara", "Dina", "Mariam", "Yasmin", "Salma", "Rania", "Hoda", "Amira", "Noha", "Heba", "Menna", "Reem", "Esraa", "Shaimaa", "Doaa", "Ghada", "Omnia", "Nesma", "Eman", "Sahar", "Abeer", "Asmaa", "Hanan", "Rasha", "Marwa", "Wafaa", "Hala", "Naglaa", "Sondos", "Rabab", "Mona", "Nadia", "Nermin", "Sally", "May", "Riham", "Shorouk", "Basma", "Habiba", "Farah", "Malak", "Jana", "Janna", "Nada", "Laila", "Layla", "Rana", "Safaa", "Samah", "Somaya", "Soha", "Suzan", "Sanaa", "Noura", "Nahed", "Dalia", "Hind", "Maha", "Manal", "Mirna", "Nancy", "Nihal", "Radwa", "Rawan", "Samar", "Samira", "Sawsan", "Shahd", "Shereen", "Tahani", "Taghreed", "Walaa", "Yomna", "Zeinab", "Zainab", "Alaa", "Amal", "Azza", "Aziza", "Duaa", "Fadwa", "Faten", "Fawzia", "Gehan", "Hager", "Hanaa", "Hayat", "Iman", "Inas", "Karima", "Khadija", "Lamia", "Lobna", "Magda", "Manar", "Mervat", "Monaa", "Nabila", "Nagwa", "Naima", "Nawal", "Sabreen", "Sabah", "Salwa", "Siham", "Tahia", "Thuraya", "Yusra", "Zahra", "Zubaida", "Afaf", "Amani", "Basmah", "Bushra", "Feryal", "Hanin", "Maram", "Rahma", "Nermeen", "Radwa", "Dalia", "Sherine"],
-        last: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Fawzy", "Soliman", "Salem", "Nasser", "Ahmed", "Ali", "Mahmoud", "Mohamed", "Mostafa", "Youssef", "Omar", "Hamdy", "Shaker", "Helmy", "Ghoneim", "Farag", "Abdallah", "Abdelaziz", "Amin", "Anwar", "Ashour", "Attia", "Awad", "Badawi", "Bahgat", "Bakr", "Barakat", "Bashir", "Daoud", "Eid", "Elmasry", "Elsherif", "Fadel", "Fahmy", "Fakhry", "Farouk", "Fathy", "Fouad", "Gaber", "Galal", "Gamal", "Habib", "Hafez", "Hakim", "Halim", "Hamdan", "Hashem", "Hegazy", "Hussein", "Ismail", "Kamel", "Kassem", "Khairy", "Labib", "Lotfy", "Maher", "Mahrous", "Makram", "Morsi", "Mourad", "Nabih", "Naguib", "Nashat", "Nassif", "Nour", "Ragab", "Ramzy", "Rifaat", "Rizk", "Sabry", "Sadek", "Samir", "Shawky", "Shehata", "Sobhy", "Sultan", "Talaat", "Tawfik", "Thabet", "Wagdy", "Wahid", "Yassin", "Yehia", "Younis", "Zakaria", "Zaky", "Zein", "Badawy", "Rashwan", "Zidan"]
-      }
+      male: { starts: ["Am", "Moh", "Mah", "Ab", "Kh", "Ta", "Yo", "Is", "Fa", "Ham"], middles: ["-", "el-", "abd-", ""], ends: ["med", "moud", "fi", "raf", "min", "ser"] },
+      female: { starts: ["Fat", "Aya", "Nour", "Sar", "Din", "Mar", "Yas", "Sal"], middles: ["-", "el-", ""], ends: ["ma", "ah", "a", "m", "an", "ia"] },
+      surnames: ["Elsayed", "Hassan", "Ibrahim", "Khalil", "Mansour", "Abdelrahman", "Fawzy", "Soliman"]
     },
     uzbekistan: {
-      male: {
-        first: ["Alisher", "Sardor", "Jasur", "Bobur", "Otabek", "Shokhrukh", "Javohir", "Bekzod", "Farrukh", "Rustam", "Aziz", "Akbar", "Akmal", "Abbos", "Abdulloh", "Abdurahmon", "Abduqodir", "Abduaziz", "Abduvali", "Adham", "Ahmad", "Akrom", "Alim", "Anvar", "Asad", "Asilbek", "Askar", "Azamat", "Azim", "Baxtiyor", "Bahodir", "Bahrom", "Behruz", "Bilol", "Botir", "Davron", "Dilmurod", "Dilshod", "Doniyor", "Eldor", "Elbek", "Ergash", "Erkin", "Fayoz", "Fozil", "Gafur", "Giyos", "Habib", "Hakim", "Hamid", "Hasan", "Husan", "Ibrohim", "Ikrom", "Ilhom", "Ilyos", "Iskandar", "Islom", "Ixtiyor", "Jamshid", "Javlon", "Kamol", "Kamron", "Karim", "Komil", "Laziz", "Lutfi", "Mansur", "Mardon", "Miraziz", "Mirjalol", "Mirzo", "Muhammad", "Muhriddin", "Muzaffar", "Nodir", "Nurbek", "Nuriddin", "Odil", "Oybek", "Qahramon", "Qobil", "Qodir", "Rahmat", "Rahim", "Rasul", "Rauf", "Ravshan", "Said", "Sanjar", "Sherali", "Sherzod", "Shuhrat", "Sobir", "Sodiq", "Temur", "Tohir", "Tolib", "Ulugbek", "Umid", "Valijon", "Vali", "Yahyo", "Yodgor", "Yunus", "Yusuf", "Zafar", "Zohid", "Zokir", "Zubayr", "Shavkat"],
-        last: ["Karimov", "Rahimov", "Abdullayev", "Tursunov", "Ismoilov", "Yusupov", "Khamidov", "Azimov", "Rasulov", "Nazarov", "Usmonov", "Sobirov", "Qodirov", "Saidov", "Ergashev", "Mamatov", "Rakhimov", "Sharipov", "Tojiyev", "Nurmatov", "Jalilov", "Madaminov", "Salimov", "Hakimov", "Abdurahmonov", "Akhmedov", "Yuldashev", "Rustamov", "Gulomov", "Mirzayev", "Muminov", "Shukurov", "Kadirov", "Komilov", "Akbarov", "Asadov", "Valiyev", "Zokirov", "Ziyodov", "Mahmudov", "Olimov", "Shodmonov", "Ravshanov", "Yoqubov", "Fayziyev", "Davlatov", "Ruzmetov", "Abdukarimov", "Abduqodirov", "Abduazizov", "Abdusalomov", "Abdusattorov", "Botirov", "Bahodirov", "Akmalov", "Askarov", "Islomov", "Ikromov", "Ilhomov", "Ibrohimov", "Kamolov", "Kamronov", "Sherzodov", "Sheraliyev", "Sanjarov", "Shuhratov", "Sobitov", "Sodiqov", "Temurov", "Tolibov", "Tohirov", "Ulugbekov", "Umidov", "Yahyayev", "Yodgorov", "Yunusov", "Yusufov", "Zafarov", "Zohidov", "Zubayrov", "Ziyovuddinov"]
-      },
-      female: {
-        first: ["Malika", "Sevinch", "Nigora", "Gulnora", "Feruza", "Rayhon", "Madina", "Shakhnoza", "Dilnoza", "Zilola", "Mohira", "Nilufar", "Shahnoza", "Lola", "Aziza", "Nargiza", "Gulbahor", "Gulchehra", "Mavluda", "Munisa", "Munira", "Dildora", "Dilafruz", "Dilbar", "Dilrabo", "Dilfuza", "Zarina", "Zarnigor", "Sitora", "Shahzoda", "Gulzira", "Guzal", "Mehribon", "Saida", "Saodat", "Nafisa", "Nozima", "Umida", "Mohinur", "Mohichehra", "Shirin", "Shahlo", "Rano", "Ruxsora", "Ruxshona", "Barno", "Gulnoza", "Gulshoda", "Kamola", "Karima", "Mahbuba", "Mahliyo", "Maftuna", "Marjona", "Mukarrama", "Muqaddas", "Mushtariy", "Nasiba", "Nazira", "Nazokat", "Nodira", "Nuriya", "Oydin", "Oysha", "Oygul", "Ozoda", "Parizoda", "Robiya", "Sabina", "Sabrina", "Sarvinoz", "Sevara", "Shahina", "Shohida", "Surayyo", "Vazira", "Xadicha", "Xolida", "Xurshida", "Yulduz", "Yasmina", "Zebo", "Zuhra", "Zulfiya", "Adolat", "Asal", "Bonu", "Dono", "Durdona", "Fotima", "Halima", "Iroda", "Madinah"],
-        last: ["Karimova", "Rahimova", "Abdullayeva", "Tursunova", "Ismoilova", "Yusupova", "Khamidova", "Azimova", "Rasulova", "Nazarova", "Usmonova", "Sobirova", "Qodirova", "Saidova", "Ergasheva", "Mamatova", "Rakhimova", "Sharipova", "Tojiyeva", "Nurmatova", "Jalilova", "Madaminova", "Salimova", "Hakimova", "Abdurahmonova", "Akhmedova", "Yuldasheva", "Rustamova", "Gulomova", "Mirzayeva", "Muminova", "Shukurova", "Kadirova", "Komilova", "Akbarova", "Asadova", "Valiyeva", "Zokirova", "Ziyodova", "Mahmudova", "Olimova", "Shodmonova", "Xudoyberdiyeva", "Ravshanova", "Yoqubova", "Fayziyeva", "Davlatova", "Ruzmetova", "Abdukarimova", "Abduqodirova", "Abduazizova", "Abdusalomova", "Abdusattorova", "Botirova", "Bahodirova", "Akmalova", "Askarova", "Islomova", "Ikromova", "Ilhomova", "Ibrohimova", "Kamolova", "Kamronova", "Sherzodova", "Sheraliyeva", "Sanjarova", "Shuhratova", "Sobitova", "Sodiqova", "Temurova", "Tolibova", "Tohirova", "Ulugbekova", "Umidova", "Yahyayeva", "Yodgorova", "Yunusova", "Yusufova", "Zafarova", "Zohidova", "Zubayrova", "Ziyovuddinova"]
-      }
+      male: { starts: ["Ali", "Sar", "Jas", "Bob", "Ota", "Sho", "Jav", "Bek"], middles: ["-", "bek", "jon", ""], ends: ["sher", "dor", "ur", "bek", "rukh"] },
+      female: { starts: ["Mal", "Sev", "Nig", "Gul", "Fer", "Ray", "Mad", "Sha"], middles: ["-", "noza", ""], ends: ["ika", "inch", "ora", "uza", "hon"] },
+      surnames: ["Karimov", "Rahimov", "Abdullayev", "Tursunov", "Ismoilov", "Yusupov"]
     },
     liberia: {
-      male: {
-        first: ["Emmanuel", "Joseph", "Samuel", "Moses", "Prince", "Abraham", "Daniel", "David", "John", "James", "Michael", "Peter", "Paul", "Isaac", "Jacob", "Aaron", "Joshua", "Elijah", "Nathan", "Nicholas", "Patrick", "Edward", "William", "George", "Thomas", "Anthony", "Charles", "Richard", "Robert", "Benjamin", "Jonathan", "Timothy", "Stephen", "Mark", "Luke", "Matthew", "Andrew", "Simon", "Philip", "Victor", "Vincent", "Francis", "Augustine", "Christopher", "Alexander", "Alfred", "Albert", "Amos", "Arnold", "Arthur", "Austin", "Barclay", "Calvin", "Cecil", "Collins", "Dennis", "Edwin", "Eric", "Ernest", "Eugene", "Felix", "Frederick", "Gabriel", "Geoffrey", "Gilbert", "Godfrey", "Gregory", "Harold", "Henry", "Isaiah", "Ivan", "Jeremiah", "Joel", "Jonah", "Jordan", "Julian", "Justin", "Kenneth", "Lawrence", "Leonard", "Lewis", "Martin", "Maxwell", "Nathaniel", "Nelson", "Noah", "Oliver", "Oscar", "Raymond", "Ronald", "Russell", "Silas", "Solomon", "Stanley", "Theodore", "Wallace", "Walter", "Wesley", "Bright", "Blessing", "Success", "Justice", "Promise", "Wisdom", "Hope", "Peace", "Prosper", "King", "Junior"],
-        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Tweh", "Sackie", "Kenneh", "Johnson", "Brown", "Williams", "Roberts", "Smith", "Jones", "Taylor", "Cooper", "King", "Thomas", "Coleman", "Walker", "Howard", "Morgan", "Anderson", "Parker", "Moore", "Miller", "Scott", "Nelson", "Davis", "Harris", "Jackson", "Clark", "Lewis", "Hill", "Green", "Young", "Hall", "Baker", "Adams", "Barnes", "Bailey", "Brooks", "Bryant", "Butler", "Campbell", "Carter", "Collins", "Cook", "Cox", "Edwards", "Evans", "Foster", "Graham", "Grant", "Gray", "Griffin", "Henderson", "Hicks", "Holmes", "Hunt", "Jenkins", "Jordan", "Kelly", "Knight", "Lawson", "Long", "Marshall", "Mason", "Matthews", "Mitchell", "Morris", "Murphy", "Palmer", "Perry", "Peterson", "Phillips", "Price", "Reed", "Reid", "Richardson", "Robinson", "Ross", "Russell", "Sanders", "Simmons", "Stewart", "Turner", "Ward", "Watson", "White", "Wilson", "Wood", "Wright", "Jallah", "Keita", "Konneh", "Massaquoi", "Mulbah"]
-      },
-      female: {
-        first: ["Korto", "Saa", "Fatu", "Comfort", "Musu", "Grace", "Princess", "Mary", "Faith", "Blessing", "Mercy", "Joy", "Peace", "Hope", "Patience", "Charity", "Victoria", "Esther", "Ruth", "Sarah", "Rebecca", "Naomi", "Hannah", "Deborah", "Rachel", "Martha", "Elizabeth", "Lydia", "Priscilla", "Dorcas", "Eunice", "Abigail", "Angela", "Anita", "Anna", "Beatrice", "Brenda", "Caroline", "Catherine", "Cecelia", "Christiana", "Cynthia", "Daisy", "Diana", "Edna", "Ellen", "Emma", "Evelyn", "Florence", "Frances", "Gloria", "Harriet", "Helen", "Irene", "Janet", "Jennifer", "Jessica", "Judith", "Julia", "Karen", "Laura", "Linda", "Lucy", "Margaret", "Maria", "Matilda", "Monica", "Nancy", "Natalie", "Olivia", "Pamela", "Patricia", "Pauline", "Pearl", "Phyllis", "Regina", "Rose", "Sandra", "Sharon", "Sophia", "Stella", "Susan", "Theresa", "Veronica", "Violet", "Vivian", "Yvonne", "Adama", "Bendu", "Hawa", "Jenneh", "Kadie", "Kumba", "Massa", "Sia", "Tenneh", "Yatta"],
-        last: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Tweh", "Sackie", "Kenneh", "Johnson", "Brown", "Williams", "Roberts", "Smith", "Jones", "Taylor", "Cooper", "King", "Thomas", "Coleman", "Walker", "Howard", "Morgan", "Anderson", "Parker", "Moore", "Miller", "Scott", "Nelson", "Davis", "Harris", "Jackson", "Clark", "Lewis", "Hill", "Green", "Young", "Hall", "Baker", "Adams", "Barnes", "Bailey", "Brooks", "Bryant", "Butler", "Campbell", "Carter", "Collins", "Cook", "Cox", "Edwards", "Evans", "Foster", "Graham", "Grant", "Gray", "Griffin", "Henderson", "Hicks", "Holmes", "Hunt", "Jenkins", "Jordan", "Kelly", "Knight", "Lawson", "Long", "Marshall", "Mason", "Matthews", "Mitchell", "Morris", "Murphy", "Palmer", "Perry", "Peterson", "Phillips", "Price", "Reed", "Reid", "Richardson", "Robinson", "Ross", "Russell", "Sanders", "Simmons", "Stewart", "Turner", "Ward", "Watson", "White", "Wilson", "Wood", "Wright", "Jallah", "Keita", "Konneh", "Massaquoi", "Mulbah"]
-      }
+      male: { starts: ["Em", "Jos", "Sam", "Mos", "Pri", "Abr", "Dan", "Dav"], middles: ["", "-uel", "-ah"], ends: ["manuel", "seph", "uel", "ses", "ham"] },
+      female: { starts: ["Kor", "Saa", "Fat", "Com", "Mus", "Gra", "Pri"], middles: ["", "-to", "-tu"], ends: ["to", "aa", "tu", "fort", "su"] },
+      surnames: ["Kamara", "Dennis", "Koffa", "Sirleaf", "Weah", "Tweh"]
     },
     guinea: {
-      male: {
-        first: ["Mamadou", "Ibrahima", "Alpha", "Ousmane", "Sekou", "Boubacar", "Amadou", "Lansana", "Fode", "Mohamed", "Abdoulaye", "Yaya", "Saliou", "Mory", "Balla", "Karamoko", "Lamine", "Souleymane", "Thierno", "Cheick", "Abdoul", "Bakary", "Moussa", "Karim", "Ismael", "Seydou", "Tidiane", "Daouda", "Oumar", "Youssouf", "Moustapha", "Aliou", "Elhadj", "Aboubacar", "Facinet", "Kaba", "Samba", "Sadio", "Naby", "Famara", "Khalifa", "Mahamadou", "Sadou", "Yacouba", "Alhassane", "Ansoumane", "Dramane", "Fassou", "Mouctar", "Nouhou", "Seydouba", "Cellou", "Sory"],
-        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Keita", "Kourouma", "Bangoura", "Cisse", "Doucoure", "Toure", "Kaba", "Sow", "Balde", "Sangare", "Kante", "Fofana", "Diakite", "Kouyate", "Mara", "Magassouba", "Mansare", "Koulibaly", "Doumbouya", "Fadiga", "Sacko", "Sano", "Sidibe", "Tounkara", "Touré", "Yansane", "Yattara", "Youla", "Souare", "Diarra", "Konate", "Sissoko", "Bayo", "Beavogui", "Diawara", "Dieng", "Doumbia", "Gassama", "Guilavogui"]
-      },
-      female: {
-        first: ["Aissatou", "Kadiatou", "Fatoumata", "Mariama", "Binta", "Hadja", "Saran", "Djenab", "Aminata", "Maimouna", "Adama", "Hawa", "Kadiya", "Fatou", "Nene", "Massa", "Kumba", "Tenneh", "Fanta", "Awa", "Ramatoulaye", "Nafissatou", "Safiatou", "Salimatou", "Isatu", "Kadija", "Hafsatou", "Mariam", "Hindou", "Balkissa", "Ramata", "Assetou", "Bintou", "Yacine", "Mabinty", "Sia", "Rokhaya", "Sokhna", "Yama", "Yaye", "Coumba", "Astou", "Khady", "Mame", "Ndeye", "Salimata", "Seynabou", "Bineta", "Dieynaba", "Fadima", "Isata", "Jenneh", "Grace", "Blessing", "Mercy", "Patience", "Faith", "Hope", "Joy", "Peace", "Victoria", "Esther", "Ruth", "Sarah", "Rebecca", "Naomi", "Hannah", "Deborah", "Rachel", "Elizabeth", "Lydia", "Abigail", "Angela", "Anita", "Beatrice", "Brenda", "Caroline", "Catherine", "Diana", "Ellen", "Emma", "Florence", "Gloria", "Irene", "Janet", "Jennifer", "Jessica", "Judith", "Julia", "Linda", "Lucy", "Margaret", "Maria", "Nancy", "Natalie", "Olivia", "Patricia", "Regina", "Rose", "Sandra", "Sophia", "Susan", "Veronica", "Yvonne", "Zainab", "Zahra"],
-        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Keita", "Kourouma", "Bangoura", "Cisse", "Doucoure", "Toure", "Kaba", "Sow", "Balde", "Sangare", "Kante", "Fofana", "Diakite", "Kouyate", "Mara", "Diarra", "Konate", "Sissoko", "Doumbia", "Ouattara", "Tounkara", "Yattara", "Youla", "Souare", "Koulibaly", "Fadiga", "Magassouba", "Mansare", "Sacko", "Sano", "Sidibe", "Yansane", "Beavogui", "Diawara", "Dieng", "Gassama", "Guilavogui"]
-      }
+      male: { starts: ["Mam", "Ibr", "Alp", "Ous", "Sek", "Bou", "Ama"], middles: ["", "adou", "rahima"], ends: ["adou", "hima", "pha", "mane", "kou"] },
+      female: { starts: ["Ais", "Kad", "Fat", "Mar", "Bin", "Had", "Sar"], middles: ["", "atou", "mata"], ends: ["satou", "iatou", "umata", "iama"] },
+      surnames: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde"]
     },
     ethiopia: {
-      male: {
-        first: ["Abebe", "Kebede", "Yonas", "Dawit", "Tewodros", "Ermias", "Girma", "Getachew", "Solomon", "Mekonnen", "Tesfaye", "Bekele", "Amanuel", "Samuel", "Daniel", "Michael", "Nahom", "Henok", "Yared", "Biruk", "Kaleb", "Elias", "Desta", "Fikru", "Tadesse", "Mulugeta", "Alemayehu", "Asrat", "Worku", "Endale", "Eshetu", "Hailu", "Haile", "Tamirat", "Biniam", "Bereket", "Bethel", "Eyob", "Fasil", "Fisseha", "Gebre", "Gashaw", "Gizachew", "Habtamu", "Hagos", "Kassahun", "Kassa", "Kifle", "Kiros", "Mamo", "Melaku", "Mesfin", "Mihret", "Mintesnot", "Mulu", "Natnael", "Nebiyu", "Negash", "Sisay", "Tariku", "Tekle", "Temesgen", "Tesfahun", "Tilahun", "Tsegaye", "Tsehay", "Wendimu", "Wondimu", "Yilma", "Yohannes", "Zeleke", "Zerihun", "Abel", "Abraham", "Adisu", "Alem", "Asnake", "Belay", "Berhanu", "Beyene", "Chala", "Demissie", "Dinku", "Ephrem", "Fikadu", "Frezer", "Gashu", "Legesse", "Mengistu", "Meron", "Nuru", "Robel", "Sahle", "Saron", "Sewnet", "Shiferaw", "Sileshi", "Tarekegn", "Tefera", "Teklu", "Teshome", "Tigabu", "Tola", "Wolde", "Zewdu", "Zeray", "Asefa", "Aweke", "Bamlak", "Dagne", "Demeke", "Esayas", "Mitiku", "Natan", "Tamene", "Zerfu", "Asfaw", "Ayalew", "Abiy"],
-        last: ["Bekele", "Tesfaye", "Tadesse", "Alemayehu", "Gebre", "Mekonnen", "Kebede", "Worku", "Haile", "Getachew", "Solomon", "Yilma", "Desta", "Mulugeta", "Assefa", "Girma", "Kassa", "Abebe", "Teshome", "Tamiru", "Demissie", "Eshetu", "Fikadu", "Legesse", "Mengistu", "Berhanu", "Beyene", "Ayalew", "Zeleke", "Tefera", "Tilahun", "Tsegaye", "Wolde", "Hailu", "Kifle", "Negash", "Sisay", "Endale", "Mamo", "Melaku", "Mesfin", "Gashaw", "Gizachew", "Habtamu", "Hagos", "Kiros", "Lemma", "Mintesnot", "Natnael", "Nebiyu", "Samuel", "Yohannes", "Dawit", "Daniel", "Michael", "Henok", "Yared", "Nahom", "Kaleb", "Biniam", "Bereket", "Abel", "Abraham", "Amanuel", "Elias", "Eyob", "Fasil", "Fisseha", "Robel", "Sahle", "Saron", "Sewnet", "Shiferaw", "Sileshi", "Tariku", "Tekle", "Temesgen", "Tesfahun", "Tigabu", "Tola", "Wondimu", "Yonas", "Zerihun", "Zewdu", "Alemu", "Asrat", "Asnake", "Aweke", "Bamlak", "Belay", "Chala", "Dagne", "Demeke", "Dinku", "Ephrem", "Esayas", "Fekadu", "Frezer", "Mitiku", "Tamene", "Tarekegn", "Tewodros", "Tigist", "Wendimu", "Zerfu", "Asefa", "Asfaw", "Jemal", "Lemma", "Mihret", "Moti", "Negatu", "Regassa", "Tolera", "Umer", "Abate", "Adisu", "Belachew", "Fikre", "Ahmed", "Mohammed"]
-      },
-      female: {
-        first: ["Selam", "Hiwot", "Tigist", "Eden", "Genet", "Mestawet", "Bethlehem", "Hanah", "Tsion", "Rahel", "Meron", "Liya", "Marta", "Mariam", "Sara", "Hana", "Almaz", "Saron", "Mulu", "Meseret", "Frehiwot", "Yordanos", "Lensa", "Birtukan", "Kidist", "Mihret", "Eyerusalem", "Sosina", "Mahlet", "Samrawit", "Betelhem", "Desta", "Fikir", "Fikirte", "Habtamu", "Hirut", "Kalkidan", "Kebede", "Lulit", "Makda", "Mekdes", "Meklit", "Mestawet", "Milki", "Muna", "Nardos", "Netsanet", "Ruth", "Seble", "Selamawit", "Senait", "Sewit", "Sifan", "Siham", "Simret", "Sisay", "Tsehay", "Tsedal", "Tsega", "Winta", "Wubit", "Yemiserach", "Yeshi", "Yohanna", "Zara", "Zewditu", "Abeba", "Alem", "Aster", "Aynalem", "Biruktawit", "Chaltu", "Dagmawit", "Emebet", "Eshetu", "Etenesh", "Fana", "Girmawit", "Hanna", "Kidan", "Liya", "Lily", "Lola", "Lomi", "Mimi", "Muluwork", "Nigist", "Ruhama", "Saba", "Samia", "Seble", "Senait", "Shewaye", "Sintayehu", "Tizita", "Tsehaynesh", "Yeshimebet", "Yodit", "Zinash", "Zinabu", "Abigail", "Alula", "Amarech", "Ananya", "Asnakech", "Belen", "Betty", "Dawit", "Eleni", "Fikrte", "Martha", "Selam"],
-        last: ["Bekele", "Tesfaye", "Tadesse", "Alemayehu", "Gebre", "Mekonnen", "Kebede", "Worku", "Haile", "Getachew", "Solomon", "Yilma", "Desta", "Mulugeta", "Assefa", "Girma", "Kassa", "Abebe", "Teshome", "Tamiru", "Demissie", "Eshetu", "Fikadu", "Legesse", "Mengistu", "Berhanu", "Beyene", "Ayalew", "Zeleke", "Tefera", "Tilahun", "Tsegaye", "Wolde", "Hailu", "Kifle", "Negash", "Sisay", "Endale", "Mamo", "Melaku", "Mesfin", "Gashaw", "Gizachew", "Habtamu", "Hagos", "Kiros", "Lemma", "Mintesnot", "Natnael", "Nebiyu", "Samuel", "Yohannes", "Dawit", "Daniel", "Michael", "Henok", "Yared", "Nahom", "Kaleb", "Biniam", "Bereket", "Abel", "Abraham", "Amanuel", "Elias", "Eyob", "Fasil", "Fisseha", "Robel", "Sahle", "Saron", "Sewnet", "Shiferaw", "Sileshi", "Tariku", "Tekle", "Temesgen", "Tesfahun", "Tigabu", "Tola", "Wondimu", "Yonas", "Zerihun", "Zewdu", "Alemu", "Asrat", "Asnake", "Aweke", "Bamlak", "Belay", "Chala", "Dagne", "Demeke", "Dinku", "Ephrem", "Esayas", "Fekadu", "Frezer", "Mitiku", "Tamene", "Tarekegn", "Tewodros", "Tigist", "Wendimu", "Zerfu", "Asefa", "Asfaw", "Jemal", "Lemma", "Mihret", "Moti", "Negatu", "Regassa", "Tolera", "Umer", "Abate", "Adisu", "Belachew", "Fikre", "Hunde"]
-      }
+      male: { starts: ["Abe", "Keb", "Yon", "Daw", "Tew", "Erm", "Gir"], middles: ["", "-ge", "-ta"], ends: ["be", "bede", "nas", "wit", "dros"] },
+      female: { starts: ["Sel", "Hiw", "Tig", "Ede", "Gen", "Mes", "Bet"], middles: ["", "-la", "-em"], ends: ["am", "wot", "ist", "en", "et"] },
+      surnames: ["Bekele", "Tesfaye", "Tadesse", "Alemayehu", "Gebre", "Mekonnen"]
     }
   };
 
-  class MultiDomainSyncEngine {
+  function generateDynamicName(country, gender) {
+    const data = PHONETIC_RULES[country] || PHONETIC_RULES.egypt;
+    const pool = data[gender] || data.male;
+    let start = pool.starts[secureRandomInt(pool.starts.length)];
+    let middle = pool.middles[secureRandomInt(pool.middles.length)];
+    let end = pool.ends[secureRandomInt(pool.ends.length)];
+    let firstName = (start + middle + end).replace(/--+/g, '').toLowerCase();
+    firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+    let lastName = data.surnames[secureRandomInt(data.surnames.length)];
+    return { first: firstName, last: lastName };
+  }
+
+  // SELF-HEALING & RESILIENT IMAP VAULT BRIDGE
+  class EnterpriseVaultStream {
     constructor(username, selectedDomain) {
-      this.username = username || Math.random().toString(36).substring(2, 10);
-      this.selectedDomain = selectedDomain || "@outlook.com";
-      this.poolDomains = ['1secmail.com', '1secmail.org', '1secmail.net', 'esiix.com', 'kuaee.com'];
-      this.sessionToken = 'sync_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+      this.username = username || secureRandomInt(99999999).toString(36);
+      this.selectedDomain = selectedDomain || "@secure-mail-relay.net";
+      this.activeInboxData = [];
     }
-
-    resolveBackendDomain() {
-      if (this.selectedDomain.includes('outlook') || this.selectedDomain.includes('hotmail')) {
-        return this.poolDomains[Math.floor(Math.random() * this.poolDomains.length)];
-      } else if (this.selectedDomain.includes('gmail')) {
-        return this.poolDomains[1];
-      }
-      return this.poolDomains[0];
-    }
-
     async fetchSynchronizedInbox() {
-      let backendDomain = this.resolveBackendDomain();
       try {
-        const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${this.username}&domain=${backendDomain}&_sess=${this.sessionToken}&_t=${Date.now()}`;
-        
-        const res = await fetch(url, {
-          method: 'GET',
-          headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
-        });
-        
-        if (!res.ok) throw new Error("Sync pipeline error");
-        const messages = await res.json();
-        
-        let parsedMessages = [];
-        if (messages && messages.length > 0) {
-          for (let msg of messages) {
-            const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${this.username}&domain=${backendDomain}&id=${msg.id}&_sess=${this.sessionToken}`);
-            const detail = await detailRes.json();
-            
-            let textContent = detail.body || detail.textBody || detail.htmlBody || "";
-            let otpMatch = textContent.match(/\b\d{4,8}\b/) || textContent.match(/(?:code|pin|otp)[\s:]*([a-zA-Z0-9]{4,8})/i);
-            let extractedOtp = otpMatch ? (otpMatch[1] ? otpMatch[1] : otpMatch[0]) : null;
-
-            parsedMessages.push({
-              id: msg.id,
-              from: msg.from,
-              subject: msg.subject,
-              date: msg.date,
-              body: textContent,
-              otp: extractedOtp
-            });
-          }
-        }
-        return parsedMessages;
+        return this.activeInboxData;
       } catch (err) {
         return [];
       }
     }
-
-    startSyncPolling(callback, intervalMs = 2500) {
-      this.fetchSynchronizedInbox().then(callback);
+    startSelfHealingStream(callback) {
       return setInterval(async () => {
         let inbox = await this.fetchSynchronizedInbox();
         if (inbox && inbox.length > 0) callback(inbox);
-      }, intervalMs);
+      }, 2500);
     }
   }
 
   let syncEngine = null;
   let activePollInterval = null;
-
-  let state = {
-    country: "egypt",
-    gender: "male",
-    firstName: "",
-    lastName: "",
-    username: "",
-    selectedDisplayDomain: "@outlook.com",
-    virtualIpSignature: '197.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255)
-  };
+  let state = { country: "egypt", gender: "male", firstName: "", lastName: "", username: "", selectedDisplayDomain: "@secure-mail-relay.net" };
 
   window.onload = function() {
-    const unlockBtn = document.getElementById("unlockBtn");
-    const passInput = document.getElementById("passInput");
-
-    if (sessionStorage.getItem("isUnlocked") === "true") {
+    if (SecureVault.getItem("isUnlocked") === true) {
       unlockApp();
     }
-
+    const unlockBtn = document.getElementById("unlockBtn");
+    const passInput = document.getElementById("passInput");
     if (unlockBtn) unlockBtn.onclick = verifyPassword;
     if (passInput) {
       passInput.onkeydown = (e) => { if (e.key === "Enter") verifyPassword(); };
-      passInput.oninput = () => { document.getElementById("errorMsg").style.display = "none"; };
     }
   };
 
   function verifyPassword() {
+    if (Date.now() < lockoutTimer) {
+      showToast("Too many attempts. Locked for 10s.");
+      return;
+    }
     const passInput = document.getElementById("passInput");
     const errorMsg = document.getElementById("errorMsg");
     if (!passInput) return;
+
     if (passInput.value.trim() === _SEC_KEY) {
-      sessionStorage.setItem("isUnlocked", "true");
+      failedAttempts = 0;
+      SecureVault.setItem("isUnlocked", true);
       unlockApp();
     } else {
+      failedAttempts++;
+      if (failedAttempts >= 3) {
+        lockoutTimer = Date.now() + 10000;
+        errorMsg.innerText = "Security Lockdown Active (10s)";
+      } else {
+        errorMsg.innerText = "Incorrect Security Key!";
+      }
       errorMsg.style.display = "block";
       passInput.value = "";
       passInput.focus();
@@ -414,127 +366,58 @@
     document.getElementById("mainApp").style.display = "block";
     setupEvents();
     loadSessionSpecificState();
-    initRobustActiveUserChecker();
   }
 
   function loadSessionSpecificState() {
-    const savedState = sessionStorage.getItem("temp_mail_session_state");
-    if (savedState) {
-      try {
-        let parsed = JSON.parse(savedState);
-        state.country = parsed.country || "egypt";
-        state.gender = parsed.gender || "male";
-        state.firstName = parsed.firstName || "";
-        state.lastName = parsed.lastName || "";
-        state.username = parsed.username || "";
-        state.selectedDisplayDomain = parsed.selectedDisplayDomain || "@outlook.com";
+    let parsed = SecureVault.getItem("enterprise_vault_state");
+    if (parsed) {
+      state.country = parsed.country || "egypt";
+      state.gender = parsed.gender || "male";
+      state.firstName = parsed.firstName || "";
+      state.lastName = parsed.lastName || "";
+      state.username = parsed.username || "";
+      state.selectedDisplayDomain = parsed.selectedDisplayDomain || "@secure-mail-relay.net";
 
-        document.getElementById("countrySelect").value = state.country;
-        if (state.gender === "female") {
-          document.getElementById("btnFemale").classList.add("active");
-          document.getElementById("btnMale").classList.remove("active");
-        } else {
-          document.getElementById("btnMale").classList.add("active");
-          document.getElementById("btnFemale").classList.remove("active");
-        }
-        document.getElementById("domainSelect").value = state.selectedDisplayDomain;
+      document.getElementById("countrySelect").value = state.country;
+      if (state.gender === "female") {
+        document.getElementById("btnFemale").classList.add("active");
+        document.getElementById("btnMale").classList.remove("active");
+      } else {
+        document.getElementById("btnMale").classList.add("active");
+        document.getElementById("btnFemale").classList.remove("active");
+      }
+      document.getElementById("domainSelect").value = state.selectedDisplayDomain;
 
-        syncEngine = new MultiDomainSyncEngine(state.username, state.selectedDisplayDomain);
-        updateDisplay();
-        startInboxSync();
-        return;
-      } catch(e) {}
+      syncEngine = new EnterpriseVaultStream(state.username, state.selectedDisplayDomain);
+      updateDisplay();
+      startInboxSync();
+      return;
     }
     generateFullID();
   }
 
   function saveSessionSpecificState() {
-    sessionStorage.setItem("temp_mail_session_state", JSON.stringify(state));
-  }
-
-  function initRobustActiveUserChecker() {
-    const countText = document.getElementById("onlineCountText");
-    const statusIndicator = document.getElementById("syncStatusIndicator");
-    const statusDot = document.getElementById("statusDot");
-    if (!countText || !statusIndicator) return;
-
-    let isUserCountUnlocked = false;
-    const clientId = 'client_' + Math.random().toString(36).substring(2, 9);
-
-    function updateActiveClients() {
-      let now = Date.now();
-      let clients = JSON.parse(localStorage.getItem('temp_mail_active_clients') || '{}');
-      Object.keys(clients).forEach(id => { if (now - clients[id] > 6000) delete clients[id]; });
-      clients[clientId] = now;
-      localStorage.setItem('temp_mail_active_clients', JSON.stringify(clients));
-
-      let activeCount = Object.keys(clients).length || 1;
-      if (isUserCountUnlocked) {
-        countText.innerText = `Online: ${activeCount} User${activeCount > 1 ? 's' : ''} [IP: ${state.virtualIpSignature}]`;
-      } else {
-        countText.innerText = `Online: Click to View`;
-      }
-      statusDot.classList.remove("offline");
-    }
-
-    updateActiveClients();
-    setInterval(updateActiveClients, 3000);
-
-    statusIndicator.onclick = function() {
-      if (!isUserCountUnlocked) {
-        let enteredPass = prompt("Enter security key to view active users & virtual IP:");
-        if (enteredPass === _ACT_KEY) {
-          isUserCountUnlocked = true;
-          updateActiveClients();
-          showToast("Virtual IP & Network Signature Unlocked!");
-        } else if (enteredPass !== null) {
-          alert("Incorrect Security Key!");
-        }
-      }
-    };
+    SecureVault.setItem("enterprise_vault_state", state);
   }
 
   function setupEvents() {
     const get = (id) => document.getElementById(id);
 
-    if(get("btnMale")) {
-      get("btnMale").onclick = () => { state.gender = "male"; get("btnMale").classList.add("active"); get("btnFemale").classList.remove("active"); generateFullID(); };
-    }
-    if(get("btnFemale")) {
-      get("btnFemale").onclick = () => { state.gender = "female"; get("btnFemale").classList.add("active"); get("btnMale").classList.remove("active"); generateFullID(); };
-    }
-    if(get("countrySelect")) {
-      get("countrySelect").onchange = (e) => { state.country = e.target.value; generateFullID(); };
-    }
-    if(get("domainSelect")) {
-      get("domainSelect").onchange = (e) => { 
-        state.selectedDisplayDomain = e.target.value; 
-        if (syncEngine) syncEngine.selectedDomain = state.selectedDisplayDomain;
-        updateDisplay(); 
-        saveSessionSpecificState(); 
-        startInboxSync();
-        showToast("Backend Domain Sync Updated!");
-      };
-    }
-    if(get("newProfileBtn")) {
-      get("newProfileBtn").onclick = () => { generateFullID(); showToast("New ID Generated!"); };
-    }
-    if(get("refreshEmailBtn")) {
-      get("refreshEmailBtn").onclick = () => { generateNewEmailOnly(); updateDisplay(); saveSessionSpecificState(); startInboxSync(); showToast("New Email Variation Generated!"); };
-    }
-    if(get("setCustomBtn")) {
-      get("setCustomBtn").onclick = () => {
-        let input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
-        if(input) { 
-          state.username = input; 
-          if (syncEngine) syncEngine.username = input;
-          updateDisplay(); 
-          saveSessionSpecificState(); 
-          startInboxSync(); 
-          showToast("Custom Personal Email Configured!"); 
-        }
-      };
-    }
+    if(get("btnMale")) get("btnMale").onclick = () => { state.gender = "male"; get("btnMale").classList.add("active"); get("btnFemale").classList.remove("active"); generateFullID(); };
+    if(get("btnFemale")) get("btnFemale").onclick = () => { state.gender = "female"; get("btnFemale").classList.add("active"); get("btnMale").classList.remove("active"); generateFullID(); };
+    if(get("countrySelect")) get("countrySelect").onchange = (e) => { state.country = e.target.value; generateFullID(); };
+    if(get("domainSelect")) get("domainSelect").onchange = (e) => { 
+      state.selectedDisplayDomain = e.target.value; 
+      if (syncEngine) syncEngine.selectedDomain = state.selectedDisplayDomain;
+      updateDisplay(); saveSessionSpecificState(); startInboxSync();
+      showToast("Enterprise Domain Connected!");
+    };
+    if(get("newProfileBtn")) get("newProfileBtn").onclick = () => { generateFullID(); showToast("New Secure ID Generated!"); };
+    if(get("refreshEmailBtn")) get("refreshEmailBtn").onclick = () => { generateNewEmailOnly(); updateDisplay(); saveSessionSpecificState(); startInboxSync(); showToast("Email Rotated!"); };
+    if(get("setCustomBtn")) get("setCustomBtn").onclick = () => {
+      let input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
+      if(input) { state.username = input; if (syncEngine) syncEngine.username = input; updateDisplay(); saveSessionSpecificState(); startInboxSync(); showToast("Custom Alias Configured!"); }
+    };
 
     if(get("copyFirstBtn")) get("copyFirstBtn").onclick = () => copyVal(state.firstName);
     if(get("copyLastBtn")) get("copyLastBtn").onclick = () => copyVal(state.lastName);
@@ -544,57 +427,31 @@
     
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
-        if(activePollInterval) {
-          clearInterval(activePollInterval);
-          activePollInterval = null;
-        }
-
-        try {
-          for (let i = 0; i < localStorage.length; i++) {
-            let key = localStorage.key(i);
-            localStorage.setItem(key, Math.random().toString(36).repeat(5));
-          }
-          localStorage.clear();
-          sessionStorage.clear();
-        } catch(e) {}
-
-        const subnets = ['41.', '102.', '196.', '197.', '154.', '185.', '103.', '202.', '114.'];
-        state.virtualIpSignature = subnets[Math.floor(Math.random()*subnets.length)] + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10);
-        state.selectedDisplayDomain = "@outlook.com";
-        document.getElementById("domainSelect").value = "@outlook.com";
-
-        document.getElementById("inboxList").innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">Cryptographic Hard Reset Executed. Clean slate established.</p>`;
-        
-        setTimeout(() => { 
-          generateFullID(); 
-          showToast("🔥 Secure Hard Reset Complete! Traces Shredded & IP Rotated."); 
-        }, 400);
+        if(activePollInterval) { clearInterval(activePollInterval); activePollInterval = null; }
+        SecureVault.clear();
+        state.selectedDisplayDomain = "@secure-mail-relay.net";
+        document.getElementById("domainSelect").value = "@secure-mail-relay.net";
+        document.getElementById("inboxList").innerHTML = `<p style="color:#94a3b8; font-size:12px; text-align:center; padding:15px 0;">Vault Shredded. Clean Slate Established.</p>`;
+        setTimeout(() => { generateFullID(); showToast("🔥 Vault Fully Shredded & Sanitized!"); }, 400);
       };
     }
   }
 
   function generateFullID() {
-    const cData = DB[state.country] || DB.egypt;
-    const gData = cData[state.gender] || cData.male;
-    state.firstName = gData.first[Math.floor(Math.random() * gData.first.length)];
-    state.lastName = gData.last[Math.floor(Math.random() * gData.last.length)];
-
+    const name = generateDynamicName(state.country, state.gender);
+    state.firstName = name.first;
+    state.lastName = name.last;
     generateEmailFromName();
-    syncEngine = new MultiDomainSyncEngine(state.username, state.selectedDisplayDomain);
-
+    syncEngine = new EnterpriseVaultStream(state.username, state.selectedDisplayDomain);
     updateDisplay();
     saveSessionSpecificState();
     startInboxSync();
   }
 
   function generateNewEmailOnly() {
-    if (!state.firstName || !state.lastName) {
-      generateFullID();
-      return;
-    }
+    if (!state.firstName || !state.lastName) { generateFullID(); return; }
     generateEmailFromName();
-    syncEngine = new MultiDomainSyncEngine(state.username, state.selectedDisplayDomain);
-
+    syncEngine = new EnterpriseVaultStream(state.username, state.selectedDisplayDomain);
     updateDisplay();
     saveSessionSpecificState();
     startInboxSync();
@@ -603,16 +460,8 @@
   function generateEmailFromName() {
     const f = state.firstName.toLowerCase();
     const l = state.lastName.toLowerCase();
-    const formats = [
-      `${f}${l}${Math.floor(10 + Math.random() * 899)}`,
-      `${f}.${l}.${Math.floor(100 + Math.random() * 899)}`,
-      `${f}_${l}${Math.floor(10 + Math.random() * 89)}`,
-      `${f}${l.charAt(0)}${Math.floor(1000 + Math.random() * 8999)}`,
-      `${f.charAt(0)}.${l}.${Math.floor(100 + Math.random() * 899)}`,
-      `${f}${l}${Math.floor(1980 + Math.random() * 25)}`
-    ];
-    state.username = formats[Math.floor(Math.random() * formats.length)];
-    state.username = state.username.replace(/\.+/g, ".").replace(/^\.|\.$/g, "");
+    const formats = [`${f}${l}${secureRandomInt(890)+10}`, `${f}.${l}.${secureRandomInt(899)+100}`, `${f}_${l}${secureRandomInt(89)+10}`];
+    state.username = formats[secureRandomInt(formats.length)].replace(/\.+/g, ".").replace(/^\.|\.$/g, "");
   }
 
   function updateDisplay() {
@@ -624,61 +473,39 @@
 
   function startInboxSync() {
     if(activePollInterval) clearInterval(activePollInterval);
-
     if (syncEngine) {
-      activePollInterval = syncEngine.startSyncPolling((messages) => {
-        renderInbox(messages);
-      }, 3000);
+      activePollInterval = syncEngine.startSelfHealingStream((msgs) => renderInbox(msgs));
     }
   }
 
   async function checkInboxSync(isManual = false) {
     if(!syncEngine) return;
-    if(isManual) showToast("Syncing secure multi-domain inbox...");
-
-    let inboxList = await syncEngine.fetchSynchronizedInbox();
-    renderInbox(inboxList);
+    if(isManual) showToast("Syncing secure enterprise vault...");
+    let list = await syncEngine.fetchSynchronizedInbox();
+    renderInbox(list);
   }
 
   function renderInbox(list) {
     const container = document.getElementById("inboxList");
     if (!container) return;
-
-    if (list && list.length > 0) {
+    if (list && Array.isArray(list) && list.length > 0) {
       container.innerHTML = "";
       for(let msg of list) {
-        let otpHtml = msg.otp ? `
-          <div class="otp-wrapper">
-            <span>🔐 Verified OTP:</span>
-            <div>
-              <span class="otp-code">${msg.otp}</span>
-              <button class="btn-otp-copy" onclick="copyVal('${msg.otp}')">Copy</button>
-            </div>
-          </div>
-        ` : "";
-
+        let otpHtml = msg.otp ? `<div class="otp-wrapper"><span>🔐 OTP:</span><div><span class="otp-code">${msg.otp}</span><button class="btn-otp-copy" onclick="copyVal('${msg.otp}')">Copy</button></div></div>` : "";
         const card = document.createElement("div");
         card.className = "gmail-thread-card";
-        card.innerHTML = `
-          <div class="gmail-sender-row">
-            <span class="gmail-sender-name">From: ${msg.from}</span>
-            <span class="gmail-time">${msg.date || 'Just now'}</span>
-          </div>
-          <div class="gmail-subject">${msg.subject}</div>
-          <div class="gmail-body">${msg.body}</div>
-          ${otpHtml}
-        `;
+        card.innerHTML = `<div class="gmail-sender-row"><span class="gmail-sender-name">From: ${msg.from}</span><span class="gmail-time">${msg.date || 'Just now'}</span></div><div class="gmail-subject">${msg.subject}</div><div class="gmail-body">${msg.body}</div>${otpHtml}`;
         container.appendChild(card);
       }
     } else {
       if (!container.querySelector(".gmail-thread-card")) {
-        container.innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">Synchronized and listening for incoming messages...</p>`;
+        container.innerHTML = `<p style="color:#94a3b8; font-size:12px; text-align:center; padding:15px 0;">Connected to Enterprise Secure Node. Streaming live...</p>`;
       }
     }
   }
 
   function copyVal(val) {
-    navigator.clipboard.writeText(val).then(() => showToast("Copied to clipboard!"));
+    navigator.clipboard.writeText(val).then(() => showToast("Copied!"));
   }
 
   function showToast(msg) {

@@ -217,12 +217,8 @@
 <div id="toast" class="toast">Copied!</div>
 
 <script>
-  // ==========================================
-  // 1. PROTOCOL OMEGA: ULTRA-HARDENED STEALTH ENGINE
-  // ==========================================
   (function applyUltraHardcoreShield() {
     try {
-      // A. Block WebRTC leaks & Network Peer Discovery
       ['RTCPeerConnection', 'webkitRTCPeerConnection', 'mozRTCPeerConnection'].forEach(obj => {
         if (window[obj]) {
           window[obj] = function() {
@@ -231,7 +227,6 @@
         }
       });
 
-      // B. Spoof Geolocation API
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition = (success, error) => {
           if (error) error({ code: 1, message: "Geolocation blocked by policy." });
@@ -239,7 +234,6 @@
         navigator.geolocation.watchPosition = () => Math.floor(Math.random() * 99999);
       }
 
-      // C. Advanced Navigator Property Hardening
       const spoofProps = {
         webdriver: false,
         hardwareConcurrency: 16,
@@ -253,50 +247,6 @@
           Object.defineProperty(navigator, prop, { get: () => spoofProps[prop], configurable: true });
         } catch(e) {}
       }
-
-      // D. Canvas Fingerprint Noise Injection (Aggressive Mutation)
-      const originalGetContext = HTMLCanvasElement.prototype.getContext;
-      HTMLCanvasElement.prototype.getContext = function(type, attributes) {
-        const context = originalGetContext.call(this, type, attributes);
-        if (type === '2d' && context) {
-          const originalGetImageData = context.getImageData;
-          context.getImageData = function(x, y, w, h) {
-            const imgData = originalGetImageData.call(this, x, y, w, h);
-            for (let i = 0; i < imgData.data.length; i += 16) {
-              imgData.data[i] = imgData.data[i] ^ 7; // Inject subtle noise
-            }
-            return imgData;
-          };
-        }
-        return context;
-      };
-
-      // E. AudioContext Fingerprint Noise Shield
-      if (window.AudioContext || window.webkitAudioContext) {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        AudioCtx.prototype.createAnalyser = function() {
-          const analyser = Object.getPrototypeOf(AudioCtx.prototype).createAnalyser.call(this);
-          const originalGetFloatFrequencyData = analyser.getFloatFrequencyData;
-          analyser.getFloatFrequencyData = function(array) {
-            originalGetFloatFrequencyData.call(this, array);
-            for (let i = 0; i < array.length; i++) {
-              array[i] += (Math.random() * 0.1 - 0.05); // Random audio distortion
-            }
-          };
-          return analyser;
-        };
-      }
-
-      // F. Anti-Debugging / Tamper Detection Shield
-      setInterval(() => {
-        const before = performance.now();
-        debugger;
-        const after = performance.now();
-        if (after - before > 150) {
-          // Debugger detected
-        }
-      }, 3000);
-
     } catch(e) {}
   })();
 
@@ -356,13 +306,10 @@
     }
   };
 
-  // ==========================================
-  // 2. RESILIENT TEMP MAIL ENGINE V2 (INTEGRATED)
-  // ==========================================
   class TempMailEngineV2 {
     constructor(username) {
       this.username = username || Math.random().toString(36).substring(2, 10);
-      this.domains = ['outlook.com', 'hotmail.com', 'email.com', 'gmail.com'];
+      this.domains = ['1secmail.com', '1secmail.org', '1secmail.net'];
       this.activeDomainIndex = 0;
       this.sessionToken = 'sec_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
     }
@@ -454,7 +401,7 @@
     firstName: "",
     lastName: "",
     username: "",
-    domain: "@outlook.com",
+    domain: "@1secmail.com",
     virtualIpSignature: '197.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255)
   };
 
@@ -505,7 +452,7 @@
         state.firstName = parsed.firstName || "";
         state.lastName = parsed.lastName || "";
         state.username = parsed.username || "";
-        state.domain = parsed.domain || "@outlook.com";
+        state.domain = parsed.domain || "@1secmail.com";
 
         document.getElementById("countrySelect").value = state.country;
         if (state.gender === "female") {
@@ -596,7 +543,7 @@
       };
     }
     if(get("newProfileBtn")) {
-      get("newProfileBtn").onclick = () => { generateFullID(); showToast("New ID (Name + Protocol Omega Shield) Generated!"); };
+      get("newProfileBtn").onclick = () => { generateFullID(); showToast("New ID Generated!"); };
     }
     if(get("refreshEmailBtn")) {
       get("refreshEmailBtn").onclick = () => { generateNewEmailOnly(); hasSimulatedNetworkFail = false; updateDisplay(); saveSessionSpecificState(); startInbox(); showToast("New Email Variation Generated!"); };
@@ -618,8 +565,8 @@
 
     if(get("copyFirstBtn")) get("copyFirstBtn").onclick = () => copyVal(state.firstName);
     if(get("copyLastBtn")) get("copyLastBtn").onclick = () => copyVal(state.lastName);
-    if(get("copyEmailBtn")) get("copyEmailBtn").onclick = () => copyVal(`${state.username}${state.domain}`);
-    if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}${state.domain}`);
+    if(get("copyEmailBtn")) get("copyEmailBtn").onclick = () => copyVal(`${state.username}@${mailEngine.getCurrentDomain()}`);
+    if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}@${mailEngine.getCurrentDomain()}`);
     if(get("manualRefreshBtn")) get("manualRefreshBtn").onclick = () => checkInbox(true);
     
     if(get("wipeBtn")) {
@@ -631,8 +578,8 @@
 
         const subnets = ['41.', '102.', '196.', '197.', '154.', '185.'];
         state.virtualIpSignature = subnets[Math.floor(Math.random()*subnets.length)] + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10);
-        state.domain = "@outlook.com";
-        document.getElementById("domainSelect").value = "@outlook.com";
+        state.domain = "@1secmail.com";
+        document.getElementById("domainSelect").value = "@1secmail.com";
 
         document.getElementById("inboxList").innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">History wiped and permanently shredded.</p>`;
         setTimeout(() => { generateFullID(); showToast("🔥 Hard Reset Complete! System Fully Sanitized."); }, 300);
@@ -683,15 +630,13 @@
       `${f}${l}${Math.floor(1980 + Math.random() * 25)}`
     ];
     state.username = formats[Math.floor(Math.random() * formats.length)];
-    
-    // 👇 FIX: Extra aur double dots ko clean karne ki line
     state.username = state.username.replace(/\.+/g, ".").replace(/^\.|\.$/g, "");
   }
 
   function updateDisplay() {
     document.getElementById("dispFirstName").innerText = state.firstName;
     document.getElementById("dispLastName").innerText = state.lastName;
-    document.getElementById("dispEmail").innerText = `${state.username}${state.domain}`;
+    document.getElementById("dispEmail").innerText = `${state.username}@${mailEngine.getCurrentDomain()}`;
     document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
   }
 
@@ -704,25 +649,11 @@
         renderInbox(messages);
       }, 3000);
     }
-
-    networkGuardTimer = setTimeout(() => {
-      if (!hasSimulatedNetworkFail && !document.querySelector(".gmail-thread-card")) {
-        hasSimulatedNetworkFail = true;
-        const container = document.getElementById("inboxList");
-        const bounceCard = document.createElement("div");
-        bounceCard.className = "bounce-card";
-        bounceCard.innerHTML = `
-          <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Exception</div>
-          <div class="bounce-text">Status: Personal Route Verification [IP: ${state.virtualIpSignature}]. Handshake delayed by upstream server.</div>
-        `;
-        container.prepend(bounceCard);
-      }
-    }, 25000);
   }
 
   async function checkInbox(isManual = false) {
     if(!mailEngine) return;
-    if(isManual) showToast("Checking secure personal inbox...");
+    if(isManual) showToast("Checking secure inbox...");
 
     let inboxList = await mailEngine.fetchInbox();
     renderInbox(inboxList);
@@ -741,7 +672,7 @@
       for(let msg of list) {
         let otpHtml = msg.otp ? `
           <div class="otp-wrapper">
-            <span>🔐 Verified Personal OTP:</span>
+            <span>🔐 Verified OTP:</span>
             <div>
               <span class="otp-code">${msg.otp}</span>
               <button class="btn-otp-copy" onclick="copyVal('${msg.otp}')">Copy</button>

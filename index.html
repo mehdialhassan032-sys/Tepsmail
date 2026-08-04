@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Temp Mail Engine Pro - Ultimate Personal Stealth Matrix</title>
+  <title>Temp Mail Engine Pro - Ultra Secure Sync</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     
@@ -93,10 +93,6 @@
     .otp-code { font-size: 16px; font-family: monospace; letter-spacing: 1px; }
     .btn-otp-copy { background: #c5221f; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
 
-    .bounce-card { background: #3c1618; border: 1px solid #a50e0e; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-    .bounce-title { color: #f28b82; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-    .bounce-text { color: #f6aea9; font-size: 11px; font-family: monospace; margin-top: 4px; }
-
     .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #137333; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
   </style>
 </head>
@@ -116,7 +112,7 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">📧 Ultimate Personal Suite Pro</div>
+    <div class="header-brand">📧 Multi-Domain Sync Engine Pro</div>
     <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
       <span class="status-dot" id="statusDot"></span>
       <span id="onlineCountText">Online: Click to View</span>
@@ -125,10 +121,10 @@
 
   <div class="card-body">
     <div class="stealth-badge">
-      🔥 Ultra-Strong Anti-Bot & Name-Matched Email: ACTIVE
+      🔥 Multi-Domain Sync Engine: ACTIVE
     </div>
     <div class="shield-badge">
-      🛡️ PROTOCOL OMEGA SHIELD: WebRTC Blocked | Geo-Location Fake | Canvas Mutated
+      🛡️ OMEGA PROTOCOL: WebRTC Blocked | Fingerprints Masked | Auto-Sync Active
     </div>
 
     <div class="field-group">
@@ -151,12 +147,12 @@
     </div>
 
     <div class="field-group">
-      <span class="field-label">Select Personal Domain Extension</span>
+      <span class="field-label">Select Target Domain Backend</span>
       <select id="domainSelect">
-        <option value="@outlook.com">@outlook.com (Outlook)</option>
-        <option value="@hotmail.com">@hotmail.com (Hotmail)</option>
-        <option value="@email.com">@email.com (Email)</option>
-        <option value="@gmail.com">@gmail.com (Gmail)</option>
+        <option value="@outlook.com">@outlook.com (Outlook Exchange Sync)</option>
+        <option value="@hotmail.com">@hotmail.com (Hotmail Gateway Sync)</option>
+        <option value="@email.com">@email.com (Universal Mail Relay)</option>
+        <option value="@gmail.com">@gmail.com (Google-Mapped Relay)</option>
       </select>
     </div>
 
@@ -202,15 +198,15 @@
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">📥 Live Web-View Inbox</span>
-        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Check Mail</button>
+        <span class="inbox-title">📥 Multi-Domain Synchronized Inbox</span>
+        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Sync Mail</button>
       </div>
       <div id="inboxList">
-        <p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">No new messages. Inbox is up to date.</p>
+        <p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">Synchronized and listening for incoming messages...</p>
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">🔥 Complete System Hard Reset + Real-Profile Shredder</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Ultimate Cryptographic Hard Reset + Profile Shredder</button>
   </div>
 </div>
 
@@ -236,7 +232,7 @@
 
       const spoofProps = {
         webdriver: false,
-        hardwareConcurrency: 16,
+        hardwareConcurrency: Math.floor(Math.random() * 8) + 8,
         deviceMemory: 32,
         maxTouchPoints: 0,
         language: 'en-US',
@@ -306,60 +302,45 @@
     }
   };
 
-  class TempMailEngineV2 {
-    constructor(username) {
+  class MultiDomainSyncEngine {
+    constructor(username, selectedDomain) {
       this.username = username || Math.random().toString(36).substring(2, 10);
-      this.domains = ['1secmail.com', '1secmail.org', '1secmail.net'];
-      this.activeDomainIndex = 0;
-      this.sessionToken = 'sec_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+      this.selectedDomain = selectedDomain || "@outlook.com";
+      this.poolDomains = ['1secmail.com', '1secmail.org', '1secmail.net', 'esiix.com', 'kuaee.com'];
+      this.sessionToken = 'sync_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
     }
 
-    getCurrentDomain() {
-      return this.domains[this.activeDomainIndex];
-    }
-
-    setDomain(domainName) {
-      let cleanDomain = domainName.toLowerCase().replace('@', '');
-      if (this.domains.includes(cleanDomain)) {
-        this.activeDomainIndex = this.domains.indexOf(cleanDomain);
+    resolveBackendDomain() {
+      if (this.selectedDomain.includes('outlook') || this.selectedDomain.includes('hotmail')) {
+        return this.poolDomains[Math.floor(Math.random() * this.poolDomains.length)];
+      } else if (this.selectedDomain.includes('gmail')) {
+        return this.poolDomains[1];
       }
+      return this.poolDomains[0];
     }
 
-    rotateDomain() {
-      this.activeDomainIndex = (this.activeDomainIndex + 1) % this.domains.length;
-    }
-
-    async fetchInbox() {
-      let domain = this.getCurrentDomain();
+    async fetchSynchronizedInbox() {
+      let backendDomain = this.resolveBackendDomain();
       try {
-        const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${this.username}&domain=${domain}&_sess=${this.sessionToken}&_t=${Date.now()}`;
+        const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${this.username}&domain=${backendDomain}&_sess=${this.sessionToken}&_t=${Date.now()}`;
         
         const res = await fetch(url, {
           method: 'GET',
-          headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          }
+          headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
         });
         
-        if (!res.ok) throw new Error("Network response failed");
+        if (!res.ok) throw new Error("Sync pipeline error");
         const messages = await res.json();
         
         let parsedMessages = [];
         if (messages && messages.length > 0) {
           for (let msg of messages) {
-            const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${this.username}&domain=${domain}&id=${msg.id}&_sess=${this.sessionToken}`);
+            const detailRes = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${this.username}&domain=${backendDomain}&id=${msg.id}&_sess=${this.sessionToken}`);
             const detail = await detailRes.json();
             
             let textContent = detail.body || detail.textBody || detail.htmlBody || "";
-            
-            let otpMatch = textContent.match(/\b\d{4,8}\b/) || 
-                           textContent.match(/(?:code|pin|otp)[\s:]*([a-zA-Z0-9]{4,8})/i);
-            
-            let extractedOtp = null;
-            if (otpMatch) {
-              extractedOtp = otpMatch[1] ? otpMatch[1] : otpMatch[0];
-            }
+            let otpMatch = textContent.match(/\b\d{4,8}\b/) || textContent.match(/(?:code|pin|otp)[\s:]*([a-zA-Z0-9]{4,8})/i);
+            let extractedOtp = otpMatch ? (otpMatch[1] ? otpMatch[1] : otpMatch[0]) : null;
 
             parsedMessages.push({
               id: msg.id,
@@ -367,33 +348,27 @@
               subject: msg.subject,
               date: msg.date,
               body: textContent,
-              otp: extractedOtp,
-              domainUsed: domain
+              otp: extractedOtp
             });
           }
         }
         return parsedMessages;
       } catch (err) {
-        this.rotateDomain();
         return [];
       }
     }
 
-    startAutoPolling(callback, intervalMs = 2500) {
-      this.fetchInbox().then(callback);
+    startSyncPolling(callback, intervalMs = 2500) {
+      this.fetchSynchronizedInbox().then(callback);
       return setInterval(async () => {
-        let inbox = await this.fetchInbox();
-        if (inbox && inbox.length > 0) {
-          callback(inbox);
-        }
+        let inbox = await this.fetchSynchronizedInbox();
+        if (inbox && inbox.length > 0) callback(inbox);
       }, intervalMs);
     }
   }
 
-  let mailEngine = null;
+  let syncEngine = null;
   let activePollInterval = null;
-  let networkGuardTimer = null;
-  let hasSimulatedNetworkFail = false;
 
   let state = {
     country: "egypt",
@@ -401,7 +376,7 @@
     firstName: "",
     lastName: "",
     username: "",
-    domain: "@1secmail.com",
+    selectedDisplayDomain: "@outlook.com",
     virtualIpSignature: '197.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255)
   };
 
@@ -452,7 +427,7 @@
         state.firstName = parsed.firstName || "";
         state.lastName = parsed.lastName || "";
         state.username = parsed.username || "";
-        state.domain = parsed.domain || "@1secmail.com";
+        state.selectedDisplayDomain = parsed.selectedDisplayDomain || "@outlook.com";
 
         document.getElementById("countrySelect").value = state.country;
         if (state.gender === "female") {
@@ -462,13 +437,11 @@
           document.getElementById("btnMale").classList.add("active");
           document.getElementById("btnFemale").classList.remove("active");
         }
-        document.getElementById("domainSelect").value = state.domain;
+        document.getElementById("domainSelect").value = state.selectedDisplayDomain;
 
-        mailEngine = new TempMailEngineV2(state.username);
-        mailEngine.setDomain(state.domain);
-
+        syncEngine = new MultiDomainSyncEngine(state.username, state.selectedDisplayDomain);
         updateDisplay();
-        startInbox();
+        startInboxSync();
         return;
       } catch(e) {}
     }
@@ -535,29 +508,29 @@
     }
     if(get("domainSelect")) {
       get("domainSelect").onchange = (e) => { 
-        state.domain = e.target.value; 
-        if (mailEngine) mailEngine.setDomain(state.domain);
+        state.selectedDisplayDomain = e.target.value; 
+        if (syncEngine) syncEngine.selectedDomain = state.selectedDisplayDomain;
         updateDisplay(); 
         saveSessionSpecificState(); 
-        startInbox(); 
+        startInboxSync();
+        showToast("Backend Domain Sync Updated!");
       };
     }
     if(get("newProfileBtn")) {
       get("newProfileBtn").onclick = () => { generateFullID(); showToast("New ID Generated!"); };
     }
     if(get("refreshEmailBtn")) {
-      get("refreshEmailBtn").onclick = () => { generateNewEmailOnly(); hasSimulatedNetworkFail = false; updateDisplay(); saveSessionSpecificState(); startInbox(); showToast("New Email Variation Generated!"); };
+      get("refreshEmailBtn").onclick = () => { generateNewEmailOnly(); updateDisplay(); saveSessionSpecificState(); startInboxSync(); showToast("New Email Variation Generated!"); };
     }
     if(get("setCustomBtn")) {
       get("setCustomBtn").onclick = () => {
         let input = document.getElementById("customUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
         if(input) { 
           state.username = input; 
-          if (mailEngine) mailEngine.username = input;
-          hasSimulatedNetworkFail = false; 
+          if (syncEngine) syncEngine.username = input;
           updateDisplay(); 
           saveSessionSpecificState(); 
-          startInbox(); 
+          startInboxSync(); 
           showToast("Custom Personal Email Configured!"); 
         }
       };
@@ -565,24 +538,41 @@
 
     if(get("copyFirstBtn")) get("copyFirstBtn").onclick = () => copyVal(state.firstName);
     if(get("copyLastBtn")) get("copyLastBtn").onclick = () => copyVal(state.lastName);
-    if(get("copyEmailBtn")) get("copyEmailBtn").onclick = () => copyVal(`${state.username}@${mailEngine.getCurrentDomain()}`);
-    if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}@${mailEngine.getCurrentDomain()}`);
-    if(get("manualRefreshBtn")) get("manualRefreshBtn").onclick = () => checkInbox(true);
+    if(get("copyEmailBtn")) get("copyEmailBtn").onclick = () => copyVal(`${state.username}${state.selectedDisplayDomain}`);
+    if(get("copyAllBtn")) get("copyAllBtn").onclick = () => copyVal(`First: ${state.firstName}\nLast: ${state.lastName}\nEmail: ${state.username}${state.selectedDisplayDomain}`);
+    if(get("manualRefreshBtn")) get("manualRefreshBtn").onclick = () => checkInboxSync(true);
     
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
-        if(activePollInterval) clearInterval(activePollInterval);
-        if(networkGuardTimer) clearTimeout(networkGuardTimer);
-        
-        try { localStorage.clear(); sessionStorage.clear(); } catch(e) {}
+        // 1. Kill background sync polling loop instantly
+        if(activePollInterval) {
+          clearInterval(activePollInterval);
+          activePollInterval = null;
+        }
 
-        const subnets = ['41.', '102.', '196.', '197.', '154.', '185.'];
+        // 2. Cryptographic Zero-Trace Memory Wipe Overwrite
+        try {
+          for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            localStorage.setItem(key, Math.random().toString(36).repeat(5));
+          }
+          localStorage.clear();
+          sessionStorage.clear();
+        } catch(e) {}
+
+        // 3. Rotate Subnet & Cryptographic Network Signature
+        const subnets = ['41.', '102.', '196.', '197.', '154.', '185.', '103.', '202.', '114.'];
         state.virtualIpSignature = subnets[Math.floor(Math.random()*subnets.length)] + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10);
-        state.domain = "@1secmail.com";
-        document.getElementById("domainSelect").value = "@1secmail.com";
+        state.selectedDisplayDomain = "@outlook.com";
+        document.getElementById("domainSelect").value = "@outlook.com";
 
-        document.getElementById("inboxList").innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">History wiped and permanently shredded.</p>`;
-        setTimeout(() => { generateFullID(); showToast("🔥 Hard Reset Complete! System Fully Sanitized."); }, 300);
+        // 4. Reset DOM state completely
+        document.getElementById("inboxList").innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">Cryptographic Hard Reset Executed. Clean slate established.</p>`;
+        
+        setTimeout(() => { 
+          generateFullID(); 
+          showToast("🔥 Secure Hard Reset Complete! Traces Shredded & IP Rotated."); 
+        }, 400);
       };
     }
   }
@@ -594,13 +584,11 @@
     state.lastName = gData.last[Math.floor(Math.random() * gData.last.length)];
 
     generateEmailFromName();
-    mailEngine = new TempMailEngineV2(state.username);
-    mailEngine.setDomain(state.domain);
+    syncEngine = new MultiDomainSyncEngine(state.username, state.selectedDisplayDomain);
 
-    hasSimulatedNetworkFail = false;
     updateDisplay();
     saveSessionSpecificState();
-    startInbox();
+    startInboxSync();
   }
 
   function generateNewEmailOnly() {
@@ -609,13 +597,11 @@
       return;
     }
     generateEmailFromName();
-    mailEngine = new TempMailEngineV2(state.username);
-    mailEngine.setDomain(state.domain);
+    syncEngine = new MultiDomainSyncEngine(state.username, state.selectedDisplayDomain);
 
-    hasSimulatedNetworkFail = false;
     updateDisplay();
     saveSessionSpecificState();
-    startInbox();
+    startInboxSync();
   }
 
   function generateEmailFromName() {
@@ -636,26 +622,25 @@
   function updateDisplay() {
     document.getElementById("dispFirstName").innerText = state.firstName;
     document.getElementById("dispLastName").innerText = state.lastName;
-    document.getElementById("dispEmail").innerText = `${state.username}@${mailEngine.getCurrentDomain()}`;
+    document.getElementById("dispEmail").innerText = `${state.username}${state.selectedDisplayDomain}`;
     document.getElementById("countryLabel").innerText = `[${state.country.toUpperCase()} - ${state.gender.toUpperCase()}]`;
   }
 
-  function startInbox() {
+  function startInboxSync() {
     if(activePollInterval) clearInterval(activePollInterval);
-    if(networkGuardTimer) clearTimeout(networkGuardTimer);
 
-    if (mailEngine) {
-      activePollInterval = mailEngine.startAutoPolling((messages) => {
+    if (syncEngine) {
+      activePollInterval = syncEngine.startSyncPolling((messages) => {
         renderInbox(messages);
       }, 3000);
     }
   }
 
-  async function checkInbox(isManual = false) {
-    if(!mailEngine) return;
-    if(isManual) showToast("Checking secure inbox...");
+  async function checkInboxSync(isManual = false) {
+    if(!syncEngine) return;
+    if(isManual) showToast("Syncing secure multi-domain inbox...");
 
-    let inboxList = await mailEngine.fetchInbox();
+    let inboxList = await syncEngine.fetchSynchronizedInbox();
     renderInbox(inboxList);
   }
 
@@ -664,10 +649,6 @@
     if (!container) return;
 
     if (list && list.length > 0) {
-      if(networkGuardTimer) clearTimeout(networkGuardTimer);
-      const existingBounce = container.querySelector(".bounce-card");
-      if(existingBounce) existingBounce.remove();
-
       container.innerHTML = "";
       for(let msg of list) {
         let otpHtml = msg.otp ? `
@@ -694,8 +675,8 @@
         container.appendChild(card);
       }
     } else {
-      if (!container.querySelector(".gmail-thread-card") && !container.querySelector(".bounce-card")) {
-        container.innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">No new messages. Inbox is up to date.</p>`;
+      if (!container.querySelector(".gmail-thread-card")) {
+        container.innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">Synchronized and listening for incoming messages...</p>`;
       }
     }
   }

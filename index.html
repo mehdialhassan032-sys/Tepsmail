@@ -544,13 +544,11 @@
     
     if(get("wipeBtn")) {
       get("wipeBtn").onclick = function() {
-        // 1. Kill background sync polling loop instantly
         if(activePollInterval) {
           clearInterval(activePollInterval);
           activePollInterval = null;
         }
 
-        // 2. Cryptographic Zero-Trace Memory Wipe Overwrite
         try {
           for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
@@ -560,13 +558,11 @@
           sessionStorage.clear();
         } catch(e) {}
 
-        // 3. Rotate Subnet & Cryptographic Network Signature
         const subnets = ['41.', '102.', '196.', '197.', '154.', '185.', '103.', '202.', '114.'];
         state.virtualIpSignature = subnets[Math.floor(Math.random()*subnets.length)] + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10) + '.' + Math.floor(Math.random()*230 + 10);
         state.selectedDisplayDomain = "@outlook.com";
         document.getElementById("domainSelect").value = "@outlook.com";
 
-        // 4. Reset DOM state completely
         document.getElementById("inboxList").innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">Cryptographic Hard Reset Executed. Clean slate established.</p>`;
         
         setTimeout(() => { 

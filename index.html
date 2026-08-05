@@ -34,7 +34,8 @@
       width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155;
       background: #020617; color: #fff; font-size: 14px; text-align: center; outline: none; letter-spacing: 2px;
     }
-    .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
+    .lock-btn { width: 100%; padding: 12px; background: #0078d4; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.2s; }
+    .lock-btn:hover { background: #0263b2; }
     .error-msg { color: #ef4444; font-size: 12px; margin-top: 10px; display: none; }
 
     .app-card { 
@@ -43,15 +44,17 @@
       margin: 10px auto; display: none; position: relative; z-index: 1;
     }
     .header-bar { background: linear-gradient(135deg, #1a73e8, #4285f4); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-top-left-radius: 16px; border-top-right-radius: 16px; }
-    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #ffffff; }
-    .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; color: #ffffff; cursor: pointer; }
+    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; color: #ffffff; }
+    .sync-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.3); padding: 6px 12px; border-radius: 20px; color: #ffffff; cursor: pointer; transition: background 0.2s; }
+    .sync-status:hover { background: rgba(0,0,0,0.5); }
     .status-dot { width: 8px; height: 8px; background-color: #34a853; border-radius: 50%; display: inline-block; }
     .status-dot.offline { background-color: #ea4335; }
 
     .card-body { padding: 20px; }
     .field-group { margin-bottom: 14px; }
     .field-label { font-size: 11px; font-weight: 700; color: #9aa0a6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
-    input[type="text"], select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #020617; color: #f8fafc; font-size: 13px; outline: none; }
+    input[type="text"], select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #020617; color: #f8fafc; font-size: 13px; outline: none; transition: border-color 0.2s; }
+    input[type="text"]:focus, select:focus { border-color: #38bdf8; }
 
     .gender-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .gender-btn { background: #020617; color: #94a3b8; border: 1px solid #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; }
@@ -64,13 +67,15 @@
     .profile-title { font-weight: 800; color: #8ab4f8; text-transform: uppercase; margin-bottom: 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
     .profile-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }
     .profile-val { color: #f8fafc; font-weight: 700; font-family: monospace; font-size: 13px; }
-    .btn-copy-sm { background: #1e293b; color: #8ab4f8; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .btn-copy-sm { background: #1e293b; color: #8ab4f8; border: 1px solid #334155; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+    .btn-copy-sm:hover { background: #334155; }
 
     .stealth-badge { background: #0d3b23; border: 1px solid #137333; color: #81c995; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 10px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
     .shield-badge { background: #3c1618; border: 1px solid #a50e0e; color: #f28b82; font-size: 10px; font-weight: 800; padding: 6px; border-radius: 6px; margin-bottom: 14px; text-align: center; }
 
     .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-    button { padding: 10px 12px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
+    button { padding: 10px 12px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; transition: opacity 0.2s; }
+    button:active { opacity: 0.8; }
     .btn-primary { background: #1a73e8; color: white; }
     .btn-secondary { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; }
     .btn-success { background: #137333; color: white; }
@@ -97,14 +102,15 @@
     .bounce-title { color: #f28b82; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
     .bounce-text { color: #f6aea9; font-size: 11px; font-family: monospace; margin-top: 4px; }
 
-    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #137333; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    .toast { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: #137333; color: white; padding: 10px 20px; border-radius: 25px; font-size: 13px; font-weight: 700; display: none; z-index: 100000; box-shadow: 0 6px 20px rgba(0,0,0,0.6); animation: fadeInUp 0.3s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translate(-50%, 15px); } to { opacity: 1; transform: translate(-50%, 0); } }
   </style>
 </head>
 <body>
 
 <div id="lockScreen">
   <div class="lock-card">
-    <div class="lock-title">ðŸ”’ Ultimate Stealth Suite</div>
+    <div class="lock-title">🔒 Ultimate Stealth Suite</div>
     <div class="lock-desc">Enter security key to unlock system</div>
     <div class="password-wrapper">
       <input type="password" id="passInput" class="lock-input" placeholder="Enter Password" autocomplete="off">
@@ -116,7 +122,7 @@
 
 <div class="app-card" id="mainApp">
   <div class="header-bar">
-    <div class="header-brand">ðŸ“§ Ultimate Personal Suite Pro</div>
+    <div class="header-brand">📧 Ultimate Personal Suite Pro</div>
     <div class="sync-status" id="syncStatusIndicator" title="Click to view online active users">
       <span class="status-dot" id="statusDot"></span>
       <span id="onlineCountText">Online: Click to View</span>
@@ -125,28 +131,28 @@
 
   <div class="card-body">
     <div class="stealth-badge">
-      ðŸ”¥ Ultra-Strong Anti-Bot & Name-Matched Email: ACTIVE
+      🔥 Ultra-Strong Anti-Bot & Name-Matched Email: ACTIVE
     </div>
     <div class="shield-badge">
-      ðŸ›¡ï¸ PROTOCOL OMEGA SHIELD: WebRTC Blocked | Geo-Location Fake | Canvas Mutated
+      🛡️ PROTOCOL OMEGA SHIELD: WebRTC Blocked | Geo-Location Fake | Canvas Mutated
     </div>
 
     <div class="field-group">
       <span class="field-label">Country Demographics</span>
       <select id="countrySelect">
-        <option value="egypt">Egypt ðŸ‡ªðŸ‡¬</option>
-        <option value="uzbekistan">Uzbekistan ðŸ‡ºðŸ‡¿</option>
-        <option value="liberia">Liberia ðŸ‡±ðŸ‡·</option>
-        <option value="guinea">Guinea ðŸ‡¬ðŸ‡³</option>
-        <option value="ethiopia">Ethiopia ðŸ‡ªðŸ‡¹</option>
+        <option value="egypt">Egypt 🇪🇬</option>
+        <option value="uzbekistan">Uzbekistan 🇺🇿</option>
+        <option value="liberia">Liberia 🇱🇷</option>
+        <option value="guinea">Guinea 🇬🇳</option>
+        <option value="ethiopia">Ethiopia 🇪🇹</option>
       </select>
     </div>
 
     <div class="field-group">
       <span class="field-label">Gender Selection</span>
       <div class="gender-buttons">
-        <button type="button" id="btnMale" class="gender-btn active">ðŸ‘¨ Male</button>
-        <button type="button" id="btnFemale" class="gender-btn">ðŸ‘© Female</button>
+        <button type="button" id="btnMale" class="gender-btn active">👨 Male</button>
+        <button type="button" id="btnFemale" class="gender-btn">👩 Female</button>
       </div>
     </div>
 
@@ -162,7 +168,7 @@
 
     <div class="profile-card">
       <div class="profile-title">
-        <span>ðŸ‘¤ Personal Account Identity</span>
+        <span>👤 Personal Account Identity</span>
         <span id="countryLabel" style="color:#8ab4f8;">[EGYPT - MALE]</span>
       </div>
       <div class="profile-row">
@@ -194,23 +200,23 @@
     </div>
 
     <div class="actions">
-      <button class="btn-warn" id="refreshEmailBtn">âœ‰ï¸ Email Generate</button>
-      <button class="btn-primary" id="newProfileBtn">ðŸ†” ID Generate</button>
+      <button class="btn-warn" id="refreshEmailBtn">✉️ Email Generate</button>
+      <button class="btn-primary" id="newProfileBtn">🆔 ID Generate</button>
       <button class="btn-success" id="copyEmailBtn">Copy Email</button>
-      <button class="btn-secondary" id="copyAllBtn">ðŸ“‹ Copy All Info</button>
+      <button class="btn-secondary" id="copyAllBtn">📋 Copy All Info</button>
     </div>
 
     <div class="inbox-area">
       <div class="inbox-header">
-        <span class="inbox-title">ðŸ“¥ Live Web-View Inbox</span>
-        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">ðŸ”„ Check Mail</button>
+        <span class="inbox-title">📥 Live Web-View Inbox</span>
+        <button class="btn-refresh" id="manualRefreshBtn" style="padding:6px 12px; font-size:11px;">🔄 Check Mail</button>
       </div>
       <div id="inboxList">
         <p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">No new messages. Inbox is up to date.</p>
       </div>
     </div>
 
-    <button class="btn-danger" id="wipeBtn">ðŸ”¥ Complete System Hard Reset + Real-Profile Shredder</button>
+    <button class="btn-danger" id="wipeBtn">🔥 Complete System Hard Reset + Real-Profile Shredder</button>
   </div>
 </div>
 
@@ -222,7 +228,6 @@
   // ==========================================
   (function applyUltraHardcoreShield() {
     try {
-      // A. Block WebRTC leaks & Network Peer Discovery
       ['RTCPeerConnection', 'webkitRTCPeerConnection', 'mozRTCPeerConnection'].forEach(obj => {
         if (window[obj]) {
           window[obj] = function() {
@@ -231,7 +236,6 @@
         }
       });
 
-      // B. Spoof Geolocation API
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition = (success, error) => {
           if (error) error({ code: 1, message: "Geolocation blocked by policy." });
@@ -239,7 +243,6 @@
         navigator.geolocation.watchPosition = () => Math.floor(Math.random() * 99999);
       }
 
-      // C. Advanced Navigator Property Hardening
       const spoofProps = {
         webdriver: false,
         hardwareConcurrency: 16,
@@ -254,7 +257,6 @@
         } catch(e) {}
       }
 
-      // D. Canvas Fingerprint Noise Injection (Aggressive Mutation)
       const originalGetContext = HTMLCanvasElement.prototype.getContext;
       HTMLCanvasElement.prototype.getContext = function(type, attributes) {
         const context = originalGetContext.call(this, type, attributes);
@@ -263,7 +265,7 @@
           context.getImageData = function(x, y, w, h) {
             const imgData = originalGetImageData.call(this, x, y, w, h);
             for (let i = 0; i < imgData.data.length; i += 16) {
-              imgData.data[i] = imgData.data[i] ^ 7; // Inject subtle noise
+              imgData.data[i] = imgData.data[i] ^ 7;
             }
             return imgData;
           };
@@ -271,7 +273,6 @@
         return context;
       };
 
-      // E. AudioContext Fingerprint Noise Shield
       if (window.AudioContext || window.webkitAudioContext) {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         AudioCtx.prototype.createAnalyser = function() {
@@ -280,23 +281,12 @@
           analyser.getFloatFrequencyData = function(array) {
             originalGetFloatFrequencyData.call(this, array);
             for (let i = 0; i < array.length; i++) {
-              array[i] += (Math.random() * 0.1 - 0.05); // Random audio distortion
+              array[i] += (Math.random() * 0.1 - 0.05);
             }
           };
           return analyser;
         };
       }
-
-      // F. Anti-Debugging / Tamper Detection Shield
-      setInterval(() => {
-        const before = performance.now();
-        debugger;
-        const after = performance.now();
-        if (after - before > 150) {
-          // Debugger detected
-        }
-      }, 3000);
-
     } catch(e) {}
   })();
 
@@ -337,7 +327,7 @@
     guinea: {
       male: {
         first: ["Mamadou", "Ibrahima", "Alpha", "Ousmane", "Sekou", "Boubacar", "Amadou", "Lansana", "Fode", "Mohamed", "Abdoulaye", "Yaya", "Saliou", "Mory", "Balla", "Karamoko", "Lamine", "Souleymane", "Thierno", "Cheick", "Abdoul", "Bakary", "Moussa", "Karim", "Ismael", "Seydou", "Tidiane", "Daouda", "Oumar", "Youssouf", "Moustapha", "Aliou", "Elhadj", "Aboubacar", "Facinet", "Kaba", "Samba", "Sadio", "Naby", "Famara", "Khalifa", "Mahamadou", "Sadou", "Yacouba", "Alhassane", "Ansoumane", "Dramane", "Fassou", "Mouctar", "Nouhou", "Seydouba", "Cellou", "Sory"],
-        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Keita", "Kourouma", "Bangoura", "Cisse", "Doucoure", "Toure", "Kaba", "Sow", "Balde", "Sangare", "Kante", "Fofana", "Diakite", "Kouyate", "Mara", "Magassouba", "Mansare", "Koulibaly", "Doumbouya", "Fadiga", "Sacko", "Sano", "Sidibe", "Tounkara", "TourÃ©", "Yansane", "Yattara", "Youla", "Souare", "Diarra", "Konate", "Sissoko", "Bayo", "Beavogui", "Diawara", "Dieng", "Doumbia", "Gassama", "Guilavogui"]
+        last: ["Diallo", "Barry", "Camara", "Bah", "Soumah", "Conde", "Sylla", "Traore", "Keita", "Kourouma", "Bangoura", "Cisse", "Doucoure", "Toure", "Kaba", "Sow", "Balde", "Sangare", "Kante", "Fofana", "Diakite", "Kouyate", "Mara", "Magassouba", "Mansare", "Koulibaly", "Doumbouya", "Fadiga", "Sacko", "Sano", "Sidibe", "Tounkara", "Touré", "Yansane", "Yattara", "Youla", "Souare", "Diarra", "Konate", "Sissoko", "Bayo", "Beavogui", "Diawara", "Dieng", "Doumbia", "Gassama", "Guilavogui"]
       },
       female: {
         first: ["Aissatou", "Kadiatou", "Fatoumata", "Mariama", "Binta", "Hadja", "Saran", "Djenab", "Aminata", "Maimouna", "Adama", "Hawa", "Kadiya", "Fatou", "Nene", "Massa", "Kumba", "Tenneh", "Fanta", "Awa", "Ramatoulaye", "Nafissatou", "Safiatou", "Salimatou", "Isatu", "Kadija", "Hafsatou", "Mariam", "Hindou", "Balkissa", "Ramata", "Assetou", "Bintou", "Yacine", "Mabinty", "Sia", "Rokhaya", "Sokhna", "Yama", "Yaye", "Coumba", "Astou", "Khady", "Mame", "Ndeye", "Salimata", "Seynabou", "Bineta", "Dieynaba", "Fadima", "Isata", "Jenneh", "Grace", "Blessing", "Mercy", "Patience", "Faith", "Hope", "Joy", "Peace", "Victoria", "Esther", "Ruth", "Sarah", "Rebecca", "Naomi", "Hannah", "Deborah", "Rachel", "Elizabeth", "Lydia", "Abigail", "Angela", "Anita", "Beatrice", "Brenda", "Caroline", "Catherine", "Diana", "Ellen", "Emma", "Florence", "Gloria", "Irene", "Janet", "Jennifer", "Jessica", "Judith", "Julia", "Linda", "Lucy", "Margaret", "Maria", "Nancy", "Natalie", "Olivia", "Patricia", "Regina", "Rose", "Sandra", "Sophia", "Susan", "Veronica", "Yvonne", "Zainab", "Zahra"],
@@ -635,7 +625,7 @@
         document.getElementById("domainSelect").value = "@outlook.com";
 
         document.getElementById("inboxList").innerHTML = `<p style="color:#9aa0a6; font-size:12px; text-align:center; padding:15px 0;">History wiped and permanently shredded.</p>`;
-        setTimeout(() => { generateFullID(); showToast("ðŸ”¥ Hard Reset Complete! System Fully Sanitized."); }, 300);
+        setTimeout(() => { generateFullID(); showToast("🔥 Hard Reset Complete! System Fully Sanitized."); }, 300);
       };
     }
   }
@@ -683,8 +673,6 @@
       `${f}${l}${Math.floor(1980 + Math.random() * 25)}`
     ];
     state.username = formats[Math.floor(Math.random() * formats.length)];
-    
-    // ðŸ‘‡ FIX: Extra aur double dots ko clean karne ki line
     state.username = state.username.replace(/\.+/g, ".").replace(/^\.|\.$/g, "");
   }
 
@@ -712,7 +700,7 @@
         const bounceCard = document.createElement("div");
         bounceCard.className = "bounce-card";
         bounceCard.innerHTML = `
-          <div class="bounce-title">âš ï¸ SMTP 451 / 550 Delivery Exception</div>
+          <div class="bounce-title">⚠️ SMTP 451 / 550 Delivery Exception</div>
           <div class="bounce-text">Status: Personal Route Verification [IP: ${state.virtualIpSignature}]. Handshake delayed by upstream server.</div>
         `;
         container.prepend(bounceCard);
@@ -741,7 +729,7 @@
       for(let msg of list) {
         let otpHtml = msg.otp ? `
           <div class="otp-wrapper">
-            <span>ðŸ” Verified Personal OTP:</span>
+            <span>🔐 Verified Personal OTP:</span>
             <div>
               <span class="otp-code">${msg.otp}</span>
               <button class="btn-otp-copy" onclick="copyVal('${msg.otp}')">Copy</button>
